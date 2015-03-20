@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace Cataners
 {
-    static class Program
+    static class Start
     {
         /// <summary>
         /// The main entry point for the application.
