@@ -29,21 +29,12 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainGui));
-            this.mainPictureBox = new System.Windows.Forms.PictureBox();
             this.mainCreateGameButton = new System.Windows.Forms.Button();
             this.mainJoinGameButton = new System.Windows.Forms.Button();
             this.mainQuitButton = new System.Windows.Forms.Button();
+            this.mainPictureBox = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.mainPictureBox)).BeginInit();
             this.SuspendLayout();
-            // 
-            // mainPictureBox
-            // 
-            this.mainPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("mainPictureBox.Image")));
-            this.mainPictureBox.Location = new System.Drawing.Point(13, 13);
-            this.mainPictureBox.Name = "mainPictureBox";
-            this.mainPictureBox.Size = new System.Drawing.Size(515, 204);
-            this.mainPictureBox.TabIndex = 0;
-            this.mainPictureBox.TabStop = false;
             // 
             // mainCreateGameButton
             // 
@@ -75,6 +66,15 @@
             this.mainQuitButton.Text = "Exit";
             this.mainQuitButton.UseVisualStyleBackColor = true;
             this.mainQuitButton.Click += new System.EventHandler(this.mainQuitButton_Click);
+            // 
+            // mainPictureBox
+            // 
+            this.mainPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("mainPictureBox.Image")));
+            this.mainPictureBox.Location = new System.Drawing.Point(233, 12);
+            this.mainPictureBox.Name = "mainPictureBox";
+            this.mainPictureBox.Size = new System.Drawing.Size(500, 190);
+            this.mainPictureBox.TabIndex = 0;
+            this.mainPictureBox.TabStop = false;
             // 
             // MainGui
             // 
