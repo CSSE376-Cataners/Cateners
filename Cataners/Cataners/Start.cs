@@ -8,6 +8,8 @@ namespace Cataners
 {
     static class Start
     {
+        private static SplashScreen splashScreen;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -16,7 +18,19 @@ namespace Cataners
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            ShowSplash();
+
             Application.Run(new MainGui());
         }
+
+
+        static void ShowSplash()
+        {
+            splashScreen = new SplashScreen();
+            Application.Run(splashScreen);
+        }
+
+
     }
 }

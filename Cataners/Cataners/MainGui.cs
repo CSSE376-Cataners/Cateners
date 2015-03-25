@@ -16,5 +16,10 @@ namespace Cataners
         {
             InitializeComponent();
         }
+
+        private void mainQuitButton_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
