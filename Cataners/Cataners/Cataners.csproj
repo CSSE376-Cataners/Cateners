@@ -34,6 +34,9 @@
   <PropertyGroup>
     <ApplicationIcon>Resources\SoCI.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Cataners.Start</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
