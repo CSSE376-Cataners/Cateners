@@ -6,14 +6,17 @@ using System.Threading.Tasks;
 
 namespace CatenersServer
 {
-    class Main
+    public class ServerMain
     {
 
         static void Main(string[] args)
         {
-
+            // TODO: Server Startup
         }
 
         
+        public static bool testMethod() {
+            return true;
+        }
     }
 }

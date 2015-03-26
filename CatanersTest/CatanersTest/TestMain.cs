@@ -4,14 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CatenersServer.Main;
 
 
 namespace CatanersTest
 {
-    [Test]
+    [TestFixture()]
     class TestMain
     {
-        // TDOD: Test That We can test stuff.
+        
+        [Test]
+        public void testWorkspace()
+        {
+            Assert.True(CatenersServer.ServerMain.testMethod());
+        }
     }
 }
