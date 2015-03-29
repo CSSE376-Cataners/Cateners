@@ -56,7 +56,9 @@
     <Compile Include="TempRoad.Designer.cs">
       <DependentUpon>TempRoad.cs</DependentUpon>
     </Compile>
-    <Compile Include="Road.cs" />
+    <Compile Include="Road.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="MainGui.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,6 +113,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\SoCI.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Kestrel.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -16,5 +16,25 @@ namespace Cataners
         {
             InitializeComponent();
         }
+
+        private void road1_Click(object sender, EventArgs e)
+        {
+            if (!(this.road1.isActive()))
+            {
+                this.road1.print();
+                this.road1.activate();
+                this.ChangeColor();
+            }
+            else
+            {
+                this.road1.print2();
+            }
+            
+        }
+
+        private void ChangeColor()
+        {
+            this.road1.BackColor = Color.Crimson;
+        }
     }
 }
