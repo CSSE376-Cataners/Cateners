@@ -50,6 +50,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TempRoad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TempRoad.Designer.cs">
+      <DependentUpon>TempRoad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Road.cs" />
     <Compile Include="MainGui.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -64,6 +71,9 @@
     </Compile>
     <Compile Include="Start.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="TempRoad.resx">
+      <DependentUpon>TempRoad.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainGui.resx">
       <DependentUpon>MainGui.cs</DependentUpon>
     </EmbeddedResource>
