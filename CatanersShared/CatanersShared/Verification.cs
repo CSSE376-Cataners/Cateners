@@ -9,7 +9,7 @@ namespace CatanersShared
     public class Verification
     {
         public static bool verify(String input){
-            if (input.Equals("Stever"))
+            if (input.Equals("Stever") || input.Equals("Stever38"))
             {
                 return true;
             }
