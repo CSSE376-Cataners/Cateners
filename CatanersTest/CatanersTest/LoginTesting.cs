@@ -30,6 +30,12 @@ namespace CatanersTest
             Assert.True(Verification.verify(text));
         }
 
+        [Test]
+        public void checkUsernameNumbers()
+        {
+            String text = "Stever38";
+            Assert.True(Verification.verify(text));
+        }
     }
 
 }
