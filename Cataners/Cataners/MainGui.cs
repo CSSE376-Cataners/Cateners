@@ -37,10 +37,5 @@ namespace Cataners
         {
 
         }
-
-        public bool loginAuthentication(String inString)
-        {
-            return true;
-        }
     }
 }

@@ -8,12 +8,8 @@ namespace CatanersShared
 {
     public class Verification
     {
-        
         public static bool verify(String input){
-
             return false;
-
         }
-
     }
 }
