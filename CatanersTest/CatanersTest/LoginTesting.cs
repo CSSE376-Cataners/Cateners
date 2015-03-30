@@ -23,6 +23,13 @@ namespace CatanersTest
             Assert.False(Verification.verify(text));
         }
 
+        [Test]
+        public void checkUsernameStever()
+        {
+            String text = "Stever";
+            Assert.True(Verification.verify(text));
+        }
+
     }
 
 }
