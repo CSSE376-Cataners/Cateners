@@ -71,6 +71,13 @@ namespace CatanersTest
             String text = "FullyRamblomatic";
             Assert.False(Verification.verify(text));
         }
+
+        [Test]
+        public void checkUsernameSpecialCharacters()
+        {
+            String text = "Trotta%^'54&";
+            Assert.False(Verification.verify(text));
+        }
     }
 
 }
