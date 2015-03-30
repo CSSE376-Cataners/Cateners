@@ -1,4 +1,5 @@
-﻿namespace Cataners
+﻿using System.Drawing;
+namespace Cataners
 {
     partial class TempRoad
     {
@@ -28,19 +29,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.road1 = new Road();
+            this.road1 = new Cataners.Road();
             ((System.ComponentModel.ISupportInitialize)(this.road1)).BeginInit();
             this.SuspendLayout();
             // 
             // road1
             // 
-            this.road1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.road1.Location = new System.Drawing.Point(582, 283);
+            this.road1.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.road1.Location = new System.Drawing.Point(375, 144);
             this.road1.Name = "road1";
-            this.road1.Size = new System.Drawing.Size(97, 45);
+            this.road1.Size = new System.Drawing.Size(100, 50);
             this.road1.TabIndex = 0;
             this.road1.TabStop = false;
-            this.road1.Click += new System.EventHandler(this.road1_Click);
+            this.road1.Click += new System.EventHandler(this.road1_Click_1);
             // 
             // TempRoad
             // 
@@ -50,6 +51,7 @@
             this.Controls.Add(this.road1);
             this.Name = "TempRoad";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.TempRoad_Load);
             ((System.ComponentModel.ISupportInitialize)(this.road1)).EndInit();
             this.ResumeLayout(false);
 
@@ -58,6 +60,7 @@
         #endregion
 
         private Road road1;
+
 
     }
 }

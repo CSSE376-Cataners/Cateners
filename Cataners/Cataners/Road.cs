@@ -15,7 +15,8 @@ namespace Cataners
             this.activeStatus = false;
         }
 
-        public void print(){
+        public void print()
+        {
             Console.WriteLine("Activated Road");
         }
 
