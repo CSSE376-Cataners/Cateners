@@ -50,6 +50,27 @@ namespace CatanersTest
             String text = "Red345";
             Assert.False(Verification.verify(text));
         }
+
+        [Test]
+        public void checkUsernameSpace()
+        {
+            String text = "Redfox 345";
+            Assert.False(Verification.verify(text));
+        }
+
+        [Test]
+        public void checkUsernameLessThanSix()
+        {
+            String text = "Rambo";
+            Assert.False(Verification.verify(text));
+        }
+
+        [Test]
+        public void checkUsernameMoreThanFifteen()
+        {
+            String text = "FullyRamblomatic";
+            Assert.False(Verification.verify(text));
+        }
     }
 
 }
