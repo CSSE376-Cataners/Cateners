@@ -43,6 +43,13 @@ namespace CatanersTest
             String text = "TheGodfather42";
             Assert.True(Verification.verify(text));
         }
+
+        [Test]
+        public void checkUsernameThreeLetters()
+        {
+            String text = "Red345";
+            Assert.False(Verification.verify(text));
+        }
     }
 
 }
