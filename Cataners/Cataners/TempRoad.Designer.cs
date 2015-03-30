@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+
 namespace Cataners
 {
     partial class TempRoad
@@ -36,7 +37,7 @@ namespace Cataners
             // road1
             // 
             this.road1.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.road1.Location = new System.Drawing.Point(375, 144);
+            this.road1.Location = new System.Drawing.Point(423, 104);
             this.road1.Name = "road1";
             this.road1.Size = new System.Drawing.Size(100, 50);
             this.road1.TabIndex = 0;
