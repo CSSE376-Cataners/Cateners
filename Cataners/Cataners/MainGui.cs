@@ -27,5 +27,10 @@ namespace Cataners
             TempRoad tempRoad = new TempRoad();
             tempRoad.Show();
         }
+
+        private void MainGui_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
