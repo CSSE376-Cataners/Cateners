@@ -57,6 +57,10 @@
       <Project>{1f95432a-1a6d-4eee-b7d6-82e32ab3b9fb}</Project>
       <Name>CatenersServer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CatanersShared\CatanersShared\CatanersShared.csproj">
+      <Project>{0b6057c1-b6ec-416c-ba05-6f019daaad4d}</Project>
+      <Name>CatanersShared</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Cataners\Cataners\Cataners.csproj">
       <Project>{2caebdde-959c-4dbe-ac16-57298cae21d8}</Project>
       <Name>Cataners</Name>
