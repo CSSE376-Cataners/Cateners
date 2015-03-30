@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatenersServer", "..\Catane
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatanersTest", "..\CatanersTest\CatanersTest\CatanersTest.csproj", "{A6D60C26-69ED-46AB-8BE8-6B3305A7745B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatanersShared", "..\CatanersShared\CatanersShared\CatanersShared.csproj", "{0B6057C1-B6EC-416C-BA05-6F019DAAAD4D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{A6D60C26-69ED-46AB-8BE8-6B3305A7745B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6D60C26-69ED-46AB-8BE8-6B3305A7745B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6D60C26-69ED-46AB-8BE8-6B3305A7745B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B6057C1-B6EC-416C-BA05-6F019DAAAD4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B6057C1-B6EC-416C-BA05-6F019DAAAD4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B6057C1-B6EC-416C-BA05-6F019DAAAD4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B6057C1-B6EC-416C-BA05-6F019DAAAD4D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

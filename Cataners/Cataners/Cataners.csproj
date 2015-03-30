@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommunicationClient.cs" />
     <Compile Include="MainGui.cs">
       <SubType>Form</SubType>
     </Compile>
