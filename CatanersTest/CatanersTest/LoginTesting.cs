@@ -24,7 +24,7 @@ namespace CatanersTest
         }
 
         [Test]
-        public void checkUsernameStever()
+        public void checkUsernameSixChars()
         {
             String text = "Stever";
             Assert.True(Verification.verify(text));
@@ -34,6 +34,13 @@ namespace CatanersTest
         public void checkUsernameNumbers()
         {
             String text = "Stever38";
+            Assert.True(Verification.verify(text));
+        }
+
+        [Test]
+        public void checkUsernameFourteenChars()
+        {
+            String text = "TheGodfather42";
             Assert.True(Verification.verify(text));
         }
     }
