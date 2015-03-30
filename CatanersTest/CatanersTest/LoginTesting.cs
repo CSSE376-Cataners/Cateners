@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Cataners;
 
 namespace CatanersTest
 {
@@ -13,9 +14,10 @@ namespace CatanersTest
     class LoginTesting
     {
         [Test]
-        public void testWorkspace()
+        public void TestEmptyString()
         {
-            Assert.True(CatenersServer.ServerMain.testMethod());
+            MainGui newMain = new MainGui();
+            Assert.False(newMain.loginAuthentication(""));
         }
     }
 }

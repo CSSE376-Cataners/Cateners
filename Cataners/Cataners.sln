@@ -1,15 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40121.0
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cataners", "Cataners\Cataners.csproj", "{2CAEBDDE-959C-4DBE-AC16-57298CAE21D8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatenersServer", "..\CatanersServer\CatenersServer\CatenersServer.csproj", "{1F95432A-1A6D-4EEE-B7D6-82E32AB3B9FB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatanersTest", "..\CatanersTest\CatanersTest\CatanersTest.csproj", "{A6D60C26-69ED-46AB-8BE8-6B3305A7745B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatanersShared", "..\CatanersShared\CatanersShared\CatanersShared.csproj", "{0B6057C1-B6EC-416C-BA05-6F019DAAAD4D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,12 +25,11 @@ Global
 		{A6D60C26-69ED-46AB-8BE8-6B3305A7745B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6D60C26-69ED-46AB-8BE8-6B3305A7745B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6D60C26-69ED-46AB-8BE8-6B3305A7745B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0B6057C1-B6EC-416C-BA05-6F019DAAAD4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0B6057C1-B6EC-416C-BA05-6F019DAAAD4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0B6057C1-B6EC-416C-BA05-6F019DAAAD4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0B6057C1-B6EC-416C-BA05-6F019DAAAD4D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal

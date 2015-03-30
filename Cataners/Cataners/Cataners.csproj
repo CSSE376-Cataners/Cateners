@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LoginTesting.cs" />
     <Compile Include="TempRoad.cs">
       <SubType>Form</SubType>
     </Compile>
