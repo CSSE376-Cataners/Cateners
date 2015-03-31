@@ -8,11 +8,11 @@ namespace Cataners
 {
     public class CommunicationClient
     {
-        System.Net.Sockets.TcpClient clientSocket;
+        public System.Net.Sockets.TcpClient clientSocket;
 
-        CommunicationClient()
+        public CommunicationClient()
         {
-            this.clientSocket = new System.Net.Sockets.TcpClient();
+            //sthis.clientSocket = new System.Net.Sockets.TcpClient();
         }
 
         public void sendToServer(String msg)
