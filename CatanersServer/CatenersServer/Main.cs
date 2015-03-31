@@ -9,6 +9,7 @@ namespace CatenersServer
     public class ServerMain
     {
 
+        [MTAThread]
         static void Main(string[] args)
         {
             // TODO: Server Startup
