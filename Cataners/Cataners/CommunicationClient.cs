@@ -12,7 +12,7 @@ namespace Cataners
 
         public CommunicationClient()
         {
-            //sthis.clientSocket = new System.Net.Sockets.TcpClient();
+            this.clientSocket = new System.Net.Sockets.TcpClient();
         }
 
         public void sendToServer(String msg)
