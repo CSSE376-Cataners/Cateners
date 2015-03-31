@@ -48,6 +48,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CatanersShared\CatanersShared\CatanersShared.csproj">
+      <Project>{0b6057c1-b6ec-416c-ba05-6f019daaad4d}</Project>
+      <Name>CatanersShared</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

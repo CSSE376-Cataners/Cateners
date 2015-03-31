@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Sockets;
+using CatanersShared;
 
 namespace CatenersServer
 {
@@ -14,7 +15,7 @@ namespace CatenersServer
 
         public CommunicationServer()
         {
-
+            this.listener = new TcpListener(System.Net.IPAddress.Any,Variables.serverPort);
         }
     }
 
