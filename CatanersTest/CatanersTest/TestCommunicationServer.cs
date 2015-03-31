@@ -11,12 +11,19 @@ namespace CatanersTest
     [TestFixture()]
     class TestCommunicationServer
     {
+        CommunicationServer server;
+        [SetUp]
+        public void serverSetup()
+        {
+            server = new CommunicationServer();
+        }
 
         [Test]
         public void testTCPIntializes()
         {
-            CommunicationServer server = new CommunicationServer();
             Assert.NotNull(server.listener);
         }
+
+
     }
 }
