@@ -9,5 +9,10 @@ namespace CatanersShared
     public class Translation
     {
         // TODO
+
+        public static String translateLogin(String username, String password)
+        {
+            return null;
+        }
     }
 }

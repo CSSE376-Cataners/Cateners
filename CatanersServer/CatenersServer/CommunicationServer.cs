@@ -13,10 +13,13 @@ namespace CatenersServer
     {
         public TcpListener listener;
 
+
         public CommunicationServer()
         {
             this.listener = new TcpListener(System.Net.IPAddress.Any,Variables.serverPort);
         }
+
+        
     }
 
 }
