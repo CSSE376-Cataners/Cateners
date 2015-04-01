@@ -32,9 +32,9 @@ namespace CatanersShared
             return Newtonsoft.Json.JsonConvert.SerializeObject(this);
         }
 
-        public String fromJson()
+        public static Login fromJson(String json)
         {
-            return null;
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<Login>(json);
         }
     }
 }
