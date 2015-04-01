@@ -16,6 +16,7 @@ namespace CatanersShared
         {
             this.username = username;
             this.password = password;
+            this.register = false;
         }
 
         public Login(String username, String password, bool register)

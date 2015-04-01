@@ -132,6 +132,7 @@ namespace CatanersTest
             Login login = new Login("Username", "Password");
             Assert.NotNull(login.username);
             Assert.NotNull(login.password);
+            Assert.False(login.register);
 
 
             login = new Login("Username", "Password",true);
@@ -143,6 +144,16 @@ namespace CatanersTest
             Assert.NotNull(login.username);
             Assert.NotNull(login.password);
             Assert.False(login.register);
+        }
+
+        [Test]
+        public void TestLoginJsonParsing()
+        {
+            Login login = new Login("Username", "Password", true);
+            
+            String correctJson = String.Format("{\"username\": \"{0}\",\"password\": \"{1}\", \"register\": \"{2}\"}",login.username, login.password, login.register);
+
+            Assert.AreEqual(correctJson, login.toJson());
         }
 
     }
