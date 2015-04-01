@@ -80,6 +80,7 @@ namespace CatanersTest
         }
 
         //password testing
+        //Testing boundary values
         [Test]
         public void checkPasswordLessThanFourChars()
         {
@@ -87,6 +88,12 @@ namespace CatanersTest
             Assert.False(Verification.verifyPassword(text));
         }
 
+        [Test]
+        public void checkPasswordFourChars()
+        {
+            String text = "abcd";
+            Assert.True(Verification.verifyPassword(text));
+        }
 
 
     }
