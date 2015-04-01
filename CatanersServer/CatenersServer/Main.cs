@@ -12,7 +12,8 @@ namespace CatenersServer
         [MTAThread]
         static void Main(string[] args)
         {
-            // TODO: Server Startup
+            CommunicationServer server = new CommunicationServer();
+            server.Start();
         }
 
         

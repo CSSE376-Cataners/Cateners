@@ -19,7 +19,20 @@ namespace CatenersServer
             this.listener = new TcpListener(System.Net.IPAddress.Any,Variables.serverPort);
         }
 
+        public void Start()
+        {
+            this.listener.Start(100);
+            
+            // TODO: 
+            while (true)
+            {
+                while (this.listener.Pending())
+                {
+                    TcpClient client = this.listener.AcceptTcpClient();
+                }
+            }
 
+        }
         
     }
 
