@@ -53,12 +53,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommunicationClient.cs" />
-    <Compile Include="TempRoad.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TempRoad.Designer.cs">
-      <DependentUpon>TempRoad.cs</DependentUpon>
-    </Compile>
     <Compile Include="Road.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -76,9 +70,6 @@
     </Compile>
     <Compile Include="Start.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="TempRoad.resx">
-      <DependentUpon>TempRoad.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="MainGui.resx">
       <DependentUpon>MainGui.cs</DependentUpon>
     </EmbeddedResource>

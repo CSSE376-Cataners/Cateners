@@ -24,8 +24,6 @@ namespace Cataners
 
         private void mainJoinGameButton_Click(object sender, EventArgs e)
         {
-            TempRoad tempRoad = new TempRoad();
-            tempRoad.Show();
         }
 
         private void MainGui_Load(object sender, EventArgs e)
