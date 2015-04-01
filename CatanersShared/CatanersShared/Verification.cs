@@ -21,5 +21,10 @@ namespace CatanersShared
         {
             return false;
         }
+
+        public static bool verifyPassword(String password)
+        {
+            return true;
+        }
     }
 }
