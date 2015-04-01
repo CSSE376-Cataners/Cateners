@@ -53,21 +53,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommunicationClient.cs" />
-<<<<<<< HEAD
-=======
     <Compile Include="SignUpForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SignUpForm.Designer.cs">
       <DependentUpon>SignUpForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="TempRoad.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TempRoad.Designer.cs">
-      <DependentUpon>TempRoad.cs</DependentUpon>
-    </Compile>
->>>>>>> b92552a4734fef234f1a19e141027ff452089d90
     <Compile Include="Road.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -85,15 +76,9 @@
     </Compile>
     <Compile Include="Start.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-<<<<<<< HEAD
-=======
     <EmbeddedResource Include="SignUpForm.resx">
       <DependentUpon>SignUpForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TempRoad.resx">
-      <DependentUpon>TempRoad.cs</DependentUpon>
-    </EmbeddedResource>
->>>>>>> b92552a4734fef234f1a19e141027ff452089d90
     <EmbeddedResource Include="MainGui.resx">
       <DependentUpon>MainGui.cs</DependentUpon>
     </EmbeddedResource>
