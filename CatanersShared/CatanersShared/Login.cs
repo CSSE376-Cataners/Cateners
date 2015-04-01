@@ -44,7 +44,6 @@ namespace CatanersShared
             return Newtonsoft.Json.JsonConvert.DeserializeObject<Login>(json);
         }
 
-        // override object.Equals
         public override bool Equals(object obj)
         {
             if (obj == null || GetType() != obj.GetType())
