@@ -28,5 +28,10 @@ namespace CatanersShared
             Regex r = new Regex(@"^(?=.*\d)(?=.*[a-zA-Z]).{4,15}$");
             return r.IsMatch(password);
         }
+
+        public static bool passwordsMatch(String inputPass, String confirmPass)
+        {
+            return false;
+        }
     }
 }
