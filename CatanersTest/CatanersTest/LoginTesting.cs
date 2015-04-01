@@ -156,7 +156,7 @@ namespace CatanersTest
             Assert.AreEqual(correctJson, login.toJson());
 
             Login correctLogin = new Login("Username", "Password", true);
-            Assert.AreEqual(correctLogin, new Login(correctLogin));
+            Assert.AreEqual(correctLogin, Login.fromJson(correctJson));
         }
 
     }
