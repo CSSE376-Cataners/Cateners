@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CatanersShared;
 
 namespace Cataners
 {
@@ -35,7 +36,14 @@ namespace Cataners
 
         private void loginButton_Click(object sender, EventArgs e)
         {
+            
+            String username = usernameTextbox.Text;
+            Verification.verifyInputString(username);
+
+            String password = passwordTextbox.Text;
+            Verification.verifyPassword(password);
 
         }
+
     }
 }
