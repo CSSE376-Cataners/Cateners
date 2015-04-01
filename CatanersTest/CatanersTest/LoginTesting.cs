@@ -109,7 +109,14 @@ namespace CatanersTest
             Assert.True(Verification.verifyPassword(text));
         }
         //end boundary value analysis
+        //testing number and letter requirement now
 
+        [Test]
+        public void checkNoNumbers() 
+        {
+            String text = "nonumbersboo";
+            Assert.False(Verification.verifyPassword(text));
+        }
 
     }
 
