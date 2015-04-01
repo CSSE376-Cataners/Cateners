@@ -78,6 +78,17 @@ namespace CatanersTest
             String text = "Trotta%^'54&";
             Assert.False(Verification.verifyInputString(text));
         }
+
+        //password testing
+        [Test]
+        public void checkPasswordLessThanFourChars()
+        {
+            String text = "abc";
+            Assert.False(Verification.verifyPassword(text));
+        }
+
+
+
     }
 
 }
