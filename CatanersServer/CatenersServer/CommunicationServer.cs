@@ -12,6 +12,7 @@ namespace CatenersServer
     public class CommunicationServer
     {
         public TcpListener listener;
+        public static int maxUsers;
 
 
         public CommunicationServer()
@@ -19,19 +20,19 @@ namespace CatenersServer
             this.listener = new TcpListener(System.Net.IPAddress.Any,Variables.serverPort);
         }
 
-        public void Start()
+        public async Task Start()
         {
-            this.listener.Start(100);
+            this.listener.Start(maxUsers);
             
             // TODO: 
             while (true)
             {
-                while (this.listener.Pending())
-                {
-                    TcpClient client = this.listener.AcceptTcpClient();
-                }
+                TcpClient cl = await listener.AcceptTcpClientAsync().ConfigureAwait(false);
+                Client client = new Client(cl);
+                
             }
 
+            //this.listener.Stop();
         }
         
     }

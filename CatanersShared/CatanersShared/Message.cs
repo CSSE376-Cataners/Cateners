@@ -8,17 +8,19 @@ namespace CatanersShared
 {
     public class Message
     {
-        enum TYPE { Login, Register };
+        enum TYPE { Login, Register, Chat, Game };
 
         TYPE type;
 
-        Object message;
+        String message;
 
-        public Message(Object obj, TYPE type)
+        public Message(String obj, TYPE type)
         {
             this.message = obj;
             this.type = type;
         }
+
+
 
     }
 }

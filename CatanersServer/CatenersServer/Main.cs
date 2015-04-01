@@ -13,7 +13,7 @@ namespace CatenersServer
         static void Main(string[] args)
         {
             CommunicationServer server = new CommunicationServer();
-            server.Start();
+            server.Start().Wait();
         }
 
         
