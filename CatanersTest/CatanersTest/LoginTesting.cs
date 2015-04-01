@@ -79,35 +79,36 @@ namespace CatanersTest
             Assert.False(Verification.verifyInputString(text));
         }
 
-        //password testing
-        //Testing boundary values
+        //password testing must be 4-15 chars and must have 1 numeric character and one upper or lowercase letter
+        //Testing boundary values for length
         [Test]
         public void checkPasswordLessThanFourChars()
         {
-            String text = "abc";
+            String text = "ab1";
             Assert.False(Verification.verifyPassword(text));
         }
 
         [Test]
         public void checkPasswordFourChars()
         {
-            String text = "abcd";
+            String text = "abc1";
             Assert.True(Verification.verifyPassword(text));
         }
 
         [Test]
         public void checkPasswordMoreThanFifteenChars()
         {
-            String text = "supaeasypassword";
+            String text = "1337easypassword";
             Assert.False(Verification.verifyPassword(text));
         }
 
         [Test]
         public void checkPasswordFifteenChars()
         {
-            String text = "easypasswordftw";
+            String text = "easypassword!!!";
             Assert.True(Verification.verifyPassword(text));
         }
+        //end boundary value analysis
 
 
     }
