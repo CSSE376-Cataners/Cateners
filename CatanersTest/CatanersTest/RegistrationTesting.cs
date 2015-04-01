@@ -30,5 +30,11 @@ namespace CatanersTest
             Verification newVer = new Verification();
             Assert.False(newVer.passwordsMatch("Hello29", "Hello64"));
         }
+
+        [Test]
+        public void testPasswordMatchSymbolsSame()
+        {
+            Verification newVer = new Verification();
+        }
     }
 }
