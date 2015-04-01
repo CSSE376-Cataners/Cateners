@@ -32,7 +32,11 @@ namespace CatanersShared
         //&& !confirmPass.Equals("Hello64")
         public bool passwordsMatch(String inputPass, String confirmPass)
         {
-            if (inputPass.Equals("Hello29") && !confirmPass.Equals("Hello64"))
+            Regex r = new Regex(inputPass, RegexOptions.IgnoreCase);
+
+            // Match the regular expression pattern against a text string.
+            Match m = r.Match(confirmPass);
+            if (m.Success)
             {
                 return true;
             }
