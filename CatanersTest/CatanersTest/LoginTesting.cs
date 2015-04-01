@@ -82,28 +82,28 @@ namespace CatanersTest
         //password testing must be 4-15 chars and must have 1 numeric character and one upper or lowercase letter
         //Testing boundary values for length
         [Test]
-        public void checkPasswordLessThanFourChars()
+        public void TestPasswordLessThanFourChars()
         {
             String text = "ab1";
             Assert.False(Verification.verifyPassword(text));
         }
 
         [Test]
-        public void checkPasswordFourChars()
+        public void TestPasswordFourChars()
         {
             String text = "abc1";
             Assert.True(Verification.verifyPassword(text));
         }
 
         [Test]
-        public void checkPasswordMoreThanFifteenChars()
+        public void TestPasswordMoreThanFifteenChars()
         {
             String text = "1337easypassword";
             Assert.False(Verification.verifyPassword(text));
         }
 
         [Test]
-        public void checkPasswordFifteenChars()
+        public void TestPasswordFifteenChars()
         {
             String text = "easypassword!!!";
             Assert.True(Verification.verifyPassword(text));
@@ -112,9 +112,16 @@ namespace CatanersTest
         //testing number and letter requirement now
 
         [Test]
-        public void checkNoNumbers() 
+        public void TestPasswordWithNoNumbers() 
         {
             String text = "nonumbersboo";
+            Assert.False(Verification.verifyPassword(text));
+        }
+
+        [Test]
+        public void TestPasswordwithNoLetters()
+        {
+            String text = "1234567";
             Assert.False(Verification.verifyPassword(text));
         }
 
