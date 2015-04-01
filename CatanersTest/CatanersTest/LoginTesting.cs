@@ -128,8 +128,15 @@ namespace CatanersTest
         [Test]
         public void TestPasswordwithAllSpecialChars()
         {
-            String text = "!@#$%^";
+            String text = "!@# $%^";
             Assert.False(Verification.verifyPassword(text));
+        }
+
+        [Test]
+        public void TestPasswordWithWhiteSpace()
+        {
+            String text = "trents awesome1";
+            Assert.True(Verification.verifyPassword(text));
         }
 
     }
