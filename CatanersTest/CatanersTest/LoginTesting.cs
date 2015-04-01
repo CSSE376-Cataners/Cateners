@@ -132,6 +132,17 @@ namespace CatanersTest
             Login login = new Login("Username", "Password");
             Assert.NotNull(login.username);
             Assert.NotNull(login.password);
+
+
+            login = new Login("Username", "Password",true);
+            Assert.NotNull(login.username);
+            Assert.NotNull(login.password);
+            Assert.True(login.register);
+
+            login = new Login("Username", "Password", false);
+            Assert.NotNull(login.username);
+            Assert.NotNull(login.password);
+            Assert.False(login.register);
         }
 
     }
