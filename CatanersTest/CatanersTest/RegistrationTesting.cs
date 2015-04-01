@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using Cataners;
 using CatanersShared;
+using System.Reflection;
 
 namespace CatanersTest
 {   
