@@ -154,6 +154,9 @@ namespace CatanersTest
             String correctJson = "{\"username\":\"" + login.username + "\",\"password\":\"" + login.password + "\",\"register\":" + login.register.ToString().ToLower() + "}";
 
             Assert.AreEqual(correctJson, login.toJson());
+
+            Login correctLogin = new Login("Username", "Password", true);
+            Assert.AreEqual(correctLogin, new Login(correctLogin));
         }
 
     }
