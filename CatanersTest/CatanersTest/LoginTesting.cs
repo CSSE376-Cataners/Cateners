@@ -125,6 +125,15 @@ namespace CatanersTest
             Assert.False(Verification.verifyPassword(text));
         }
 
+
+        [Test]
+        public void TestInstantiationOfLoginObject()
+        {
+            Login login = new Login("Username", "Password");
+            Assert.NotNull(login.username);
+            Assert.NotNull(login.password);
+        }
+
     }
 
 }
