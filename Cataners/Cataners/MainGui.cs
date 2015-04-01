@@ -36,13 +36,22 @@ namespace Cataners
 
         private void loginButton_Click(object sender, EventArgs e)
         {
-            
+
+            bool userNameGood=false;
+            bool PasswordGood = false;
+
             String username = usernameTextbox.Text;
-            Verification.verifyInputString(username);
+            userNameGood = Verification.verifyInputString(username);
 
             String password = passwordTextbox.Text;
-            Verification.verifyPassword(password);
+            PasswordGood = Verification.verifyPassword(password);
 
+        }
+
+        private void signUpButton_Click(object sender, EventArgs e)
+        {
+            SignUpForm signup = new SignUpForm();
+            signup.ShowDialog();
         }
 
     }

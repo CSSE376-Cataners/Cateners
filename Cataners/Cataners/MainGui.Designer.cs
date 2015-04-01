@@ -144,6 +144,7 @@
             this.signUpButton.TabIndex = 9;
             this.signUpButton.Text = "Sign Up";
             this.signUpButton.UseVisualStyleBackColor = true;
+            this.signUpButton.Click += new System.EventHandler(this.signUpButton_Click);
             // 
             // MainGui
             // 
