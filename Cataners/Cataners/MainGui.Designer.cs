@@ -92,7 +92,7 @@
             // usernameTextbox
             // 
             this.usernameTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.usernameTextbox.Location = new System.Drawing.Point(284, 343);
+            this.usernameTextbox.Location = new System.Drawing.Point(284, 327);
             this.usernameTextbox.Name = "usernameTextbox";
             this.usernameTextbox.Size = new System.Drawing.Size(499, 27);
             this.usernameTextbox.TabIndex = 4;
@@ -100,7 +100,7 @@
             // passwordTextbox
             // 
             this.passwordTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.passwordTextbox.Location = new System.Drawing.Point(284, 433);
+            this.passwordTextbox.Location = new System.Drawing.Point(284, 421);
             this.passwordTextbox.Name = "passwordTextbox";
             this.passwordTextbox.Size = new System.Drawing.Size(499, 27);
             this.passwordTextbox.TabIndex = 5;
@@ -109,18 +109,20 @@
             // usernameLabel
             // 
             this.usernameLabel.AutoSize = true;
+            this.usernameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.usernameLabel.Location = new System.Drawing.Point(358, 299);
             this.usernameLabel.Name = "usernameLabel";
-            this.usernameLabel.Size = new System.Drawing.Size(77, 17);
+            this.usernameLabel.Size = new System.Drawing.Size(108, 25);
             this.usernameLabel.TabIndex = 6;
             this.usernameLabel.Text = "Username:";
             // 
             // passwordLabel
             // 
             this.passwordLabel.AutoSize = true;
-            this.passwordLabel.Location = new System.Drawing.Point(358, 402);
+            this.passwordLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.passwordLabel.Location = new System.Drawing.Point(358, 393);
             this.passwordLabel.Name = "passwordLabel";
-            this.passwordLabel.Size = new System.Drawing.Size(73, 17);
+            this.passwordLabel.Size = new System.Drawing.Size(104, 25);
             this.passwordLabel.TabIndex = 7;
             this.passwordLabel.Text = "Password:";
             // 

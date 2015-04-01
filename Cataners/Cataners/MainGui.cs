@@ -36,13 +36,13 @@ namespace Cataners
         {
 
             bool userNameGood=false;
-            bool PasswordGood = false;
+            bool passwordGood = false;
 
             String username = usernameTextbox.Text;
             userNameGood = Verification.verifyInputString(username);
 
             String password = passwordTextbox.Text;
-            PasswordGood = Verification.verifyPassword(password);
+            passwordGood = Verification.verifyPassword(password);
 
         }
 
