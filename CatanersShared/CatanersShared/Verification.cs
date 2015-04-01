@@ -24,15 +24,8 @@ namespace CatanersShared
 
         public static bool verifyPassword(String password)
         {
-            if (password.Contains("nonumbersboo"))
-            {
-                return false;
-            }
-            if (password.Length > 15)
-            {
-                return false;
-            }
-            return password.Length < 4 ? false : true;
+            Regex r = new Regex(@"^(?=.*\d)(?=.*[a-zA-Z]).{4,15}$");
+            return r.IsMatch(password) ? true : false;
         }
     }
 }
