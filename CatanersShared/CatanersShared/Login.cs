@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Converters;
 
 namespace CatanersShared
 {
@@ -28,7 +29,7 @@ namespace CatanersShared
 
         public String toJson()
         {
-            return null;
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
         }
 
         public String fromJson()
