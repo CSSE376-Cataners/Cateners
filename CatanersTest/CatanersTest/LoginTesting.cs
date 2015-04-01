@@ -105,7 +105,7 @@ namespace CatanersTest
         [Test]
         public void TestPasswordFifteenChars()
         {
-            String text = "easypassword1!!";
+            String text = "Easypassword1!!";
             Assert.True(Verification.verifyPassword(text));
         }
         //end boundary value analysis
@@ -122,6 +122,13 @@ namespace CatanersTest
         public void TestPasswordwithNoLetters()
         {
             String text = "1234567";
+            Assert.False(Verification.verifyPassword(text));
+        }
+
+        [Test]
+        public void TestPasswordwithAllSpecialChars()
+        {
+            String text = "!@#$%^";
             Assert.False(Verification.verifyPassword(text));
         }
 
