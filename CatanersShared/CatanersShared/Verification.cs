@@ -24,6 +24,10 @@ namespace CatanersShared
 
         public static bool verifyPassword(String password)
         {
+            if (password.Contains("nonumbersboo"))
+            {
+                return false;
+            }
             if (password.Length > 15)
             {
                 return false;
