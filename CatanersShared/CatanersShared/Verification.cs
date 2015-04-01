@@ -24,7 +24,7 @@ namespace CatanersShared
 
         public static bool verifyPassword(String password)
         {
-            return false;
+            return password.Length < 4 ? false : true;
         }
     }
 }
