@@ -13,6 +13,13 @@ namespace CatanersShared
         public String password;
         public bool register;
 
+        public Login()
+        {
+            this.username = "";
+            this.password = "";
+            this.register = false;
+        }
+
         public Login(String username, String password)
         {
             this.username = username;
@@ -35,6 +42,18 @@ namespace CatanersShared
         public static Login fromJson(String json)
         {
             return Newtonsoft.Json.JsonConvert.DeserializeObject<Login>(json);
+        }
+
+        // override object.Equals
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            Login login = (Login)obj;
+            return login.username.Equals(this.username) && login.password.Equals(this.password) && login.register == this.register;
         }
     }
 }
