@@ -20,7 +20,9 @@ namespace CatanersShared
 
         public Login(String username, String password, bool register)
         {
-
+            this.username = username;
+            this.password = password;
+            this.register = register;
         }
 
         public String toJson()
