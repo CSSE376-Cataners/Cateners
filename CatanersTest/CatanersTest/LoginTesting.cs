@@ -95,6 +95,13 @@ namespace CatanersTest
             Assert.True(Verification.verifyPassword(text));
         }
 
+        [Test]
+        public void checkPasswordMoreThanFifteenChars()
+        {
+            String text = "supaeasypassword";
+            Assert.False(Verification.verifyPassword(text));
+        }
+
 
     }
 
