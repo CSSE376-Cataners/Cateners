@@ -35,6 +35,7 @@ namespace CatanersTest
         public void testPasswordMatchSymbolsSame()
         {
             Verification newVer = new Verification();
+            Assert.True(newVer.passwordsMatch("Hello#&2", "Hello#&2"));
         }
     }
 }
