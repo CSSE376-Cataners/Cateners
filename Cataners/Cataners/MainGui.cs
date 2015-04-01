@@ -44,6 +44,11 @@ namespace Cataners
             String password = passwordTextbox.Text;
             passwordGood = Verification.verifyPassword(password);
 
+            if (userNameGood && passwordGood)
+            {
+                //log in
+            }
+
         }
 
         private void signUpButton_Click(object sender, EventArgs e)
