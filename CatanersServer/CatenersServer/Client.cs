@@ -35,24 +35,30 @@ namespace CatenersServer
             Start:
 
                 NetworkStream serverStream = socket.GetStream();
-                byte[] inStream = new byte[1];
+                byte[] inStream = new byte[1000];
                 
-                await serverStream.ReadAsync(inStream, 0, 1);
+                await serverStream.ReadAsync(inStream, 0, inStream.Length);
+                
 
-                tempQueue.Add(inStream[0]);
-
-                int lengthOfEOM = Translation.END_OF_MESSAGE.Length;
-                if(inStream[0] == Translation.END_OF_MESSAGE[Translation.END_OF_MESSAGE.Length-1] && tempQueue.Count >= lengthOfEOM) {
-                    
-                    for (int i = 0; i < lengthOfEOM; i++)
+                foreach(byte b in inStream) {
+                    tempQueue.Add(b);
+                    int lengthOfEOM = Translation.END_OF_MESSAGE.Length;
+                    if (b == Translation.END_OF_MESSAGE[Translation.END_OF_MESSAGE.Length - 1] && tempQueue.Count >= lengthOfEOM)
                     {
-                        if (!((byte)(tempQueue[tempQueue.Count - 1 + i - lengthOfEOM]) == Translation.END_OF_MESSAGE[i]))
+
+                        for (int i = 0; i < lengthOfEOM; i++)
                         {
-                            goto Start;
+                            int index = tempQueue.Count + i - lengthOfEOM;
+                            byte x = (byte)(tempQueue[index]);
+                            byte y = Translation.END_OF_MESSAGE[i];
+                            if ( x != y )
+                            {
+                                goto Start;
+                            }
                         }
+                        moveFromTempToQueue();
                     }
-                }
-               
+                }                 
             }
         }
 
@@ -63,7 +69,7 @@ namespace CatenersServer
 
             System.Console.WriteLine(returndata);
             queue.Enqueue(returndata);
-
+            Console.WriteLine("Message: " + returndata);
             tempQueue.Clear();
         }
 
