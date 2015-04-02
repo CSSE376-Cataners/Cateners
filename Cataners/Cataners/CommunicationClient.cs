@@ -71,10 +71,6 @@ namespace Cataners
             StreamReader reader = new StreamReader(clientSocket.GetStream(), Encoding.Unicode);
             while (Enabled && clientSocket.Connected)
             {
-
-
-                NetworkStream serverStream = clientSocket.GetStream();
-                byte[] inStream = new byte[1000];
                 string line;
                 Task<String> task = reader.ReadLineAsync();
                 line = await  task; 
