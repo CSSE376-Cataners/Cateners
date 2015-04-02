@@ -8,7 +8,7 @@ namespace CatanersShared
 {
     public class Message
     {
-        enum TYPE { Login, Register, Chat, Game };
+        public enum TYPE { Login, Register, Chat, Game };
 
         TYPE type;
 

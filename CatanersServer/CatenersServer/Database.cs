@@ -8,5 +8,6 @@ namespace CatenersServer
 {
     class Database
     {
+
     }
 }
