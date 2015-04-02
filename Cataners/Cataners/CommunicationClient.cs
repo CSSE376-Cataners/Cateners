@@ -42,7 +42,9 @@ namespace Cataners
         {
             
             await clientSocket.ConnectAsync(Properties.Settings.Default.ServerAddr, Variables.serverPort);
+            this.Enabled = true;
             this.queueMessagesAsync();
+            
         }
 
         public void sendToServer(String msg)
@@ -66,6 +68,7 @@ namespace Cataners
 
         public async void queueMessagesAsync()
         {
+            Console.WriteLine("Started Listening");
             while (Enabled && clientSocket.Connected)
             {
             Start:
@@ -97,6 +100,7 @@ namespace Cataners
                     }
                 }
             }
+            Console.WriteLine("bitches be crazy");
             Enabled = false;
         }
 
