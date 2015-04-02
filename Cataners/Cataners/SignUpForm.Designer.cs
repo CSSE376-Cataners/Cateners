@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SignUpForm));
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.usernameTextbox = new System.Windows.Forms.TextBox();
             this.passwordTextBox = new System.Windows.Forms.TextBox();
             this.confirmPasswordTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -37,15 +37,17 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.registerButton = new System.Windows.Forms.Button();
+            this.notMatchingLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // textBox1
+            // usernameTextbox
             // 
-            this.textBox1.Location = new System.Drawing.Point(269, 181);
-            this.textBox1.MaxLength = 15;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(271, 22);
-            this.textBox1.TabIndex = 0;
+            this.usernameTextbox.Location = new System.Drawing.Point(269, 181);
+            this.usernameTextbox.MaxLength = 15;
+            this.usernameTextbox.Name = "usernameTextbox";
+            this.usernameTextbox.Size = new System.Drawing.Size(271, 22);
+            this.usernameTextbox.TabIndex = 0;
+            this.usernameTextbox.TextChanged += new System.EventHandler(this.usernameTextbox_TextChanged);
             // 
             // passwordTextBox
             // 
@@ -55,6 +57,7 @@
             this.passwordTextBox.Size = new System.Drawing.Size(271, 22);
             this.passwordTextBox.TabIndex = 1;
             this.passwordTextBox.UseSystemPasswordChar = true;
+            this.passwordTextBox.TextChanged += new System.EventHandler(this.passwordTextBox_TextChanged);
             // 
             // confirmPasswordTextBox
             // 
@@ -63,6 +66,8 @@
             this.confirmPasswordTextBox.Name = "confirmPasswordTextBox";
             this.confirmPasswordTextBox.Size = new System.Drawing.Size(271, 22);
             this.confirmPasswordTextBox.TabIndex = 2;
+            this.confirmPasswordTextBox.UseSystemPasswordChar = true;
+            this.confirmPasswordTextBox.TextChanged += new System.EventHandler(this.confirmPasswordTextBox_TextChanged);
             // 
             // label1
             // 
@@ -106,6 +111,7 @@
             // 
             // registerButton
             // 
+            this.registerButton.Enabled = false;
             this.registerButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.registerButton.Location = new System.Drawing.Point(299, 385);
             this.registerButton.Name = "registerButton";
@@ -113,12 +119,26 @@
             this.registerButton.TabIndex = 7;
             this.registerButton.Text = "Register";
             this.registerButton.UseVisualStyleBackColor = true;
+            this.registerButton.Click += new System.EventHandler(this.registerButton_Click);
+            // 
+            // notMatchingLabel
+            // 
+            this.notMatchingLabel.AutoSize = true;
+            this.notMatchingLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.notMatchingLabel.ForeColor = System.Drawing.Color.Red;
+            this.notMatchingLabel.Location = new System.Drawing.Point(546, 334);
+            this.notMatchingLabel.Name = "notMatchingLabel";
+            this.notMatchingLabel.Size = new System.Drawing.Size(273, 20);
+            this.notMatchingLabel.TabIndex = 8;
+            this.notMatchingLabel.Text = "Please enter passwords that match";
+            this.notMatchingLabel.Visible = false;
             // 
             // SignUpForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(830, 490);
+            this.Controls.Add(this.notMatchingLabel);
             this.Controls.Add(this.registerButton);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -126,7 +146,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.confirmPasswordTextBox);
             this.Controls.Add(this.passwordTextBox);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.usernameTextbox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SignUpForm";
             this.Text = "Sign Up";
@@ -137,7 +157,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox usernameTextbox;
         private System.Windows.Forms.TextBox passwordTextBox;
         private System.Windows.Forms.TextBox confirmPasswordTextBox;
         private System.Windows.Forms.Label label1;
@@ -145,5 +165,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button registerButton;
+        private System.Windows.Forms.Label notMatchingLabel;
     }
 }
