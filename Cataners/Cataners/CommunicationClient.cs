@@ -4,17 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CatanersShared;
+using System.Collections;
+using System.Collections.Concurrent;
+using System.Net.Sockets;
+
 
 namespace Cataners
 {
     public class CommunicationClient
     {
+        private ArrayList tempQueue;
         private int attemptCount;
+        private Boolean Enabled;
+        public ConcurrentQueue<String> queue;
         private static CommunicationClient instance;
 
         public static CommunicationClient Instance {
             get{
-                return instance;   
+                return instance;  
             }
         }
 
@@ -22,14 +29,17 @@ namespace Cataners
 
         public CommunicationClient()
         {
+            this.Enabled = false;
             this.clientSocket = new System.Net.Sockets.TcpClient();
             CommunicationClient.instance = this;
+            tempQueue = new ArrayList();
             attemptCount = 0;
             clientSocket.ReceiveTimeout = 3;
         }
 
         public void Start()
         {
+            this.Enabled = true;
             clientSocket.Connect(Properties.Settings.Default.ServerAddr, Variables.serverPort);
         }
 
@@ -50,6 +60,51 @@ namespace Cataners
                 instance.sendToServer(msg);
                 this.attemptCount++;
             }
+        }
+
+        public async Task queueMessagesAsync()
+        {
+            while (Enabled && clientSocket.Connected)
+            {
+            Start:
+
+                NetworkStream serverStream = clientSocket.GetStream();
+                byte[] inStream = new byte[1000];
+
+                await serverStream.ReadAsync(inStream, 0, inStream.Length);
+
+
+                foreach (byte b in inStream)
+                {
+                    tempQueue.Add(b);
+                    int lengthOfEOM = Translation.END_OF_MESSAGE.Length;
+                    if (b == Translation.END_OF_MESSAGE[Translation.END_OF_MESSAGE.Length - 1] && tempQueue.Count >= lengthOfEOM)
+                    {
+
+                        for (int i = 0; i < lengthOfEOM; i++)
+                        {
+                            int index = tempQueue.Count + i - lengthOfEOM;
+                            byte x = (byte)(tempQueue[index]);
+                            byte y = Translation.END_OF_MESSAGE[i];
+                            if (x != y)
+                            {
+                                goto Start;
+                            }
+                        }
+                        moveFromTempToQueue();
+                    }
+                }
+            }
+        }
+
+        private void moveFromTempToQueue()
+        {
+            byte[] temp = (byte[])tempQueue.ToArray(typeof(byte));
+            string returndata = System.Text.Encoding.Unicode.GetString(temp);
+
+            queue.Enqueue(returndata);
+            Console.WriteLine("Message: " + returndata);
+            tempQueue.Clear();
         }
 
         public async Task awaitingMessage(Translation.TYPE type)
