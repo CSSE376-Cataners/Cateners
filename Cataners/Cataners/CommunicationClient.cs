@@ -32,9 +32,17 @@ namespace Cataners
 
         public void sendToServer(String msg)
         {
-            byte[] bytes = new byte[msg.Length * sizeof(char)];
-            System.Buffer.BlockCopy(msg.ToCharArray(), 0, bytes, 0, bytes.Length);
-            clientSocket.GetStream().Write(bytes,0,bytes.Length);
+            if (instance.clientSocket.Connected)
+            {
+                byte[] bytes = new byte[msg.Length * sizeof(char)];
+                System.Buffer.BlockCopy(msg.ToCharArray(), 0, bytes, 0, bytes.Length);
+                clientSocket.GetStream().Write(bytes, 0, bytes.Length);
+            }
+            else
+            {
+                instance.Start();
+                instance.sendToServer(msg);
+            }
         }
     }
 }

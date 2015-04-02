@@ -16,6 +16,7 @@ namespace Cataners
         public MainGui()
         {
             InitializeComponent();
+            new CommunicationClient().Start();
         }
 
         private void mainQuitButton_Click(object sender, EventArgs e)
