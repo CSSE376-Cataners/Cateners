@@ -33,7 +33,10 @@ namespace Cataners
         private void TimerEventHandler(Object myObject, EventArgs myEventArgs)
         {
             time.Stop();
-
+            if (CommunicationClient.Instance.queue.Count > 1)
+            {
+                this.Close();
+            }
             if (timerCount % 3 == 0)
             {
                 loggingInLabel1.Visible = true;

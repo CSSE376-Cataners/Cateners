@@ -32,6 +32,7 @@ namespace Cataners
             this.Enabled = false;
             this.clientSocket = new System.Net.Sockets.TcpClient();
             CommunicationClient.instance = this;
+            queue = new ConcurrentQueue<string>();
             tempQueue = new ArrayList();
             attemptCount = 0;
             clientSocket.ReceiveTimeout = 3;

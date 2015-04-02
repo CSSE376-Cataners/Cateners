@@ -56,10 +56,10 @@ namespace Cataners
 
                 Console.WriteLine("sending " + username + " and " + password + " to the server");
                 LoggingInForm logging = new LoggingInForm();
-                //while (waiting)
-                //{
-                    //logging.ShowDialog();
-                //}
+                logging.ShowDialog();
+                String newString = "";
+                CommunicationClient.Instance.queue.TryDequeue(out newString);
+                MessageBox.Show(newString);
             }
 
         }
