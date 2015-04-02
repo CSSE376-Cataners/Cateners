@@ -21,7 +21,5 @@ namespace CatanersShared
             this.type = type;
         }
 
-
-
     }
 }

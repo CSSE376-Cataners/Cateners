@@ -31,6 +31,7 @@ namespace CatenersServer
                 byte[] inStream = new byte[10025];
                 buffSize = socket.ReceiveBufferSize;
                 await serverStream.ReadAsync(inStream, 0, buffSize);
+                // TODO 
                 string returndata = System.Text.Encoding.Unicode.GetString(inStream);
                 String readData = "" + returndata;
                 System.Console.WriteLine(readData);

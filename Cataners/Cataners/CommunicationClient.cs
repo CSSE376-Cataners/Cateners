@@ -39,6 +39,7 @@ namespace Cataners
             {
                 byte[] bytes = Encoding.Unicode.GetBytes(msg);
                 clientSocket.GetStream().Write(bytes, 0, bytes.Length);
+                clientSocket.GetStream().Write(Translation.END_OF_MESSAGE, 0, Translation.END_OF_MESSAGE.Length);
                 this.attemptCount = 0;
             }
             else if (this.attemptCount < 3)
