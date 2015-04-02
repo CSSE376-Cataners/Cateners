@@ -36,9 +36,20 @@ namespace CatenersServer
 
                 NetworkStream serverStream = socket.GetStream();
                 byte[] inStream = new byte[1000];
-                
-                await serverStream.ReadAsync(inStream, 0, inStream.Length);
-                
+                try
+                {
+                    await serverStream.ReadAsync(inStream, 0, inStream.Length);
+                }
+                catch (SocketException)
+                {
+                    return;
+                }
+                catch (System.IO.IOException)
+                {
+                    return;
+                }
+
+
 
                 foreach(byte b in inStream) {
                     tempQueue.Add(b);
