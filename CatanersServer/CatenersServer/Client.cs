@@ -60,6 +60,8 @@ namespace CatenersServer
                     }
                 }                 
             }
+
+            Console.WriteLine("Clint Closed");
         }
 
         private void moveFromTempToQueue()
@@ -73,6 +75,7 @@ namespace CatenersServer
             tempQueue.Clear();
 
             // TODO Remove stuff bellow just temp;
+            Console.WriteLine("Sending Client Message Back");
             sendToClient(returndata);
         }
 
