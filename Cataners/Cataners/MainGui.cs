@@ -48,7 +48,8 @@ namespace Cataners
 
             if (userNameGood && passwordGood)
             {
-                CommunicationClient.Instance.sendToServer(new Login(username, password).toJson());
+                CatanersShared.Message msg = new CatanersShared.Message(new Login(username, password).toJson(),CatanersShared.Message.TYPE.Login);
+                CommunicationClient.Instance.sendToServer(msg.toJson());
                 Console.WriteLine("sending " + username + " and " + password + " to the server");
             }
 

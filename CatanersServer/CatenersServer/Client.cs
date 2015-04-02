@@ -22,11 +22,12 @@ namespace CatenersServer
         {
             this.socket = tcp;
             queue = new ConcurrentQueue<string>();
+            tempQueue = new ArrayList();
             Enabled = true;
         }
 
 
-        private ArrayList tempQueue = new ArrayList();
+        private ArrayList tempQueue;
 
         public async Task queueMessagesAsync()
         {
