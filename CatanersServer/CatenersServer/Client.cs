@@ -67,7 +67,6 @@ namespace CatenersServer
             byte[] temp = (byte[]) tempQueue.ToArray(typeof(byte));
             string returndata = System.Text.Encoding.Unicode.GetString(temp);
 
-            System.Console.WriteLine(returndata);
             queue.Enqueue(returndata);
             Console.WriteLine("Message: " + returndata);
             tempQueue.Clear();
