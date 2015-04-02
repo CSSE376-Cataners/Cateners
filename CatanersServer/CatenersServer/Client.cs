@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.Collections.Concurrent;
+using CatanersShared;
+using System.Collections;
 
 namespace CatenersServer
 {
@@ -23,21 +25,47 @@ namespace CatenersServer
             Enabled = true;
         }
 
+
+        private ArrayList tempQueue = new ArrayList();
+
         public async Task queueMessagesAsync()
         {
             while(Enabled && socket.Connected) {
+            Start:
+
                 NetworkStream serverStream = socket.GetStream();
-                int buffSize = 0;
-                byte[] inStream = new byte[10025];
-                buffSize = socket.ReceiveBufferSize;
-                await serverStream.ReadAsync(inStream, 0, buffSize);
-                // TODO 
-                string returndata = System.Text.Encoding.Unicode.GetString(inStream);
-                String readData = "" + returndata;
-                System.Console.WriteLine(readData);
-                queue.Enqueue(readData);
+                byte[] inStream = new byte[1];
+                
+                await serverStream.ReadAsync(inStream, 0, 1);
+
+                tempQueue.Add(inStream[0]);
+
+                int lengthOfEOM = Translation.END_OF_MESSAGE.Length;
+                if(inStream[0] == Translation.END_OF_MESSAGE[Translation.END_OF_MESSAGE.Length-1] && tempQueue.Count >= lengthOfEOM) {
+                    
+                    for (int i = 0; i < lengthOfEOM; i++)
+                    {
+                        if (!((byte)(tempQueue[tempQueue.Count - 1 + i - lengthOfEOM]) == Translation.END_OF_MESSAGE[i]))
+                        {
+                            goto Start;
+                        }
+                    }
+                }
+               
             }
         }
+
+        private void moveFromTempToQueue()
+        {
+            byte[] temp = (byte[]) tempQueue.ToArray(typeof(byte));
+            string returndata = System.Text.Encoding.Unicode.GetString(temp);
+
+            System.Console.WriteLine(returndata);
+            queue.Enqueue(returndata);
+
+            tempQueue.Clear();
+        }
+
 
         public String getNextMessage() {
             Byte[] buffer = new Byte[socket.Available];
