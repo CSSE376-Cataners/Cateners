@@ -30,7 +30,7 @@ namespace Cataners
 
         public void Start()
         {
-            clientSocket.ConnectAsync(Properties.Settings.Default.ServerAddr, Variables.serverPort);
+            clientSocket.Connect(Properties.Settings.Default.ServerAddr, Variables.serverPort);
         }
 
         public void sendToServer(String msg)
@@ -44,10 +44,18 @@ namespace Cataners
             }
             else if (this.attemptCount < 3)
             {
-                clientSocket.Connect(Properties.Settings.Default.ServerAddr, Variables.serverPort);
+                clientSocket.ConnectAsync(Properties.Settings.Default.ServerAddr, Variables.serverPort);
                 instance.sendToServer(msg);
                 this.attemptCount++;
             }
+        }
+
+        public async Task awaitingMessage(Message.TYPE type)
+        {
+            //TODO: come back and finish type = null
+
+
+
         }
     }
 }

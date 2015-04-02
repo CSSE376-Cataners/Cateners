@@ -47,7 +47,7 @@ namespace Cataners
 
             if (userNameGood && passwordGood)
             {
-                //log in
+                CommunicationClient.Instance.sendToServer(new Login(username, password).toJson());
             }
 
         }
