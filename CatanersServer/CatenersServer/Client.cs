@@ -66,24 +66,24 @@ namespace CatenersServer
         {
             byte[] temp = (byte[]) tempQueue.ToArray(typeof(byte));
             string returndata = System.Text.Encoding.Unicode.GetString(temp);
+            returndata = returndata.Substring(0, returndata.Length - 4);
 
             queue.Enqueue(returndata);
             Console.WriteLine("Message: " + returndata);
             tempQueue.Clear();
+
+            // TODO Remove stuff bellow just temp;
+            sendToClient(returndata);
         }
 
-
-        public String getNextMessage() {
-            Byte[] buffer = new Byte[socket.Available];
-            socket.GetStream().Read(buffer,0,socket.Available);
-
-            Char[] chars = new Char[buffer.Length];
-            
-            for(int i = 0; i < buffer.Length; i++) {
-                chars[i] = Convert.ToChar(buffer[i]);
-            }
-
-            return new String(chars);
+        public void sendToClient(String msg)
+        {
+            byte[] bytes = Encoding.Unicode.GetBytes(msg);
+            byte[] end = new byte[bytes.Length + Translation.END_OF_MESSAGE.Length];
+            Array.Copy(bytes, end, bytes.Length);
+            Array.Copy(Translation.END_OF_MESSAGE, 0, end, bytes.Length, Translation.END_OF_MESSAGE.Length);
+            socket.GetStream().Write(end, 0, end.Length);
         }
+
     }
 }

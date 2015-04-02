@@ -16,7 +16,8 @@ namespace Cataners
         public MainGui()
         {
             InitializeComponent();
-            new CommunicationClient().Start();
+            CommunicationClient client = new  CommunicationClient();
+            client.Start();
             Console.WriteLine("connected to the server");
         }
 
