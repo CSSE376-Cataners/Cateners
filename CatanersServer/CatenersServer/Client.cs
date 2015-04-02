@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.Collections.Concurrent;
 using CatanersShared;
 using System.Collections;
+using System.IO;
 
 namespace CatenersServer
 {
@@ -32,44 +33,19 @@ namespace CatenersServer
         public async void queueMessagesAsync()
         {
             while(Enabled && socket.Connected) {
-            Start:
 
                 NetworkStream serverStream = socket.GetStream();
                 byte[] inStream = new byte[1000];
-                try
+                using (StreamReader reader = new StreamReader(socket.GetStream(), Encoding.UTF8))
                 {
-                    await serverStream.ReadAsync(inStream, 0, inStream.Length);
+                    string line;
+                    Task<String> task = reader.ReadLineAsync();
+                    line = await  task; 
+                    queue.Enqueue(line);
+                    sendToClient(line);
+                    Console.WriteLine("Message:" + line);
                 }
-                catch (SocketException)
-                {
-                    return;
-                }
-                catch (System.IO.IOException)
-                {
-                    return;
-                }
-
-
-
-                foreach(byte b in inStream) {
-                    tempQueue.Add(b);
-                    int lengthOfEOM = Translation.END_OF_MESSAGE.Length;
-                    if (b == Translation.END_OF_MESSAGE[Translation.END_OF_MESSAGE.Length - 1] && tempQueue.Count >= lengthOfEOM)
-                    {
-
-                        for (int i = 0; i < lengthOfEOM; i++)
-                        {
-                            int index = tempQueue.Count + i - lengthOfEOM;
-                            byte x = (byte)(tempQueue[index]);
-                            byte y = Translation.END_OF_MESSAGE[i];
-                            if ( x != y )
-                            {
-                                goto Start;
-                            }
-                        }
-                        moveFromTempToQueue();
-                    }
-                }                 
+                 
             }
 
             Console.WriteLine("Clint Closed");
@@ -79,7 +55,7 @@ namespace CatenersServer
         {
             byte[] temp = (byte[]) tempQueue.ToArray(typeof(byte));
             string returndata = System.Text.Encoding.Unicode.GetString(temp);
-            returndata = returndata.Substring(0, returndata.Length - 4);
+            returndata = returndata.Substring(0, returndata.Length - 4).Trim();
 
             queue.Enqueue(returndata);
             Console.WriteLine("Message: " + returndata);
