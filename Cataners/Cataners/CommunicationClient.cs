@@ -37,21 +37,25 @@ namespace Cataners
             tempQueue = new ArrayList();
             attemptCount = 0;
             clientSocket.ReceiveTimeout = 3;
+            
         }
 
         public async void Start()
         {
             
             await clientSocket.ConnectAsync(Properties.Settings.Default.ServerAddr, Variables.serverPort);
+            this.Enabled = true;
             this.queueMessagesAsync();
+            writer = new StreamWriter(clientSocket.GetStream(), Encoding.Unicode);
         }
 
+        StreamWriter writer;
         public void sendToServer(String msg)
         {
             if (instance.clientSocket.Connected)
             {
-                StreamWriter writer = new StreamWriter(clientSocket.GetStream(),Encoding.UTF32);
                 writer.WriteLine(msg);
+                writer.Flush();
                 this.attemptCount = 0;
             }
             else if (this.attemptCount < 3)
@@ -64,36 +68,18 @@ namespace Cataners
 
         public async void queueMessagesAsync()
         {
+            StreamReader reader = new StreamReader(clientSocket.GetStream(), Encoding.Unicode);
             while (Enabled && clientSocket.Connected)
             {
-            Start:
+
 
                 NetworkStream serverStream = clientSocket.GetStream();
                 byte[] inStream = new byte[1000];
-
-                await serverStream.ReadAsync(inStream, 0, inStream.Length);
-
-
-                foreach (byte b in inStream)
-                {
-                    tempQueue.Add(b);
-                    int lengthOfEOM = Translation.END_OF_MESSAGE.Length;
-                    if (b == Translation.END_OF_MESSAGE[Translation.END_OF_MESSAGE.Length - 1] && tempQueue.Count >= lengthOfEOM)
-                    {
-
-                        for (int i = 0; i < lengthOfEOM; i++)
-                        {
-                            int index = tempQueue.Count + i - lengthOfEOM;
-                            byte x = (byte)(tempQueue[index]);
-                            byte y = Translation.END_OF_MESSAGE[i];
-                            if (x != y)
-                            {
-                                goto Start;
-                            }
-                        }
-                        moveFromTempToQueue();
-                    }
-                }
+                string line;
+                Task<String> task = reader.ReadLineAsync();
+                line = await  task; 
+                queue.Enqueue(line);
+                Console.WriteLine("Message:" + line);
             }
             Enabled = false;
         }

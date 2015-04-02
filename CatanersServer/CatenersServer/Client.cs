@@ -32,19 +32,17 @@ namespace CatenersServer
 
         public async void queueMessagesAsync()
         {
+            StreamReader reader = new StreamReader(socket.GetStream(), Encoding.Unicode)
             while(Enabled && socket.Connected) {
 
                 NetworkStream serverStream = socket.GetStream();
                 byte[] inStream = new byte[1000];
-                using (StreamReader reader = new StreamReader(socket.GetStream(), Encoding.UTF8))
-                {
-                    string line;
-                    Task<String> task = reader.ReadLineAsync();
-                    line = await  task; 
-                    queue.Enqueue(line);
-                    sendToClient(line);
-                    Console.WriteLine("Message:" + line);
-                }
+                string line;
+                Task<String> task = reader.ReadLineAsync();
+                line = await  task; 
+                queue.Enqueue(line);
+                sendToClient(line);
+                Console.WriteLine("Message:" + line);
                  
             }
 
