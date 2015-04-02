@@ -38,10 +38,11 @@ namespace Cataners
             clientSocket.ReceiveTimeout = 3;
         }
 
-        public void Start()
+        public async Task Start()
         {
-            this.Enabled = true;
-            clientSocket.ConnectAsync(Properties.Settings.Default.ServerAddr, Variables.serverPort);
+            
+            await clientSocket.ConnectAsync(Properties.Settings.Default.ServerAddr, Variables.serverPort);
+            this.queueMessagesAsync();
         }
 
         public void sendToServer(String msg)
@@ -57,7 +58,7 @@ namespace Cataners
             }
             else if (this.attemptCount < 3)
             {
-                clientSocket.Connect(Properties.Settings.Default.ServerAddr, Variables.serverPort);
+                Start().Wait();
                 instance.sendToServer(msg);
                 this.attemptCount++;
             }
@@ -96,6 +97,7 @@ namespace Cataners
                     }
                 }
             }
+            Enabled = false;
         }
 
         private void moveFromTempToQueue()
