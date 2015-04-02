@@ -54,5 +54,10 @@ namespace CatanersShared
             Login login = (Login)obj;
             return login.username.Equals(this.username) && login.password.Equals(this.password) && login.register == this.register;
         }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

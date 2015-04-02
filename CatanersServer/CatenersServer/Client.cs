@@ -29,7 +29,7 @@ namespace CatenersServer
 
         private ArrayList tempQueue;
 
-        public async Task queueMessagesAsync()
+        public async void queueMessagesAsync()
         {
             while(Enabled && socket.Connected) {
             Start:
