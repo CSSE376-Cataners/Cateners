@@ -33,7 +33,7 @@ namespace Cataners
         private void TimerEventHandler(Object myObject, EventArgs myEventArgs)
         {
             time.Stop();
-            if (CommunicationClient.Instance.queue.Count > 1)
+            if (CommunicationClient.Instance.queue.Count >= 1)
             {
                 this.Close();
             }

@@ -41,7 +41,7 @@ namespace Cataners
         public void Start()
         {
             this.Enabled = true;
-            clientSocket.Connect(Properties.Settings.Default.ServerAddr, Variables.serverPort);
+            clientSocket.ConnectAsync(Properties.Settings.Default.ServerAddr, Variables.serverPort);
         }
 
         public void sendToServer(String msg)
@@ -57,7 +57,7 @@ namespace Cataners
             }
             else if (this.attemptCount < 3)
             {
-                clientSocket.ConnectAsync(Properties.Settings.Default.ServerAddr, Variables.serverPort);
+                clientSocket.Connect(Properties.Settings.Default.ServerAddr, Variables.serverPort);
                 instance.sendToServer(msg);
                 this.attemptCount++;
             }
@@ -102,7 +102,7 @@ namespace Cataners
         {
             byte[] temp = (byte[])tempQueue.ToArray(typeof(byte));
             string returndata = System.Text.Encoding.Unicode.GetString(temp);
-
+            returndata = returndata.Substring(0, returndata.Length - 4);
             queue.Enqueue(returndata);
             Console.WriteLine("Message: " + returndata);
             tempQueue.Clear();
