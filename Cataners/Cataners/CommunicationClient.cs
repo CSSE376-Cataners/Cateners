@@ -9,6 +9,7 @@ namespace Cataners
 {
     public class CommunicationClient
     {
+        private int attemptCount;
         private static CommunicationClient instance;
 
         public static CommunicationClient Instance {
@@ -23,11 +24,13 @@ namespace Cataners
         {
             this.clientSocket = new System.Net.Sockets.TcpClient();
             CommunicationClient.instance = this;
+            attemptCount = 0;
+            clientSocket.ReceiveTimeout = 3;
         }
 
         public void Start()
         {
-            clientSocket.Connect(Properties.Settings.Default.ServerAddr, Variables.serverPort);
+            clientSocket.ConnectAsync(Properties.Settings.Default.ServerAddr, Variables.serverPort);
         }
 
         public void sendToServer(String msg)
@@ -37,11 +40,13 @@ namespace Cataners
                 byte[] bytes = new byte[msg.Length * sizeof(char)];
                 System.Buffer.BlockCopy(msg.ToCharArray(), 0, bytes, 0, bytes.Length);
                 clientSocket.GetStream().Write(bytes, 0, bytes.Length);
+                this.attemptCount = 0;
             }
-            else
+            else if (this.attemptCount < 3)
             {
-                instance.Start();
+                clientSocket.Connect(Properties.Settings.Default.ServerAddr, Variables.serverPort);
                 instance.sendToServer(msg);
+                this.attemptCount++;
             }
         }
     }
