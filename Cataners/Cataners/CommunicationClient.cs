@@ -50,7 +50,7 @@ namespace Cataners
             }
         }
 
-        public async Task awaitingMessage(Message.TYPE type)
+        public async Task awaitingMessage(Translation.TYPE type)
         {
             //TODO: come back and finish type = null
 

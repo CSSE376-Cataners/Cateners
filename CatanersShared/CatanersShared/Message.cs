@@ -9,14 +9,11 @@ namespace CatanersShared
 {
     public class Message
     {
-		[JsonIgnore]
-        public enum TYPE { Login, Register, Chat, Game };
-
-        TYPE type;
+        Translation.TYPE type;
 
         String message;
 
-        public Message(String obj, TYPE type)
+        public Message(String obj, Translation.TYPE type)
         {
             this.message = obj;
             this.type = type;
