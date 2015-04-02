@@ -53,6 +53,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommunicationClient.cs" />
+    <Compile Include="LoggingInForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoggingInForm.Designer.cs">
+      <DependentUpon>LoggingInForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SignUpForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,6 +82,9 @@
     </Compile>
     <Compile Include="Start.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="LoggingInForm.resx">
+      <DependentUpon>LoggingInForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SignUpForm.resx">
       <DependentUpon>SignUpForm.cs</DependentUpon>
     </EmbeddedResource>

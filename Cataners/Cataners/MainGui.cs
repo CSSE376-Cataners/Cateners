@@ -48,8 +48,14 @@ namespace Cataners
 
             if (userNameGood && passwordGood)
             {
+                bool waiting = true;
                 CommunicationClient.Instance.sendToServer(new Login(username, password).toJson());
                 Console.WriteLine("sending " + username + " and " + password + " to the server");
+                LoggingInForm logging = new LoggingInForm();
+                //while (waiting)
+                //{
+                    //logging.ShowDialog();
+                //}
             }
 
         }

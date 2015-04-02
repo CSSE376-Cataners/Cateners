@@ -82,7 +82,7 @@
             // mainPictureBox
             // 
             this.mainPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("mainPictureBox.Image")));
-            this.mainPictureBox.Location = new System.Drawing.Point(281, 13);
+            this.mainPictureBox.Location = new System.Drawing.Point(356, 13);
             this.mainPictureBox.Margin = new System.Windows.Forms.Padding(4);
             this.mainPictureBox.Name = "mainPictureBox";
             this.mainPictureBox.Size = new System.Drawing.Size(502, 193);
@@ -92,7 +92,7 @@
             // usernameTextbox
             // 
             this.usernameTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.usernameTextbox.Location = new System.Drawing.Point(284, 327);
+            this.usernameTextbox.Location = new System.Drawing.Point(359, 326);
             this.usernameTextbox.Name = "usernameTextbox";
             this.usernameTextbox.Size = new System.Drawing.Size(499, 27);
             this.usernameTextbox.TabIndex = 4;
@@ -100,7 +100,7 @@
             // passwordTextbox
             // 
             this.passwordTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.passwordTextbox.Location = new System.Drawing.Point(284, 421);
+            this.passwordTextbox.Location = new System.Drawing.Point(359, 420);
             this.passwordTextbox.Name = "passwordTextbox";
             this.passwordTextbox.Size = new System.Drawing.Size(499, 27);
             this.passwordTextbox.TabIndex = 5;
@@ -110,7 +110,7 @@
             // 
             this.usernameLabel.AutoSize = true;
             this.usernameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.usernameLabel.Location = new System.Drawing.Point(358, 299);
+            this.usernameLabel.Location = new System.Drawing.Point(433, 298);
             this.usernameLabel.Name = "usernameLabel";
             this.usernameLabel.Size = new System.Drawing.Size(108, 25);
             this.usernameLabel.TabIndex = 6;
@@ -120,7 +120,7 @@
             // 
             this.passwordLabel.AutoSize = true;
             this.passwordLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.passwordLabel.Location = new System.Drawing.Point(358, 393);
+            this.passwordLabel.Location = new System.Drawing.Point(433, 392);
             this.passwordLabel.Name = "passwordLabel";
             this.passwordLabel.Size = new System.Drawing.Size(104, 25);
             this.passwordLabel.TabIndex = 7;
@@ -129,7 +129,7 @@
             // loginButton
             // 
             this.loginButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.loginButton.Location = new System.Drawing.Point(311, 466);
+            this.loginButton.Location = new System.Drawing.Point(386, 465);
             this.loginButton.Name = "loginButton";
             this.loginButton.Size = new System.Drawing.Size(204, 64);
             this.loginButton.TabIndex = 8;
@@ -140,7 +140,7 @@
             // signUpButton
             // 
             this.signUpButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.signUpButton.Location = new System.Drawing.Point(558, 466);
+            this.signUpButton.Location = new System.Drawing.Point(633, 465);
             this.signUpButton.Name = "signUpButton";
             this.signUpButton.Size = new System.Drawing.Size(204, 64);
             this.signUpButton.TabIndex = 9;
@@ -166,6 +166,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainGui";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainGui";
             this.Load += new System.EventHandler(this.MainGui_Load);
             ((System.ComponentModel.ISupportInitialize)(this.mainPictureBox)).EndInit();
