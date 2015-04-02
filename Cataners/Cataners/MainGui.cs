@@ -18,6 +18,7 @@ namespace Cataners
             InitializeComponent();
             CommunicationClient client = new  CommunicationClient();
             client.Start();
+            client.queueMessagesAsync();
             Console.WriteLine("connected to the server");
         }
 
