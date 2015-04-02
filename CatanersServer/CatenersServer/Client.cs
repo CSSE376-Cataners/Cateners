@@ -25,13 +25,13 @@ namespace CatenersServer
 
         public async Task queueMessagesAsync()
         {
-            while(Enabled) {
+            while(Enabled && socket.Connected) {
                 NetworkStream serverStream = socket.GetStream();
                 int buffSize = 0;
                 byte[] inStream = new byte[10025];
                 buffSize = socket.ReceiveBufferSize;
                 await serverStream.ReadAsync(inStream, 0, buffSize);
-                string returndata = System.Text.Encoding.ASCII.GetString(inStream);
+                string returndata = System.Text.Encoding.Unicode.GetString(inStream);
                 String readData = "" + returndata;
                 System.Console.WriteLine(readData);
                 queue.Enqueue(readData);
