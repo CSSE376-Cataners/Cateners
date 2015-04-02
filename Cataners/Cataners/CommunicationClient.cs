@@ -7,6 +7,7 @@ using CatanersShared;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Net.Sockets;
+using System.IO;
 
 
 namespace Cataners
@@ -49,11 +50,8 @@ namespace Cataners
         {
             if (instance.clientSocket.Connected)
             {
-                byte[] bytes = Encoding.Unicode.GetBytes(msg);
-                byte[] end = new byte[bytes.Length + Translation.END_OF_MESSAGE.Length];
-                Array.Copy(bytes, end, bytes.Length);
-                Array.Copy(Translation.END_OF_MESSAGE, 0, end, bytes.Length, Translation.END_OF_MESSAGE.Length);
-                clientSocket.GetStream().Write(end, 0, end.Length);
+                StreamWriter writer = new StreamWriter(clientSocket.GetStream(),Encoding.UTF32);
+                writer.WriteLine(msg);
                 this.attemptCount = 0;
             }
             else if (this.attemptCount < 3)
