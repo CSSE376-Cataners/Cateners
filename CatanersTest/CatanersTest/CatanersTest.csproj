@@ -54,6 +54,7 @@
     <Compile Include="TestCommunicationClient.cs" />
     <Compile Include="TestCommunicationServer.cs" />
     <Compile Include="TestMain.cs" />
+    <Compile Include="TestMessage.cs" />
     <Compile Include="TestTranslation.cs" />
   </ItemGroup>
   <ItemGroup>

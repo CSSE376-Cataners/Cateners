@@ -9,9 +9,9 @@ namespace CatanersShared
 {
     public class Message
     {
-        Translation.TYPE type;
+        public Translation.TYPE type;
 
-        String message;
+        public String message;
 
         public Message(String obj, Translation.TYPE type)
         {
@@ -24,5 +24,30 @@ namespace CatanersShared
             return Newtonsoft.Json.JsonConvert.SerializeObject(this);
         }
 
+
+        public static Message fromJson(string json)
+        {
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<Message>(json);
+        }
+
+
+        // override object.Equals
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            Message other = (Message)obj;
+            
+            return other.message.Equals(this.message) && other.type == this.type;
+        }
+
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }
