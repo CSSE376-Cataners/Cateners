@@ -17,6 +17,7 @@ namespace Cataners
         {
             InitializeComponent();
             new CommunicationClient().Start();
+            Console.WriteLine("connected to the server");
         }
 
         private void mainQuitButton_Click(object sender, EventArgs e)
@@ -48,6 +49,7 @@ namespace Cataners
             if (userNameGood && passwordGood)
             {
                 CommunicationClient.Instance.sendToServer(new Login(username, password).toJson());
+                Console.WriteLine("sending " + username + " and " + password + " to the server");
             }
 
         }
