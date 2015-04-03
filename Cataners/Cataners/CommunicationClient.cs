@@ -70,6 +70,7 @@ namespace Cataners
         public async void queueMessagesAsync()
         {
             StreamReader reader = new StreamReader(clientSocket.GetStream(), Encoding.Unicode);
+            Console.WriteLine("Started Listening");
             while (Enabled && clientSocket.Connected)
             {
                 string line;
@@ -85,6 +86,7 @@ namespace Cataners
                     MessageBox.Show("You've been disconnected from the server", "Error - I/O", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+            Console.WriteLine("bitches be crazy");
             Enabled = false;
         }
 
