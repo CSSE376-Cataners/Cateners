@@ -12,8 +12,10 @@ namespace CatenersServer
         [MTAThread]
         static void Main(string[] args)
         {
+            new Database();
             CommunicationServer server = new CommunicationServer();
             server.Start().Wait();
+            
         }
 
         

@@ -15,14 +15,14 @@ namespace CatenersServer
     {
         public TcpClient socket;
 
-        public ConcurrentQueue<String> queue;
+        public CCQueue queue;
         public bool Enabled;
 
 
         public Client(TcpClient tcp)
         {
             this.socket = tcp;
-            queue = new ConcurrentQueue<string>();
+            queue = new CCQueue();
             tempQueue = new ArrayList();
             writer = new StreamWriter(socket.GetStream(), Encoding.Unicode);
             Enabled = true;
@@ -38,27 +38,15 @@ namespace CatenersServer
                 string line;
                 Task<String> task = reader.ReadLineAsync();
                 line = await  task; 
-                queue.Enqueue(line);
-                sendToClient(line);
+                queue.push(line);
+
                 Console.WriteLine("Message:" + line);
+
+                // TODO Use process Handler;
+                processesMessage(line);
             }
 
             Console.WriteLine("Clint Closed");
-        }
-
-        private void moveFromTempToQueue()
-        {
-            byte[] temp = (byte[]) tempQueue.ToArray(typeof(byte));
-            string returndata = System.Text.Encoding.Unicode.GetString(temp);
-            returndata = returndata.Substring(0, returndata.Length - 4).Trim();
-
-            queue.Enqueue(returndata);
-            Console.WriteLine("Message: " + returndata);
-            tempQueue.Clear();
-
-            // TODO Remove stuff bellow just temp;
-            Console.WriteLine("Sending Client Message Back");
-            sendToClient(returndata);
         }
 
         StreamWriter writer;
@@ -67,6 +55,23 @@ namespace CatenersServer
         {
             writer.WriteLine(msg);
             writer.Flush();
+        }
+
+        public void processesMessage(String s)
+        {
+            Message msg = Message.fromJson(s);
+
+            switch(msg.type) {
+                case Translation.TYPE.Login:
+                    Login login = Login.fromJson(msg.message);
+                    // TODO verification of login symbols;
+                    int id = Database.INSTANCE.getUserID(login);
+                    sendToClient(id.ToString());
+                break;
+                case Translation.TYPE.Register:
+
+                break;
+            }
         }
 
     }
