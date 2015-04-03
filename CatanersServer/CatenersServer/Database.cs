@@ -12,11 +12,13 @@ namespace CatenersServer
 
         public static Database INSTANCE;
         catanersDataSetTableAdapters.checkUserDataTableAdapter cta;
+        catanersDataSetTableAdapters.registerUserDataTableAdapter rta;
 
         public Database()
         {
             INSTANCE = this;
             cta = new catanersDataSetTableAdapters.checkUserDataTableAdapter();
+            rta = new catanersDataSetTableAdapters.registerUserDataTableAdapter();
         }
 
         public int getUserID(Login login)
@@ -31,7 +33,16 @@ namespace CatenersServer
 
         public int registerUser(Login login)
         {
+            catanersDataSet.registerUserDataTableDataTable table = rta.GetData(login.username, login.password);
 
+            String result = table.Rows[0][0].ToString();
+            int toReturn;
+
+            if (Int32.TryParse(result, out toReturn))
+            {
+                return toReturn;
+            }
+            return -1;
         }
     }
 }

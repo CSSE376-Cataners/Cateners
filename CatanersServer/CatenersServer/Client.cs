@@ -37,16 +37,24 @@ namespace CatenersServer
             while(Enabled && socket.Connected) {
                 string line;
                 Task<String> task = reader.ReadLineAsync();
-                line = await  task; 
-                queue.push(line);
+                try
+                {
+                    line = await task;
+                    queue.push(line);
 
-                Console.WriteLine("Message:" + line);
+                    Console.WriteLine("Message:" + line);
 
-                // TODO Use process Handler;
-                processesMessage(line);
+                    // TODO Use process Handler;
+                    processesMessage(line);
+
+                }
+                catch (System.IO.IOException)
+                {
+                    break;
+                }
             }
 
-            Console.WriteLine("Clint Closed");
+            Console.WriteLine("Client Closed");
         }
 
         StreamWriter writer;
@@ -69,7 +77,10 @@ namespace CatenersServer
                     sendToClient(id.ToString());
                 break;
                 case Translation.TYPE.Register:
-
+                    login = Login.fromJson(msg.message);
+                    // TODO verification of login symbols;
+                    id = Database.INSTANCE.registerUser(login);
+                    sendToClient(id.ToString());
                 break;
             }
         }
