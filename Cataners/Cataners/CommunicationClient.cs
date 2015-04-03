@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Net.Sockets;
 using System.IO;
+using System.Windows.Forms;
 
 
 namespace Cataners
@@ -73,9 +74,16 @@ namespace Cataners
             {
                 string line;
                 Task<String> task = reader.ReadLineAsync();
-                line = await  task; 
-                queue.Enqueue(line);
-                Console.WriteLine("Message:" + line);
+                try
+                {
+                    line = await task;
+                    queue.Enqueue(line);
+                    Console.WriteLine("Message:" + line);
+                }
+                catch(IOException)
+                {
+                    MessageBox.Show("You've been disconnected from the server", "Error - I/O", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             Enabled = false;
         }
