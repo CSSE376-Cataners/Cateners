@@ -36,15 +36,21 @@ namespace Cataners
             CommunicationClient.instance = this;
             queue = new ConcurrentQueue<string>();
             tempQueue = new ArrayList();
-            attemptCount = 0;
+            this.attemptCount = 0;
             clientSocket.ReceiveTimeout = 3;
             
         }
 
         public async void Start()
         {
-            
-            await clientSocket.ConnectAsync(Properties.Settings.Default.ServerAddr, Variables.serverPort);
+            try
+            {
+                await clientSocket.ConnectAsync(Properties.Settings.Default.ServerAddr, Variables.serverPort);
+            }
+            catch
+            {
+                Console.WriteLine("Ended");
+            }
             this.Enabled = true;
             this.queueMessagesAsync();
             writer = new StreamWriter(clientSocket.GetStream(), Encoding.Unicode);
@@ -53,7 +59,7 @@ namespace Cataners
         StreamWriter writer;
         public void sendToServer(String msg)
         {
-            if (instance.clientSocket.Connected)
+            if (instance.clientSocket.Connected && this.attemptCount < 3)
             {
                 writer.WriteLine(msg);
                 writer.Flush();
@@ -61,6 +67,7 @@ namespace Cataners
             }
             else if (this.attemptCount < 3)
             {
+                Console.WriteLine("Here");
                 Start();
                 instance.sendToServer(msg);
                 this.attemptCount++;
