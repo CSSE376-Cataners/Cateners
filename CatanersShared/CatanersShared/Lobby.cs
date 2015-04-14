@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,13 +9,19 @@ namespace CatanersShared
 {
     public class Lobby
     {
-        private string GameName;
-        private int MaxTimePerTurn;
+        public string GameName;
+        public int MaxTimePerTurn;
+        public Player Owner;
+        public ArrayList players;
 
-        public Lobby(string GameName, int MaxTimePerTurn)
+        public Lobby(string GameName, int MaxTimePerTurn, Player Owner)
         {
             this.GameName = GameName;
             this.MaxTimePerTurn = MaxTimePerTurn;
+
+            this.players = new ArrayList();
+            this.Owner = Owner;
+            players.Add(Owner);
         }
 
         public string getGameName()
