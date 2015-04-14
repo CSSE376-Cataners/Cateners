@@ -12,19 +12,30 @@ namespace CatanersShared
         private string gameName;
         private int maxTimePerTurn;
         private Player owner;
+        private int playerCount;
 
-        public ArrayList Players;
+        public ArrayList players;
+
+        public ArrayList Players
+        {
+            get
+            {
+                return players;
+            }
+        }
 
         public string GameName {
             get {
                 return gameName;
             }
         }
+
         public int MaxTimePerTurn {
             get {
                 return maxTimePerTurn;
             }
         }
+
         public Player Owner
         {
             get
@@ -38,11 +49,16 @@ namespace CatanersShared
         {
             this.gameName = GameName;
             this.maxTimePerTurn = MaxTimePerTurn;
-
-            this.Players = new ArrayList();
+            this.playerCount = 0;
+            this.players = new ArrayList();
             this.owner = Owner;
             Players.Add(Owner);
         }
 
+        public void addPlayer(Player newPlayer)
+        {
+            this.players.Add(newPlayer);
+            this.playerCount = this.playerCount + 1;
+        }
     }
 }
