@@ -10,11 +10,7 @@ namespace CatanersShared
 {
     public class Translation
     {
-        public static byte[] END_OF_MESSAGE = new byte[] {120,121,122,123,124,125,126,127};
-
-        public enum TYPE { Login, Register, Chat, Game };
-
-        // TODO
+        public enum TYPE { Login, Register, Lobby, Chat, Game };
 
         public static String translateLogin(String username, String password)
         {

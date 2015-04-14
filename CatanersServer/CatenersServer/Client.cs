@@ -8,6 +8,7 @@ using System.Collections.Concurrent;
 using CatanersShared;
 using System.Collections;
 using System.IO;
+using System.Threading;
 
 namespace CatenersServer
 {
@@ -45,8 +46,8 @@ namespace CatenersServer
 
                     Console.WriteLine("Message:" + line);
 
-                    // TODO Use process Handler;
-                    processesMessage(line);
+                    Thread thread = new Thread(() => processesMessage(line));
+                    thread.Start();
 
                 }
                 catch (System.IO.IOException)
