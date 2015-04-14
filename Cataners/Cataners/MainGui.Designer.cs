@@ -164,6 +164,7 @@
             this.Controls.Add(this.mainJoinGameButton);
             this.Controls.Add(this.mainCreateGameButton);
             this.Controls.Add(this.mainPictureBox);
+            this.ForeColor = System.Drawing.Color.Black;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainGui";
