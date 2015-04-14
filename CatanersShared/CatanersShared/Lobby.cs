@@ -9,29 +9,40 @@ namespace CatanersShared
 {
     public class Lobby
     {
-        public string GameName;
-        public int MaxTimePerTurn;
-        public Player Owner;
-        public ArrayList players;
+        private string gameName;
+        private int maxTimePerTurn;
+        private Player owner;
+
+        public ArrayList Players;
+
+        public string GameName {
+            get {
+                return gameName;
+            }
+        }
+        public int MaxTimePerTurn {
+            get {
+                return maxTimePerTurn;
+            }
+        }
+        public Player Owner
+        {
+            get
+            {
+                return owner;
+            }
+        }
+        
 
         public Lobby(string GameName, int MaxTimePerTurn, Player Owner)
         {
-            this.GameName = GameName;
-            this.MaxTimePerTurn = MaxTimePerTurn;
+            this.gameName = GameName;
+            this.maxTimePerTurn = MaxTimePerTurn;
 
-            this.players = new ArrayList();
-            this.Owner = Owner;
-            players.Add(Owner);
+            this.Players = new ArrayList();
+            this.owner = Owner;
+            Players.Add(Owner);
         }
 
-        public string getGameName()
-        {
-            return this.GameName;
-        }
-
-        public int getTimePer()
-        {
-            return this.MaxTimePerTurn;
-        }
     }
 }
