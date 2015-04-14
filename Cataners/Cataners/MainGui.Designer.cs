@@ -45,8 +45,8 @@
             // mainCreateGameButton
             // 
             this.mainCreateGameButton.Enabled = false;
-            this.mainCreateGameButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mainCreateGameButton.Location = new System.Drawing.Point(17, 565);
+            this.mainCreateGameButton.Font = new System.Drawing.Font("Britannic Bold", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mainCreateGameButton.Location = new System.Drawing.Point(24, 567);
             this.mainCreateGameButton.Margin = new System.Windows.Forms.Padding(4);
             this.mainCreateGameButton.Name = "mainCreateGameButton";
             this.mainCreateGameButton.Size = new System.Drawing.Size(236, 112);
@@ -57,8 +57,8 @@
             // mainJoinGameButton
             // 
             this.mainJoinGameButton.Enabled = false;
-            this.mainJoinGameButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mainJoinGameButton.Location = new System.Drawing.Point(261, 565);
+            this.mainJoinGameButton.Font = new System.Drawing.Font("Britannic Bold", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mainJoinGameButton.Location = new System.Drawing.Point(281, 565);
             this.mainJoinGameButton.Margin = new System.Windows.Forms.Padding(4);
             this.mainJoinGameButton.Name = "mainJoinGameButton";
             this.mainJoinGameButton.Size = new System.Drawing.Size(236, 112);
@@ -69,7 +69,7 @@
             // 
             // mainQuitButton
             // 
-            this.mainQuitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mainQuitButton.Font = new System.Drawing.Font("Britannic Bold", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mainQuitButton.Location = new System.Drawing.Point(1060, 565);
             this.mainQuitButton.Margin = new System.Windows.Forms.Padding(4);
             this.mainQuitButton.Name = "mainQuitButton";
@@ -109,26 +109,26 @@
             // usernameLabel
             // 
             this.usernameLabel.AutoSize = true;
-            this.usernameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.usernameLabel.Font = new System.Drawing.Font("Britannic Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.usernameLabel.Location = new System.Drawing.Point(433, 298);
             this.usernameLabel.Name = "usernameLabel";
-            this.usernameLabel.Size = new System.Drawing.Size(108, 25);
+            this.usernameLabel.Size = new System.Drawing.Size(126, 27);
             this.usernameLabel.TabIndex = 6;
             this.usernameLabel.Text = "Username:";
             // 
             // passwordLabel
             // 
             this.passwordLabel.AutoSize = true;
-            this.passwordLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.passwordLabel.Font = new System.Drawing.Font("Britannic Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.passwordLabel.Location = new System.Drawing.Point(433, 392);
             this.passwordLabel.Name = "passwordLabel";
-            this.passwordLabel.Size = new System.Drawing.Size(104, 25);
+            this.passwordLabel.Size = new System.Drawing.Size(120, 27);
             this.passwordLabel.TabIndex = 7;
             this.passwordLabel.Text = "Password:";
             // 
             // loginButton
             // 
-            this.loginButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.loginButton.Font = new System.Drawing.Font("Britannic Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.loginButton.Location = new System.Drawing.Point(386, 465);
             this.loginButton.Name = "loginButton";
             this.loginButton.Size = new System.Drawing.Size(204, 64);
@@ -139,7 +139,7 @@
             // 
             // signUpButton
             // 
-            this.signUpButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.signUpButton.Font = new System.Drawing.Font("Britannic Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.signUpButton.Location = new System.Drawing.Point(633, 465);
             this.signUpButton.Name = "signUpButton";
             this.signUpButton.Size = new System.Drawing.Size(204, 64);
@@ -152,6 +152,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1312, 692);
             this.Controls.Add(this.signUpButton);
             this.Controls.Add(this.loginButton);

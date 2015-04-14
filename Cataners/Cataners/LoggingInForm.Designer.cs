@@ -37,30 +37,30 @@
             // loggingInLabel1
             // 
             this.loggingInLabel1.AutoSize = true;
-            this.loggingInLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.loggingInLabel1.Font = new System.Drawing.Font("Britannic Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.loggingInLabel1.Location = new System.Drawing.Point(114, 47);
             this.loggingInLabel1.Name = "loggingInLabel1";
-            this.loggingInLabel1.Size = new System.Drawing.Size(133, 25);
+            this.loggingInLabel1.Size = new System.Drawing.Size(133, 22);
             this.loggingInLabel1.TabIndex = 0;
             this.loggingInLabel1.Text = "Logging in =D";
             // 
             // loggingInLabel2
             // 
             this.loggingInLabel2.AutoSize = true;
-            this.loggingInLabel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.loggingInLabel2.Font = new System.Drawing.Font("Britannic Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.loggingInLabel2.Location = new System.Drawing.Point(114, 47);
             this.loggingInLabel2.Name = "loggingInLabel2";
-            this.loggingInLabel2.Size = new System.Drawing.Size(120, 25);
+            this.loggingInLabel2.Size = new System.Drawing.Size(123, 22);
             this.loggingInLabel2.TabIndex = 1;
             this.loggingInLabel2.Text = "Logging in :)";
             // 
             // loggingInLabel3
             // 
             this.loggingInLabel3.AutoSize = true;
-            this.loggingInLabel3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.loggingInLabel3.Font = new System.Drawing.Font("Britannic Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.loggingInLabel3.Location = new System.Drawing.Point(114, 47);
             this.loggingInLabel3.Name = "loggingInLabel3";
-            this.loggingInLabel3.Size = new System.Drawing.Size(127, 25);
+            this.loggingInLabel3.Size = new System.Drawing.Size(129, 22);
             this.loggingInLabel3.TabIndex = 2;
             this.loggingInLabel3.Text = "Logging in :D";
             this.loggingInLabel3.Click += new System.EventHandler(this.loggingInLabel3_Click);
