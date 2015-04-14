@@ -58,6 +58,7 @@
     </Compile>
     <Compile Include="Client.cs" />
     <Compile Include="CommunicationServer.cs" />
+    <Compile Include="Data.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
