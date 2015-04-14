@@ -16,6 +16,7 @@ namespace Cataners
     public class CommunicationClient
     {
         private ArrayList tempQueue;
+        private StreamReader reader;
         private int attemptCount;
         private Boolean Enabled;
         public ConcurrentQueue<String> queue;
@@ -46,14 +47,15 @@ namespace Cataners
             try
             {
                 await clientSocket.ConnectAsync(Properties.Settings.Default.ServerAddr, Variables.serverPort);
+                this.Enabled = true;
+                this.queueMessagesAsync();
+                writer = new StreamWriter(clientSocket.GetStream(), Encoding.Unicode);
             }
             catch
             {
-                Console.WriteLine("Ended");
+                MessageBox.Show("Our servers seem to be having some trouble - we apologize for the inconvenience.", "Error - Server Not Available", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
             }
-            this.Enabled = true;
-            this.queueMessagesAsync();
-            writer = new StreamWriter(clientSocket.GetStream(), Encoding.Unicode);
         }
 
         StreamWriter writer;
@@ -76,10 +78,10 @@ namespace Cataners
 
         public async void queueMessagesAsync()
         {
-            StreamReader reader = new StreamReader(clientSocket.GetStream(), Encoding.Unicode);
             Console.WriteLine("Started Listening");
             while (Enabled && clientSocket.Connected)
             {
+                this.reader = new StreamReader(clientSocket.GetStream(), Encoding.Unicode);
                 string line;
                 Task<String> task = reader.ReadLineAsync();
                 try
@@ -93,7 +95,6 @@ namespace Cataners
                     MessageBox.Show("You've been disconnected from the server", "Error - I/O", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            Console.WriteLine("bitches be crazy");
             Enabled = false;
         }
 
