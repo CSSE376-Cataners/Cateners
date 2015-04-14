@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net.Sockets;
 using CatanersShared;
 using System.Net;
+using System.Threading;
 
 namespace CatenersServer
 {
@@ -24,18 +25,25 @@ namespace CatenersServer
         public async Task Start()
         {
             this.listener.Start(maxUsers);
-            
-            // TODO: 
-            while (true)
-            {
-                TcpClient cl = await listener.AcceptTcpClientAsync().ConfigureAwait(false);
-                Client client = new Client(cl);
-                System.Console.WriteLine("Client Connected Start from: " + ((IPEndPoint)cl.Client.RemoteEndPoint).Address.ToString());
-                client.queueMessagesAsync();
-                System.Console.WriteLine("Client Connected Start Async from: " + ((IPEndPoint)cl.Client.RemoteEndPoint).Address.ToString());
-            }
+            Console.WriteLine("Server Started.");
 
-            //this.listener.Stop();
+            try
+            {
+                while (true)
+                {
+                    TcpClient cl = await listener.AcceptTcpClientAsync().ConfigureAwait(false);
+                    Client client = new Client(cl);
+                    System.Console.WriteLine("Client Connected Start from: " + ((IPEndPoint)cl.Client.RemoteEndPoint).Address.ToString());
+                    Thread clientThread = new Thread(client.queueMessagesAsync);
+                    clientThread.Start();
+                    System.Console.WriteLine("Client Connected Start Async from: " + ((IPEndPoint)cl.Client.RemoteEndPoint).Address.ToString());
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write("Server Ended With Exception: " + e.Message);
+            }
+            this.listener.Stop();
         }
         
     }

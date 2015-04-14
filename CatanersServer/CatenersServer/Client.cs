@@ -18,18 +18,19 @@ namespace CatenersServer
         public CCQueue queue;
         public bool Enabled;
 
+        public int userID;
+        public String userName;
+
 
         public Client(TcpClient tcp)
         {
             this.socket = tcp;
             queue = new CCQueue();
-            tempQueue = new ArrayList();
             writer = new StreamWriter(socket.GetStream(), Encoding.Unicode);
             Enabled = true;
+            userID = -1;
+            userName = null;
         }
-
-
-        private ArrayList tempQueue;
 
         public async void queueMessagesAsync()
         {
@@ -73,13 +74,16 @@ namespace CatenersServer
                 case Translation.TYPE.Login:
                     Login login = Login.fromJson(msg.message);
                     // TODO verification of login symbols;
-                    int id = Database.INSTANCE.getUserID(login);
-                    sendToClient(id.ToString());
+                    catanersDataSet.checkUserDataTableRow user = Database.INSTANCE.getUser(login);
+                    sendToClient(user.UID.ToString());
+                    this.userID = user.UID;
+                    this.userName = user.Username;
                 break;
+
                 case Translation.TYPE.Register:
                     login = Login.fromJson(msg.message);
                     // TODO verification of login symbols;
-                    id = Database.INSTANCE.registerUser(login);
+                    int id = Database.INSTANCE.registerUser(login);
                     sendToClient(id.ToString());
                 break;
             }

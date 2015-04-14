@@ -584,6 +584,8 @@ namespace CatenersServer {
             
             private global::System.Data.DataColumn columnUID;
             
+            private global::System.Data.DataColumn columnUsername;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public checkUserDataTableDataTable() {
@@ -627,6 +629,14 @@ namespace CatenersServer {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn UsernameColumn {
+                get {
+                    return this.columnUsername;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -662,10 +672,11 @@ namespace CatenersServer {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public checkUserDataTableRow AddcheckUserDataTableRow(int UID) {
+            public checkUserDataTableRow AddcheckUserDataTableRow(int UID, string Username) {
                 checkUserDataTableRow rowcheckUserDataTableRow = ((checkUserDataTableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        UID};
+                        UID,
+                        Username};
                 rowcheckUserDataTableRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowcheckUserDataTableRow);
                 return rowcheckUserDataTableRow;
@@ -689,6 +700,7 @@ namespace CatenersServer {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
                 this.columnUID = base.Columns["UID"];
+                this.columnUsername = base.Columns["Username"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -696,6 +708,8 @@ namespace CatenersServer {
             private void InitClass() {
                 this.columnUID = new global::System.Data.DataColumn("UID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnUID);
+                this.columnUsername = new global::System.Data.DataColumn("Username", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUsername);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1102,6 +1116,22 @@ namespace CatenersServer {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Username {
+                get {
+                    try {
+                        return ((string)(this[this.tablecheckUserDataTable.UsernameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Username\' in table \'checkUserDataTable\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablecheckUserDataTable.UsernameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsUIDNull() {
                 return this.IsNull(this.tablecheckUserDataTable.UIDColumn);
             }
@@ -1110,6 +1140,18 @@ namespace CatenersServer {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetUIDNull() {
                 this[this.tablecheckUserDataTable.UIDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsUsernameNull() {
+                return this.IsNull(this.tablecheckUserDataTable.UsernameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetUsernameNull() {
+                this[this.tablecheckUserDataTable.UsernameColumn] = global::System.Convert.DBNull;
             }
         }
         
