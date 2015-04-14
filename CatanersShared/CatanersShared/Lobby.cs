@@ -19,7 +19,8 @@ namespace CatanersShared
 
         public string getGameName()
         {
-            return "";
+            return this.GameName;
         }
+
     }
 }
