@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainGui));
-            this.mainCreateGameButton = new System.Windows.Forms.Button();
-            this.mainJoinGameButton = new System.Windows.Forms.Button();
+            this.createGameButton = new System.Windows.Forms.Button();
+            this.joinGameButton = new System.Windows.Forms.Button();
             this.mainQuitButton = new System.Windows.Forms.Button();
             this.mainPictureBox = new System.Windows.Forms.PictureBox();
             this.usernameTextbox = new System.Windows.Forms.TextBox();
@@ -42,30 +42,31 @@
             ((System.ComponentModel.ISupportInitialize)(this.mainPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
-            // mainCreateGameButton
+            // createGameButton
             // 
-            this.mainCreateGameButton.Enabled = false;
-            this.mainCreateGameButton.Font = new System.Drawing.Font("Britannic Bold", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mainCreateGameButton.Location = new System.Drawing.Point(24, 567);
-            this.mainCreateGameButton.Margin = new System.Windows.Forms.Padding(4);
-            this.mainCreateGameButton.Name = "mainCreateGameButton";
-            this.mainCreateGameButton.Size = new System.Drawing.Size(236, 112);
-            this.mainCreateGameButton.TabIndex = 1;
-            this.mainCreateGameButton.Text = "Create Game";
-            this.mainCreateGameButton.UseVisualStyleBackColor = true;
+            this.createGameButton.Font = new System.Drawing.Font("Britannic Bold", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.createGameButton.ForeColor = System.Drawing.Color.Black;
+            this.createGameButton.Location = new System.Drawing.Point(24, 567);
+            this.createGameButton.Margin = new System.Windows.Forms.Padding(4);
+            this.createGameButton.Name = "createGameButton";
+            this.createGameButton.Size = new System.Drawing.Size(236, 112);
+            this.createGameButton.TabIndex = 1;
+            this.createGameButton.Text = "Create Game";
+            this.createGameButton.UseVisualStyleBackColor = true;
+            this.createGameButton.Click += new System.EventHandler(this.createGameButton_Click);
             // 
-            // mainJoinGameButton
+            // joinGameButton
             // 
-            this.mainJoinGameButton.Enabled = false;
-            this.mainJoinGameButton.Font = new System.Drawing.Font("Britannic Bold", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mainJoinGameButton.Location = new System.Drawing.Point(281, 565);
-            this.mainJoinGameButton.Margin = new System.Windows.Forms.Padding(4);
-            this.mainJoinGameButton.Name = "mainJoinGameButton";
-            this.mainJoinGameButton.Size = new System.Drawing.Size(236, 112);
-            this.mainJoinGameButton.TabIndex = 2;
-            this.mainJoinGameButton.Text = "Join Game";
-            this.mainJoinGameButton.UseVisualStyleBackColor = true;
-            this.mainJoinGameButton.Click += new System.EventHandler(this.mainJoinGameButton_Click);
+            this.joinGameButton.Enabled = false;
+            this.joinGameButton.Font = new System.Drawing.Font("Britannic Bold", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.joinGameButton.Location = new System.Drawing.Point(281, 565);
+            this.joinGameButton.Margin = new System.Windows.Forms.Padding(4);
+            this.joinGameButton.Name = "joinGameButton";
+            this.joinGameButton.Size = new System.Drawing.Size(236, 112);
+            this.joinGameButton.TabIndex = 2;
+            this.joinGameButton.Text = "Join Game";
+            this.joinGameButton.UseVisualStyleBackColor = true;
+            this.joinGameButton.Click += new System.EventHandler(this.joinGameButton_Click);
             // 
             // mainQuitButton
             // 
@@ -152,7 +153,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackColor = System.Drawing.Color.Chocolate;
             this.ClientSize = new System.Drawing.Size(1312, 692);
             this.Controls.Add(this.signUpButton);
             this.Controls.Add(this.loginButton);
@@ -161,8 +162,8 @@
             this.Controls.Add(this.passwordTextbox);
             this.Controls.Add(this.usernameTextbox);
             this.Controls.Add(this.mainQuitButton);
-            this.Controls.Add(this.mainJoinGameButton);
-            this.Controls.Add(this.mainCreateGameButton);
+            this.Controls.Add(this.joinGameButton);
+            this.Controls.Add(this.createGameButton);
             this.Controls.Add(this.mainPictureBox);
             this.ForeColor = System.Drawing.Color.Black;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -180,8 +181,8 @@
         #endregion
 
         private System.Windows.Forms.PictureBox mainPictureBox;
-        private System.Windows.Forms.Button mainCreateGameButton;
-        private System.Windows.Forms.Button mainJoinGameButton;
+        private System.Windows.Forms.Button createGameButton;
+        private System.Windows.Forms.Button joinGameButton;
         private System.Windows.Forms.Button mainQuitButton;
         private System.Windows.Forms.TextBox usernameTextbox;
         private System.Windows.Forms.TextBox passwordTextbox;

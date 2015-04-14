@@ -53,17 +53,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommunicationClient.cs" />
-    <Compile Include="CreateGame.cs">
+    <Compile Include="CreateGameForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CreateGame.Designer.cs">
-      <DependentUpon>CreateGame.cs</DependentUpon>
+    <Compile Include="CreateGameForm.Designer.cs">
+      <DependentUpon>CreateGameForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="joinGame.cs">
+    <Compile Include="joinGameForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="joinGame.Designer.cs">
-      <DependentUpon>joinGame.cs</DependentUpon>
+    <Compile Include="joinGameForm.Designer.cs">
+      <DependentUpon>joinGameForm.cs</DependentUpon>
     </Compile>
     <Compile Include="LoggingInForm.cs">
       <SubType>Form</SubType>
@@ -94,11 +94,11 @@
     </Compile>
     <Compile Include="Start.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="CreateGame.resx">
-      <DependentUpon>CreateGame.cs</DependentUpon>
+    <EmbeddedResource Include="CreateGameForm.resx">
+      <DependentUpon>CreateGameForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="joinGame.resx">
-      <DependentUpon>joinGame.cs</DependentUpon>
+    <EmbeddedResource Include="joinGameForm.resx">
+      <DependentUpon>joinGameForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoggingInForm.resx">
       <DependentUpon>LoggingInForm.cs</DependentUpon>

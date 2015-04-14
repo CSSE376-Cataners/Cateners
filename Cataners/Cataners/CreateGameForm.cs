@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Cataners
 {
-    public partial class CreateGame : Form
+    public partial class CreateGameForm : Form
     {
-        public CreateGame()
+        public CreateGameForm()
         {
             InitializeComponent();
         }
