@@ -22,5 +22,9 @@ namespace CatanersShared
             return this.GameName;
         }
 
+        public int getTimePer()
+        {
+            return this.MaxTimePerTurn;
+        }
     }
 }
