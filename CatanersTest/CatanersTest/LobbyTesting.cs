@@ -17,6 +17,14 @@ namespace CatanersTest
         public void testConstructor()
         {
             Lobby newLobby = new Lobby("Test", 3);
+            Assert.False(newLobby.Equals(null));
+        }
+
+        [Test]
+        public void testStringMatch()
+        {
+            Lobby newLobby = new Lobby("Test", 3);
+            Assert.AreEqual(newLobby.getGameName(), "Test");
         }
     }
 }

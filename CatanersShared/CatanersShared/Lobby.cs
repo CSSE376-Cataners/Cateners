@@ -16,5 +16,10 @@ namespace CatanersShared
             this.GameName = GameName;
             this.MaxTimePerTurn = MaxTimePerTurn;
         }
+
+        public string getGameName()
+        {
+            return "";
+        }
     }
 }
