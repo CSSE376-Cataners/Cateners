@@ -10,8 +10,6 @@ namespace CatenersServer
     public class Data
     {
         private static Data instance = new Data();
-        private static ArrayList lobbies = new ArrayList();
-
 
         public static Data INSTANCE 
         {
@@ -21,7 +19,7 @@ namespace CatenersServer
             }
         }
 
-        public static ArrayList Lobbies
+        public ArrayList Lobbies
         {
             get
             {
@@ -29,7 +27,7 @@ namespace CatenersServer
             }
         }
 
-        
+        private ArrayList lobbies = new ArrayList();
 
     }
 }
