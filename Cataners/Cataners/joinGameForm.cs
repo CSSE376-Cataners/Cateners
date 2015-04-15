@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CatanersShared;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +14,14 @@ namespace Cataners
 {
     public partial class joinGameForm : Form
     {
+        public List<Lobby> lobbies = new List<Lobby>();
         public joinGameForm()
         {
             InitializeComponent();
+            gameTable.DataSource = lobbies;
+
+            CommunicationClient.Instance.sendToServer(new CatanersShared.Message(null, Translation.TYPE.RequestLobbies).toJson());
+
         }
 
     }

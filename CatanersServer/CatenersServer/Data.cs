@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CatanersShared;
 
 namespace CatenersServer
 {
@@ -19,7 +20,7 @@ namespace CatenersServer
             }
         }
 
-        public ArrayList Lobbies
+        public List<Lobby> Lobbies
         {
             get
             {
@@ -27,7 +28,7 @@ namespace CatenersServer
             }
         }
 
-        private ArrayList lobbies = new ArrayList();
+        private List<Lobby> lobbies = new List<Lobby>();
 
     }
 }

@@ -87,6 +87,11 @@ namespace CatenersServer
                     int id = Database.INSTANCE.registerUser(login);
                     sendToClient(id.ToString());
                 break;
+                
+                case Translation.TYPE.RequestLobbies:
+                    Message toSend = new Message(Newtonsoft.Json.JsonConvert.SerializeObject(Data.INSTANCE.Lobbies), Translation.TYPE.RequestLobbies);
+                    sendToClient(toSend.toJson());
+                break;
             }
         }
 
