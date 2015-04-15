@@ -55,6 +55,14 @@ namespace CatanersShared
             Players.Add(Owner);
         }
 
+        /// <summary>
+        /// Used by Json Converter. Do not normaly use.
+        /// </summary>
+        public Lobby()
+        {
+
+        }
+
         public void addPlayer(Player newPlayer)
         {
             this.players.Add(newPlayer);
@@ -64,6 +72,29 @@ namespace CatanersShared
         public String toJson()
         {
             return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+        }
+
+        public static Lobby fromJson(String s)
+        {
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<Lobby>(s);
+        }
+
+        // override object.Equals
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+            Lobby other = (Lobby)obj;
+
+            return other.GameName.Equals(this.GameName) && other.MaxTimePerTurn.Equals(this.MaxTimePerTurn) && other.Owner.Equals(this.Owner);
+        }
+
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }
