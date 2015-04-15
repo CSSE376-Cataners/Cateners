@@ -26,11 +26,6 @@ namespace Cataners
             Application.Exit();
         }
 
-        private void joinGameButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void MainGui_Load(object sender, EventArgs e)
         {
 
@@ -75,6 +70,12 @@ namespace Cataners
             CreateGameForm createGame = new CreateGameForm();
             createGame.Show();
 
+        }
+
+        private void joinGameButton_Click(object sender, EventArgs e)
+        {
+            joinGameForm joinform = new joinGameForm();
+            joinform.Show();
         }
 
     }

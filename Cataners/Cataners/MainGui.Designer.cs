@@ -57,7 +57,6 @@
             // 
             // joinGameButton
             // 
-            this.joinGameButton.Enabled = false;
             this.joinGameButton.Font = new System.Drawing.Font("Britannic Bold", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.joinGameButton.Location = new System.Drawing.Point(281, 565);
             this.joinGameButton.Margin = new System.Windows.Forms.Padding(4);
