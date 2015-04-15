@@ -59,7 +59,6 @@
     <Compile Include="CreateGameForm.Designer.cs">
       <DependentUpon>CreateGameForm.cs</DependentUpon>
     </Compile>
-<<<<<<< HEAD
     <Compile Include="TestGraphics.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,9 +66,8 @@
       <DependentUpon>TestGraphics.cs</DependentUpon>
     </Compile>
     <Compile Include="joinGame.cs">
-=======
+    </Compile>
     <Compile Include="joinGameForm.cs">
->>>>>>> origin/master
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="joinGameForm.Designer.cs">
@@ -107,16 +105,14 @@
     <EmbeddedResource Include="CreateGameForm.resx">
       <DependentUpon>CreateGameForm.cs</DependentUpon>
     </EmbeddedResource>
-<<<<<<< HEAD
     <EmbeddedResource Include="TestGraphics.resx">
       <DependentUpon>TestGraphics.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="joinGame.resx">
       <DependentUpon>joinGame.cs</DependentUpon>
-=======
+	</EmbeddedResource>
     <EmbeddedResource Include="joinGameForm.resx">
       <DependentUpon>joinGameForm.cs</DependentUpon>
->>>>>>> origin/master
     </EmbeddedResource>
     <EmbeddedResource Include="LoggingInForm.resx">
       <DependentUpon>LoggingInForm.cs</DependentUpon>
