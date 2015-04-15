@@ -60,17 +60,23 @@
     <Compile Include="CreateGameForm.Designer.cs">
       <DependentUpon>CreateGameForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="LobbyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LobbyForm.Designer.cs">
+      <DependentUpon>LobbyForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="TestGraphics.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="TestGraphics.Designer.cs">
       <DependentUpon>TestGraphics.cs</DependentUpon>
     </Compile>
-    <Compile Include="joinGameForm.cs">
+    <Compile Include="JoinGameForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="joinGameForm.Designer.cs">
-      <DependentUpon>joinGameForm.cs</DependentUpon>
+    <Compile Include="JoinGameForm.Designer.cs">
+      <DependentUpon>JoinGameForm.cs</DependentUpon>
     </Compile>
     <Compile Include="LoggingInForm.cs">
       <SubType>Form</SubType>
@@ -104,11 +110,14 @@
     <EmbeddedResource Include="CreateGameForm.resx">
       <DependentUpon>CreateGameForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="LobbyForm.resx">
+      <DependentUpon>LobbyForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TestGraphics.resx">
       <DependentUpon>TestGraphics.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="joinGameForm.resx">
-      <DependentUpon>joinGameForm.cs</DependentUpon>
+    <EmbeddedResource Include="JoinGameForm.resx">
+      <DependentUpon>JoinGameForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoggingInForm.resx">
       <DependentUpon>LoggingInForm.cs</DependentUpon>
