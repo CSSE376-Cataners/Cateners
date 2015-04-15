@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Shapes;
 
 namespace Cataners
 {
@@ -26,10 +25,6 @@ namespace Cataners
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             MouseEventArgs me = (MouseEventArgs) e;
-            Ellipse newEllipse = new Ellipse();
-            newEllipse.Width = 50;
-            newEllipse.Height = 50;
-            newEllipse.Margin = new System.Windows.Thickness(me.X, me.Y, 0, 0);
             this.pictureBox1.Image = this.b;
         }
     }

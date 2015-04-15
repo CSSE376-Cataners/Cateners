@@ -21,7 +21,6 @@ namespace Cataners
             gameTable.DataSource = lobbies;
 
             CommunicationClient.Instance.sendToServer(new CatanersShared.Message(null, Translation.TYPE.RequestLobbies).toJson());
-
         }
 
     }
