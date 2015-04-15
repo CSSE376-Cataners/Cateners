@@ -77,6 +77,10 @@ namespace CatenersServer
                 case Translation.TYPE.Login:
                     Login login = Login.fromJson(msg.message);
                     // TODO verification of login symbols;
+                    if (login == null)
+                    {
+                        sendToClient("-1");
+                    }
                     catanersDataSet.checkUserDataTableRow user = Database.INSTANCE.getUser(login);
                     if (user == null)
                     {
@@ -100,6 +104,15 @@ namespace CatenersServer
                 case Translation.TYPE.RequestLobbies:
                     Message toSend = new Message(Newtonsoft.Json.JsonConvert.SerializeObject(Data.INSTANCE.Lobbies), Translation.TYPE.RequestLobbies);
                     sendToClient(toSend.toJson());
+                break;
+
+                case  Translation.TYPE.CreateLobby:
+                    Lobby lobby = Lobby.fromJson(msg.message);
+                    Player owner = new Player(this.userName);
+                    lobby.Owner = owner;
+                    lobby.Players.Add(owner);
+                    // TODO verify Lobby;
+                    Data.INSTANCE.Lobbies.Add(lobby);
                 break;
             }
         }
