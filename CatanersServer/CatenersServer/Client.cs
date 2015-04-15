@@ -78,9 +78,16 @@ namespace CatenersServer
                     Login login = Login.fromJson(msg.message);
                     // TODO verification of login symbols;
                     catanersDataSet.checkUserDataTableRow user = Database.INSTANCE.getUser(login);
-                    sendToClient(user.UID.ToString());
-                    this.userID = user.UID;
-                    this.userName = user.Username;
+                    if (user == null)
+                    {
+                        sendToClient("-1");
+                    }
+                    else
+                    {
+                        sendToClient(user.UID.ToString());
+                        this.userID = user.UID;
+                        this.userName = user.Username;
+                    }
                 break;
 
                 case Translation.TYPE.Register:
