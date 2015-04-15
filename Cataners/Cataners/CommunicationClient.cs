@@ -10,7 +10,6 @@ using System.Net.Sockets;
 using System.IO;
 using System.Windows.Forms;
 
-
 namespace Cataners
 {
     public class CommunicationClient
@@ -61,18 +60,10 @@ namespace Cataners
         StreamWriter writer;
         public void sendToServer(String msg)
         {
-            if (instance.clientSocket.Connected && this.attemptCount < 3)
+            if (instance.clientSocket.Connected)
             {
                 writer.WriteLine(msg);
                 writer.Flush();
-                this.attemptCount = 0;
-            }
-            else if (this.attemptCount < 3)
-            {
-                Console.WriteLine("Here");
-                Start();
-                instance.sendToServer(msg);
-                this.attemptCount++;
             }
         }
 
