@@ -26,5 +26,13 @@ namespace CatanersTest
             Lobby newLobby = new Lobby("Test", 3, new Player("Steve"));
             Assert.AreEqual(newLobby.GameName, "Test");
         }
+
+
+        [Test]
+        public void testLobbyToJson()
+        {
+            Lobby newLobby = new Lobby("Test", 3, new Player("Steve"));
+            Assert.AreEqual("{}", newLobby.toJson());
+        }
     }
 }
