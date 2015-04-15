@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.joinGameLabel = new System.Windows.Forms.Label();
             this.gameTable = new System.Windows.Forms.DataGridView();
             this.gameNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -66,14 +66,14 @@
             this.gameTable.RowHeadersVisible = false;
             this.gameTable.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.gameTable.RowTemplate.Height = 24;
-            this.gameTable.Size = new System.Drawing.Size(742, 360);
+            this.gameTable.Size = new System.Drawing.Size(743, 360);
             this.gameTable.TabIndex = 1;
             // 
             // gameNameColumn
             // 
             this.gameNameColumn.DataPropertyName = "GameName";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.gameNameColumn.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.gameNameColumn.DefaultCellStyle = dataGridViewCellStyle4;
             this.gameNameColumn.DividerWidth = 3;
             this.gameNameColumn.HeaderText = "Game Name";
             this.gameNameColumn.Name = "gameNameColumn";
@@ -85,9 +85,9 @@
             // gameCreatorColumn
             // 
             this.gameCreatorColumn.DataPropertyName = "Owner";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
-            this.gameCreatorColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
+            this.gameCreatorColumn.DefaultCellStyle = dataGridViewCellStyle5;
             this.gameCreatorColumn.DividerWidth = 3;
             this.gameCreatorColumn.HeaderText = "Game Creator";
             this.gameCreatorColumn.Name = "gameCreatorColumn";
@@ -99,8 +99,8 @@
             // numberPlayersColumn
             // 
             this.numberPlayersColumn.DataPropertyName = "PlayerCount";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.numberPlayersColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.numberPlayersColumn.DefaultCellStyle = dataGridViewCellStyle6;
             this.numberPlayersColumn.DividerWidth = 3;
             this.numberPlayersColumn.HeaderText = "Number of Players";
             this.numberPlayersColumn.Name = "numberPlayersColumn";
@@ -119,7 +119,7 @@
             this.joinColumn.Text = "Join";
             this.joinColumn.Width = 98;
             // 
-            // joinGameForm
+            // JoinGameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 26F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -131,7 +131,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(5);
             this.MaximizeBox = false;
-            this.Name = "joinGameForm";
+            this.Name = "JoinGameForm";
             this.Text = "Join Game";
             ((System.ComponentModel.ISupportInitialize)(this.gameTable)).EndInit();
             this.ResumeLayout(false);
