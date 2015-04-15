@@ -60,5 +60,10 @@ namespace CatanersShared
             this.players.Add(newPlayer);
             this.playerCount = this.playerCount + 1;
         }
+
+        public String toJson()
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+        }
     }
 }
