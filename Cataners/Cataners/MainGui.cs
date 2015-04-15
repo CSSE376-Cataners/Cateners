@@ -54,7 +54,17 @@ namespace Cataners
                 logging.ShowDialog();
                 String newString = "";
                 CommunicationClient.Instance.queue.TryDequeue(out newString);
-                MessageBox.Show(newString);
+                
+                if (newString != null && !newString.Equals("-1"))
+                {
+                    MessageBox.Show("You have successfully logged in!");
+                    joinGameButton.Enabled = true;
+                    createGameButton.Enabled = true;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Your username and password do not meet the requirements");
             }
 
         }

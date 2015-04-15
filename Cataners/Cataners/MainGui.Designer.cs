@@ -44,6 +44,7 @@
             // 
             // createGameButton
             // 
+            this.createGameButton.Enabled = false;
             this.createGameButton.Font = new System.Drawing.Font("Britannic Bold", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.createGameButton.ForeColor = System.Drawing.Color.Black;
             this.createGameButton.Location = new System.Drawing.Point(24, 567);
@@ -57,6 +58,7 @@
             // 
             // joinGameButton
             // 
+            this.joinGameButton.Enabled = false;
             this.joinGameButton.Font = new System.Drawing.Font("Britannic Bold", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.joinGameButton.Location = new System.Drawing.Point(281, 565);
             this.joinGameButton.Margin = new System.Windows.Forms.Padding(4);
