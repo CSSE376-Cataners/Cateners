@@ -94,8 +94,6 @@ namespace CatenersServer
                     Message toSend = new Message(Newtonsoft.Json.JsonConvert.SerializeObject(Data.INSTANCE.Lobbies), Translation.TYPE.RequestLobbies);
                     sendToClient(toSend.toJson());
                 break;
-
-                case Translation.TYPE.
             }
         }
 
