@@ -95,7 +95,9 @@ namespace CatenersServer
                     sendToClient(toSend.toJson());
                 break;
 
-                case Translation.TYPE.
+                case Translation.TYPE.CreateLobby:
+
+                break;
             }
         }
 
