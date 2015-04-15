@@ -65,8 +65,6 @@
     <Compile Include="TestGraphics.Designer.cs">
       <DependentUpon>TestGraphics.cs</DependentUpon>
     </Compile>
-    <Compile Include="joinGame.cs">
-    </Compile>
     <Compile Include="joinGameForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,9 +106,6 @@
     <EmbeddedResource Include="TestGraphics.resx">
       <DependentUpon>TestGraphics.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="joinGame.resx">
-      <DependentUpon>joinGame.cs</DependentUpon>
-	</EmbeddedResource>
     <EmbeddedResource Include="joinGameForm.resx">
       <DependentUpon>joinGameForm.cs</DependentUpon>
     </EmbeddedResource>
