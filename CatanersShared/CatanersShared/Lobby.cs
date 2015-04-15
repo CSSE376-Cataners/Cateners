@@ -22,17 +22,29 @@ namespace CatanersShared
             {
                 return players;
             }
+            set
+            {
+                players = value;
+            }
         }
 
         public string GameName {
             get {
                 return gameName;
             }
+            set
+            {
+                gameName = value;
+            }
         }
 
         public int MaxTimePerTurn {
             get {
                 return maxTimePerTurn;
+            }
+            set
+            {
+                maxTimePerTurn = value;
             }
         }
 
@@ -41,6 +53,10 @@ namespace CatanersShared
             get
             {
                 return owner;
+            }
+            set
+            {
+                owner = value;
             }
         }
         
@@ -87,8 +103,7 @@ namespace CatanersShared
                 return false;
             }
             Lobby other = (Lobby)obj;
-
-            return other.GameName.Equals(this.GameName) && other.MaxTimePerTurn.Equals(this.MaxTimePerTurn) && other.Owner.Equals(this.Owner);
+            return other.GameName.Equals(this.GameName) && other.MaxTimePerTurn == this.MaxTimePerTurn && other.Owner.Equals(this.Owner);
         }
 
         // override object.GetHashCode
