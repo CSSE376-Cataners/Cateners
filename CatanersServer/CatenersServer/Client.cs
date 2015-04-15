@@ -42,6 +42,8 @@ namespace CatenersServer
                 try
                 {
                     line = await task;
+                    if (line == null)
+                        continue;
                     queue.push(line);
 
                     Console.WriteLine("Message:" + line);
@@ -56,7 +58,7 @@ namespace CatenersServer
                 }
             }
 
-            Console.WriteLine("Client Closed");
+            Console.WriteLine("Client Closed: " + ((System.Net.IPEndPoint)socket.Client.RemoteEndPoint).Address.ToString());
         }
 
         StreamWriter writer;
@@ -92,6 +94,8 @@ namespace CatenersServer
                     Message toSend = new Message(Newtonsoft.Json.JsonConvert.SerializeObject(Data.INSTANCE.Lobbies), Translation.TYPE.RequestLobbies);
                     sendToClient(toSend.toJson());
                 break;
+
+                case Translation.TYPE.
             }
         }
 

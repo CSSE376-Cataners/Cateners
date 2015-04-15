@@ -14,7 +14,7 @@ namespace CatenersServer
         {
             new Database();
             CommunicationServer server = new CommunicationServer();
-            Console.WriteLine("Server Starting");
+            Console.WriteLine("Server Starting.");
             server.Start().Wait();
         }
 
