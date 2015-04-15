@@ -74,7 +74,7 @@ namespace Cataners
 
         private void joinGameButton_Click(object sender, EventArgs e)
         {
-            joinGameForm joinform = new joinGameForm();
+            JoinGameForm joinform = new JoinGameForm();
             joinform.Show();
         }
 

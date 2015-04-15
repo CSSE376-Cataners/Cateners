@@ -12,10 +12,10 @@ using System.Windows.Forms;
 
 namespace Cataners
 {
-    public partial class joinGameForm : Form
+    public partial class JoinGameForm : Form
     {
         public List<Lobby> lobbies = new List<Lobby>();
-        public joinGameForm()
+        public JoinGameForm()
         {
             InitializeComponent();
             gameTable.DataSource = lobbies;

@@ -1,6 +1,6 @@
 ﻿namespace Cataners
 {
-    partial class joinGameForm
+    partial class JoinGameForm
     {
         /// <summary>
         /// Required designer variable.
