@@ -31,11 +31,15 @@ namespace Cataners
                 CatanersShared.Message msg = new CatanersShared.Message(new Login(username, password, true).toJson(), CatanersShared.Translation.TYPE.Register);
                 CommunicationClient.Instance.sendToServer(msg.toJson());
                 Console.WriteLine("sending " + username + " and " + password + " to the server");
-                LoggingInForm logging = new LoggingInForm();
-                logging.ShowDialog();
+                //send success message to client
                 String newString = "";
                 CommunicationClient.Instance.queue.TryDequeue(out newString);
                 MessageBox.Show(newString);
+                if(!newString.Equals("-1")){
+                    MessageBox.Show("You have successfully signed up!");
+                    this.Close();
+                }
+                
             }
 
         }
