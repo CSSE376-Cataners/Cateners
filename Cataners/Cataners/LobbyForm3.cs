@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Cataners
 {
-    public partial class LobbyForm : Form
+    public partial class LobbyForm3 : Form
     {
-        public LobbyForm()
+        public LobbyForm3()
         {
             InitializeComponent();
         }

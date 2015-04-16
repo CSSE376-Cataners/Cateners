@@ -13,7 +13,7 @@
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -39,7 +39,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -62,6 +61,12 @@
     </Compile>
     <Compile Include="CreateGameForm.Designer.cs">
       <DependentUpon>CreateGameForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LobbyForm3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LobbyForm3.Designer.cs">
+      <DependentUpon>LobbyForm3.cs</DependentUpon>
     </Compile>
     <Compile Include="TestGraphics.cs">
       <SubType>Form</SubType>
@@ -166,6 +171,10 @@
     <ProjectReference Include="..\..\CatanersShared\CatanersShared\CatanersShared.csproj">
       <Project>{0b6057c1-b6ec-416c-ba05-6f019daaad4d}</Project>
       <Name>CatanersShared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CatanersWave\WaveEngineGame\WaveEngineGame\WaveEngineGame.csproj">
+      <Project>{c3a2e831-0a38-44a4-8bef-1a53735bc9d2}</Project>
+      <Name>WaveEngineGame</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

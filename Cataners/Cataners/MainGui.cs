@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CatanersShared;
+using WaveEngineGame;
 
 namespace Cataners
 {
@@ -86,6 +87,12 @@ namespace Cataners
         {
             JoinGameForm joinform = new JoinGameForm();
             joinform.Show();
+        }
+
+        private void startWaveTestButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            Program.Main();
         }
 
     }

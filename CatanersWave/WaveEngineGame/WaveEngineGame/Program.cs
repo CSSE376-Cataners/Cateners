@@ -5,10 +5,10 @@ using WaveEngine.Adapter;
 
 namespace WaveEngineGame
 {
-    static class Program
+    public static class Program
     {
         [MTAThread]
-        static void Main()
+        public static void Main()
         {
             using (App game = new App())
             {
