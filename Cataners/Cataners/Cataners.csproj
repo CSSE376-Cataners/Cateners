@@ -62,11 +62,11 @@
     <Compile Include="CreateGameForm.Designer.cs">
       <DependentUpon>CreateGameForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="LobbyForm3.cs">
+    <Compile Include="LobbyForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LobbyForm3.Designer.cs">
-      <DependentUpon>LobbyForm3.cs</DependentUpon>
+    <Compile Include="LobbyForm.Designer.cs">
+      <DependentUpon>LobbyForm.cs</DependentUpon>
     </Compile>
     <Compile Include="TestGraphics.cs">
       <SubType>Form</SubType>
@@ -91,9 +91,6 @@
     </Compile>
     <Compile Include="SignUpForm.Designer.cs">
       <DependentUpon>SignUpForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Road.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="MainGui.cs">
       <SubType>Form</SubType>
