@@ -20,21 +20,27 @@ namespace Cataners
 
         private void createGameButton_Click(object sender, EventArgs e)
         {
+
+            Lobby newLobby;
             switch(maxTimeComboBox.SelectedIndex){
                 case 0:
-                    Lobby newLobby = new Lobby(gameNameTextBox.Text, 5, null);
+                    newLobby = new Lobby(gameNameTextBox.Text, 5, null);
                     break;
                 case 1:
-                    Lobby newLobby1 = new Lobby(gameNameTextBox.Text, 10, null);
+                    newLobby = new Lobby(gameNameTextBox.Text, 10, null);
                     break;
                 case 2:
-                    Lobby newLobby2 = new Lobby(gameNameTextBox.Text, 15, null);
+                    newLobby = new Lobby(gameNameTextBox.Text, 15, null);
                     break;
                 case 3:
-                    Lobby newLobby3 = new Lobby(gameNameTextBox.Text, -1, null);
+                    newLobby = new Lobby(gameNameTextBox.Text, -1, null);
                     break;
+                default: return;
             }
-            
+            CommunicationClient.Instance.sendToServer(new CatanersShared.Message(newLobby.toJson(), Translation.TYPE.CreateLobby).toJson());
+            LobbyForm lobby = new LobbyForm();
+            lobby.Show();
+            this.Close();
         }
     }
 }

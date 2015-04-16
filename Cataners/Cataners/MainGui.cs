@@ -79,14 +79,14 @@ namespace Cataners
         private void createGameButton_Click(object sender, EventArgs e)
         {
             CreateGameForm createGame = new CreateGameForm();
-            createGame.Show();
+            createGame.ShowDialog();
 
         }
 
         private void joinGameButton_Click(object sender, EventArgs e)
         {
             JoinGameForm joinform = new JoinGameForm();
-            joinform.Show();
+            joinform.ShowDialog();
         }
 
         private void startWaveTestButton_Click(object sender, EventArgs e)
