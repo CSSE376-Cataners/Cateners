@@ -21,7 +21,8 @@ namespace Cataners
 
             ShowSplash();
 
-            Application.Run(new MainGui());
+            new MainGui().Show();
+            Application.Run();
             //Application.Run(new TestGraphics());
         }
 

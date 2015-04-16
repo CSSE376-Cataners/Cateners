@@ -13,8 +13,10 @@ namespace Cataners
 {
     public partial class CreateGameForm : Form
     {
-        public CreateGameForm()
+        private MainGui parent;
+        public CreateGameForm(MainGui parent)
         {
+            this.parent = parent;
             InitializeComponent();
         }
 
@@ -39,8 +41,9 @@ namespace Cataners
             }
             CommunicationClient.Instance.sendToServer(new CatanersShared.Message(newLobby.toJson(), Translation.TYPE.CreateLobby).toJson());
             LobbyForm lobby = new LobbyForm();
-            lobby.Show();
             this.Close();
+            lobby.Show();
+            this.parent.Close();
         }
     }
 }

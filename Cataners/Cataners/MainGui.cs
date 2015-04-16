@@ -78,7 +78,7 @@ namespace Cataners
 
         private void createGameButton_Click(object sender, EventArgs e)
         {
-            CreateGameForm createGame = new CreateGameForm();
+            CreateGameForm createGame = new CreateGameForm(this);
             createGame.ShowDialog();
 
         }
