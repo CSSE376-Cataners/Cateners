@@ -57,7 +57,6 @@ namespace CatenersServer
                     break;
                 }
             }
-
             Console.WriteLine("Client Closed: " + ((System.Net.IPEndPoint)socket.Client.RemoteEndPoint).Address.ToString());
         }
 

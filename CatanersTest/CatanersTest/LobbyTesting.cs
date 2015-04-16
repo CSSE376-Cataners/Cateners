@@ -44,5 +44,29 @@ namespace CatanersTest
             Console.WriteLine(newLobby);
             Assert.True(testLobby.Equals(newLobby));
         }
+
+        [Test]
+        public void testLobbyEqualsIsEqual()
+        {
+            Lobby newLobby = new Lobby("game", 3, new Player("name"));
+            Lobby target = new Lobby("game", 3, new Player("name"));
+            Assert.True(target.Equals(newLobby));
+        }
+
+        [Test]
+        public void testLobbyEqualsNullObject()
+        {
+            Lobby newLobby = null;
+            Lobby target = new Lobby("game", 3, new Player("name"));
+            Assert.False(target.Equals(newLobby));
+        }
+
+        [Test]
+        public void testLobbyEqualsNotNullWrongType()
+        {
+            int newLobby = 0;
+            Lobby target = new Lobby("game", 3, new Player("name"));
+            Assert.False(target.Equals(newLobby));
+        }
     }
 }

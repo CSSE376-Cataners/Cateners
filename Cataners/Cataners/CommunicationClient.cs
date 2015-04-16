@@ -16,7 +16,6 @@ namespace Cataners
     {
         private ArrayList tempQueue;
         private StreamReader reader;
-        private int attemptCount;
         private Boolean Enabled;
         public ConcurrentQueue<String> queue;
         private static CommunicationClient instance;
@@ -36,7 +35,6 @@ namespace Cataners
             CommunicationClient.instance = this;
             queue = new ConcurrentQueue<string>();
             tempQueue = new ArrayList();
-            this.attemptCount = 0;
             clientSocket.ReceiveTimeout = 3;
             
         }
