@@ -82,9 +82,10 @@
             // mainPictureBox
             // 
             this.mainPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("mainPictureBox.Image")));
-            this.mainPictureBox.Location = new System.Drawing.Point(267, 11);
+            this.mainPictureBox.Location = new System.Drawing.Point(269, 21);
             this.mainPictureBox.Name = "mainPictureBox";
             this.mainPictureBox.Size = new System.Drawing.Size(376, 157);
+            this.mainPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.mainPictureBox.TabIndex = 0;
             this.mainPictureBox.TabStop = false;
             // 
@@ -92,7 +93,7 @@
             // 
             this.usernameTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.usernameTextbox.Location = new System.Drawing.Point(269, 265);
-            this.usernameTextbox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.usernameTextbox.Margin = new System.Windows.Forms.Padding(2);
             this.usernameTextbox.Name = "usernameTextbox";
             this.usernameTextbox.Size = new System.Drawing.Size(375, 23);
             this.usernameTextbox.TabIndex = 4;
@@ -101,7 +102,7 @@
             // 
             this.passwordTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.passwordTextbox.Location = new System.Drawing.Point(269, 341);
-            this.passwordTextbox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.passwordTextbox.Margin = new System.Windows.Forms.Padding(2);
             this.passwordTextbox.Name = "passwordTextbox";
             this.passwordTextbox.Size = new System.Drawing.Size(375, 23);
             this.passwordTextbox.TabIndex = 5;
@@ -133,7 +134,7 @@
             // 
             this.loginButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.loginButton.Location = new System.Drawing.Point(290, 378);
-            this.loginButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.loginButton.Margin = new System.Windows.Forms.Padding(2);
             this.loginButton.Name = "loginButton";
             this.loginButton.Size = new System.Drawing.Size(153, 52);
             this.loginButton.TabIndex = 8;
@@ -145,7 +146,7 @@
             // 
             this.signUpButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.signUpButton.Location = new System.Drawing.Point(475, 378);
-            this.signUpButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.signUpButton.Margin = new System.Windows.Forms.Padding(2);
             this.signUpButton.Name = "signUpButton";
             this.signUpButton.Size = new System.Drawing.Size(153, 52);
             this.signUpButton.TabIndex = 9;
