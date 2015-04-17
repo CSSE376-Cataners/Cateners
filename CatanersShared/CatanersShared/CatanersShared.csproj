@@ -44,7 +44,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CCQueue.cs" />
     <Compile Include="Lobby.cs" />
     <Compile Include="Login.cs" />
     <Compile Include="Message.cs" />

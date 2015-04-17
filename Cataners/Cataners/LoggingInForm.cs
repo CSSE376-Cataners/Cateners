@@ -24,7 +24,6 @@ namespace Cataners
         {
             
             time.Tick += new EventHandler(TimerEventHandler);
-
             time.Interval = 1000;
             time.Start();
 

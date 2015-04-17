@@ -15,8 +15,6 @@ namespace CatenersServer
     public class Client
     {
         public TcpClient socket;
-
-        public CCQueue queue;
         public bool Enabled;
 
         public int userID;
@@ -26,7 +24,6 @@ namespace CatenersServer
         public Client(TcpClient tcp)
         {
             this.socket = tcp;
-            queue = new CCQueue();
             writer = new StreamWriter(socket.GetStream(), Encoding.Unicode);
             Enabled = true;
             userID = -1;
@@ -44,9 +41,8 @@ namespace CatenersServer
                     line = await task;
                     if (line == null)
                         continue;
-                    queue.push(line);
 
-                    Console.WriteLine("Message:" + line);
+                    //Console.WriteLine("Message:" + line);
 
                     Thread thread = new Thread(() => processesMessage(line));
                     thread.Start();
@@ -57,7 +53,7 @@ namespace CatenersServer
                     break;
                 }
             }
-            Console.WriteLine("Client Closed: " + ((System.Net.IPEndPoint)socket.Client.RemoteEndPoint).Address.ToString());
+            //Console.WriteLine("Client Closed: " + ((System.Net.IPEndPoint)socket.Client.RemoteEndPoint).Address.ToString());
         }
 
         StreamWriter writer;
