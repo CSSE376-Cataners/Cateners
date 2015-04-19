@@ -111,5 +111,10 @@ namespace CatanersShared
         {
             return base.GetHashCode();
         }
+
+        public static List<Lobby> jsonToLobbyList(String s)
+        {
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<List<Lobby>>(s);
+        }
     }
 }

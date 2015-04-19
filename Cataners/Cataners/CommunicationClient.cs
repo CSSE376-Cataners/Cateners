@@ -120,6 +120,10 @@ namespace Cataners
                 case Translation.TYPE.Register:
                     queues[Translation.TYPE.Register].Add(msg.message);
                     break;
+                case Translation.TYPE.RequestLobbies:
+                    Data.Lobbies.Clear();
+                    Data.Lobbies.AddRange(Lobby.jsonToLobbyList(msg.message));
+                    break;
             }
         }
 

@@ -14,12 +14,11 @@ namespace Cataners
 {
     public partial class JoinGameForm : Form
     {
-        public List<Lobby> lobbies = new List<Lobby>();
         public JoinGameForm()
         {
             InitializeComponent();
 
-            gameTable.DataSource = lobbies;
+            gameTable.DataSource = Data.Lobbies;
             CommunicationClient.Instance.sendToServer(new CatanersShared.Message(null, Translation.TYPE.RequestLobbies).toJson());
         }
 

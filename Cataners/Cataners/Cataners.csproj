@@ -62,6 +62,7 @@
     <Compile Include="CreateGameForm.Designer.cs">
       <DependentUpon>CreateGameForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Data.cs" />
     <Compile Include="LobbyForm.cs">
       <SubType>Form</SubType>
     </Compile>
