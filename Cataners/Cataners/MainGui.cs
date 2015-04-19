@@ -49,13 +49,15 @@ namespace Cataners
                 LoggingInForm logging = new LoggingInForm();
                 logging.ShowDialog();
                 Object newString = null;
-                newString = CommunicationClient.Instance.queues[Translation.TYPE.Login].Take();
+                CommunicationClient.Instance.queues[Translation.TYPE.Login].TryTake(out newString,3000);
                 
                 if (newString != null && !newString.Equals("-1"))
                 {
                     MessageBox.Show("You have successfully logged in!");
-                    joinGameButton.Enabled = true;
-                    createGameButton.Enabled = true;
+                    joinGameButton.Visible = true;
+                    createGameButton.Visible = true;
+                    signUpButton.Visible = false;
+                    loginButton.Visible = false;
                 }
                 else
                 {

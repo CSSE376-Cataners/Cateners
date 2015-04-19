@@ -32,7 +32,7 @@ namespace Cataners
                 CommunicationClient.Instance.sendToServer(msg.toJson());
                 Console.WriteLine("sending " + username + " and " + password + " to the server");
                 Object newString = null;
-                newString = CommunicationClient.Instance.queues[Translation.TYPE.Register].Take();
+                CommunicationClient.Instance.queues[Translation.TYPE.Register].TryTake(out newString,3000);
                 //MessageBox.Show(newString);
                 if(newString != null && !newString.Equals("-1")){
                     MessageBox.Show("You have successfully signed up!");
