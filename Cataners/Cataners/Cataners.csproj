@@ -109,6 +109,9 @@
     <EmbeddedResource Include="CreateGameForm.resx">
       <DependentUpon>CreateGameForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="LobbyForm.resx">
+      <DependentUpon>LobbyForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TestGraphics.resx">
       <DependentUpon>TestGraphics.cs</DependentUpon>
     </EmbeddedResource>

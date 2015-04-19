@@ -31,33 +31,33 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LobbyForm));
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.playersDataGridView = new System.Windows.Forms.DataGridView();
             this.playerNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lobbyNameLabel = new System.Windows.Forms.Label();
             this.readyButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.startButton = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.playersDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // playersDataGridView
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToOrderColumns = true;
-            this.dataGridView1.AllowUserToResizeColumns = false;
-            this.dataGridView1.AllowUserToResizeRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.playersDataGridView.AllowUserToAddRows = false;
+            this.playersDataGridView.AllowUserToDeleteRows = false;
+            this.playersDataGridView.AllowUserToOrderColumns = true;
+            this.playersDataGridView.AllowUserToResizeColumns = false;
+            this.playersDataGridView.AllowUserToResizeRows = false;
+            this.playersDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.playersDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.playerNameColumn,
             this.statusColumn});
-            this.dataGridView1.Location = new System.Drawing.Point(123, 166);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(603, 195);
-            this.dataGridView1.TabIndex = 0;
+            this.playersDataGridView.Location = new System.Drawing.Point(123, 166);
+            this.playersDataGridView.Name = "playersDataGridView";
+            this.playersDataGridView.RowHeadersVisible = false;
+            this.playersDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.playersDataGridView.RowTemplate.Height = 24;
+            this.playersDataGridView.Size = new System.Drawing.Size(603, 195);
+            this.playersDataGridView.TabIndex = 0;
             // 
             // playerNameColumn
             // 
@@ -102,14 +102,14 @@
             this.readyButton.Text = "Ready Up";
             this.readyButton.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // startButton
             // 
-            this.button1.Location = new System.Drawing.Point(450, 423);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(165, 83);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Start Game";
-            this.button1.UseVisualStyleBackColor = true;
+            this.startButton.Location = new System.Drawing.Point(450, 423);
+            this.startButton.Name = "startButton";
+            this.startButton.Size = new System.Drawing.Size(165, 83);
+            this.startButton.TabIndex = 3;
+            this.startButton.Text = "Start Game";
+            this.startButton.UseVisualStyleBackColor = true;
             // 
             // LobbyForm
             // 
@@ -117,15 +117,16 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Aqua;
             this.ClientSize = new System.Drawing.Size(867, 575);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.startButton);
             this.Controls.Add(this.readyButton);
             this.Controls.Add(this.lobbyNameLabel);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.playersDataGridView);
             this.Font = new System.Drawing.Font("Britannic Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "LobbyForm";
             this.Text = "Game Lobby";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.playersDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -133,11 +134,11 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView playersDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn playerNameColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn statusColumn;
         private System.Windows.Forms.Label lobbyNameLabel;
         private System.Windows.Forms.Button readyButton;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button startButton;
     }
 }
