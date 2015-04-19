@@ -114,6 +114,9 @@ namespace Cataners
                 case Translation.TYPE.Login:
                     queues[Translation.TYPE.Login].Enqueue(msg.message);
                     break;
+                case Translation.TYPE.Register:
+                    queues[Translation.TYPE.Register].Enqueue(msg.message);
+                    break;
             }
         }
 
