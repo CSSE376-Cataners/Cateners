@@ -52,7 +52,10 @@ namespace Cataners
             {
                 await clientSocket.ConnectAsync(Properties.Settings.Default.ServerAddr, Variables.serverPort);
                 this.Enabled = true;
-                this.queueMessagesAsync();
+
+                Thread clientThread = new Thread(queueMessagesAsync);
+                clientThread.Start();
+
                 writer = new StreamWriter(clientSocket.GetStream(), Encoding.Unicode);
             }
             catch
@@ -103,7 +106,7 @@ namespace Cataners
             {
                 msg = CatanersShared.Message.fromJson(s);
             }
-            catch (Exception e) {
+            catch (Exception) {
                 Console.WriteLine("Recived Invalid Message: " + s);
                 return;
             }

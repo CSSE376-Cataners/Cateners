@@ -186,7 +186,6 @@
             this.Name = "MainGui";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainGui";
-            this.Load += new System.EventHandler(this.MainGui_Load);
             ((System.ComponentModel.ISupportInitialize)(this.mainPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
