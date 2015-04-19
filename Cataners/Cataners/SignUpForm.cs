@@ -31,8 +31,8 @@ namespace Cataners
                 CatanersShared.Message msg = new CatanersShared.Message(new Login(username, password, true).toJson(), CatanersShared.Translation.TYPE.Register);
                 CommunicationClient.Instance.sendToServer(msg.toJson());
                 Console.WriteLine("sending " + username + " and " + password + " to the server");
-                String newString = "";
-                CommunicationClient.Instance.queue.TryDequeue(out newString);
+                Object newString = "";
+                CommunicationClient.Instance.queues[Translation.TYPE.Register].TryDequeue(out newString);
                 //MessageBox.Show(newString);
                 if(newString != null && !newString.Equals("-1")){
                     MessageBox.Show("You have successfully signed up!");

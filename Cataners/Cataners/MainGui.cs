@@ -56,8 +56,8 @@ namespace Cataners
                 Console.WriteLine("sending " + username + " and " + password + " to the server");
                 LoggingInForm logging = new LoggingInForm();
                 logging.ShowDialog();
-                String newString = "";
-                CommunicationClient.Instance.queue.TryDequeue(out newString);
+                Object newString = null;
+                CommunicationClient.Instance.queues[Translation.TYPE.Login].TryDequeue(out newString);
                 
                 if (newString != null && !newString.Equals("-1"))
                 {

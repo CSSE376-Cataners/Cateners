@@ -9,15 +9,18 @@ using System.Collections.Concurrent;
 using System.Net.Sockets;
 using System.IO;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace Cataners
 {
     public class CommunicationClient
     {
-        private ArrayList tempQueue;
         private StreamReader reader;
         private Boolean Enabled;
-        public ConcurrentQueue<String> queue;
+
+        public Dictionary<Translation.TYPE,ConcurrentQueue<Object>> queues;
+
+
         private static CommunicationClient instance;
 
         public static CommunicationClient Instance {
@@ -33,9 +36,13 @@ namespace Cataners
             this.Enabled = false;
             this.clientSocket = new System.Net.Sockets.TcpClient();
             CommunicationClient.instance = this;
-            queue = new ConcurrentQueue<string>();
-            tempQueue = new ArrayList();
             clientSocket.ReceiveTimeout = 3;
+            queues = new Dictionary<Translation.TYPE,ConcurrentQueue<object>>();
+
+            foreach(Translation.TYPE t in Enum.GetValues(typeof(Translation.TYPE))) 
+            {
+                queues.Add(t, new ConcurrentQueue<object>());
+            }
             
         }
 
@@ -76,25 +83,38 @@ namespace Cataners
                 try
                 {
                     line = await task;
-                    queue.Enqueue(line);
                     Console.WriteLine("Message:" + line);
+                    Thread thread = new Thread(() => processesMessage(line));
+                    thread.Start();
                 }
                 catch(IOException)
                 {
                     MessageBox.Show("You've been disconnected from the server", "Error - I/O", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
                 }
             }
             Enabled = false;
         }
 
-        private void moveFromTempToQueue()
+        public void processesMessage(String s)
         {
-            byte[] temp = (byte[])tempQueue.ToArray(typeof(byte));
-            string returndata = System.Text.Encoding.Unicode.GetString(temp);
-            returndata = returndata.Substring(0, returndata.Length - 4);
-            queue.Enqueue(returndata);
-            Console.WriteLine("Message: " + returndata);
-            tempQueue.Clear();
+            CatanersShared.Message msg;
+            try
+            {
+                msg = CatanersShared.Message.fromJson(s);
+            }
+            catch (Exception e) {
+                Console.WriteLine("Recived Invalid Message: " + s);
+                return;
+            }
+
+
+            switch (msg.type)
+            {
+                case Translation.TYPE.Login:
+                    queues[Translation.TYPE.Login].Enqueue(msg.message);
+                    break;
+            }
         }
 
         /*

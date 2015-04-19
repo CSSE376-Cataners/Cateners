@@ -26,7 +26,7 @@ namespace WaveEngineGameProject
             #region Simple test
             //Create a 3D camera
             var camera3D = new FreeCamera("Camera3D", new Vector3(0, 2, 4), Vector3.Zero) { BackgroundColor = Color.CornflowerBlue };
-            //EntityManager.Add(camera3D);
+            EntityManager.Add(camera3D);
 
             // Draw a cube
             Entity cube = new Entity()
@@ -57,7 +57,16 @@ namespace WaveEngineGameProject
             };
 
 
+            Entity cube2 = new Entity()
+                .AddComponent(new Transform3D())
+                .AddComponent(Model.CreateCube())
+                .AddComponent(new Spinner() { AxisTotalIncreases = new Vector3(1, 2, 3) })
+                .AddComponent(new MaterialsMap())
+                .AddComponent(new ModelRenderer());
+
             EntityManager.Add(cube);
+            EntityManager.Add(cube2);
+
 
             // Create a 2D camera
             var camera2D = new FixedCamera2D("Camera2D") { ClearFlags = ClearFlags.DepthAndStencil }; // Transparent background need this clearFlags.

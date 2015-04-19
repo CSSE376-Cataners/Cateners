@@ -50,10 +50,11 @@ namespace CatenersServer
                 }
                 catch (System.IO.IOException)
                 {
+                    // Client caused exception just disconnect.
                     break;
                 }
             }
-            //Console.WriteLine("Client Closed: " + ((System.Net.IPEndPoint)socket.Client.RemoteEndPoint).Address.ToString());
+            Console.WriteLine("Client Closed: " + ((System.Net.IPEndPoint)socket.Client.RemoteEndPoint).Address.ToString());
         }
 
         StreamWriter writer;
@@ -74,16 +75,16 @@ namespace CatenersServer
                     // TODO verification of login symbols;
                     if (login == null)
                     {
-                        sendToClient("-1");
+                        sendToClient(new Message("-1", Translation.TYPE.Login).toJson());
                     }
                     catanersDataSet.checkUserDataTableRow user = Database.INSTANCE.getUser(login);
                     if (user == null)
                     {
-                        sendToClient("-1");
+                        sendToClient(new Message("-1", Translation.TYPE.Login).toJson());
                     }
                     else
                     {
-                        sendToClient(user.UID.ToString());
+                        sendToClient(new Message(user.UID.ToString(), Translation.TYPE.Login).toJson());
                         this.userID = user.UID;
                         this.userName = user.Username;
                     }
