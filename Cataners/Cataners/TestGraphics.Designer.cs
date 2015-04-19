@@ -54,6 +54,7 @@ namespace Cataners
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(1181, 726);
             this.Controls.Add(this.pictureBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TestGraphics";
             this.Text = "TestGraphics";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
