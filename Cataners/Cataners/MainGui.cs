@@ -27,14 +27,6 @@ namespace Cataners
             Application.Exit();
         }
 
-        private void MainGui_Load(object sender, EventArgs e)
-        {
-            this.FormClosed += (s, o) =>
-            {
-                Application.Exit();
-            };
-        }
-
         private void loginButton_Click(object sender, EventArgs e)
         {
 
