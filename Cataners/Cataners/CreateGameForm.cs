@@ -18,6 +18,7 @@ namespace Cataners
         {
             this.parent = parent;
             InitializeComponent();
+
         }
 
         private void createGameButton_Click(object sender, EventArgs e)
@@ -45,5 +46,6 @@ namespace Cataners
             lobby.Show();
             this.parent.Close();
         }
+
     }
 }

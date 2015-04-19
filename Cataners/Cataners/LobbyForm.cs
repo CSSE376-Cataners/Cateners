@@ -15,6 +15,14 @@ namespace Cataners
         public LobbyForm()
         {
             InitializeComponent();
+            this.FormClosing += closing;
+        }
+        private void closing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                Application.Exit();
+            }
         }
     }
 }

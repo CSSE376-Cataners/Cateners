@@ -17,9 +17,20 @@ namespace Cataners
         public MainGui()
         {
             InitializeComponent();
+
+            this.FormClosing += closing;
+
             CommunicationClient client = new  CommunicationClient();
             client.Start();
             Console.WriteLine("connected to the server");
+        }
+
+        private void closing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                Application.Exit();
+            }
         }
 
         private void mainQuitButton_Click(object sender, EventArgs e)
