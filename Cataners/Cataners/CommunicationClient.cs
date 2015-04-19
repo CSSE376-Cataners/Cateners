@@ -18,7 +18,7 @@ namespace Cataners
         private StreamReader reader;
         private Boolean Enabled;
 
-        public Dictionary<Translation.TYPE,ConcurrentQueue<Object>> queues;
+        public Dictionary<Translation.TYPE,BlockingCollection<Object>> queues;
 
 
         private static CommunicationClient instance;
@@ -37,11 +37,11 @@ namespace Cataners
             this.clientSocket = new System.Net.Sockets.TcpClient();
             CommunicationClient.instance = this;
             clientSocket.ReceiveTimeout = 3;
-            queues = new Dictionary<Translation.TYPE,ConcurrentQueue<object>>();
+            queues = new Dictionary<Translation.TYPE,BlockingCollection<object>>();
 
             foreach(Translation.TYPE t in Enum.GetValues(typeof(Translation.TYPE))) 
             {
-                queues.Add(t, new ConcurrentQueue<object>());
+                queues.Add(t, new BlockingCollection<object>());
             }
             
         }
@@ -112,10 +112,10 @@ namespace Cataners
             switch (msg.type)
             {
                 case Translation.TYPE.Login:
-                    queues[Translation.TYPE.Login].Enqueue(msg.message);
+                    queues[Translation.TYPE.Login].Add(msg.message);
                     break;
                 case Translation.TYPE.Register:
-                    queues[Translation.TYPE.Register].Enqueue(msg.message);
+                    queues[Translation.TYPE.Register].Add(msg.message);
                     break;
             }
         }

@@ -57,7 +57,7 @@ namespace Cataners
                 LoggingInForm logging = new LoggingInForm();
                 logging.ShowDialog();
                 Object newString = null;
-                CommunicationClient.Instance.queues[Translation.TYPE.Login].TryDequeue(out newString);
+                newString = CommunicationClient.Instance.queues[Translation.TYPE.Login].Take();
                 
                 if (newString != null && !newString.Equals("-1"))
                 {

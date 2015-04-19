@@ -97,7 +97,7 @@ namespace CatenersServer
                     if(id < 0 )
                         sendToClient(new Message("-1", Translation.TYPE.Register).toJson());
                     else
-                        sendToClient(new Message(id.ToString(), Translation.TYPE.Login).toJson());
+                        sendToClient(new Message(id.ToString(), Translation.TYPE.Register).toJson());
                 break;
                 
                 case Translation.TYPE.RequestLobbies:
