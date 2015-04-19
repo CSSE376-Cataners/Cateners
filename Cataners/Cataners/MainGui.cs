@@ -65,6 +65,10 @@ namespace Cataners
                     joinGameButton.Enabled = true;
                     createGameButton.Enabled = true;
                 }
+                else
+                {
+                    MessageBox.Show("Please enter an registered username/password combination");
+                }
             }
             else
             {

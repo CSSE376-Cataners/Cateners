@@ -38,6 +38,10 @@ namespace Cataners
                     MessageBox.Show("You have successfully signed up!");
                     this.Close();
                 }
+                else
+                {
+                    MessageBox.Show("This username is already taken. Please try again.");
+                }
                 
             }
 
