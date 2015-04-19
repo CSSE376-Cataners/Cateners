@@ -12,6 +12,8 @@ using System.Collections;
 using System.IO;
 using System.Threading;
 using Rhino.Mocks;
+using Newtonsoft.Json.Converters;
+using CatanersShared;
 
 namespace CatanersTest
 {
@@ -21,19 +23,19 @@ namespace CatanersTest
 
         private MockRepository mocks = new MockRepository();
 
-        /*[Test]
+        [Test]
         public void testprocessMessage()
         {
-            Message newMessage = new Message("hello", Translation.TYPE.Login);
-            String stringToPass = newMessage.ToString();
-            TcpClient mockClient = mocks.StrictMock<TcpClient>();
-            Socket mockSocket = mocks.StrictMock<Socket>();
-            NetworkStream newStream = new NetworkStream(mockSocket);
-            Expect.Call(mockClient.GetStream()).Return(newStream);
+            Message newMessage = new Message(new Login("steve38", "helloH38").toJson(), Translation.TYPE.Login);
+            TcpClient newTcp = mocks.DynamicMock<TcpClient>();
+            NetworkStream newStream = mocks.DynamicMock<NetworkStream>();
+            Expect.Call(newTcp.Connected).PropertyBehavior();
+            //newTcp.Connected = true;
+            Expect.Call(newTcp.GetStream()).Return(newStream);
             mocks.ReplayAll();
-            Client target = new Client(mockClient);
-            target.processesMessage(stringToPass);
+            Client target = new Client(newTcp);
+            target.processesMessage(newMessage.toJson());
             mocks.VerifyAll();
-        }*/
+        }
     }
 }
