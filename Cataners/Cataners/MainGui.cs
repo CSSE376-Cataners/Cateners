@@ -18,7 +18,7 @@ namespace Cataners
         {
             InitializeComponent();
 
-            this.FormClosing += closing;
+            //this.FormClosing += closing;
 
             CommunicationClient client = new  CommunicationClient();
             client.Start();
