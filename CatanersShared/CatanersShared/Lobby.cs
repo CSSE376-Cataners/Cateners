@@ -13,6 +13,7 @@ namespace CatanersShared
         private int maxTimePerTurn;
         private Player owner;
         private int playerCount;
+        public int lobbyID;
 
         public ArrayList players;
 
@@ -61,7 +62,7 @@ namespace CatanersShared
         }
         
 
-        public Lobby(string GameName, int MaxTimePerTurn, Player Owner)
+        public Lobby(string GameName, int MaxTimePerTurn, Player Owner,int LobbyID)
         {
             this.gameName = GameName;
             this.maxTimePerTurn = MaxTimePerTurn;
@@ -69,6 +70,7 @@ namespace CatanersShared
             this.players = new ArrayList();
             this.owner = Owner;
             Players.Add(Owner);
+            this.lobbyID = LobbyID;
         }
 
         /// <summary>
