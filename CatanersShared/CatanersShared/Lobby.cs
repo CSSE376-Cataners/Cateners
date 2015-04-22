@@ -62,7 +62,7 @@ namespace CatanersShared
         }
         
 
-        public Lobby(string GameName, int MaxTimePerTurn, Player Owner,int LobbyID)
+        public Lobby(string GameName, int MaxTimePerTurn, Player Owner, int LobbyID)
         {
             this.gameName = GameName;
             this.maxTimePerTurn = MaxTimePerTurn;

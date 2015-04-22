@@ -4,6 +4,13 @@ using WaveEngine.Common;
 using WaveEngine.Common.Graphics;
 using WaveEngine.Framework;
 using WaveEngine.Framework.Services;
+using System.Collections.Generic;
+using WaveEngine.Common.Graphics.VertexFormats;
+using WaveEngine.Common.Math;
+using WaveEngine.Components.Animation;
+using WaveEngine.Framework.Graphics;
+using WaveEngine.Materials;
+using WaveEngine.Components.Graphics2D;
 #endregion
 
 namespace WaveEngineGameProject

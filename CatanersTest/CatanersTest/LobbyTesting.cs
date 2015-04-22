@@ -16,14 +16,14 @@ namespace CatanersTest
         [Test]
         public void testConstructor()
         {
-            Lobby newLobby = new Lobby("Test", 3, new Player("Steve"));
+            Lobby newLobby = new Lobby("Test", 3, new Player("Steve"), 2);
             Assert.False(newLobby.Equals(null));
         }
 
         [Test]
         public void testStringMatch()
         {
-            Lobby newLobby = new Lobby("Test", 3, new Player("Steve"));
+            Lobby newLobby = new Lobby("Test", 3, new Player("Steve"), 2);
             Assert.AreEqual(newLobby.GameName, "Test");
         }
 
@@ -31,14 +31,14 @@ namespace CatanersTest
         [Test]
         public void testLobbyToJson()
         {
-            Lobby newLobby = new Lobby("Test", 3, new Player("Steve"));
+            Lobby newLobby = new Lobby("Test", 3, new Player("Steve"), 2);
             Assert.AreEqual("{\"players\":[{\"Username\":\"Steve\"}],\"Players\":[{\"Username\":\"Steve\"}],\"GameName\":\"Test\",\"MaxTimePerTurn\":3,\"Owner\":{\"Username\":\"Steve\"}}", newLobby.toJson());
         }
 
         [Test]
         public void testLobbyFromJson()
         {
-            Lobby testLobby = new Lobby("Test", 3, new Player("Steve"));
+            Lobby testLobby = new Lobby("Test", 3, new Player("Steve"), 2);
             Console.WriteLine(testLobby);
             Lobby newLobby = Lobby.fromJson("{\"players\":[{\"Username\":\"Steve\"}],\"Players\":[{\"Username\":\"Steve\"}],\"GameName\":\"Test\",\"MaxTimePerTurn\":3,\"Owner\":{\"Username\":\"Steve\"}}");
             Console.WriteLine(newLobby);
@@ -48,8 +48,8 @@ namespace CatanersTest
         [Test]
         public void testLobbyEqualsIsEqual()
         {
-            Lobby newLobby = new Lobby("game", 3, new Player("name"));
-            Lobby target = new Lobby("game", 3, new Player("name"));
+            Lobby newLobby = new Lobby("game", 3, new Player("name"), 2);
+            Lobby target = new Lobby("game", 3, new Player("name"), 2);
             Assert.True(target.Equals(newLobby));
         }
 
@@ -57,7 +57,7 @@ namespace CatanersTest
         public void testLobbyEqualsNullObject()
         {
             Lobby newLobby = null;
-            Lobby target = new Lobby("game", 3, new Player("name"));
+            Lobby target = new Lobby("game", 3, new Player("name"), 2);
             Assert.False(target.Equals(newLobby));
         }
 
@@ -65,7 +65,7 @@ namespace CatanersTest
         public void testLobbyEqualsNotNullWrongType()
         {
             int newLobby = 0;
-            Lobby target = new Lobby("game", 3, new Player("name"));
+            Lobby target = new Lobby("game", 3, new Player("name"), 2);
             Assert.False(target.Equals(newLobby));
         }
     }

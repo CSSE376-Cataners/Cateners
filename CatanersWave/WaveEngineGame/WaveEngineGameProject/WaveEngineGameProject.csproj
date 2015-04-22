@@ -51,6 +51,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources.weproj" />
+    <None Include="TheSettlersofCatan.wpk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheSettlersofCatan.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(WaveEngine)v1.0\Targets\Windows\WPKAssetsExport.targets" />
