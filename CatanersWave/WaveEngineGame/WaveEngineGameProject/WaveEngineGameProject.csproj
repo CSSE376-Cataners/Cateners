@@ -50,6 +50,7 @@
     <Compile Include="MyScene.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="BadHex.wpk" />
     <None Include="Resources.weproj" />
     <None Include="TheSettlersofCatan.wpk" />
   </ItemGroup>
