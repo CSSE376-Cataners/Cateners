@@ -27,16 +27,16 @@ namespace Cataners
             Lobby newLobby;
             switch(maxTimeComboBox.SelectedIndex){
                 case 0:
-                    newLobby = new Lobby(gameNameTextBox.Text, 5, null);
+                    newLobby = new Lobby(gameNameTextBox.Text, 5, null,-1);
                     break;
                 case 1:
-                    newLobby = new Lobby(gameNameTextBox.Text, 10, null);
+                    newLobby = new Lobby(gameNameTextBox.Text, 10, null, -1);
                     break;
                 case 2:
-                    newLobby = new Lobby(gameNameTextBox.Text, 15, null);
+                    newLobby = new Lobby(gameNameTextBox.Text, 15, null, -1);
                     break;
                 case 3:
-                    newLobby = new Lobby(gameNameTextBox.Text, -1, null);
+                    newLobby = new Lobby(gameNameTextBox.Text, -1, null, -1);
                     break;
                 default: return;
             }
