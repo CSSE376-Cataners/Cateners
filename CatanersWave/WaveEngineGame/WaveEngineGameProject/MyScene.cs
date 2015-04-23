@@ -23,12 +23,11 @@ namespace WaveEngineGameProject
         {
             //Insert your scene definition here.
 
-            #region Simple test
             //Create a 3D camera
             var camera2D = new FixedCamera2D("Camera2D") { BackgroundColor = Color.Black };
             EntityManager.Add(camera2D);
             var title = new Entity("Title")
-                .AddComponent(new Sprite("C:/Users/trottasn/Documents/GitHub/Cateners/CatanersWave/WaveEngineGame/WaveEngineGameProject/TheSettlersofCatan.wpk"))
+                .AddComponent(new Sprite("TheSettlersofCatan.wpk"))
                 .AddComponent(new SpriteRenderer(DefaultLayers.Alpha))
                 .AddComponent(new Transform2D()
                 {
@@ -38,7 +37,7 @@ namespace WaveEngineGameProject
             EntityManager.Add(title);
 
             var forestHex = new Entity("forestHex")
-                .AddComponent(new Sprite("C:/Users/trottasn/Documents/GitHub/Cateners/CatanersWave/WaveEngineGame/WaveEngineGameProject/BadHex.wpk"))
+                .AddComponent(new Sprite("BadHex.wpk"))
                 .AddComponent(new SpriteRenderer(DefaultLayers.Alpha))
                 .AddComponent(new Transform2D()
                 {
@@ -47,7 +46,7 @@ namespace WaveEngineGameProject
                 });
             EntityManager.Add(forestHex);
             var forestHex2 = new Entity("forestHex2")
-                .AddComponent(new Sprite("C:/Users/trottasn/Documents/GitHub/Cateners/CatanersWave/WaveEngineGame/WaveEngineGameProject/BadHex.wpk"))
+                .AddComponent(new Sprite("BadHex.wpk"))
                 .AddComponent(new SpriteRenderer(DefaultLayers.Alpha))
                 .AddComponent(new Transform2D()
                 {
@@ -56,7 +55,7 @@ namespace WaveEngineGameProject
                 });
             EntityManager.Add(forestHex2);
             var forestHex3 = new Entity("forestHex3")
-                .AddComponent(new Sprite("C:/Users/trottasn/Documents/GitHub/Cateners/CatanersWave/WaveEngineGame/WaveEngineGameProject/BadHex.wpk"))
+                .AddComponent(new Sprite("BadHex.wpk"))
                 .AddComponent(new SpriteRenderer(DefaultLayers.Alpha))
                 .AddComponent(new RectangleCollider())
                 .AddComponent(new TouchGestures())
@@ -67,7 +66,7 @@ namespace WaveEngineGameProject
                 });
             forestHex3.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(forestHex3_TouchPressed);
             EntityManager.Add(forestHex3);
-            #endregion
+        
         }
 
     
