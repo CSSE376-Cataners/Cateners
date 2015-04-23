@@ -31,6 +31,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JoinGameForm));
             this.joinGameLabel = new System.Windows.Forms.Label();
             this.gameTable = new System.Windows.Forms.DataGridView();
@@ -135,7 +136,7 @@
             // 
             // numberPlayersColumn
             // 
-            this.numberPlayersColumn.DataPropertyName = "PlayerCount";
+            this.numberPlayersColumn.DataPropertyName = "playerCount";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.numberPlayersColumn.DefaultCellStyle = dataGridViewCellStyle3;
             this.numberPlayersColumn.DividerWidth = 3;
@@ -148,6 +149,8 @@
             // max_time_per_turn
             // 
             this.max_time_per_turn.DataPropertyName = "maxTimePerTurn";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.max_time_per_turn.DefaultCellStyle = dataGridViewCellStyle4;
             this.max_time_per_turn.HeaderText = "Max Time Per Turn";
             this.max_time_per_turn.Name = "max_time_per_turn";
             this.max_time_per_turn.ReadOnly = true;
