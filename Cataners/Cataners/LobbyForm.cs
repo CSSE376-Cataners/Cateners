@@ -40,10 +40,14 @@ namespace Cataners
         {
             if (ready) {
                 CommunicationClient.Instance.sendToServer(new CatanersShared.Message(false.ToString(), Translation.TYPE.ChangeReadyStatus).toJson());
+                ready = false;
+                readyButton.Text = "Ready Up";
             }
             else
             {
                 CommunicationClient.Instance.sendToServer(new CatanersShared.Message(true.ToString(), Translation.TYPE.ChangeReadyStatus).toJson());
+                ready = true;
+                readyButton.Text = "Not Ready";
             }
 
             

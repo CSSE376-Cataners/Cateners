@@ -57,7 +57,7 @@ namespace Cataners
             }
 
             CommunicationClient.Instance.sendToServer(new CatanersShared.Message(Data.Lobbies[gameTable.Rows.IndexOf(selectedRow[0])].lobbyID.ToString(), Translation.TYPE.JoinLobby).toJson());
-
+            
             this.Close();
             new LobbyForm(Data.Lobbies[gameTable.Rows.IndexOf(selectedRow[0])].GameName).Show();
             
