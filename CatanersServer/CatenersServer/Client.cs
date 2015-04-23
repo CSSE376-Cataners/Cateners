@@ -108,11 +108,10 @@ namespace CatenersServer
                 case  Translation.TYPE.CreateLobby:
                     Lobby lobby = Lobby.fromJson(msg.message);
                     Player owner = new Player(this.userName);
-                    lobby.Owner = owner;
-                    lobby.Players.Add(owner);
-                    lobby.lobbyID = Data.INSTANCE.nextLobbyID++;
+
+                    Lobby newLobby = new Lobby(lobby.GameName, lobby.MaxTimePerTurn, new Player(this.userName), Data.INSTANCE.nextLobbyID++);
                     // TODO verify Lobby;
-                    Data.INSTANCE.Lobbies.Add(lobby);
+                    Data.INSTANCE.Lobbies.Add(newLobby);
                 break;
             }
         }
