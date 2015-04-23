@@ -20,6 +20,7 @@ namespace CatenersServer
         public int userID;
         public String userName;
 
+        public Lobby currentLobby;
 
         public Client(TcpClient tcp)
         {
@@ -28,6 +29,7 @@ namespace CatenersServer
             Enabled = true;
             userID = -1;
             userName = null;
+            currentLobby = null;
         }
 
         public async void queueMessagesAsync()
@@ -112,6 +114,21 @@ namespace CatenersServer
                     Lobby newLobby = new Lobby(lobby.GameName, lobby.MaxTimePerTurn, new Player(this.userName), Data.INSTANCE.nextLobbyID++);
                     // TODO verify Lobby;
                     Data.INSTANCE.Lobbies.Add(newLobby);
+
+                    this.currentLobby = newLobby;
+                break;
+                case Translation.TYPE.ChangeReadyStatus:
+                    for (int i = 0; i < this.currentLobby.Players.Count; i++)
+                    {
+                        if (this.currentLobby.Players[i].Username.Equals(this.userName))
+                        {
+                            this.currentLobby.Players[i].Ready = Boolean.Parse(msg.message);
+                            break;
+                        }
+                    }
+                break;
+                case Translation.TYPE.UpdateLobby:
+                    sendToClient(this.currentLobby.toJson());
                 break;
             }
         }

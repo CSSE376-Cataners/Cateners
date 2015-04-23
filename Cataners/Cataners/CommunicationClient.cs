@@ -132,7 +132,7 @@ namespace Cataners
                     if (LobbyForm.INSTANCE != null)
                     {
                         Data.currentLobby = Lobby.fromJson(msg.message);
-                        // Invoke Refresh
+                        LobbyForm.INSTANCE.invokedRefresh();
                     }
                     break;
             }

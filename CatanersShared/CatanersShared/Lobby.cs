@@ -14,9 +14,9 @@ namespace CatanersShared
         private Player owner;
         public int lobbyID;
 
-        private ArrayList players;
+        private List<Player> players;
 
-        public ArrayList Players
+        public List<Player> Players
         {
             get
             {
@@ -73,7 +73,7 @@ namespace CatanersShared
         {
             this.gameName = GameName;
             this.maxTimePerTurn = MaxTimePerTurn;
-            this.players = new ArrayList();
+            this.players = new List<Player>();
             this.owner = Owner;
             addPlayer(owner);
             this.lobbyID = LobbyID;
