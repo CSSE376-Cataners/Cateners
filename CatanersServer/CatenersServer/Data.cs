@@ -30,5 +30,7 @@ namespace CatenersServer
 
         private List<Lobby> lobbies = new List<Lobby>();
 
+        public int nextLobbyID = 0;
+
     }
 }

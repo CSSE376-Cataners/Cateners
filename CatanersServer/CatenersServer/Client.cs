@@ -110,6 +110,7 @@ namespace CatenersServer
                     Player owner = new Player(this.userName);
                     lobby.Owner = owner;
                     lobby.Players.Add(owner);
+                    lobby.lobbyID = Data.INSTANCE.nextLobbyID++;
                     // TODO verify Lobby;
                     Data.INSTANCE.Lobbies.Add(lobby);
                 break;
