@@ -50,9 +50,13 @@
     <Compile Include="MyScene.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="BadHex.wpk" />
+    <None Include="BadHex.wpk">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources.weproj" />
-    <None Include="TheSettlersofCatan.wpk" />
+    <None Include="TheSettlersofCatan.wpk">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="TheSettlersofCatan.jpg" />

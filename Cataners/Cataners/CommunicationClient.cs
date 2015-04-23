@@ -121,8 +121,12 @@ namespace Cataners
                     queues[Translation.TYPE.Register].Add(msg.message);
                     break;
                 case Translation.TYPE.RequestLobbies:
-                    Data.Lobbies.Clear();
-                    Data.Lobbies.AddRange(Lobby.jsonToLobbyList(msg.message));
+                    if (JoinGameForm.INSTANCE != null)
+                    {
+                        Data.Lobbies.Clear();
+                        Data.Lobbies.AddRange(Lobby.jsonToLobbyList(msg.message));
+                        JoinGameForm.INSTANCE.invokedRefresh();
+                    }
                     break;
             }
         }

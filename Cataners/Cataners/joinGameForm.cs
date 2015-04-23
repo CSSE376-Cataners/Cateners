@@ -15,10 +15,12 @@ namespace Cataners
     public partial class JoinGameForm : Form
     {
         public static JoinGameForm INSTANCE;
+        public delegate void refresher(object sender, EventArgs e);
         private BindingSource bs;
         public JoinGameForm()
         {
             InitializeComponent();
+            INSTANCE = this;
             var bs = new BindingSource();
             bs.DataSource = Data.Lobbies;
             gameTable.DataSource = bs;
@@ -34,11 +36,16 @@ namespace Cataners
             gameTable.Refresh();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void RefreshButton_Click(object sender, EventArgs e)
         {
             CommunicationClient.Instance.sendToServer(new CatanersShared.Message(null, Translation.TYPE.RequestLobbies).toJson());
-            bs.DataSource = Data.Lobbies;
-            gameTable.Refresh();
+            //bs.DataSource = Data.Lobbies;
+            //gameTable.Refresh();
+        }
+
+        public void invokedRefresh()
+        {
+            this.Invoke(new refresher(button1_Click),new object[]{null,null});
         }
 
     }

@@ -182,4 +182,4 @@ UpgradeLog*.htm
 FakesAssemblies/
 
 #CUSTOM Spurred by Bolt
-.*/
+*.Cataners.boltdata\
