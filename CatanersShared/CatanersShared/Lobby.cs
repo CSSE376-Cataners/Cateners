@@ -75,6 +75,7 @@ namespace CatanersShared
             this.maxTimePerTurn = MaxTimePerTurn;
             this.players = new ArrayList();
             this.owner = Owner;
+            addPlayer(owner);
             this.lobbyID = LobbyID;
         }
 

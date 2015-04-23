@@ -128,6 +128,13 @@ namespace Cataners
                         JoinGameForm.INSTANCE.invokedRefresh();
                     }
                     break;
+                case Translation.TYPE.UpdateLobby:
+                    if (LobbyForm.INSTANCE != null)
+                    {
+                        Data.currentLobby = Lobby.fromJson(msg.message);
+                        // Invoke Refresh
+                    }
+                    break;
             }
         }
 

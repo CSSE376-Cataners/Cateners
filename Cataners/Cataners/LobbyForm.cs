@@ -12,10 +12,13 @@ namespace Cataners
 {
     public partial class LobbyForm : Form
     {
+        public static LobbyForm INSTANCE;
+
         public LobbyForm()
         {
             InitializeComponent();
             this.FormClosing += closing;
+            INSTANCE = this;
         }
         private void closing(object sender, FormClosingEventArgs e)
         {
