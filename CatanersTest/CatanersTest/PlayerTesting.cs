@@ -38,5 +38,11 @@ namespace CatanersTest
             Assert.AreEqual(a, b);
         }
 
+        [Test]
+        public void testPlayerToString()
+        {
+            Player a = new Player("abc123");
+            Assert.AreEqual("abc123", a.ToString());
+        }
     }
 }

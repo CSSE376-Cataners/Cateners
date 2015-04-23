@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="ClientTesting.cs" />
     <Compile Include="LobbyTesting.cs" />
+    <Compile Include="PlayerTesting.cs" />
     <Compile Include="RegistrationTesting.cs" />
     <Compile Include="LoginTesting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

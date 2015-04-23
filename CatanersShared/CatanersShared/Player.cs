@@ -47,5 +47,10 @@ namespace CatanersShared
             // TODO: write your implementation of GetHashCode() here
             return base.GetHashCode();
         }
+
+        public override string ToString()
+        {
+            return Username;
+        }
     }
 }
