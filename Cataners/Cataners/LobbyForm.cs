@@ -16,14 +16,15 @@ namespace Cataners
         public static LobbyForm INSTANCE;
         public delegate void refresher();
         private bool ready;
-        public LobbyForm()
+        public LobbyForm(String gameName)
         {
             InitializeComponent();
+            lobbyNameLabel.Text = gameName;
             this.FormClosing += closing;
             INSTANCE = this;
             ready = false;
             var bs = new BindingSource();
-            bs.DataSource = Data.Lobbies;
+            bs.DataSource = Data.currentLobby.Players;
             playersDataGridView.DataSource = bs;
             
         }
@@ -51,7 +52,7 @@ namespace Cataners
         private void refreshLobby()
         {
             BindingSource bs = new BindingSource();
-            bs.DataSource = Data.Lobbies;
+            bs.DataSource = Data.currentLobby.Players;
             playersDataGridView.DataSource = bs;
             playersDataGridView.Show();
             playersDataGridView.Refresh();
