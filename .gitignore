@@ -58,7 +58,6 @@ dlldata.c
 *.pidb
 *.svclog
 *.scc
-
 # Chutzpah Test files
 _Chutzpah*
 
@@ -181,3 +180,6 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+
+#CUSTOM Spurred by Bolt
+.*/

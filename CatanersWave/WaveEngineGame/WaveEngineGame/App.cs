@@ -25,7 +25,7 @@ namespace WaveEngineGame
 
             this.Width = 1910;
             this.Height = 1000;
-            this.FullScreen = true;
+            this.FullScreen = false;
             this.WindowTitle = "WaveEngineGame";
         }
 
