@@ -22,9 +22,10 @@ namespace WaveEngineGame
 
         public App()
         {
-            this.Width = 1280;
-            this.Height = 720;
-            this.FullScreen = false;
+
+            this.Width = 1910;
+            this.Height = 1000;
+            this.FullScreen = true;
             this.WindowTitle = "WaveEngineGame";
         }
 
