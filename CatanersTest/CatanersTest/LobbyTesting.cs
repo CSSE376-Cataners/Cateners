@@ -32,7 +32,7 @@ namespace CatanersTest
         public void testLobbyToJson()
         {
             Lobby newLobby = new Lobby("Test", 3, new Player("Steve"), 2);
-            Assert.AreEqual("{\"players\":[{\"Username\":\"Steve\"}],\"Players\":[{\"Username\":\"Steve\"}],\"GameName\":\"Test\",\"MaxTimePerTurn\":3,\"Owner\":{\"Username\":\"Steve\"}}", newLobby.toJson());
+            Assert.AreEqual("{\"lobbyID\":2,\"Players\":[{\"Username\":\"Steve\"}],\"GameName\":\"Test\",\"MaxTimePerTurn\":3,\"Owner\":{\"Username\":\"Steve\"},\"PlayerCount\":1}", newLobby.toJson());
         }
 
         [Test]
