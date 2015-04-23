@@ -17,6 +17,8 @@ namespace CatanersShared
             }
         }
 
+        public Boolean Ready = false;
+
         public Player(String username)
         {
             this.username = username;
