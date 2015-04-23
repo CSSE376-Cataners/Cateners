@@ -14,7 +14,7 @@ namespace CatanersShared
         private Player owner;
         public int lobbyID;
 
-        public ArrayList players;
+        private ArrayList players;
 
         public ArrayList Players
         {

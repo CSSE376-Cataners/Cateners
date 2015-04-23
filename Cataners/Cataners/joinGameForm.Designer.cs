@@ -70,12 +70,14 @@
             this.numberPlayersColumn,
             this.max_time_per_turn});
             this.gameTable.Location = new System.Drawing.Point(21, 82);
+            this.gameTable.MultiSelect = false;
             this.gameTable.Name = "gameTable";
             this.gameTable.ReadOnly = true;
             this.gameTable.RowHeadersVisible = false;
             this.gameTable.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.gameTable.RowTemplate.Height = 24;
             this.gameTable.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.gameTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gameTable.Size = new System.Drawing.Size(957, 437);
             this.gameTable.TabIndex = 1;
             // 
@@ -108,6 +110,7 @@
             this.joinGameButton.TabIndex = 4;
             this.joinGameButton.Text = "Join Game";
             this.joinGameButton.UseVisualStyleBackColor = true;
+            this.joinGameButton.Click += new System.EventHandler(this.joinGameButton_Click);
             // 
             // gameNameColumn
             // 
