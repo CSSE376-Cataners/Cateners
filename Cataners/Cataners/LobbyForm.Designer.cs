@@ -37,7 +37,7 @@
             this.startButton = new System.Windows.Forms.Button();
             this.refreshTimer = new System.Windows.Forms.Timer(this.components);
             this.playerNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.statusColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.statusColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.playersDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -120,6 +120,7 @@
             this.statusColumn.Name = "statusColumn";
             this.statusColumn.ReadOnly = true;
             this.statusColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.statusColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // LobbyForm
             // 
@@ -150,6 +151,6 @@
         private System.Windows.Forms.Button startButton;
         private System.Windows.Forms.Timer refreshTimer;
         private System.Windows.Forms.DataGridViewTextBoxColumn playerNameColumn;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn statusColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn statusColumn;
     }
 }
