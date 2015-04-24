@@ -77,7 +77,20 @@ namespace Cataners
             }
             else
             {
-                MessageBox.Show("Your username and password do not meet the requirements");
+                if (!userNameGood && passwordGood)
+                {
+                    MessageBox.Show("Your username does not meet the requirements");
+                }
+                else if (userNameGood && !passwordGood)
+                {
+                    MessageBox.Show("Your password does not meet the requirements");
+                }
+                else
+                {
+                    MessageBox.Show("Neither your username nor your password meet the requirements");
+                }
+                
+                
             }
 
         }
