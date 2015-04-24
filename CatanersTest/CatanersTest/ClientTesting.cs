@@ -66,9 +66,20 @@ namespace CatanersTest
             Assert.AreEqual("Good", client.userName);
             Assert.AreEqual(1, client.userID);
 
-            sDB.Stub(call => call.getUser(Arg<Login>.Is.Anything)).Return(null);
+
+            IDatabase sDB2 = mocks.DynamicMock<IDatabase>();
+
+            sDB2.Stub(call => call.getUser(Arg<Login>.Is.Anything)).Return(null);
+            mocks.ReplayAll();
+
+            Database.INSTANCE = sDB2;
             mocks.ReplayAll();
             jsonString = "{\"type\":0,\"message\":\"{\\\"username\\\":\\\"Good\\\",\\\"password\\\":\\\"Password\\\",\\\"register\\\":false}\"}";
+            client.processesMessage(jsonString);
+            Assert.AreEqual("{\"type\":0,\"message\":\"-1\"}", client.lastCall);
+
+
+            jsonString = "{\"type\":0,\"message\":\"\"}";
             client.processesMessage(jsonString);
             Assert.AreEqual("{\"type\":0,\"message\":\"-1\"}", client.lastCall);
 
@@ -97,6 +108,17 @@ namespace CatanersTest
             String jsonString = "{\"type\":1,\"message\":\"{\\\"username\\\":\\\"Good\\\",\\\"password\\\":\\\"Password\\\",\\\"register\\\":false}\"}";
             client.processesMessage(jsonString);
             Assert.AreEqual("{\"type\":1,\"message\":\"1\"}", client.lastCall);
+
+            IDatabase sDB2 = mocks.DynamicMock<IDatabase>();
+
+            sDB2.Stub(call => call.registerUser(Arg<Login>.Is.Anything)).Return(-1);
+            mocks.ReplayAll();
+
+            Database.INSTANCE = sDB2;
+
+            jsonString = "{\"type\":1,\"message\":\"{\\\"username\\\":\\\"Good\\\",\\\"password\\\":\\\"Password\\\",\\\"register\\\":false}\"}";
+            client.processesMessage(jsonString);
+            Assert.AreEqual("{\"type\":1,\"message\":\"-1\"}", client.lastCall);
         }
 
         public class FakeClient : Client
