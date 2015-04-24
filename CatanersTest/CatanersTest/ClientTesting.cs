@@ -159,6 +159,30 @@ namespace CatanersTest
             Assert.AreEqual(new Lobby("GameName",10,new Player("TestUserName"),oldID),Data.INSTANCE.Lobbies[count]);
         }
 
+        [Test]
+        public void testProcessMessageChangeReadyStatus()
+        {
+            FakeClient client = new FakeClient();
+
+            String readyString = new Message(true.ToString(), Translation.TYPE.ChangeReadyStatus).toJson();
+            String falseString = new Message(false.ToString(), Translation.TYPE.ChangeReadyStatus).toJson();
+            client.processesMessage(readyString);
+
+            Assert.Null(client.lastCall);
+
+            client.userName = "GoodUser";
+            client.currentLobby = new Lobby("GameName", 10, new Player("GoodUser"),10);
+
+            Assert.False(client.currentLobby.Players[0].Ready);
+
+            client.processesMessage(readyString);
+            Assert.True(client.currentLobby.Players[0].Ready);
+            client.processesMessage(readyString);
+            Assert.True(client.currentLobby.Players[0].Ready);
+            client.processesMessage(falseString);
+            Assert.False(client.currentLobby.Players[0].Ready);
+        }
+
         public class FakeClient : Client
         {
 

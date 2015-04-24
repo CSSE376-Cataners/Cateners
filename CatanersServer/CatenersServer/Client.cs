@@ -123,6 +123,11 @@ namespace CatenersServer
                     this.currentLobby = newLobby;
                 break;
                 case Translation.TYPE.ChangeReadyStatus:
+                    if (this.currentLobby == null || this.userName == null)
+                    {
+                        // Trying to change ready status while not in a group just going to ingore incase of race conditions
+                        break;
+                    }
                     for (int i = 0; i < this.currentLobby.Players.Count; i++)
                     {
                         if (this.currentLobby.Players[i].Username.Equals(this.userName))
