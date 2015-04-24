@@ -23,7 +23,7 @@ namespace CatanersTest
 
         private MockRepository mocks = new MockRepository();
 
-        [Test]
+        //[Test]
         public void testprocessMessage()
         {
             Message newMessage = new Message(new Login("steve38", "helloH38").toJson(), Translation.TYPE.Login);
@@ -60,9 +60,11 @@ namespace CatanersTest
 
 
             // Good Login
-            String jsonString = "{\"type\":0,\"message\":\"{\\\"username\\\":\\\"Good\\\",\\\"password\\\":\\\"Password\\\",\\\"register\\\":false}\"}";
+            String jsonString = new Message(goodLogin.toJson(), Translation.TYPE.Login).toJson();
+            
             client.processesMessage(jsonString);
-            Assert.AreEqual("{\"type\":0,\"message\":\"1\"}", client.lastCall);
+
+            Assert.AreEqual(new Message("1", Translation.TYPE.Login).toJson(), client.lastCall);
             Assert.AreEqual("Good", client.userName);
             Assert.AreEqual(1, client.userID);
 
@@ -74,14 +76,14 @@ namespace CatanersTest
 
             Database.INSTANCE = sDB2;
             mocks.ReplayAll();
-            jsonString = "{\"type\":0,\"message\":\"{\\\"username\\\":\\\"Good\\\",\\\"password\\\":\\\"Password\\\",\\\"register\\\":false}\"}";
             client.processesMessage(jsonString);
-            Assert.AreEqual("{\"type\":0,\"message\":\"-1\"}", client.lastCall);
+
+            Assert.AreEqual(new Message("-1", Translation.TYPE.Login).toJson(), client.lastCall);
 
 
-            jsonString = "{\"type\":0,\"message\":\"\"}";
+            jsonString = new Message("",Translation.TYPE.Login).toJson();
             client.processesMessage(jsonString);
-            Assert.AreEqual("{\"type\":0,\"message\":\"-1\"}", client.lastCall);
+            Assert.AreEqual(new Message("-1", Translation.TYPE.Login).toJson(), client.lastCall);
 
         }
 
@@ -105,9 +107,9 @@ namespace CatanersTest
 
             Database.INSTANCE = sDB;
 
-            String jsonString = "{\"type\":1,\"message\":\"{\\\"username\\\":\\\"Good\\\",\\\"password\\\":\\\"Password\\\",\\\"register\\\":false}\"}";
+            String jsonString = new Message(goodLogin.toJson(), Translation.TYPE.Register).toJson();
             client.processesMessage(jsonString);
-            Assert.AreEqual("{\"type\":1,\"message\":\"1\"}", client.lastCall);
+            Assert.AreEqual(new Message("1",Translation.TYPE.Register).toJson(), client.lastCall);
 
             IDatabase sDB2 = mocks.DynamicMock<IDatabase>();
 
@@ -116,9 +118,45 @@ namespace CatanersTest
 
             Database.INSTANCE = sDB2;
 
-            jsonString = "{\"type\":1,\"message\":\"{\\\"username\\\":\\\"Good\\\",\\\"password\\\":\\\"Password\\\",\\\"register\\\":false}\"}";
             client.processesMessage(jsonString);
-            Assert.AreEqual("{\"type\":1,\"message\":\"-1\"}", client.lastCall);
+            Assert.AreEqual(new Message("-1", Translation.TYPE.Register).toJson(), client.lastCall);
+        }
+
+        [Test]
+        public void testProcessMessageRequestLobbies()
+        {
+            FakeClient client = new FakeClient();
+
+            List<Lobby> lobbies = new List<Lobby>();
+            lobbies.Add(new Lobby("Game1", 10, new Player("Owner One"),Data.INSTANCE.nextLobbyID++));
+            lobbies.Add(new Lobby("Game2", 1, new Player("Owner Two"),Data.INSTANCE.nextLobbyID++));
+            lobbies.Add(new Lobby("Game3", -1, new Player("Owner Three"),Data.INSTANCE.nextLobbyID++));
+
+            Data.INSTANCE.Lobbies.Clear();
+            Data.INSTANCE.Lobbies.AddRange(lobbies);
+
+            String jsonString = "{\"type\":2,\"message\":\"\"}";
+            client.processesMessage(jsonString);
+            Assert.AreEqual(new Message(Newtonsoft.Json.JsonConvert.SerializeObject(Data.INSTANCE.Lobbies), Translation.TYPE.RequestLobbies).toJson(), client.lastCall);
+        }
+
+        [Test]
+        public void testProcessMessageCreateLobby()
+        {
+            FakeClient client = new FakeClient();
+            client.userName = "TestUserName";
+
+            String jsonString = new Message(new Lobby("GameName", 10, new Player("BadUserName"), 100).toJson(),Translation.TYPE.CreateLobby).toJson();
+
+
+            int count = Data.INSTANCE.Lobbies.Count;
+            int oldID = Data.INSTANCE.nextLobbyID;
+            client.processesMessage(jsonString);
+            
+            Assert.True(count < Data.INSTANCE.Lobbies.Count);
+            Assert.True(oldID < Data.INSTANCE.nextLobbyID);
+
+            Assert.AreEqual(new Lobby("GameName",10,new Player("TestUserName"),oldID),Data.INSTANCE.Lobbies[count]);
         }
 
         public class FakeClient : Client
