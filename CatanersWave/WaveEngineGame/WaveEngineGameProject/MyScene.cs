@@ -33,24 +33,13 @@ namespace WaveEngineGameProject
             //Insert your scene definition here.
 
             //Create a 3D camera
-<<<<<<< HEAD
             float HEX_START_X = (((float) WaveServices.Platform.ScreenWidth) / 2.0f) - ((HEX_WIDTH * 3) / 2);
             float HEX_START_Y = (((float)WaveServices.Platform.ScreenHeight) / 2.0f) - ((3 * HEX_HEIGHT) - (4 * TRIANGLE_HEIGHT));
-=======
-            float WIDTH_TO_HEIGHT = WaveServices.Platform.ScreenWidth / WaveServices.Platform.ScreenHeight;
-            float HEX_WIDTH = (WaveServices.Platform.ScreenWidth / 25) / WIDTH_TO_HEIGHT;
-            float HEX_SCALE_X = HEX_WIDTH / 220;
-            float HEX_SCALE_Y = HEX_WIDTH * ((float)1.1681818181) / 257;
-            float HEX_HEIGHT = (HEX_WIDTH * (float)1.168181818);
-            float TRIANGLE_HEIGHT = HEX_HEIGHT * (float).2723735409;
-            float HEX_START_X = 0;
-            float HEX_START_Y = 0;
->>>>>>> origin/master
             var camera2D = new FixedCamera2D("Camera2D") { BackgroundColor = Color.Black };
             EntityManager.Add(camera2D);
             this.hexList = new Entity[19];
             int count = 0;
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 4; i++)
             {
                 String name = "SheepHex" + count.ToString();
                 Entity tempEntity = new Entity(name)
@@ -60,7 +49,7 @@ namespace WaveEngineGameProject
                 count++;
             }
 
-            for (int j = 0; j < 5; j++)
+            for (int j = 0; j < 4; j++)
             {
                 String name = "ForestHex" + count.ToString();
                 Entity tempEntity2 = new Entity(name)
@@ -70,7 +59,7 @@ namespace WaveEngineGameProject
                 count++;
             }
 
-            for (int k = 0; k < 4; k++)
+            for (int k = 0; k < 3; k++)
             {
                 String name = "OreHex" + count.ToString();
                 Entity tempEntity3 = new Entity(name)
@@ -80,7 +69,6 @@ namespace WaveEngineGameProject
                 count++;
             }
 
-<<<<<<< HEAD
             Entity tempEntity4 = new Entity("DesertHex")
             .AddComponent(new Sprite("DesertHex.wpk"))
             .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
@@ -113,9 +101,6 @@ namespace WaveEngineGameProject
             ArrayList newList = new ArrayList();
             newList.AddRange(new Object[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 });
             for (int g = 0; g < 19; g++)
-=======
-            for (int i = 0; i < 9; i++)
->>>>>>> origin/master
             {
                 int rInt = r.Next(0, newList.Count);
                 int nextIndex = (int) newList[rInt];
@@ -147,13 +132,8 @@ namespace WaveEngineGameProject
                 this.hexList[nextIndex].AddComponent(new Transform2D()
                 {
                     Scale = new Vector2(HEX_SCALE_X, HEX_SCALE_Y),
-<<<<<<< HEAD
                     X = HEX_START_X + (HEX_WIDTH * finalCount2),
                     Y = HEX_START_Y
-=======
-                    X = HEX_START_X + (HEX_WIDTH * i),
-                    Y = HEX_START_Y + (HEX_HEIGHT)
->>>>>>> origin/master
                 });
                 EntityManager.Add(this.hexList[nextIndex]);
                 finalCount++;
