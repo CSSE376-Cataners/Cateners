@@ -77,6 +77,12 @@
   <ItemGroup>
     <Content Include="TheSettlersofCatan.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\CatanersShared\CatanersShared\CatanersShared.csproj">
+      <Project>{0b6057c1-b6ec-416c-ba05-6f019daaad4d}</Project>
+      <Name>CatanersShared</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(WaveEngine)v1.0\Targets\Windows\WPKAssetsExport.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
