@@ -10,7 +10,7 @@ namespace CatanersShared
 {
     public class Translation
     {
-        public enum TYPE { Login, Register, RequestLobbies, JoinLobby, CreateLobby, UpdateLobby, ChangeReadyStatus, Chat, Game };
+        public enum TYPE { Login, Register, RequestLobbies, JoinLobby, CreateLobby, UpdateLobby, ChangeReadyStatus, LeaveLobby, Chat, Game };
 
         public static String translateLogin(String username, String password)
         {
