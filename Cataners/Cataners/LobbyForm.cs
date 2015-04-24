@@ -26,7 +26,8 @@ namespace Cataners
             var bs = new BindingSource();
             bs.DataSource = Data.currentLobby.Players;
             playersDataGridView.DataSource = bs;
-            
+            CommunicationClient.Instance.sendToServer(new CatanersShared.Message("", Translation.TYPE.UpdateLobby).toJson());
+
         }
         private void closing(object sender, FormClosingEventArgs e)
         {

@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LobbyForm));
             this.playersDataGridView = new System.Windows.Forms.DataGridView();
             this.playerNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -81,8 +80,6 @@
             // statusColumn
             // 
             this.statusColumn.DataPropertyName = "Ready";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.statusColumn.DefaultCellStyle = dataGridViewCellStyle2;
             this.statusColumn.DividerWidth = 3;
             this.statusColumn.HeaderText = "Status";
             this.statusColumn.Name = "statusColumn";
@@ -152,8 +149,8 @@
         private System.Windows.Forms.Label lobbyNameLabel;
         private System.Windows.Forms.Button readyButton;
         private System.Windows.Forms.Button startButton;
+        private System.Windows.Forms.Timer refreshTimer;
         private System.Windows.Forms.DataGridViewTextBoxColumn playerNameColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn statusColumn;
-        private System.Windows.Forms.Timer refreshTimer;
     }
 }
