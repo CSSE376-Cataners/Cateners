@@ -21,27 +21,20 @@ namespace WaveEngineGameProject
     public class MyScene : Scene
     {
         private Entity[] hexList;
+        public static float WIDTH_TO_HEIGHT = ((float) WaveServices.Platform.ScreenWidth) / ((float) WaveServices.Platform.ScreenHeight);
+        public static float HEX_WIDTH = (((float) WaveServices.Platform.ScreenWidth) / 8.0f) / WIDTH_TO_HEIGHT;
+        public static float HEX_SCALE_X = HEX_WIDTH / 220.0f;
+        public static float HEX_SCALE_Y = HEX_WIDTH * ((float) 1.1681818181) / 257.0f;
+        public static float HEX_HEIGHT = (HEX_WIDTH * (float) 1.168181818);
+        public static float TRIANGLE_HEIGHT = HEX_HEIGHT * (float) 0.2723735409;
+
         protected override void CreateScene()
         {
             //Insert your scene definition here.
 
             //Create a 3D camera
-            float WIDTH_TO_HEIGHT = ((float) WaveServices.Platform.ScreenWidth) / ((float) WaveServices.Platform.ScreenHeight);
-            Console.WriteLine("WIDTH_TO_HEIGHT: " + WIDTH_TO_HEIGHT.ToString());
-            float HEX_WIDTH = (((float) WaveServices.Platform.ScreenWidth) / 25.0f) / WIDTH_TO_HEIGHT;
-            Console.WriteLine("HEX_WIDTH: " + HEX_WIDTH.ToString());
-            float HEX_SCALE_X = HEX_WIDTH / 220.0f;
-            Console.WriteLine("HEX_SCALE_X: " + HEX_SCALE_X.ToString());
-            float HEX_SCALE_Y = HEX_WIDTH * ((float) 1.1681818181) / 257.0f;
-            Console.WriteLine("HEX_SCALE_Y: " + HEX_SCALE_Y.ToString());
-            float HEX_HEIGHT = (HEX_WIDTH * (float) 1.168181818);
-            Console.WriteLine("HEX_HEIGHT: " + HEX_HEIGHT.ToString());
-            float TRIANGLE_HEIGHT = HEX_HEIGHT * (float) 0.2723735409;
-            Console.WriteLine("TRIANGLE_HEIGHT: " + TRIANGLE_HEIGHT.ToString());
-            float HEX_START_X = ((float) WaveServices.Platform.ScreenWidth) / 2.0f;
-            Console.WriteLine("HEX_START_X: " + HEX_START_X.ToString());
-            float HEX_START_Y = ((float) WaveServices.Platform.ScreenHeight) / 2.0f;
-            Console.WriteLine("HEX_START_Y: " + HEX_START_Y.ToString());
+            float HEX_START_X = (((float) WaveServices.Platform.ScreenWidth) / 2.0f) - ((HEX_WIDTH * 3) / 2);
+            float HEX_START_Y = (((float)WaveServices.Platform.ScreenHeight) / 2.0f) - ((3 * HEX_HEIGHT) - (4 * TRIANGLE_HEIGHT));
             var camera2D = new FixedCamera2D("Camera2D") { BackgroundColor = Color.Black };
             EntityManager.Add(camera2D);
             this.hexList = new Entity[19];
@@ -102,15 +95,49 @@ namespace WaveEngineGameProject
                 count++;
             }
 
-            for (int i = 0; i < 19; i++)
+            int finalCount = 0;
+            int finalCount2 = 0;
+            System.Random r = new System.Random();
+            ArrayList newList = new ArrayList();
+            newList.AddRange(new Object[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 });
+            for (int g = 0; g < 19; g++)
             {
-                this.hexList[i].AddComponent(new Transform2D()
+                int rInt = r.Next(0, newList.Count);
+                int nextIndex = (int) newList[rInt];
+                newList.RemoveAt(rInt);
+                if (finalCount == 3)
+                {
+                    HEX_START_X = HEX_START_X - (HEX_WIDTH / 2);
+                    HEX_START_Y = HEX_START_Y + (HEX_HEIGHT) - (TRIANGLE_HEIGHT);
+                    finalCount2 = 0;
+                }
+                if (finalCount == 7)
+                {
+                    HEX_START_X = HEX_START_X - (HEX_WIDTH / 2);
+                    HEX_START_Y = HEX_START_Y + (HEX_HEIGHT) - (TRIANGLE_HEIGHT);
+                    finalCount2 = 0;
+                }
+                if (finalCount == 12)
+                {
+                    HEX_START_X = HEX_START_X + (HEX_WIDTH / 2);
+                    HEX_START_Y = HEX_START_Y + (HEX_HEIGHT) - (TRIANGLE_HEIGHT);
+                    finalCount2 = 0;
+                }
+                if (finalCount == 16)
+                {
+                    HEX_START_X = HEX_START_X + (HEX_WIDTH / 2);
+                    HEX_START_Y = HEX_START_Y + (HEX_HEIGHT) - (TRIANGLE_HEIGHT);
+                    finalCount2 = 0;
+                }
+                this.hexList[nextIndex].AddComponent(new Transform2D()
                 {
                     Scale = new Vector2(HEX_SCALE_X, HEX_SCALE_Y),
-                    X = HEX_START_X + (HEX_WIDTH * i),
+                    X = HEX_START_X + (HEX_WIDTH * finalCount2),
                     Y = HEX_START_Y
                 });
-                EntityManager.Add(this.hexList[i]);
+                EntityManager.Add(this.hexList[nextIndex]);
+                finalCount++;
+                finalCount2++;
             }
         }
 
@@ -119,11 +146,6 @@ namespace WaveEngineGameProject
             base.Start();
 
             // This method is called after the CreateScene and Initialize methods and before the first Update.
-        }
-
-        public float[][] generatePositions()
-        {
-            return new float[3][];
         }
     }
 }

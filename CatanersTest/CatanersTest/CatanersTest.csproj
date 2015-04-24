@@ -64,7 +64,6 @@
     <Reference Include="WaveEngine.TiledMap, Version=1.4.2.0, Culture=neutral, processorArchitecture=x86" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BoardTesting.cs" />
     <Compile Include="ClientTesting.cs" />
     <Compile Include="LobbyTesting.cs" />
     <Compile Include="PlayerTesting.cs" />
