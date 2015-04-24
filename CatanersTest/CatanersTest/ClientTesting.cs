@@ -39,7 +39,7 @@ namespace CatanersTest
         }
 
         [Test]
-        public void testProcesssMessage2()
+        public void testProcesssMessageLogin()
         {
             FakeClient client = new FakeClient();
             Login goodLogin = new Login("Good", "Password");
@@ -58,12 +58,45 @@ namespace CatanersTest
 
             Database.INSTANCE = sDB;
 
+
+            // Good Login
             String jsonString = "{\"type\":0,\"message\":\"{\\\"username\\\":\\\"Good\\\",\\\"password\\\":\\\"Password\\\",\\\"register\\\":false}\"}";
             client.processesMessage(jsonString);
             Assert.AreEqual("{\"type\":0,\"message\":\"1\"}", client.lastCall);
             Assert.AreEqual("Good", client.userName);
             Assert.AreEqual(1, client.userID);
 
+            sDB.Stub(call => call.getUser(Arg<Login>.Is.Anything)).Return(null);
+            mocks.ReplayAll();
+            jsonString = "{\"type\":0,\"message\":\"{\\\"username\\\":\\\"Good\\\",\\\"password\\\":\\\"Password\\\",\\\"register\\\":false}\"}";
+            client.processesMessage(jsonString);
+            Assert.AreEqual("{\"type\":0,\"message\":\"-1\"}", client.lastCall);
+
+        }
+
+        [Test]
+        public void testProcessMessageRegister()
+        {
+            FakeClient client = new FakeClient();
+            Login goodLogin = new Login("Good", "Password");
+
+            catanersDataSet.checkUserDataTableDataTable table = new catanersDataSet.checkUserDataTableDataTable();
+            table.AddcheckUserDataTableRow(table.NewcheckUserDataTableRow());
+
+            catanersDataSet.checkUserDataTableRow row = (catanersDataSet.checkUserDataTableRow)table.Rows[0];
+            row.UID = 1;
+            row.Username = "Good";
+
+            IDatabase sDB = mocks.DynamicMock<IDatabase>();
+
+            sDB.Stub(call => call.registerUser(Arg<Login>.Is.Anything)).Return(1);
+            mocks.ReplayAll();
+
+            Database.INSTANCE = sDB;
+
+            String jsonString = "{\"type\":1,\"message\":\"{\\\"username\\\":\\\"Good\\\",\\\"password\\\":\\\"Password\\\",\\\"register\\\":false}\"}";
+            client.processesMessage(jsonString);
+            Assert.AreEqual("{\"type\":1,\"message\":\"1\"}", client.lastCall);
         }
 
         public class FakeClient : Client
