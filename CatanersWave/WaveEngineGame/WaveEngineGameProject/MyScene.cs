@@ -1,5 +1,6 @@
 #region Using Statements
 using System;
+using System.Collections;
 using WaveEngine.Common;
 using WaveEngine.Common.Graphics;
 using WaveEngine.Common.Math;
@@ -19,71 +20,64 @@ namespace WaveEngineGameProject
 {
     public class MyScene : Scene
     {
+        private Entity[] hexList;
         protected override void CreateScene()
         {
             //Insert your scene definition here.
 
             //Create a 3D camera
-            float HEX_WIDTH = WaveServices.Platform.ScreenWidth / 11;
-            float HEX_SCALE = HEX_WIDTH / 220;
-            float HEX_HEIGHT = WaveServices.Platform.ScreenWidth / 11;
-            float TRIANGLE_HEIGHT = HEX_HEIGHT * (float) .2723735409;
-            float HEX_START_X = 7 * HEX_WIDTH;
-            float HEX_START_Y = 2 * HEX_HEIGHT;
+            float WIDTH_TO_HEIGHT = WaveServices.Platform.ScreenWidth / WaveServices.Platform.ScreenHeight;
+            float HEX_WIDTH = (WaveServices.Platform.ScreenWidth / 25) / WIDTH_TO_HEIGHT;
+            float HEX_SCALE_X = HEX_WIDTH / 220;
+            float HEX_SCALE_Y = HEX_WIDTH * ((float)1.1681818181) / 257;
+            float HEX_HEIGHT = (HEX_WIDTH * (float)1.168181818);
+            float TRIANGLE_HEIGHT = HEX_HEIGHT * (float).2723735409;
+            float HEX_START_X = 0;
+            float HEX_START_Y = 0;
             var camera2D = new FixedCamera2D("Camera2D") { BackgroundColor = Color.Black };
             EntityManager.Add(camera2D);
-            var title = new Entity("Title")
-                .AddComponent(new Sprite("TheSettlersofCatan.wpk"))
-                .AddComponent(new SpriteRenderer(DefaultLayers.Alpha))
-                .AddComponent(new Transform2D()
-                {
-                    Y = 0,
-                    X = (WaveServices.Platform.ScreenWidth / 2) - 300
-            });
-            EntityManager.Add(title);
+            this.hexList = new Entity[19];
+            int count = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                String name = "SheepHex" + count.ToString();
+                Entity tempEntity = new Entity(name)
+                .AddComponent(new Sprite("SheepHex.wpk"))
+                .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
+                this.hexList[count] = tempEntity;
+                count++;
+            }
 
-            var forestHex = new Entity("forestHex")
-                .AddComponent(new Sprite("BadHex.wpk"))
-                .AddComponent(new SpriteRenderer(DefaultLayers.Alpha))
-                .AddComponent(new Transform2D()
-                {
-                    Scale = new Vector2(HEX_SCALE, HEX_SCALE),
-                    Y = HEX_START_Y,
-                    X = HEX_START_X
-                    
-                });
-            EntityManager.Add(forestHex);
-            var forestHex2 = new Entity("forestHex2")
-                .AddComponent(new Sprite("BadHex.wpk"))
-                .AddComponent(new SpriteRenderer(DefaultLayers.Alpha))
-                .AddComponent(new Transform2D()
-                {
-                    Scale = new Vector2(HEX_SCALE, HEX_SCALE),
-                    Y = HEX_START_Y + TRIANGLE_HEIGHT,
-                    X = HEX_START_X
-                });
-            EntityManager.Add(forestHex2);
-            var forestHex3 = new Entity("forestHex3")
-                .AddComponent(new Sprite("BadHex.wpk"))
-                .AddComponent(new SpriteRenderer(DefaultLayers.Alpha))
-                .AddComponent(new RectangleCollider())
-                .AddComponent(new TouchGestures())
-                .AddComponent(new Transform2D()
-                {
-                    Scale = new Vector2(HEX_SCALE, HEX_SCALE),
-                    Y = HEX_START_Y - (HEX_HEIGHT/2),
-                    X = HEX_START_X + (HEX_WIDTH/2)
-                });
-            forestHex3.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(forestHex3_TouchPressed);
-            EntityManager.Add(forestHex3);
-        
-        }
+            for (int j = 0; j < 5; j++)
+            {
+                String name = "ForestHex" + count.ToString();
+                Entity tempEntity2 = new Entity(name)
+                .AddComponent(new Sprite("ForestHex.wpk"))
+                .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
+                this.hexList[count] = tempEntity2;
+                count++;
+            }
 
-    
-    
-        private void forestHex3_TouchPressed(object sender, GestureEventArgs e)
-        {
-            Console.WriteLine("Hex 3 Touched : Right Hex");
+            for (int k = 0; k < 4; k++)
+            {
+                String name = "OreHex" + count.ToString();
+                Entity tempEntity3 = new Entity(name)
+                .AddComponent(new Sprite("OreHex.wpk"))
+                .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
+                this.hexList[count] = tempEntity3;
+                count++;
+            }
+
+            for (int i = 0; i < 9; i++)
+            {
+                this.hexList[i].AddComponent(new Transform2D()
+                {
+                    Scale = new Vector2(HEX_SCALE_X, HEX_SCALE_Y),
+                    X = HEX_START_X + (HEX_WIDTH * i),
+                    Y = HEX_START_Y + (HEX_HEIGHT)
+                });
+                EntityManager.Add(this.hexList[i]);
+            }
         }
 
         protected override void Start()

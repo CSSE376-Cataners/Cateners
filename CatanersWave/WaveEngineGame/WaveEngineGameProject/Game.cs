@@ -23,7 +23,7 @@ namespace WaveEngineGameProject
 
             // ViewportManager is used to automatically adapt resolution to fit screen size
             ViewportManager vm = WaveServices.ViewportManager;
-            vm.Activate(1280, 720, ViewportManager.StretchMode.Uniform);
+            vm.Activate(1910, 1000, ViewportManager.StretchMode.Uniform);
 
             ScreenContext screenContext = new ScreenContext(new MyScene());
             WaveServices.ScreenContextManager.To(screenContext);
