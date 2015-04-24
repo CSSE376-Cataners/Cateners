@@ -182,13 +182,5 @@ UpgradeLog*.htm
 FakesAssemblies/
 
 #CUSTOM Spurred by Bolt
-*/.Cataners.boltdata/
-Cataners/.Cataners.boltdata/**
-Cataners/.Cataners.boltdata/
-Cataners/.Cataners.boltdata/NCover/
-*.jf
-Cataners/.Cataners.boltdata/NCover/Captures/0.jf
-*.jf
-*.jf
-Cataners/.Cataners.boltdata/NCover/Captures/ExecutionId/0.jf
-Cataners/.Cataners.boltdata/NCover/Captures/0.jf
+*.Cataners.boltdata/
+Cataners/.Cataners.boltdata/*.*
