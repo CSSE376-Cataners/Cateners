@@ -72,6 +72,7 @@ namespace Cataners
             {
                 writer.WriteLine(msg);
                 writer.Flush();
+                Console.WriteLine("Sending To server: " + msg);
             }
         }
 
@@ -86,7 +87,7 @@ namespace Cataners
                 try
                 {
                     line = await task;
-                    Console.WriteLine("Message:" + line);
+                    Console.WriteLine("Message: " + line);
                     Thread thread = new Thread(() => processesMessage(line));
                     thread.Start();
                 }

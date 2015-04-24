@@ -183,3 +183,4 @@ FakesAssemblies/
 
 #CUSTOM Spurred by Bolt
 *.Cataners.boltdata\
+Cataners/.Cataners.boltdata/*.*

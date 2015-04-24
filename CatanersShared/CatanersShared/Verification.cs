@@ -10,7 +10,8 @@ namespace CatanersShared
     public class Verification
     {
         public static bool verifyInputString(String input){
-            Regex r = new Regex("^(?=.[a-zA-Z]{4})([a-zA-Z0-9]{6,15})$");
+            Regex r = new Regex(@"^(?=.*[a-zA-Z0-9]).{4,15}$");
+            //Regex r = new Regex("^(?=.[a-zA-Z]{4})([a-zA-Z0-9]{6,15})$");
             if (r.IsMatch(input)) {
                 return true;
             }

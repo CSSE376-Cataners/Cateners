@@ -32,6 +32,11 @@ namespace CatenersServer
             currentLobby = null;
         }
 
+        public Client()
+        {
+            // For Testing
+        }
+
         public async void queueMessagesAsync()
         {
             StreamReader reader = new StreamReader(socket.GetStream(), Encoding.Unicode);
@@ -61,7 +66,7 @@ namespace CatenersServer
 
         StreamWriter writer;
 
-        public void sendToClient(String msg)
+        public virtual void sendToClient(String msg)
         {
             writer.WriteLine(msg);
             writer.Flush();
@@ -127,8 +132,23 @@ namespace CatenersServer
                         }
                     }
                 break;
+                case Translation.TYPE.JoinLobby:
+                    // TODO Make sure not full
+                    int lobbyID = int.Parse(msg.message);
+                    for (int i = 0; i < Data.INSTANCE.Lobbies.Count; i++)
+                    {
+                        if (Data.INSTANCE.Lobbies[i].lobbyID == lobbyID)
+                        {
+                            this.currentLobby = Data.INSTANCE.Lobbies[i];
+                            this.currentLobby.addPlayer(new Player(this.userName));
+                            break;
+                        }
+                    }
+                break;
+
                 case Translation.TYPE.UpdateLobby:
-                    sendToClient(this.currentLobby.toJson());
+                    if(this.currentLobby != null)
+                        sendToClient(new Message(this.currentLobby.toJson(),Translation.TYPE.UpdateLobby).toJson());
                 break;
             }
         }

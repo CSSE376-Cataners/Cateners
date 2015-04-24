@@ -7,10 +7,10 @@ using CatanersShared;
 
 namespace CatenersServer
 {
-    class Database
+    public class Database : IDatabase
     {
 
-        public static Database INSTANCE;
+        public static IDatabase INSTANCE;
         catanersDataSetTableAdapters.checkUserDataTableAdapter cta;
         catanersDataSetTableAdapters.registerUserDataTableAdapter rta;
 
