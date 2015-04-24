@@ -41,7 +41,7 @@
             this.gameNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gameCreatorColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.numberPlayersColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.max_time_per_turn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.maxTimePerTurnColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gameTable)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,7 +68,7 @@
             this.gameNameColumn,
             this.gameCreatorColumn,
             this.numberPlayersColumn,
-            this.max_time_per_turn});
+            this.maxTimePerTurnColumn});
             this.gameTable.Location = new System.Drawing.Point(21, 82);
             this.gameTable.MultiSelect = false;
             this.gameTable.Name = "gameTable";
@@ -149,14 +149,15 @@
             this.numberPlayersColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.numberPlayersColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // max_time_per_turn
+            // maxTimePerTurnColumn
             // 
-            this.max_time_per_turn.DataPropertyName = "maxTimePerTurn";
+            this.maxTimePerTurnColumn.DataPropertyName = "maxTimePerTurn";
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.max_time_per_turn.DefaultCellStyle = dataGridViewCellStyle4;
-            this.max_time_per_turn.HeaderText = "Max Time Per Turn";
-            this.max_time_per_turn.Name = "max_time_per_turn";
-            this.max_time_per_turn.ReadOnly = true;
+            this.maxTimePerTurnColumn.DefaultCellStyle = dataGridViewCellStyle4;
+            this.maxTimePerTurnColumn.HeaderText = "Max Time Per Turn";
+            this.maxTimePerTurnColumn.Name = "maxTimePerTurnColumn";
+            this.maxTimePerTurnColumn.ReadOnly = true;
+
             // 
             // JoinGameForm
             // 
@@ -192,6 +193,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn gameNameColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn gameCreatorColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn numberPlayersColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn max_time_per_turn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn maxTimePerTurnColumn;
+
     }
 }

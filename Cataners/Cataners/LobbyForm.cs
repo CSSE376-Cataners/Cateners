@@ -56,10 +56,24 @@ namespace Cataners
 
         private void refreshLobby()
         {
+
             BindingSource bs = new BindingSource();
             bs.DataSource = Data.currentLobby.Players;
             playersDataGridView.DataSource = bs;
-            playersDataGridView.Show();
+
+            for (int i = 0; i < playersDataGridView.Rows.Count; i++)
+            {
+                if (Data.currentLobby.Players[i].Ready)
+                {
+                    playersDataGridView.Rows[i].Cells[0].Value = "Ready";
+                }
+                else
+                {
+                    playersDataGridView.Rows[i].Cells[0].Value = "Not Ready";
+                }
+            }
+
+                playersDataGridView.Show();
             playersDataGridView.Refresh();
         }
 

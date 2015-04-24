@@ -20,6 +20,7 @@ namespace Cataners
         public JoinGameForm()
         {
             InitializeComponent();
+            gameTable.CellFormatting += noTimeLimit;
             INSTANCE = this;
             var bs = new BindingSource();
             bs.DataSource = Data.Lobbies;
@@ -32,6 +33,7 @@ namespace Cataners
             this.bs = new BindingSource();
             this.bs.DataSource = Data.Lobbies;
             gameTable.DataSource = bs;
+
             gameTable.Show();
             gameTable.Refresh();
         }
@@ -60,9 +62,16 @@ namespace Cataners
             
             this.Close();
             new LobbyForm(Data.Lobbies[gameTable.Rows.IndexOf(selectedRow[0])].GameName).Show();
-            
 
+        }
 
+        private void noTimeLimit(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == gameTable.Columns["maxTimePerTurnColumn"].Index && e.Value.ToString().Equals("-1"))
+            {
+                e.Value = "No Time Limit";
+                e.FormattingApplied = true;
+            }
         }
 
     }
