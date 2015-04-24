@@ -31,6 +31,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JoinGameForm));
             this.joinGameLabel = new System.Windows.Forms.Label();
             this.gameTable = new System.Windows.Forms.DataGridView();
@@ -69,12 +70,14 @@
             this.numberPlayersColumn,
             this.max_time_per_turn});
             this.gameTable.Location = new System.Drawing.Point(21, 82);
+            this.gameTable.MultiSelect = false;
             this.gameTable.Name = "gameTable";
             this.gameTable.ReadOnly = true;
             this.gameTable.RowHeadersVisible = false;
             this.gameTable.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.gameTable.RowTemplate.Height = 24;
             this.gameTable.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.gameTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gameTable.Size = new System.Drawing.Size(957, 437);
             this.gameTable.TabIndex = 1;
             // 
@@ -107,6 +110,7 @@
             this.joinGameButton.TabIndex = 4;
             this.joinGameButton.Text = "Join Game";
             this.joinGameButton.UseVisualStyleBackColor = true;
+            this.joinGameButton.Click += new System.EventHandler(this.joinGameButton_Click);
             // 
             // gameNameColumn
             // 
@@ -135,7 +139,7 @@
             // 
             // numberPlayersColumn
             // 
-            this.numberPlayersColumn.DataPropertyName = "PlayerCount";
+            this.numberPlayersColumn.DataPropertyName = "playerCount";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.numberPlayersColumn.DefaultCellStyle = dataGridViewCellStyle3;
             this.numberPlayersColumn.DividerWidth = 3;
@@ -148,6 +152,8 @@
             // max_time_per_turn
             // 
             this.max_time_per_turn.DataPropertyName = "maxTimePerTurn";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.max_time_per_turn.DefaultCellStyle = dataGridViewCellStyle4;
             this.max_time_per_turn.HeaderText = "Max Time Per Turn";
             this.max_time_per_turn.Name = "max_time_per_turn";
             this.max_time_per_turn.ReadOnly = true;

@@ -50,6 +50,7 @@
     <Compile Include="MyScene.cs" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <None Include="ForestHex.wpk">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -57,6 +58,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="CatanHexes.wpk" />
+=======
+    <None Include="BadHex.wpk">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+>>>>>>> 488c309bbd97e33c4ba334c7e27fb2376035d6ad
     <None Include="Resources.weproj" />
     <None Include="TheSettlersofCatan.wpk">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
