@@ -94,7 +94,7 @@ namespace CatanersShared
 
         public void removePlayer(Player player)
         {
-            return;
+            this.players.Remove(player);
         }
 
         public String toJson()
