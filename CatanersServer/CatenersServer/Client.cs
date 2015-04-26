@@ -155,6 +155,10 @@ namespace CatenersServer
                     if(this.currentLobby != null)
                         sendToClient(new Message(this.currentLobby.toJson(),Translation.TYPE.UpdateLobby).toJson());
                 break;
+
+                default:
+                    // We Are just going to ignore it.
+                break;
             }
         }
 
