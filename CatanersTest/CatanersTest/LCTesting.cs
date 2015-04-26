@@ -49,7 +49,7 @@ namespace CatanersTest
             for (int k = 0; k < 19; k++)
             {
                 int rollNum = hexList[k].getRollNumber();
-                if (!rollList.Contains(rollNum))
+                if ((!rollList.Contains(rollNum)) || ((hexList[k].getHex().Name == "DesertHex") && (rollNum != 0)))
                 {
                     Assert.True(false);
                 }
