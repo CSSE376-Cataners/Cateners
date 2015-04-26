@@ -90,6 +90,7 @@ namespace Cataners
         private void backButton_Click(object sender, EventArgs e)
         {
             this.Close();
+            //send message to the server saying that we left
             JoinGameForm joinForm = new JoinGameForm();
             joinForm.Show();
         }
