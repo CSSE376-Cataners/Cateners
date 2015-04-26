@@ -139,9 +139,15 @@ namespace CatanersShared
 
         public void assignRollNumbers()
         {
+            System.Random r = new System.Random();
+            ArrayList rollList = new ArrayList();
+            rollList.AddRange(new int[] {2, 3, 3, 4, 4, 5, 5, 6, 6, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12});
             for (int k = 0; k < 19; k++)
             {
-                this.hexList[k].setRollNumber(3);
+                int rInt = r.Next(0, rollList.Count);
+                int nextIndex = (int) rollList[rInt];
+                rollList.RemoveAt(rInt);
+                this.hexList[k].setRollNumber(nextIndex);
             }
         }
     }
