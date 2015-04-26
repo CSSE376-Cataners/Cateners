@@ -192,7 +192,15 @@ namespace CatanersTest
         public void testProcessMessageUpdateLobby()
         {
             FakeClient client = new FakeClient();
-            
+            String updateMessage = new Message("", Translation.TYPE.UpdateLobby).toJson();
+
+            client.processesMessage(updateMessage);
+            Assert.Null(client.lastCall);
+
+            client.currentLobby = new Lobby("GameName", 10, new Player("Owner"), 1);
+            client.processesMessage(updateMessage);
+
+            Assert.AreEqual(new Message(client.currentLobby.toJson(), Translation.TYPE.UpdateLobby).toJson(), client.lastCall);
         }
 
         public class FakeClient : Client
