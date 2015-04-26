@@ -23,21 +23,6 @@ namespace CatanersTest
 
         private MockRepository mocks = new MockRepository();
 
-        //[Test]
-        public void testprocessMessage()
-        {
-            Message newMessage = new Message(new Login("steve38", "helloH38").toJson(), Translation.TYPE.Login);
-            TcpClient newTcp = mocks.DynamicMock<TcpClient>();
-            NetworkStream newStream = mocks.DynamicMock<NetworkStream>();
-            Expect.Call(newTcp.Connected).PropertyBehavior();
-            //newTcp.Connected = true;
-            Expect.Call(newTcp.GetStream()).Return(newStream);
-            mocks.ReplayAll();
-            Client target = new Client(newTcp);
-            target.processesMessage(newMessage.toJson());
-            mocks.VerifyAll();
-        }
-
         [Test]
         public void testProcesssMessageLogin()
         {
@@ -181,6 +166,33 @@ namespace CatanersTest
             Assert.True(client.currentLobby.Players[0].Ready);
             client.processesMessage(falseString);
             Assert.False(client.currentLobby.Players[0].Ready);
+        }
+
+        [Test]
+        public void testProcessMessageJoinLobby()
+        {
+            FakeClient client = new FakeClient();
+
+            int id = 10;
+            String joinGame = new Message(id.ToString(), Translation.TYPE.JoinLobby).toJson();
+
+            client.processesMessage(joinGame);
+
+            Assert.Null(client.currentLobby);
+
+            Lobby lobby = new Lobby("Gamename", -1, new Player("Owner"), 10);
+            Data.INSTANCE.Lobbies.Add(lobby);
+
+            client.processesMessage(joinGame);
+
+            Assert.AreEqual(lobby, client.currentLobby);
+        }
+
+        [Test]
+        public void testProcessMessageUpdateLobby()
+        {
+            FakeClient client = new FakeClient();
+            
         }
 
         public class FakeClient : Client
