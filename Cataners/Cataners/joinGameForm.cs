@@ -47,7 +47,10 @@ namespace Cataners
 
         public void invokedRefresh()
         {
-            this.Invoke(new refresher(button1_Click),new object[]{null,null});
+            if (this.Visible)
+            {
+                this.Invoke(new refresher(button1_Click), new object[] { null, null });
+            }
         }
 
         private void joinGameButton_Click(object sender, EventArgs e)
