@@ -43,6 +43,11 @@ namespace CatanersShared
         {
             return rollNumber;
         }
+
+        public void setRollNumber(int rollNum)
+        {
+            this.rollNumber = rollNum;
+        }
     }
 
     public class LogicCenter
@@ -134,7 +139,10 @@ namespace CatanersShared
 
         public void assignRollNumbers()
         {
-            return;
+            for (int k = 0; k < 19; k++)
+            {
+                this.hexList[k].setRollNumber(2);
+            }
         }
     }
 }
