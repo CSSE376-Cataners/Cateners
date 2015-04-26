@@ -35,9 +35,6 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CatenersServer.Fakes">
-      <HintPath>FakesAssemblies\CatenersServer.Fakes.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -85,7 +82,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <Fakes Include="Fakes\CatenersServer.fakes" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CatanersServer\CatenersServer\CatenersServer.csproj">
