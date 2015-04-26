@@ -44,10 +44,15 @@ namespace CatanersTest
             LogicCenter LCTarget = new LogicCenter(19);
             LCTarget.assignRollNumbers();
             HexHolder[] hexList = (HexHolder[])typeof(LogicCenter).GetField("hexList", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(LCTarget);
+            int twoCount = 0;
             for (int k = 0; k < 19; k++)
             {
                 int rollNum = hexList[k].getRollNumber();
-                Assert.True(2 <= rollNum && rollNum <= 12);
+                if (rollNum == 2)
+                {
+                    twoCount++;
+                }
+                Assert.True((2 <= rollNum && rollNum <= 12) && (twoCount < 2));
             }
         }
     }
