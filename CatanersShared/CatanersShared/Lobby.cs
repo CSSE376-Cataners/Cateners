@@ -99,7 +99,7 @@ namespace CatanersShared
 
         public void removeAll()
         {
-            return;
+            this.players.Clear();
         }
 
         public String toJson()
