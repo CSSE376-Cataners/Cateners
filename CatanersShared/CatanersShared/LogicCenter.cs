@@ -15,10 +15,13 @@ namespace CatanersShared
     {
         private Entity hex;
         private int placementNumber;
+        private int rollNumber;
+
         public HexHolder(Entity hex)
         {
             this.hex = hex;
             this.placementNumber = 0;
+            this.rollNumber = 0;
         }
 
         public void setPlacementNumber(int num)
@@ -34,6 +37,11 @@ namespace CatanersShared
         public Entity getHex()
         {
             return this.hex;
+        }
+
+        public int getRollNumber()
+        {
+            return rollNumber;
         }
     }
 
@@ -122,6 +130,11 @@ namespace CatanersShared
         public HexHolder[] getHexList()
         {
             return this.hexList;
+        }
+
+        public void assignRollNumbers()
+        {
+            return;
         }
     }
 }
