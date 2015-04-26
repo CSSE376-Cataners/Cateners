@@ -204,7 +204,7 @@ namespace CatanersTest
         }
 
         [Test]
-        public void testProcessMessageLeaveLobby()
+        public void testProcessMessageLeaveLobbyThatIHaveNoLobby()
         {
             FakeClient client = new FakeClient();
             int id = 10;
@@ -221,6 +221,29 @@ namespace CatanersTest
             Assert.Null(client.currentLobby);
 
         }
+
+        [Test]
+        public void testProcessMessageLeaveLobbyThatImNotInLobby()
+        {
+            FakeClient client = new FakeClient();
+            int id = 10;
+            String leaveGame = new Message(id.ToString(), Translation.TYPE.LeaveLobby).toJson();
+            client.processesMessage(leaveGame);
+            Assert.Null(client.currentLobby);
+
+            Lobby lobby = new Lobby("game", -1, new Player("owner"), 100);
+            //join game so I can check that we leave
+            String joinGame = new Message(id.ToString(), Translation.TYPE.JoinLobby).toJson();
+            client.processesMessage(joinGame);
+
+            client.processesMessage(leaveGame);
+            for(int i =0; i < client.currentLobby.PlayerCount; i++){
+                Assert.AreNotEqual(client.userName, client.currentLobby.Players[i].Username);
+            }
+            
+
+        }
+        
 
         public class FakeClient : Client
         {
