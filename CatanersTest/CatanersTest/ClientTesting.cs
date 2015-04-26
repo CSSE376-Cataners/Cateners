@@ -34,7 +34,7 @@ namespace CatanersTest
 
             catanersDataSet.checkUserDataTableRow row = (catanersDataSet.checkUserDataTableRow)table.Rows[0];
             row.UID = 1;
-            row.Username = "Good";
+            row.Username = goodLogin.username;
 
             IDatabase sDB = mocks.DynamicMock<IDatabase>();
 
@@ -49,8 +49,8 @@ namespace CatanersTest
             
             client.processesMessage(jsonString);
 
-            Assert.AreEqual(new Message("1", Translation.TYPE.Login).toJson(), client.lastCall);
-            Assert.AreEqual("Good", client.userName);
+            Assert.AreEqual(new Message(goodLogin.username, Translation.TYPE.Login).toJson(), client.lastCall);
+            Assert.AreEqual(goodLogin.username, client.userName);
             Assert.AreEqual(1, client.userID);
 
 
@@ -166,6 +166,15 @@ namespace CatanersTest
             Assert.True(client.currentLobby.Players[0].Ready);
             client.processesMessage(falseString);
             Assert.False(client.currentLobby.Players[0].Ready);
+
+            client.currentLobby.Players.Insert(0, new Player("OtherUser"));
+            client.processesMessage(readyString);
+            Assert.True(client.currentLobby.Players[1].Ready);
+
+            // Force Zero Case. Not applicable with out forced Buissnesss Logic, but still want to test for mutation.
+            client.currentLobby.Players.Clear();
+            client.processesMessage(readyString);
+
         }
 
         [Test]
@@ -220,6 +229,17 @@ namespace CatanersTest
             client.processesMessage(leaveGame);
             Assert.Null(client.currentLobby);
 
+        }
+
+        [Test]
+        public void testProcessMessageDefaultCase()
+        {
+            FakeClient client = new FakeClient();
+
+            String defaultCase = new Message("", Translation.TYPE.Unknown).toJson();
+
+            // Makeing sure no Exceptions.
+            client.processesMessage(defaultCase);
         }
 
         [Test]

@@ -90,9 +90,13 @@ namespace Cataners
         private void backButton_Click(object sender, EventArgs e)
         {
             this.Close();
-            //send message to the server saying that we left
+            Data.currentLobby = null;
             JoinGameForm joinForm = new JoinGameForm();
             joinForm.Show();
+            if (Data.username.Equals(Data.currentLobby.Owner))
+            {
+                
+            }
         }
     }
 }
