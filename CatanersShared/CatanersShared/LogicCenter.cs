@@ -18,6 +18,7 @@ namespace CatanersShared
         public HexHolder(Entity hex)
         {
             this.hex = hex;
+            this.placementNumber = 0;
         }
 
         public void setPlacementNumber(int num)
