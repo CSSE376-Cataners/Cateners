@@ -116,6 +116,10 @@ namespace Cataners
             switch (msg.type)
             {
                 case Translation.TYPE.Login:
+                    if (!msg.message.Equals("-1"))
+                    {
+                        Data.username = msg.message;
+                    }
                     queues[Translation.TYPE.Login].Add(msg.message);
                     break;
                 case Translation.TYPE.Register:

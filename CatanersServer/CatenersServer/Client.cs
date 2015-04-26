@@ -91,7 +91,7 @@ namespace CatenersServer
                     }
                     else
                     {
-                        sendToClient(new Message(user.UID.ToString(), Translation.TYPE.Login).toJson());
+                        sendToClient(new Message(user.Username.ToString(), Translation.TYPE.Login).toJson());
                         this.userID = user.UID;
                         this.userName = user.Username;
                     }
