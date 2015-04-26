@@ -141,7 +141,7 @@ namespace CatanersShared
         {
             for (int k = 0; k < 19; k++)
             {
-                this.hexList[k].setRollNumber(2);
+                this.hexList[k].setRollNumber(3);
             }
         }
     }
