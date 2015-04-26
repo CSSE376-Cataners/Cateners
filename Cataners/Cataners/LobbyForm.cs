@@ -86,5 +86,12 @@ namespace Cataners
         {
             CommunicationClient.Instance.sendToServer(new CatanersShared.Message("", Translation.TYPE.UpdateLobby).toJson());
         }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            JoinGameForm joinForm = new JoinGameForm();
+            joinForm.Show();
+        }
     }
 }
