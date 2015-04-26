@@ -6,6 +6,7 @@
 TestResult.xml
 
 #CUSTOM Spurred by Bolt
-*.Cataners.boltdata/
+.Cataners.boltdata/
 [.]Cataners.boltdata/
 Cataners/.Cataners.boltdata/*.*
+.Cataners.boltdata/**
