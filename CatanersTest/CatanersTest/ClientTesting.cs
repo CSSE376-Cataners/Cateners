@@ -231,18 +231,7 @@ namespace CatanersTest
 
         }
 
-        [Test]
-        public void testProcessMessageDefaultCase()
-        {
-            FakeClient client = new FakeClient();
-
-            String defaultCase = new Message("", Translation.TYPE.Unknown).toJson();
-
-            // Makeing sure no Exceptions.
-            client.processesMessage(defaultCase);
-        }
-
-        [Test]
+         [Test]
         public void testProcessMessageLeaveLobbyThatImNotInLobby()
         {
             FakeClient client = new FakeClient();
@@ -260,7 +249,17 @@ namespace CatanersTest
             for(int i =0; i < client.currentLobby.PlayerCount; i++){
                 Assert.AreNotEqual(client.userName, client.currentLobby.Players[i].Username);
             }
-            
+
+        [Test]
+        public void testProcessMessageDefaultCase()
+        {
+            FakeClient client = new FakeClient();
+
+            String defaultCase = new Message("", Translation.TYPE.Unknown).toJson();
+
+            // Makeing sure no Exceptions.
+            client.processesMessage(defaultCase);
+        }       
 
         }
         
