@@ -84,5 +84,17 @@ namespace CatanersTest
             target.removePlayer(target.Players[0]);
             Assert.AreEqual(0, target.PlayerCount);
         }
+
+        [Test]
+        public void testRemoveOwnerFromLobby()
+        {
+            Lobby target = new Lobby("game", 10, new Player("BobbyTables"), 5);
+            target.addPlayer(new Player("JimBob"));
+            target.addPlayer(new Player("BobbyJr"));
+
+            target.removeAll();
+            Assert.AreEqual(0, target.PlayerCount);
+
+        }
     }
 }
