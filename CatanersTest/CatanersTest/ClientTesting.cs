@@ -244,7 +244,7 @@ namespace CatanersTest
             client.processesMessage(leaveGame);
             Assert.Null(client.currentLobby);
 
-            Lobby lobby = new Lobby("game", -1, new Player("owner"), 100);
+            Lobby lobby = new Lobby("game", -1, new Player("owner"), id);
             
             lobby.addPlayer(new Player("Not Me"));
             client.currentLobby = lobby;
@@ -254,7 +254,24 @@ namespace CatanersTest
                 Assert.AreNotEqual(client.userName, lobby.Players[i].Username);
             }
 
+        }
 
+        [Test]
+        public void testThatOwnerLeavingKicksEveryone()
+        {
+            FakeClient client = new FakeClient();
+            int id = 100;
+            String leaveGame = new Message("", Translation.TYPE.LeaveLobby).toJson();
+            client.processesMessage(leaveGame);
+            Assert.Null(client.currentLobby);
+
+            Lobby lobby = new Lobby("game", -1, new Player(client.userName), id);
+
+            lobby.addPlayer(new Player("JimBob"));
+            lobby.addPlayer(new Player("BobbyTables"));
+            client.currentLobby = lobby;
+            client.processesMessage(leaveGame);
+            Assert.AreEqual(0, lobby.PlayerCount);
         }
 
         [Test]
