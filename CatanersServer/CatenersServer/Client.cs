@@ -157,6 +157,13 @@ namespace CatenersServer
                     if (this.currentLobby.Owner.ToString().Equals(this.userName.ToString()))
                     {
                         currentLobby.removeAll();
+                        for (int i = 0; i < Data.INSTANCE.Lobbies.Count; i++)
+                        {
+                            if (currentLobby.lobbyID == Data.INSTANCE.Lobbies[i].lobbyID)
+                            {
+                                Data.INSTANCE.Lobbies.Remove(Data.INSTANCE.Lobbies[i]);
+                            }
+                        }
                     }
                     else
                     {
