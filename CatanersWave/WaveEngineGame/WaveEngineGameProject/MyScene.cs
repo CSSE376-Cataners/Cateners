@@ -32,6 +32,9 @@ namespace WaveEngineGameProject
         public static float TRIANGLE_HEIGHT = HEX_HEIGHT * (float) 0.2723735409;
         public static float HEX_START_X = (((float)WaveServices.Platform.ScreenWidth) / 2.0f) - ((HEX_WIDTH * 3) / 2);
         public static float HEX_START_Y = (((float)WaveServices.Platform.ScreenHeight) / 2.0f) - ((3 * HEX_HEIGHT) - (4 * TRIANGLE_HEIGHT));
+        public static float ROLL_NUMBER_SCALE = HEX_WIDTH / (2 * 50);
+        public static float ROLL_NUMBER_WIDTH = 50 * ROLL_NUMBER_SCALE;
+        public static float ROLL_NUMBER_HEIGHT = 50 * ROLL_NUMBER_SCALE;
 
         protected override void CreateScene()
         {
@@ -45,8 +48,17 @@ namespace WaveEngineGameProject
             newButton.Height = 40;
             EntityManager.Add(newButton);
             newButton.Entity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(button_Pressed);
-            FixedCamera2D camera2D = new FixedCamera2D("Camera2D") { BackgroundColor = Color.Black };
+            FixedCamera2D camera2D = new FixedCamera2D("Camera2D") { BackgroundColor = Color.Gold };
             EntityManager.Add(camera2D);
+            Entity background = new Entity("Background")
+            .AddComponent(new Sprite("Background.wpk"))
+            .AddComponent(new SpriteRenderer(DefaultLayers.Alpha))
+            .AddComponent(new Transform2D(){
+                Scale = new Vector2((HEX_WIDTH * (5.2f)) / 677, (HEX_HEIGHT * (5.2f)) / 559),
+                X = HEX_START_X - (HEX_WIDTH * 1.1f),
+                Y = HEX_START_Y - ((HEX_HEIGHT * 1.2f) / 2),
+                DrawOrder = .9f});
+            this.EntityManager.Add(background);
             this.drawHexes();
         }
 
@@ -63,7 +75,15 @@ namespace WaveEngineGameProject
                         {
                             Scale = new Vector2(HEX_SCALE_X, HEX_SCALE_Y),
                             X = HEX_START_X + (HEX_WIDTH * posNum),
-                            Y = HEX_START_Y
+                            Y = HEX_START_Y,
+                            DrawOrder = .6f
+                        });
+                        this.hexList[g].getRollEntity().AddComponent(new Transform2D()
+                        {
+                            Scale = new Vector2(ROLL_NUMBER_SCALE, ROLL_NUMBER_SCALE),
+                            X = HEX_START_X + (HEX_WIDTH * posNum) + (HEX_WIDTH / 2) - (ROLL_NUMBER_WIDTH / 2),
+                            Y = HEX_START_Y + (HEX_HEIGHT / 2) - (ROLL_NUMBER_HEIGHT / 2),
+                            DrawOrder = .1f
                         });
                     }
                 else if (posNum < 7)
@@ -72,7 +92,15 @@ namespace WaveEngineGameProject
                         {
                             Scale = new Vector2(HEX_SCALE_X, HEX_SCALE_Y),
                             X = HEX_START_X - (HEX_WIDTH / 2) + (HEX_WIDTH * (posNum - 3)),
-                            Y = HEX_START_Y + (HEX_HEIGHT - TRIANGLE_HEIGHT)
+                            Y = HEX_START_Y + (HEX_HEIGHT - TRIANGLE_HEIGHT),
+                            DrawOrder = .6f
+                        });
+                        this.hexList[g].getRollEntity().AddComponent(new Transform2D()
+                        {
+                            Scale = new Vector2(ROLL_NUMBER_SCALE, ROLL_NUMBER_SCALE),
+                            X = HEX_START_X - (HEX_WIDTH / 2) + (HEX_WIDTH * (posNum - 3)) + (HEX_WIDTH / 2) - (ROLL_NUMBER_WIDTH / 2),
+                            Y = HEX_START_Y + (HEX_HEIGHT - TRIANGLE_HEIGHT) + (HEX_HEIGHT / 2) - (ROLL_NUMBER_HEIGHT / 2),
+                            DrawOrder = .1f
                         });
                     }
                 else if (posNum < 12)
@@ -81,7 +109,15 @@ namespace WaveEngineGameProject
                         {
                             Scale = new Vector2(HEX_SCALE_X, HEX_SCALE_Y),
                             X = HEX_START_X - (HEX_WIDTH) + (HEX_WIDTH * (posNum - 7)),
-                            Y = HEX_START_Y + (2 * HEX_HEIGHT) - (2 * TRIANGLE_HEIGHT)
+                            Y = HEX_START_Y + (2 * HEX_HEIGHT) - (2 * TRIANGLE_HEIGHT),
+                            DrawOrder = .6f
+                        });
+                        this.hexList[g].getRollEntity().AddComponent(new Transform2D()
+                        {
+                            Scale = new Vector2(ROLL_NUMBER_SCALE, ROLL_NUMBER_SCALE),
+                            X = HEX_START_X - (HEX_WIDTH) + (HEX_WIDTH * (posNum - 7)) + (HEX_WIDTH / 2) - (ROLL_NUMBER_WIDTH / 2),
+                            Y = HEX_START_Y + (2 * HEX_HEIGHT) - (2 * TRIANGLE_HEIGHT) + (HEX_HEIGHT / 2) - (ROLL_NUMBER_HEIGHT / 2),
+                            DrawOrder = .1f
                         });
                     }
                 else if (posNum < 16)
@@ -90,7 +126,15 @@ namespace WaveEngineGameProject
                         {
                             Scale = new Vector2(HEX_SCALE_X, HEX_SCALE_Y),
                             X = HEX_START_X - (HEX_WIDTH / 2) + (HEX_WIDTH * (posNum - 12)),
-                            Y = HEX_START_Y + (3 * HEX_HEIGHT) - (3 * TRIANGLE_HEIGHT)
+                            Y = HEX_START_Y + (3 * HEX_HEIGHT) - (3 * TRIANGLE_HEIGHT),
+                            DrawOrder = .6f
+                        });
+                        this.hexList[g].getRollEntity().AddComponent(new Transform2D()
+                        {
+                            Scale = new Vector2(ROLL_NUMBER_SCALE, ROLL_NUMBER_SCALE),
+                            X = HEX_START_X - (HEX_WIDTH / 2) + (HEX_WIDTH * (posNum - 12)) + (HEX_WIDTH / 2) - (ROLL_NUMBER_WIDTH / 2),
+                            Y = HEX_START_Y + (3 * HEX_HEIGHT) - (3 * TRIANGLE_HEIGHT) + (HEX_HEIGHT / 2) - (ROLL_NUMBER_HEIGHT / 2),
+                            DrawOrder = .1f
                         });
                     }
                 else
@@ -99,9 +143,18 @@ namespace WaveEngineGameProject
                         {
                             Scale = new Vector2(HEX_SCALE_X, HEX_SCALE_Y),
                             X = HEX_START_X + (HEX_WIDTH * (posNum - 16)),
-                            Y = HEX_START_Y + (4 * HEX_HEIGHT) - (4 * TRIANGLE_HEIGHT)
+                            Y = HEX_START_Y + (4 * HEX_HEIGHT) - (4 * TRIANGLE_HEIGHT),
+                            DrawOrder = .6f
+                        });
+                        this.hexList[g].getRollEntity().AddComponent(new Transform2D()
+                        {
+                            Scale = new Vector2(ROLL_NUMBER_SCALE, ROLL_NUMBER_SCALE),
+                            X = HEX_START_X + (HEX_WIDTH * (posNum - 16)) + (HEX_WIDTH / 2) - (ROLL_NUMBER_WIDTH / 2),
+                            Y = HEX_START_Y + (4 * HEX_HEIGHT) - (4 * TRIANGLE_HEIGHT) + (HEX_HEIGHT / 2) - (ROLL_NUMBER_HEIGHT / 2),
+                            DrawOrder = .1f
                         });
                     }
+                EntityManager.Add(this.hexList[g].getRollEntity());
                 EntityManager.Add(this.hexList[g].getHex());
             }
         }
