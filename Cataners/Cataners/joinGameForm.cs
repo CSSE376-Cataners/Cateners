@@ -30,12 +30,15 @@ namespace Cataners
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.bs = new BindingSource();
-            this.bs.DataSource = Data.Lobbies;
-            gameTable.DataSource = bs;
+            if (this.Visible)
+            {
+                this.bs = new BindingSource();
+                this.bs.DataSource = Data.Lobbies;
+                gameTable.DataSource = bs;
 
-            gameTable.Show();
-            gameTable.Refresh();
+                gameTable.Show();
+                gameTable.Refresh();
+            }
         }
 
         private void RefreshButton_Click(object sender, EventArgs e)
