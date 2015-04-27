@@ -168,6 +168,7 @@ namespace CatanersShared
 
         public void generateDefaultSettlements()
         {
+            this.settlementList = new SettlementHolder[55];
         }
 
         public HexHolder[] getHexList()
