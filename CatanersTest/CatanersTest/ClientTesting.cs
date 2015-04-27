@@ -199,6 +199,31 @@ namespace CatanersTest
         }
 
         [Test]
+        public void testProcessMessageLeaveLobbyThatICantJoinFullGame()
+        {
+            FakeClient client = new FakeClient();
+
+            int id = 10;
+            String joinGame = new Message(id.ToString(), Translation.TYPE.JoinLobby).toJson();
+            client.userName = "Trent";
+            Player owner = new Player("Owner");
+            Lobby lobby = new Lobby("Gamename", -1, owner, 10);
+            
+            lobby.addPlayer(new Player("player2"));
+            lobby.addPlayer(new Player("player3"));
+            lobby.addPlayer(new Player("player4"));
+
+            Data.INSTANCE.Lobbies.Add(lobby);
+
+            client.processesMessage(joinGame);
+
+            for (int i = 0; i < lobby.PlayerCount; i++)
+            {
+                Assert.AreNotEqual(lobby.Players[i].Username, client.userName);
+            }
+        }
+
+        [Test]
         public void testProcessMessageUpdateLobby()
         {
             FakeClient client = new FakeClient();
@@ -258,7 +283,7 @@ namespace CatanersTest
         }
 
         [Test]
-        public void testThatOwnerLeavingKicksEveryone()
+        public void testProcessMessageLeaveLobbyThatOwnerLeavingKicksEveryone()
         {
             FakeClient client = new FakeClient();
             client.userName = "Trent";
@@ -280,7 +305,7 @@ namespace CatanersTest
 
         [Test]
 
-        public void testThatOwnerLeavingRemovesGame()
+        public void testProcessMessageLeaveLobbyThatOwnerLeavingRemovesGame()
         {
             FakeClient client = new FakeClient();
             client.userName = "Trent";
