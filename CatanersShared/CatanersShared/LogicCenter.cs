@@ -44,7 +44,7 @@ namespace CatanersShared
             this.hex = hex;
             this.placementNumber = 0;
             this.rollNumber = 0;
-            this.settlementList = new SettlementHolder[5];
+            this.settlementList = new SettlementHolder[6];
         }
 
         public SettlementHolder[] getSettlementList()
@@ -84,6 +84,11 @@ namespace CatanersShared
         public Entity getRollEntity()
         {
             return this.rollEntity;
+        }
+
+        public void setSettlementList(SettlementHolder[] newArray)
+        {
+            this.settlementList = newArray;
         }
     }
 
@@ -175,8 +180,8 @@ namespace CatanersShared
 
         public void generateDefaultSettlements()
         {
-            this.settlementList = new SettlementHolder[55];
-            for (int i = 0; i < 55; i++)
+            this.settlementList = new SettlementHolder[54];
+            for (int i = 0; i < 54; i++)
             {
                 Entity tempEnt = new Entity()
                     .AddComponent(new Sprite("Settlement.wpk"))
@@ -187,6 +192,18 @@ namespace CatanersShared
 
         public void assignSettlements()
         {
+            for (int i = 0; i < 19; i++)
+            {
+                if(i < 3)
+                {
+                    int a = i + 1;
+                    int b = a + 3;
+                    int c = b + 4;
+                    int d = c + 5;
+                    SettlementHolder[] newArray = new SettlementHolder[6] {this.settlementList[a], this.settlementList[b], this.settlementList[b + 1], this.settlementList[c], this.settlementList[c + 1], this.settlementList[d]};
+                    hexList[i].setSettlementList(newArray);
+                }
+            }
         }
 
         public HexHolder[] getHexList()
