@@ -359,6 +359,33 @@ namespace CatanersTest
             Assert.Less(2, s.Length);
             Assert.AreEqual(testMessage + "\r\n",  s.Substring(1));
         }
+
+        [Test]
+        public void testNormalConstructor()
+        {
+            TcpClient tcpClient = mocks.DynamicMock<TcpClient>();
+            NetworkStream ns = mocks.DynamicMock<NetworkStream>();
+
+            tcpClient.Stub(call => call.GetStream()).IgnoreArguments().Return(ns);
+            mocks.ReplayAll();
+
+            Client client = new Client(tcpClient);
+
+            Assert.True(client.Enabled);
+            Assert.AreEqual(-1, client.userID);
+            Assert.Null(client.userName);
+            Assert.Null(client.currentLobby);
+
+            BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
+            FieldInfo fieldTCP = typeof(FakeClient).GetField("tcp", flags);
+            FieldInfo fieldReader = typeof(FakeClient).GetField("reader", flags);
+            FieldInfo fieldWriter = typeof(FakeClient).GetField("writer", flags);
+            
+            Assert.AreEqual(tcpClient, fieldTCP.GetValue(tcpClient));
+
+            Assert.NotNull(fieldReader.GetValue(client));
+            Assert.NotNull(fieldWriter.GetValue(client));
+        }
         
 
         public class FakeClient : Client
@@ -376,5 +403,6 @@ namespace CatanersTest
                 lastCall = msg;
             }
         }
+
     }
 }

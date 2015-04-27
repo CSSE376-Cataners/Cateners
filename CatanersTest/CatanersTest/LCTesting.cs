@@ -42,20 +42,9 @@ namespace CatanersTest
         public void testNumberAssignment()
         {
             LogicCenter LCTarget = new LogicCenter(19);
-            LCTarget.assignRollNumbers();
-            HexHolder[] hexList = (HexHolder[])typeof(LogicCenter).GetField("hexList", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(LCTarget);
-            ArrayList rollList = new ArrayList();
-            rollList.AddRange(new int[] {2, 3, 3, 4, 4, 5, 5, 6, 6, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12});
-            for (int k = 0; k < 19; k++)
-            {
-                int rollNum = hexList[k].getRollNumber();
-                if ((!rollList.Contains(rollNum)) || ((hexList[k].getHex().Name == "DesertHex") && (rollNum != 0)))
-                {
-                    Assert.True(false);
-                }
-                rollList.Remove(rollNum);
-                Assert.True(2 <= rollNum && rollNum <= 12);
-            }
+            LCTarget.generateDefaultSettlements();
+            SettlementHolder[] settlementList = (SettlementHolder[]) typeof(LogicCenter).GetField("settlementList", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(LCTarget);
+            Assert.AreEqual(55, settlementList.Length);
         }
     }
 }

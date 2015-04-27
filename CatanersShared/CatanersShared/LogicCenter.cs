@@ -8,14 +8,35 @@ using WaveEngine;
 using WaveEngine.Components.Graphics2D;
 using WaveEngine.Framework;
 using WaveEngine.Framework.Graphics;
+using WaveEngine.Framework.Managers;
 
 namespace CatanersShared
 {
+    public class SettlementHolder
+    {
+        private Entity settlement;
+        private int placementNumber;
+        public SettlementHolder(Entity settlement, int placementNumber)
+        {
+            this.settlement = settlement;
+            this.placementNumber = placementNumber;
+        }
+        public int getPlacementNumber()
+        {
+            return this.placementNumber;
+        }
+        public Entity getSettlement()
+        {
+            return this.settlement;
+        }
+    }
+
     public class HexHolder
     {
         private Entity hex;
         private int placementNumber;
         private int rollNumber;
+        private Entity rollEntity;
 
         public HexHolder(Entity hex)
         {
@@ -48,16 +69,27 @@ namespace CatanersShared
         {
             this.rollNumber = rollNum;
         }
+
+        public void setRollEntity(Entity rollEnt)
+        {
+            this.rollEntity = rollEnt;
+        }
+        public Entity getRollEntity()
+        {
+            return this.rollEntity;
+        }
     }
 
     public class LogicCenter
     {
         private int hexNumber;
         private HexHolder[] hexList;
+        private SettlementHolder[] settlementList;
         public LogicCenter(int hexNumber)
         {
             this.hexNumber = hexNumber;
             this.hexList = new HexHolder[this.hexNumber];
+            this.settlementList = new SettlementHolder[0];
             this.generateHexList();
         }
 
@@ -130,6 +162,13 @@ namespace CatanersShared
                 rangeList.RemoveAt(rInt);
                 this.hexList[g].setPlacementNumber(nextIndex);
             }
+            this.assignRollNumbers();
+            this.assignRollEntities();
+        }
+
+        public void generateDefaultSettlements()
+        {
+            this.settlementList = new SettlementHolder[55];
         }
 
         public HexHolder[] getHexList()
@@ -141,13 +180,29 @@ namespace CatanersShared
         {
             System.Random r = new System.Random();
             ArrayList rollList = new ArrayList();
-            rollList.AddRange(new int[] {2, 3, 3, 4, 4, 5, 5, 6, 6, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12});
+            rollList.AddRange(new int[] {2, 3, 3, 4, 4, 5, 5, 6, 6, 8, 8, 9, 9, 10, 10, 11, 11, 12});
             for (int k = 0; k < 19; k++)
             {
-                int rInt = r.Next(0, rollList.Count);
-                int nextIndex = (int) rollList[rInt];
-                rollList.RemoveAt(rInt);
-                this.hexList[k].setRollNumber(nextIndex);
+                if (hexList[k].getHex().Name != "DesertHex")
+                {
+                    int rInt = r.Next(0, rollList.Count);
+                    int nextIndex = (int) rollList[rInt];
+                    rollList.RemoveAt(rInt);
+                    this.hexList[k].setRollNumber(nextIndex);
+                }
+            }
+        }
+
+        public void assignRollEntities()
+        {
+            for (int k = 0; k < 19; k++)
+            {
+                HexHolder hexFocus = this.hexList[k];
+                String name = hexFocus.getHex().Name + hexFocus.getRollNumber().ToString();
+                Entity rollEntity = new Entity(name)
+                .AddComponent(new Sprite("RollNum" + hexFocus.getRollNumber().ToString() + ".wpk"))
+                .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
+                hexFocus.setRollEntity(rollEntity);
             }
         }
     }
