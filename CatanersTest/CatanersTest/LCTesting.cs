@@ -69,7 +69,7 @@ namespace CatanersTest
             testArray[7] = new int[6] { 17, 22, 23, 28, 29, 34 };
             testArray[8] = new int[6] { 18, 23, 24, 29, 30, 35 };
             testArray[9] = new int[6] { 19, 24, 25, 30, 31, 36 };
-            testArray[10] = new int[6] { 20, 25, 26, 31, 31, 37 };
+            testArray[10] = new int[6] { 20, 25, 26, 31, 32, 37 };
             testArray[11] = new int[6] { 21, 26, 27, 32, 33, 38 };
             testArray[12] = new int[6] { 29, 34, 35, 39, 40, 44 };
             testArray[13] = new int[6] { 30, 35, 36, 40, 41, 45 };
@@ -78,13 +78,24 @@ namespace CatanersTest
             testArray[16] = new int[6] { 40, 44, 45, 48, 49, 52 };
             testArray[17] = new int[6] { 41, 45, 46, 49, 50, 53 };
             testArray[18] = new int[6] { 42, 46, 47, 50, 51, 54 };
+            SettlementHolder[] setList = LCTarget.getSettlementList();
+            SettlementHolder[][] testArray2 = new SettlementHolder[19][];
+            for (int z = 0; z < 19; z++)
+            {
+                SettlementHolder[] newArray = new SettlementHolder[6];
+                for (int j = 0; j < 6; j++)
+                {
+                    newArray[j] = setList[testArray[z][j] - 1];
+                }
+                testArray2[z] = newArray;
+            }
             HexHolder[] hexList = (HexHolder[])typeof(LogicCenter).GetField("hexList", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(LCTarget);
             for (int i = 0; i < 19; i++)
             {
                 Assert.NotNull(hexList[i].getSettlementList());
                 SettlementHolder[] currList = hexList[i].getSettlementList();
                 Assert.AreEqual(currList.Length, 6);
-                Assert.AreEqual(hexList[i].getSettlementList(), testArray[i]);
+                Assert.AreEqual(hexList[i].getSettlementList(), testArray2[i]);
             }
         }
     }

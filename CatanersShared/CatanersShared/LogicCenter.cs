@@ -105,6 +105,11 @@ namespace CatanersShared
             this.generateHexList();
         }
 
+        public SettlementHolder[] getSettlementList()
+        {
+            return this.settlementList;
+        }
+
         public void generateHexList ()
         {
             System.Random r = new System.Random();
@@ -196,11 +201,47 @@ namespace CatanersShared
             {
                 if(i < 3)
                 {
-                    int a = i + 1;
+                    int a = i;
                     int b = a + 3;
                     int c = b + 4;
                     int d = c + 5;
                     SettlementHolder[] newArray = new SettlementHolder[6] {this.settlementList[a], this.settlementList[b], this.settlementList[b + 1], this.settlementList[c], this.settlementList[c + 1], this.settlementList[d]};
+                    hexList[i].setSettlementList(newArray);
+                }
+                else if (i < 7)
+                {
+                    int a = i + 4;
+                    int b = a + 4;
+                    int c = b + 5;
+                    int d = c + 6;
+                    SettlementHolder[] newArray = new SettlementHolder[6] { this.settlementList[a], this.settlementList[b], this.settlementList[b + 1], this.settlementList[c], this.settlementList[c + 1], this.settlementList[d] };
+                    hexList[i].setSettlementList(newArray);
+                }
+                else if (i < 12)
+                {
+                    int a = i + 9;
+                    int b = a + 5;
+                    int c = b + 6;
+                    int d = c + 6;
+                    SettlementHolder[] newArray = new SettlementHolder[6] { this.settlementList[a], this.settlementList[b], this.settlementList[b + 1], this.settlementList[c], this.settlementList[c + 1], this.settlementList[d] };
+                    hexList[i].setSettlementList(newArray);
+                }
+                else if (i < 16)
+                {
+                    int a = i + 16;
+                    int b = a + 5;
+                    int c = b + 5;
+                    int d = c + 5;
+                    SettlementHolder[] newArray = new SettlementHolder[6] { this.settlementList[a], this.settlementList[b], this.settlementList[b + 1], this.settlementList[c], this.settlementList[c + 1], this.settlementList[d] };
+                    hexList[i].setSettlementList(newArray);
+                }
+                else
+                {
+                    int a = i + 23;
+                    int b = a + 4;
+                    int c = b + 4;
+                    int d = c + 4;
+                    SettlementHolder[] newArray = new SettlementHolder[6] { this.settlementList[a], this.settlementList[b], this.settlementList[b + 1], this.settlementList[c], this.settlementList[c + 1], this.settlementList[d] };
                     hexList[i].setSettlementList(newArray);
                 }
             }
