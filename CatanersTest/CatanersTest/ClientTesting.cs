@@ -142,7 +142,7 @@ namespace CatanersTest
             Assert.True(count < Data.INSTANCE.Lobbies.Count);
             Assert.True(oldID < Data.INSTANCE.nextLobbyID);
 
-            Assert.AreEqual(new Lobby("GameName",10,new Player("TestUserName"),oldID),Data.INSTANCE.Lobbies[count]);
+            Assert.AreEqual(oldID,Data.INSTANCE.Lobbies[count].lobbyID);
         }
 
         [Test]
@@ -286,17 +286,20 @@ namespace CatanersTest
         public void testProcessMessageLeaveLobbyThatOwnerLeavingKicksEveryone()
         {
             FakeClient client = new FakeClient();
-            client.userName = "Trent";
+            ServerPlayer player = new ServerPlayer("Trent", client);
+            client.player = player;
+            client.userName = player.Username;
+
             int id = 100;
             String leaveGame = new Message("", Translation.TYPE.LeaveLobby).toJson();
             client.processesMessage(leaveGame);
             Assert.Null(client.currentLobby);
 
-            Lobby lobby = new Lobby("game", -1, new Player(client.userName), id);
+            Lobby lobby = new Lobby("game", -1, client.player, id);
 
             
-            lobby.addPlayer(new Player("JimBob"));
-            lobby.addPlayer(new Player("BobbyTables"));
+            lobby.addPlayer(new ServerPlayer("JimBob",new FakeClient()));
+            lobby.addPlayer(new ServerPlayer("BobbyTables",new FakeClient()));
             client.currentLobby = lobby;
             client.processesMessage(leaveGame);
 
@@ -308,14 +311,17 @@ namespace CatanersTest
         public void testProcessMessageLeaveLobbyThatOwnerLeavingRemovesGame()
         {
             FakeClient client = new FakeClient();
-            client.userName = "Trent";
+            ServerPlayer player = new ServerPlayer("Trent", client);
+            client.player = player;
+            client.userName = player.Username;
+
             int id = 100;
             String leaveGame = new Message("", Translation.TYPE.LeaveLobby).toJson();
             client.processesMessage(leaveGame);
             Assert.Null(client.currentLobby);
 
-            Lobby lobby = new Lobby("game", -1, new Player(client.userName), id);
-            Lobby differentlobby = new Lobby("game2", -1, new Player("CJ"), 150);
+            Lobby lobby = new Lobby("game", -1, client.player, id);
+            Lobby differentlobby = new Lobby("game2", -1, new ServerPlayer("CJ", new FakeClient()), 150);
             Data.INSTANCE.Lobbies.Add(lobby);
             Data.INSTANCE.Lobbies.Add(differentlobby);
 
