@@ -389,6 +389,29 @@ namespace CatanersTest
             Assert.NotNull(fieldWriter.GetValue(client));
         }
         
+        [Test]
+        public void testLeaveLobbySendsMessageToOtherClients()
+        {
+            FakeClient client1 = new FakeClient();
+            ServerPlayer player1 = new ServerPlayer("client1", client1);
+            client1.player = player1;
+
+            FakeClient client2 = new FakeClient();
+            ServerPlayer player2 = new ServerPlayer("client2", client2);
+            client2.player = player2;
+
+
+            Lobby lobby = new Lobby("Gamename", 10, player1, 1);
+            lobby.addPlayer(player2);
+            Data.INSTANCE.Lobbies.Add(lobby);
+
+            client1.currentLobby = lobby;
+            client2.currentLobby = lobby;
+
+            client1.processesMessage(new Message("", Translation.TYPE.LeaveLobby).toJson());
+
+            Assert.AreEqual(new Message("", Translation.TYPE.LeaveLobby).toJson(), client2.lastCall);
+        }
 
         public class FakeClient : Client
         {
