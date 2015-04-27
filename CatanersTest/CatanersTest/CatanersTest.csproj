@@ -74,6 +74,7 @@
     <Compile Include="RegistrationTesting.cs" />
     <Compile Include="LoginTesting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServerPlayerTesting.cs" />
     <Compile Include="TestCommunicationClient.cs" />
     <Compile Include="TestCommunicationServer.cs" />
     <Compile Include="TestMain.cs" />
