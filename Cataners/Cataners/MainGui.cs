@@ -14,10 +14,11 @@ namespace Cataners
 {
     public partial class MainGui : Form
     {
+        public static MainGui INSTANCE;
         public MainGui()
         {
             InitializeComponent();
-
+            INSTANCE = this;
             //this.FormClosing += closing;
 
             CommunicationClient client = new  CommunicationClient();
@@ -103,6 +104,7 @@ namespace Cataners
 
         private void createGameButton_Click(object sender, EventArgs e)
         {
+            this.Hide();
             CreateGameForm createGame = new CreateGameForm(this);
             createGame.ShowDialog();
 
@@ -110,6 +112,7 @@ namespace Cataners
 
         private void joinGameButton_Click(object sender, EventArgs e)
         {
+            this.Hide();
             JoinGameForm joinform = new JoinGameForm();
             joinform.ShowDialog();
         }

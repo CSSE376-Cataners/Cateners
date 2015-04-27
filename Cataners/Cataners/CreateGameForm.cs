@@ -41,10 +41,9 @@ namespace Cataners
                 default: return;
             }
             CommunicationClient.Instance.sendToServer(new CatanersShared.Message(newLobby.toJson(), Translation.TYPE.CreateLobby).toJson());
-            LobbyForm lobby = new LobbyForm(newLobby.GameName);
+            LobbyForm.INSTANCE = new LobbyForm(newLobby.GameName);
             this.Close();
-            lobby.Show();
-            this.parent.Close();
+            LobbyForm.INSTANCE.Show();
         }
 
     }

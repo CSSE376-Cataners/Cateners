@@ -59,23 +59,24 @@ namespace Cataners
         private void joinGameButton_Click(object sender, EventArgs e)
         {
 
-            bool nameUnique = true;
-
             DataGridViewSelectedRowCollection selectedRow = gameTable.SelectedRows;
             if (selectedRow.Count < 1)
             {
                 MessageBox.Show("Please actually select a game first before you join");
             }
-
-            if (Data.Lobbies[gameTable.Rows.IndexOf(selectedRow[0])].PlayerCount < 4 && nameUnique)
-            {
-                CommunicationClient.Instance.sendToServer(new CatanersShared.Message(Data.Lobbies[gameTable.Rows.IndexOf(selectedRow[0])].lobbyID.ToString(), Translation.TYPE.JoinLobby).toJson());
-                this.Close();
-                new LobbyForm(Data.Lobbies[gameTable.Rows.IndexOf(selectedRow[0])].GameName).Show();
-            }
             else
             {
-                MessageBox.Show("Sorry, This lobby is full. Please try another.");
+                if (Data.Lobbies[gameTable.Rows.IndexOf(selectedRow[0])].PlayerCount < 4)
+                {
+                    JoinGameForm.INSTANCE = null;
+                    CommunicationClient.Instance.sendToServer(new CatanersShared.Message(Data.Lobbies[gameTable.Rows.IndexOf(selectedRow[0])].lobbyID.ToString(), Translation.TYPE.JoinLobby).toJson());
+                    this.Close();
+                    new LobbyForm(Data.Lobbies[gameTable.Rows.IndexOf(selectedRow[0])].GameName).Show();
+                }
+                else
+                {
+                    MessageBox.Show("Sorry, This lobby is full. Please try another.");
+                }
             }
 
         }
@@ -87,6 +88,13 @@ namespace Cataners
                 e.Value = "No Time Limit";
                 e.FormattingApplied = true;
             }
+        }
+
+        private void backToMainButton_Click(object sender, EventArgs e)
+        {
+            JoinGameForm.INSTANCE = null;
+            this.Close();
+            MainGui.INSTANCE.Show();
         }
 
     }
