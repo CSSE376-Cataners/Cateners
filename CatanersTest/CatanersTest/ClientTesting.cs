@@ -14,6 +14,7 @@ using System.Threading;
 using Rhino.Mocks;
 using Newtonsoft.Json.Converters;
 using Microsoft.QualityTools.Testing.Fakes;
+using System.Reflection;
 
 namespace CatanersTest
 {
@@ -262,6 +263,27 @@ namespace CatanersTest
             }
             
 
+        }
+
+        [Test]
+        public void testSendToClient()
+        {
+            Client client = new Client();
+
+            MemoryStream memStream = new MemoryStream(1024);
+            StreamWriter fakeStream = new StreamWriter(memStream, Encoding.Unicode);
+
+            BindingFlags bindFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
+            FieldInfo field = typeof(Client).GetField("writer", bindFlags);
+            Console.WriteLine(field.ToString());
+            field.SetValue(client, fakeStream);
+
+            String testMessage = "Test Message abc123";
+            client.sendToClient(testMessage);
+
+            String s = Encoding.Unicode.GetString(memStream.ToArray());
+            Assert.Less(2, s.Length);
+            Assert.AreEqual(testMessage + "\r\n",  s.Substring(1));
         }
         
 
