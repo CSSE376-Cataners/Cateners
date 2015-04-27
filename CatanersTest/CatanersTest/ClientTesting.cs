@@ -222,10 +222,16 @@ namespace CatanersTest
             client.processesMessage(leaveGame);
             Assert.Null(client.currentLobby);
 
-            Lobby lobby = new Lobby("game", -1, new Player("owner"), 100);
+            Lobby lobby = new Lobby("game", -1, new Player("owner"), id);
             //join game so I can check that we leave
-            String joinGame = new Message(id.ToString(), Translation.TYPE.JoinLobby).toJson();
-            client.processesMessage(joinGame);
+            //String joinGame = new Message(id.ToString(), Translation.TYPE.JoinLobby).toJson();
+            //client.processesMessage(joinGame);
+
+            Player player = new Player("User1");
+            client.userName = player.Username;
+
+            lobby.addPlayer(player);
+            client.currentLobby = lobby;
 
             client.processesMessage(leaveGame);
             Assert.Null(client.currentLobby);
@@ -243,9 +249,10 @@ namespace CatanersTest
 
             Lobby lobby = new Lobby("game", -1, new Player("owner"), 100);
             //join game so I can check that we leave
-            String joinGame = new Message(id.ToString(), Translation.TYPE.JoinLobby).toJson();
-            client.processesMessage(joinGame);
-
+            //String joinGame = new Message(id.ToString(), Translation.TYPE.JoinLobby).toJson();
+            //client.processesMessage(joinGame);
+            lobby.addPlayer(new Player("Not Me"));
+            client.currentLobby = lobby;
             client.processesMessage(leaveGame);
             for (int i = 0; i < lobby.PlayerCount; i++)
             {
