@@ -45,6 +45,11 @@ namespace CatanersTest
             LCTarget.generateDefaultSettlements();
             SettlementHolder[] settlementList = (SettlementHolder[]) typeof(LogicCenter).GetField("settlementList", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(LCTarget);
             Assert.AreEqual(55, settlementList.Length);
+            for(int i = 0; i < 55; i++)
+            {
+                Assert.IsNotNull(settlementList[i]);
+                Assert.IsInstanceOf(typeof(SettlementHolder), settlementList[i]);
+            }
         }
     }
 }
