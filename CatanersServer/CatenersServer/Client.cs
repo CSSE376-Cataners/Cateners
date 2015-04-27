@@ -22,10 +22,14 @@ namespace CatenersServer
 
         public Lobby currentLobby;
 
+        StreamWriter writer;
+        StreamReader reader;
+
         public Client(TcpClient tcp)
         {
             this.socket = tcp;
             writer = new StreamWriter(socket.GetStream(), Encoding.Unicode);
+            reader = new StreamReader(socket.GetStream(), Encoding.Unicode);
             Enabled = true;
             userID = -1;
             userName = null;
@@ -39,7 +43,6 @@ namespace CatenersServer
 
         public async void queueMessagesAsync()
         {
-            StreamReader reader = new StreamReader(socket.GetStream(), Encoding.Unicode);
             while(Enabled && socket.Connected) {
                 string line;
                 Task<String> task = reader.ReadLineAsync();
@@ -63,8 +66,6 @@ namespace CatenersServer
             }
             Console.WriteLine("Client Closed: " + ((System.Net.IPEndPoint)socket.Client.RemoteEndPoint).Address.ToString());
         }
-
-        StreamWriter writer;
 
         public virtual void sendToClient(String msg)
         {
