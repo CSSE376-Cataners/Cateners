@@ -44,7 +44,7 @@ namespace CatanersShared
             this.hex = hex;
             this.placementNumber = 0;
             this.rollNumber = 0;
-           // this.settlementList = new SettlementHolder[5];
+            this.settlementList = new SettlementHolder[5];
         }
 
         public SettlementHolder[] getSettlementList()
