@@ -25,6 +25,8 @@ namespace CatenersServer
         StreamWriter writer;
         StreamReader reader;
 
+        public ServerPlayer player;
+
         public Client(TcpClient tcp)
         {
             this.socket = tcp;
@@ -34,6 +36,7 @@ namespace CatenersServer
             userID = -1;
             userName = null;
             currentLobby = null;
+            this.player = new ServerPlayer(userName, this);
         }
 
         public Client()
@@ -95,6 +98,7 @@ namespace CatenersServer
                         sendToClient(new Message(user.Username.ToString(), Translation.TYPE.Login).toJson());
                         this.userID = user.UID;
                         this.userName = user.Username;
+                        this.player.Username = user.Username;
                     }
                 break;
 
@@ -117,7 +121,7 @@ namespace CatenersServer
                     Lobby lobby = Lobby.fromJson(msg.message);
                     Player owner = new Player(this.userName);
 
-                    Lobby newLobby = new Lobby(lobby.GameName, lobby.MaxTimePerTurn, new ServerPlayer(this.userName,this), Data.INSTANCE.nextLobbyID++);
+                    Lobby newLobby = new Lobby(lobby.GameName, lobby.MaxTimePerTurn, this.player, Data.INSTANCE.nextLobbyID++);
                     // TODO verify Lobby;
                     Data.INSTANCE.Lobbies.Add(newLobby);
 
@@ -147,7 +151,7 @@ namespace CatenersServer
                             this.currentLobby = Data.INSTANCE.Lobbies[i];
                             if (this.currentLobby.PlayerCount < 4)
                             {
-                                this.currentLobby.addPlayer(new ServerPlayer(this.userName,this));
+                                this.currentLobby.addPlayer(this.player);
                                 break;
                             }
                         }
@@ -158,22 +162,20 @@ namespace CatenersServer
                 if (this.currentLobby != null)
                 {
                     //if person that leaves is owner
-                    if (this.currentLobby.Owner.ToString().Equals(this.userName.ToString()))
+                    if (this.currentLobby.Owner.Equals(this.player))
                     {
+                        currentLobby.removePlayer(this.player);
+                        for (int i = 0; i < currentLobby.PlayerCount; i++)
+                        {
+                            ((ServerPlayer)currentLobby.Players[i]).client.sendToClient(new Message("", Translation.TYPE.LeaveLobby).toJson());
+                        }
                         currentLobby.removeAll();
                         Data.INSTANCE.Lobbies.Remove(currentLobby);
                     }
                     else
                     {
-                        for (int i = 0; i < this.currentLobby.PlayerCount; i++)
-                        {
-                            if (this.currentLobby.Players[i].Username == this.userName)
-                            {
-                                this.currentLobby.removePlayer(this.currentLobby.Players[i]);
-                            }
-                        }
+                        currentLobby.removePlayer(this.player);
                     }
-                    
                 }
                     
 

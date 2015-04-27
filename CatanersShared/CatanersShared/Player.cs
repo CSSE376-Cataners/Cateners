@@ -15,6 +15,10 @@ namespace CatanersShared
             {
                 return username;
             }
+            set
+            {
+                username = value;
+            }
         }
 
         public Boolean Ready = false;
