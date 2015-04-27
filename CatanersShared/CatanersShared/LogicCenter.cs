@@ -37,12 +37,19 @@ namespace CatanersShared
         private int placementNumber;
         private int rollNumber;
         private Entity rollEntity;
+        private SettlementHolder[] settlementList;
 
         public HexHolder(Entity hex)
         {
             this.hex = hex;
             this.placementNumber = 0;
             this.rollNumber = 0;
+           // this.settlementList = new SettlementHolder[5];
+        }
+
+        public SettlementHolder[] getSettlementList()
+        {
+            return this.settlementList;
         }
 
         public void setPlacementNumber(int num)
@@ -89,7 +96,7 @@ namespace CatanersShared
         {
             this.hexNumber = hexNumber;
             this.hexList = new HexHolder[this.hexNumber];
-            this.settlementList = new SettlementHolder[0];
+            this.generateDefaultSettlements();
             this.generateHexList();
         }
 
@@ -171,9 +178,15 @@ namespace CatanersShared
             this.settlementList = new SettlementHolder[55];
             for (int i = 0; i < 55; i++)
             {
-                Entity tempEnt = new Entity();
+                Entity tempEnt = new Entity()
+                    .AddComponent(new Sprite("Settlement.wpk"))
+                    .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
                 this.settlementList[i] = new SettlementHolder(tempEnt, i);
             }
+        }
+
+        public void assignSettlements()
+        {
         }
 
         public HexHolder[] getHexList()

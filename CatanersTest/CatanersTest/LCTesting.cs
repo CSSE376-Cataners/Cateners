@@ -43,12 +43,27 @@ namespace CatanersTest
         {
             LogicCenter LCTarget = new LogicCenter(19);
             LCTarget.generateDefaultSettlements();
-            SettlementHolder[] settlementList = (SettlementHolder[]) typeof(LogicCenter).GetField("settlementList", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(LCTarget);
+            SettlementHolder[] settlementList = (SettlementHolder[])typeof(LogicCenter).GetField("settlementList", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(LCTarget);
             Assert.AreEqual(55, settlementList.Length);
-            for(int i = 0; i < 55; i++)
+            for (int i = 0; i < 55; i++)
             {
                 Assert.IsNotNull(settlementList[i]);
                 Assert.IsInstanceOf(typeof(SettlementHolder), settlementList[i]);
+
+            }
+        }
+
+        [Test]
+        public void testAssignSettlements()
+        {
+            LogicCenter LCTarget = new LogicCenter(19);
+            LCTarget.assignSettlements();
+            HexHolder[] hexList = (HexHolder[])typeof(LogicCenter).GetField("hexList", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(LCTarget);
+            for (int i = 0; i < 19; i++)
+            {
+                Assert.NotNull(hexList[i].getSettlementList());
+                SettlementHolder[] currList = hexList[i].getSettlementList();
+                Assert.AreEqual(currList.Length, 5);
             }
         }
     }
