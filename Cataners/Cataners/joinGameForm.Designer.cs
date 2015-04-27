@@ -35,13 +35,14 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JoinGameForm));
             this.joinGameLabel = new System.Windows.Forms.Label();
             this.gameTable = new System.Windows.Forms.DataGridView();
-            this.button1 = new System.Windows.Forms.Button();
-            this.refreshButton = new System.Windows.Forms.Button();
-            this.joinGameButton = new System.Windows.Forms.Button();
             this.gameNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gameCreatorColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.numberPlayersColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.maxTimePerTurnColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button1 = new System.Windows.Forms.Button();
+            this.refreshButton = new System.Windows.Forms.Button();
+            this.joinGameButton = new System.Windows.Forms.Button();
+            this.backToMainButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gameTable)).BeginInit();
             this.SuspendLayout();
             // 
@@ -80,37 +81,6 @@
             this.gameTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gameTable.Size = new System.Drawing.Size(957, 437);
             this.gameTable.TabIndex = 1;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(962, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(92, 36);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // refreshButton
-            // 
-            this.refreshButton.Location = new System.Drawing.Point(984, 276);
-            this.refreshButton.Name = "refreshButton";
-            this.refreshButton.Size = new System.Drawing.Size(111, 34);
-            this.refreshButton.TabIndex = 3;
-            this.refreshButton.Text = "Refresh";
-            this.refreshButton.UseVisualStyleBackColor = true;
-            this.refreshButton.Click += new System.EventHandler(this.RefreshButton_Click);
-            // 
-            // joinGameButton
-            // 
-            this.joinGameButton.Location = new System.Drawing.Point(891, 552);
-            this.joinGameButton.Name = "joinGameButton";
-            this.joinGameButton.Size = new System.Drawing.Size(193, 63);
-            this.joinGameButton.TabIndex = 4;
-            this.joinGameButton.Text = "Join Game";
-            this.joinGameButton.UseVisualStyleBackColor = true;
-            this.joinGameButton.Click += new System.EventHandler(this.joinGameButton_Click);
             // 
             // gameNameColumn
             // 
@@ -157,7 +127,47 @@
             this.maxTimePerTurnColumn.HeaderText = "Max Time Per Turn";
             this.maxTimePerTurnColumn.Name = "maxTimePerTurnColumn";
             this.maxTimePerTurnColumn.ReadOnly = true;
-
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(962, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(92, 36);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // refreshButton
+            // 
+            this.refreshButton.Location = new System.Drawing.Point(984, 276);
+            this.refreshButton.Name = "refreshButton";
+            this.refreshButton.Size = new System.Drawing.Size(111, 34);
+            this.refreshButton.TabIndex = 3;
+            this.refreshButton.Text = "Refresh";
+            this.refreshButton.UseVisualStyleBackColor = true;
+            this.refreshButton.Click += new System.EventHandler(this.RefreshButton_Click);
+            // 
+            // joinGameButton
+            // 
+            this.joinGameButton.Location = new System.Drawing.Point(891, 552);
+            this.joinGameButton.Name = "joinGameButton";
+            this.joinGameButton.Size = new System.Drawing.Size(193, 63);
+            this.joinGameButton.TabIndex = 4;
+            this.joinGameButton.Text = "Join Game";
+            this.joinGameButton.UseVisualStyleBackColor = true;
+            this.joinGameButton.Click += new System.EventHandler(this.joinGameButton_Click);
+            // 
+            // backToMainButton
+            // 
+            this.backToMainButton.Location = new System.Drawing.Point(106, 552);
+            this.backToMainButton.Name = "backToMainButton";
+            this.backToMainButton.Size = new System.Drawing.Size(193, 63);
+            this.backToMainButton.TabIndex = 5;
+            this.backToMainButton.Text = "Back to Main";
+            this.backToMainButton.UseVisualStyleBackColor = true;
+            this.backToMainButton.Click += new System.EventHandler(this.backToMainButton_Click);
             // 
             // JoinGameForm
             // 
@@ -165,6 +175,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LawnGreen;
             this.ClientSize = new System.Drawing.Size(1107, 638);
+            this.Controls.Add(this.backToMainButton);
             this.Controls.Add(this.joinGameButton);
             this.Controls.Add(this.refreshButton);
             this.Controls.Add(this.button1);
@@ -194,6 +205,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn gameCreatorColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn numberPlayersColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn maxTimePerTurnColumn;
+        private System.Windows.Forms.Button backToMainButton;
 
     }
 }
