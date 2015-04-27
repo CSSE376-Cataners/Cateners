@@ -138,15 +138,17 @@ namespace CatenersServer
                     }
                 break;
                 case Translation.TYPE.JoinLobby:
-                    // TODO Make sure not full
                     int lobbyID = int.Parse(msg.message);
                     for (int i = 0; i < Data.INSTANCE.Lobbies.Count; i++)
                     {
                         if (Data.INSTANCE.Lobbies[i].lobbyID == lobbyID)
                         {
                             this.currentLobby = Data.INSTANCE.Lobbies[i];
-                            this.currentLobby.addPlayer(new Player(this.userName));
-                            break;
+                            if (this.currentLobby.PlayerCount < 4)
+                            {
+                                this.currentLobby.addPlayer(new Player(this.userName));
+                                break;
+                            }
                         }
                     }
                 break;
@@ -154,16 +156,11 @@ namespace CatenersServer
                 case Translation.TYPE.LeaveLobby:
                 if (this.currentLobby != null)
                 {
+                    //if person that leaves is owner
                     if (this.currentLobby.Owner.ToString().Equals(this.userName.ToString()))
                     {
                         currentLobby.removeAll();
-                        for (int i = 0; i < Data.INSTANCE.Lobbies.Count; i++)
-                        {
-                            if (currentLobby.lobbyID == Data.INSTANCE.Lobbies[i].lobbyID)
-                            {
-                                Data.INSTANCE.Lobbies.Remove(Data.INSTANCE.Lobbies[i]);
-                            }
-                        }
+                        Data.INSTANCE.Lobbies.Remove(currentLobby);
                     }
                     else
                     {
