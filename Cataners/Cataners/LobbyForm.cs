@@ -90,16 +90,18 @@ namespace Cataners
 
         private void refreshTimer_Tick(object sender, EventArgs e)
         {
-            CommunicationClient.Instance.sendToServer(new CatanersShared.Message("", Translation.TYPE.UpdateLobby).toJson());
+            if (Visible)
+            {
+                CommunicationClient.Instance.sendToServer(new CatanersShared.Message("", Translation.TYPE.UpdateLobby).toJson());
+       
+            }
         }
 
         private void backButton_Click(object sender, EventArgs e)
         {
             CommunicationClient.Instance.sendToServer(new CatanersShared.Message("", Translation.TYPE.LeaveLobby).toJson());
-            this.Close();
-            Data.currentLobby = null;
-            JoinGameForm joinForm = new JoinGameForm();
-            joinForm.Show();
+            this.Hide();
+            MainGui.INSTANCE.Show();
       
         }
     }
