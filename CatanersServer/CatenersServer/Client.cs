@@ -154,13 +154,21 @@ namespace CatenersServer
                 case Translation.TYPE.LeaveLobby:
                 if (this.currentLobby != null)
                 {
-                    for (int i = 0; i < this.currentLobby.PlayerCount; i++)
+                    if (this.currentLobby.Owner.ToString().Equals(this.userName.ToString()))
                     {
-                        if (this.currentLobby.Players[i].Username == this.userName)
+                        currentLobby.removeAll();
+                    }
+                    else
+                    {
+                        for (int i = 0; i < this.currentLobby.PlayerCount; i++)
+                        {
+                            if (this.currentLobby.Players[i].Username == this.userName)
                             {
                                 this.currentLobby.removePlayer(this.currentLobby.Players[i]);
                             }
+                        }
                     }
+                    
                 }
                     
 
