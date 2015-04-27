@@ -38,6 +38,7 @@
             this.readyButton = new System.Windows.Forms.Button();
             this.startButton = new System.Windows.Forms.Button();
             this.refreshTimer = new System.Windows.Forms.Timer(this.components);
+            this.backButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.playersDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -99,7 +100,7 @@
             // 
             // readyButton
             // 
-            this.readyButton.Location = new System.Drawing.Point(181, 423);
+            this.readyButton.Location = new System.Drawing.Point(371, 423);
             this.readyButton.Name = "readyButton";
             this.readyButton.Size = new System.Drawing.Size(165, 83);
             this.readyButton.TabIndex = 2;
@@ -109,7 +110,7 @@
             // 
             // startButton
             // 
-            this.startButton.Location = new System.Drawing.Point(450, 423);
+            this.startButton.Location = new System.Drawing.Point(652, 423);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(165, 83);
             this.startButton.TabIndex = 3;
@@ -122,12 +123,23 @@
             this.refreshTimer.Interval = 1000;
             this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
             // 
+            // backButton
+            // 
+            this.backButton.Location = new System.Drawing.Point(76, 423);
+            this.backButton.Name = "backButton";
+            this.backButton.Size = new System.Drawing.Size(165, 83);
+            this.backButton.TabIndex = 4;
+            this.backButton.Text = "Go Back";
+            this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.Click += new System.EventHandler(this.backButton_Click);
+            // 
             // LobbyForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Aqua;
             this.ClientSize = new System.Drawing.Size(867, 575);
+            this.Controls.Add(this.backButton);
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.readyButton);
             this.Controls.Add(this.lobbyNameLabel);
@@ -152,5 +164,6 @@
         private System.Windows.Forms.Timer refreshTimer;
         private System.Windows.Forms.DataGridViewTextBoxColumn playerNameColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn statusColumn;
+        private System.Windows.Forms.Button backButton;
     }
 }

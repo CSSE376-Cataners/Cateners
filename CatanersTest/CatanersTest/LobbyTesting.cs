@@ -68,5 +68,33 @@ namespace CatanersTest
             Lobby target = new Lobby("game", 3, new Player("name"), 2);
             Assert.False(target.Equals(newLobby));
         }
+        [Test]
+        public void testAddPlayerToLobby()
+        {
+            Lobby target = new Lobby("game", 10, new Player("BobbyTables"), 5);
+            Player bobbyJr = new Player("BobbyTablesJr");
+            target.addPlayer(bobbyJr);
+            Assert.AreEqual(bobbyJr, target.Players[1]);
+        }
+
+        [Test]
+        public void testRemovePlayerFromLobby()
+        {
+            Lobby target = new Lobby("game", 10, new Player("BobbyTables"), 5);
+            target.removePlayer(target.Players[0]);
+            Assert.AreEqual(0, target.PlayerCount);
+        }
+
+        [Test]
+        public void testRemoveOwnerFromLobby()
+        {
+            Lobby target = new Lobby("game", 10, new Player("BobbyTables"), 5);
+            target.addPlayer(new Player("JimBob"));
+            target.addPlayer(new Player("BobbyJr"));
+
+            target.removeAll();
+            Assert.AreEqual(0, target.PlayerCount);
+
+        }
     }
 }

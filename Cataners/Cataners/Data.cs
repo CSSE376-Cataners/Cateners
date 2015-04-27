@@ -11,5 +11,6 @@ namespace Cataners
     {
         public static List<Lobby> Lobbies = new List<Lobby>();
         public static Lobby currentLobby = new Lobby();
+        public static String username = "";
     }
 }

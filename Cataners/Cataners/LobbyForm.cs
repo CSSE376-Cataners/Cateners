@@ -86,5 +86,17 @@ namespace Cataners
         {
             CommunicationClient.Instance.sendToServer(new CatanersShared.Message("", Translation.TYPE.UpdateLobby).toJson());
         }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            Data.currentLobby = null;
+            JoinGameForm joinForm = new JoinGameForm();
+            joinForm.Show();
+            if (Data.username.Equals(Data.currentLobby.Owner))
+            {
+                
+            }
+        }
     }
 }

@@ -92,6 +92,16 @@ namespace CatanersShared
             this.players.Add(newPlayer);
         }
 
+        public void removePlayer(Player player)
+        {
+            this.players.Remove(player);
+        }
+
+        public void removeAll()
+        {
+            this.players.Clear();
+        }
+
         public String toJson()
         {
             return Newtonsoft.Json.JsonConvert.SerializeObject(this);

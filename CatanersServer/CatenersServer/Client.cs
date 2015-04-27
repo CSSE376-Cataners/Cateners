@@ -91,7 +91,7 @@ namespace CatenersServer
                     }
                     else
                     {
-                        sendToClient(new Message(user.UID.ToString(), Translation.TYPE.Login).toJson());
+                        sendToClient(new Message(user.Username.ToString(), Translation.TYPE.Login).toJson());
                         this.userID = user.UID;
                         this.userName = user.Username;
                     }
@@ -151,9 +151,44 @@ namespace CatenersServer
                     }
                 break;
 
+                case Translation.TYPE.LeaveLobby:
+                if (this.currentLobby != null)
+                {
+                    if (this.currentLobby.Owner.ToString().Equals(this.userName.ToString()))
+                    {
+                        currentLobby.removeAll();
+                        for (int i = 0; i < Data.INSTANCE.Lobbies.Count; i++)
+                        {
+                            if (currentLobby.lobbyID == Data.INSTANCE.Lobbies[i].lobbyID)
+                            {
+                                Data.INSTANCE.Lobbies.Remove(Data.INSTANCE.Lobbies[i]);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < this.currentLobby.PlayerCount; i++)
+                        {
+                            if (this.currentLobby.Players[i].Username == this.userName)
+                            {
+                                this.currentLobby.removePlayer(this.currentLobby.Players[i]);
+                            }
+                        }
+                    }
+                    
+                }
+                    
+
+                    this.currentLobby = null;
+                    break;
+
                 case Translation.TYPE.UpdateLobby:
                     if(this.currentLobby != null)
                         sendToClient(new Message(this.currentLobby.toJson(),Translation.TYPE.UpdateLobby).toJson());
+                break;
+
+                default:
+                    // We Are just going to ignore it.
                 break;
             }
         }
