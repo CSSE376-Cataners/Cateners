@@ -279,6 +279,31 @@ namespace CatanersTest
         }
 
         [Test]
+
+        public void testThatOwnerLeavingRemovesGame()
+        {
+            FakeClient client = new FakeClient();
+            client.userName = "Trent";
+            int id = 100;
+            String leaveGame = new Message("", Translation.TYPE.LeaveLobby).toJson();
+            client.processesMessage(leaveGame);
+            Assert.Null(client.currentLobby);
+
+            Lobby lobby = new Lobby("game", -1, new Player(client.userName), id);
+            Lobby differentlobby = new Lobby("game2", -1, new Player("CJ"), 150);
+            Data.INSTANCE.Lobbies.Add(lobby);
+            Data.INSTANCE.Lobbies.Add(differentlobby);
+
+
+            client.currentLobby = lobby;
+            client.processesMessage(leaveGame);
+
+            for(int i = 0; i< Data.INSTANCE.Lobbies.Count; i++){
+                Assert.AreNotEqual(Data.INSTANCE.Lobbies[i].lobbyID, id);
+            }
+        }
+
+        [Test]
         public void testProcessMessageDefaultCase()
         {
             FakeClient client = new FakeClient();
