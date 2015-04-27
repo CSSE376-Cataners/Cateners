@@ -361,15 +361,17 @@ namespace CatanersTest
         }
 
         [Test]
-        public void testNormalConstructor()
+        public async void testNormalConstructor()
         {
-            TcpClient tcpClient = mocks.DynamicMock<TcpClient>();
-            NetworkStream ns = mocks.DynamicMock<NetworkStream>();
+            TcpListener listener = new TcpListener(System.Net.IPAddress.Any ,9999);
+            TcpClient tcpClient = new TcpClient("127.0.0.1",9999);
 
-            tcpClient.Stub(call => call.GetStream()).IgnoreArguments().Return(ns);
-            mocks.ReplayAll();
+            listener.Start();
+            tcpClient.ConnectAsync("127.0.0.1",9999);
 
-            Client client = new Client(tcpClient);
+            TcpClient serverSide = await listener.AcceptTcpClientAsync();
+
+            Client client = new Client(serverSide);
 
             Assert.True(client.Enabled);
             Assert.AreEqual(-1, client.userID);
@@ -380,8 +382,8 @@ namespace CatanersTest
             FieldInfo fieldTCP = typeof(FakeClient).GetField("tcp", flags);
             FieldInfo fieldReader = typeof(FakeClient).GetField("reader", flags);
             FieldInfo fieldWriter = typeof(FakeClient).GetField("writer", flags);
-            
-            Assert.AreEqual(tcpClient, fieldTCP.GetValue(tcpClient));
+
+            Assert.AreEqual(serverSide, fieldTCP.GetValue(serverSide));
 
             Assert.NotNull(fieldReader.GetValue(client));
             Assert.NotNull(fieldWriter.GetValue(client));

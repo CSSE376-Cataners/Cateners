@@ -117,7 +117,7 @@ namespace CatenersServer
                     Lobby lobby = Lobby.fromJson(msg.message);
                     Player owner = new Player(this.userName);
 
-                    Lobby newLobby = new Lobby(lobby.GameName, lobby.MaxTimePerTurn, new Player(this.userName), Data.INSTANCE.nextLobbyID++);
+                    Lobby newLobby = new Lobby(lobby.GameName, lobby.MaxTimePerTurn, new ServerPlayer(this.userName,this), Data.INSTANCE.nextLobbyID++);
                     // TODO verify Lobby;
                     Data.INSTANCE.Lobbies.Add(newLobby);
 
@@ -147,7 +147,7 @@ namespace CatenersServer
                             this.currentLobby = Data.INSTANCE.Lobbies[i];
                             if (this.currentLobby.PlayerCount < 4)
                             {
-                                this.currentLobby.addPlayer(new Player(this.userName));
+                                this.currentLobby.addPlayer(new ServerPlayer(this.userName,this));
                                 break;
                             }
                         }
