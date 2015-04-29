@@ -16,10 +16,10 @@ namespace CatanersShared
             return r.IsMatch(input);
         }
 
-        public static bool verifyUserPass(String username)
-        {
-            return false;
-        }
+        //public static bool verifyUserPass(String username)
+        //{
+          //  return false;
+        //}
 
         //password must be 4-15 characters and must have at least 1 letter and 1 number. special characters allowed
         public static bool verifyPassword(String password)
