@@ -9,6 +9,9 @@ namespace CatanersShared
     public class Player
     {
         private string username;
+        private List<Resource> resources;
+        private int victoryPoints;
+        private bool isMyTurn;
 
         public String Username {
             get
@@ -51,7 +54,7 @@ namespace CatanersShared
         public override int GetHashCode()
         {
             // TODO: write your implementation of GetHashCode() here
-            return base.GetHashCode();
+            return username.GetHashCode();
         }
 
         public override string ToString()
