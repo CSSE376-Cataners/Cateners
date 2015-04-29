@@ -98,5 +98,12 @@ namespace CatanersTest
                 Assert.AreEqual(hexList[i].getSettlementList(), testArray2[i]);
             }
         }
+
+        [Test]
+        public void TestResourceConstructor()
+        {
+            Resource wheat = new Resource("wheat");
+            Assert.NotNull(wheat);
+        }
     }
 }
