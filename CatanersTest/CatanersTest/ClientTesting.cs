@@ -28,6 +28,8 @@ namespace CatanersTest
         public void testProcesssMessageLogin()
         {
             FakeClient client = new FakeClient();
+            ServerPlayer player = new ServerPlayer("Good", client);
+            client.player = player;
             Login goodLogin = new Login("Good", "Password");
 
             catanersDataSet.checkUserDataTableDataTable table = new catanersDataSet.checkUserDataTableDataTable();
