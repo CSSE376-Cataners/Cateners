@@ -40,6 +40,8 @@ namespace WaveEngineGameProject
         public static float ROLL_NUMBER_WIDTH = 50 * ROLL_NUMBER_SCALE;
         public static float ROLL_NUMBER_HEIGHT = 50 * ROLL_NUMBER_SCALE;
 
+        LogicCenter logicCenter = new LogicCenter(hexNumber);
+
         protected override void CreateScene()
         {
             //Insert your scene definition here.
@@ -111,7 +113,6 @@ namespace WaveEngineGameProject
 
         public void drawHexes()
         {
-            LogicCenter logicCenter = new LogicCenter(hexNumber);
             this.hexList = logicCenter.getHexList();
             for (int g = 0; g < 19; g++)
             {
