@@ -49,7 +49,10 @@ namespace CatanersTest
         public void testPlayerHashCode()
         {
             Player bobby = new Player("bobbyTables");
-            Assert.NotNull(bobby.GetHashCode());
+            Player bobby2 = new Player("bobbyTables");
+            int hash1 = bobby.GetHashCode();
+            int hash2 = bobby2.GetHashCode();
+            Assert.AreEqual(hash1, hash2);
         }
     }
 }
