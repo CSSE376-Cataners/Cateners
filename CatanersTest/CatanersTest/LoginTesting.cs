@@ -20,63 +20,63 @@ namespace CatanersTest
             //testing if string (e.g. username is valid)
         {
             String text = "";
-            Assert.False(Verification.verifyInputString(text));
+            Assert.False(Verification.verifyUsername(text));
         }
 
         [Test]
         public void checkUsernameSixChars()
         {
             String text = "Stever";
-            Assert.True(Verification.verifyInputString(text));
+            Assert.True(Verification.verifyUsername(text));
         }
 
         [Test]
         public void checkUsernameNumbers()
         {
             String text = "Stever38";
-            Assert.True(Verification.verifyInputString(text));
+            Assert.True(Verification.verifyUsername(text));
         }
 
         [Test]
         public void checkUsernameFourteenChars()
         {
             String text = "TheGodfather42";
-            Assert.True(Verification.verifyInputString(text));
+            Assert.True(Verification.verifyUsername(text));
         }
 
         [Test]
-        public void checkUsernameThreeLetters()
+        public void checkUsernameAllNumbers()
         {
-            String text = "Red345";
-            Assert.False(Verification.verifyInputString(text));
+            String text = "12345";
+            Assert.True(Verification.verifyUsername(text));
         }
 
         [Test]
         public void checkUsernameSpace()
         {
             String text = "Redfox 345";
-            Assert.False(Verification.verifyInputString(text));
+            Assert.False(Verification.verifyUsername(text));
         }
 
         [Test]
-        public void checkUsernameLessThanSix()
+        public void checkUsernameLessThanFour()
         {
-            String text = "Rambo";
-            Assert.False(Verification.verifyInputString(text));
+            String text = "Ram";
+            Assert.False(Verification.verifyUsername(text));
         }
 
         [Test]
         public void checkUsernameMoreThanFifteen()
         {
             String text = "FullyRamblomatic";
-            Assert.False(Verification.verifyInputString(text));
+            Assert.False(Verification.verifyUsername(text));
         }
 
         [Test]
         public void checkUsernameSpecialCharacters()
         {
             String text = "Trotta%^'54&";
-            Assert.False(Verification.verifyInputString(text));
+            Assert.False(Verification.verifyUsername(text));
         }
 
         //password testing must be 4-15 chars and must have 1 numeric character and one upper or lowercase letter
