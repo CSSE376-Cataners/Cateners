@@ -16,6 +16,7 @@ using WaveEngine.Framework.Resources;
 using WaveEngine.Framework.Services;
 using CatanersShared;
 using WaveEngine.Common.Input;
+using WaveEngine.Framework.UI;
 #endregion
 
 namespace WaveEngineGameProject
@@ -24,6 +25,9 @@ namespace WaveEngineGameProject
     {
         private HexHolder[] hexList;
         public static int hexNumber = 19;
+        public static float WORDOFFSET = 40.0f;
+        public static float CENTERWIDTH = (WaveServices.Platform.ScreenWidth) / 2;
+        public static float CENTERHEIGHT = (WaveServices.Platform.ScreenHeight) / 2;
         public static float WIDTH_TO_HEIGHT = ((float) WaveServices.Platform.ScreenWidth) / ((float) WaveServices.Platform.ScreenHeight);
         public static float HEX_WIDTH = (((float) WaveServices.Platform.ScreenWidth) / 8.0f) / WIDTH_TO_HEIGHT;
         public static float HEX_SCALE_X = HEX_WIDTH / 220.0f;
@@ -59,6 +63,49 @@ namespace WaveEngineGameProject
                 Y = HEX_START_Y - ((HEX_HEIGHT * 1.2f) / 2),
                 DrawOrder = .9f});
             this.EntityManager.Add(background);
+            TextBlock title = new TextBlock()
+            {
+                Text = "Settlers of Catan",
+                Foreground = Color.Blue,
+                Margin = new Thickness(CENTERWIDTH-(80),0,0,0)
+            };
+            EntityManager.Add(title);
+
+            TextBlock player1 = new TextBlock()
+            {
+                Text = "Player1",
+                Width = 100,
+                Foreground = Color.Blue,
+                Margin = new Thickness(CENTERWIDTH-(WORDOFFSET), 100, 0, 0),
+            };
+            EntityManager.Add(player1);
+            TextBlock player2 = new TextBlock()
+            {
+                Text = "Player2",
+                Width = 100,
+                Foreground = Color.Red,
+                Margin = new Thickness(CENTERWIDTH + 400-WORDOFFSET, CENTERHEIGHT, 0, 0),
+                
+            };
+            EntityManager.Add(player2);
+            TextBlock player3 = new TextBlock()
+            {
+                Text = "Player3",
+                Width = 100,
+                Foreground = Color.Green,
+                Margin = new Thickness(CENTERWIDTH-WORDOFFSET, CENTERHEIGHT*(2)-100, 0, 0),
+            };
+            EntityManager.Add(player3);
+            TextBlock player4 = new TextBlock()
+            {
+                Text = "Player4",
+                Width = 100,
+                Foreground = Color.Black,
+                Margin = new Thickness(CENTERWIDTH - 400-WORDOFFSET, CENTERHEIGHT, 0, 0),
+
+            };
+            EntityManager.Add(player4);
+
             this.drawHexes();
         }
 
