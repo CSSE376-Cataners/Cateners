@@ -159,6 +159,39 @@ namespace CatanersTest
             Assert.AreEqual(correctLogin, Login.fromJson(correctJson));
         }
 
+        [Test]
+        public void TestLoginNotEquals()
+        {
+            Login log1 = new Login("BobbyTables", "password");
+            Login log2 = new Login("Bobbyjr", "tables");
+            Assert.False(log1.Equals(log2));
+        }
+
+        [Test]
+        public void TestLoginNotEqualsNull()
+        {
+            Login log1 = new Login("BobbyTables", "password");
+            Login log2 = null;
+            Assert.False(log1.Equals(log2));
+        }
+
+        [Test]
+        public void TestLoginEquals()
+        {
+            Login log1 = new Login("BobbyTables", "password");
+            Login log2 = new Login("BobbyTables", "password");
+            Assert.True(log1.Equals(log2));
+        }
+        [Test]
+        public void TestGetHashCodeIsSameForSameLogins()
+        {
+            Login log1 = new Login("BobbyTables", "password");
+            Login log2 = new Login("BobbyTables", "password");
+            int log1hash = log1.GetHashCode();
+            int log2hash = log2.GetHashCode();
+            Assert.AreEqual(log1hash,log2hash);
+        }
+
     }
 
 }
