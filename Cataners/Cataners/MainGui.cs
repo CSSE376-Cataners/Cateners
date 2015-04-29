@@ -46,7 +46,7 @@ namespace Cataners
             bool passwordGood = false;
 
             String username = usernameTextbox.Text;
-            userNameGood = Verification.verifyInputString(username);
+            userNameGood = Verification.verifyUsername(username);
 
             String password = passwordTextbox.Text;
             passwordGood = Verification.verifyPassword(password);

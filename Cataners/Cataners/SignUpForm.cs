@@ -26,7 +26,7 @@ namespace Cataners
             String password = passwordTextBox.Text;
             String confirm = confirmPasswordTextBox.Text;
 
-            if (Verification.verifyInputString(username) && Verification.verifyPassword(password))
+            if (Verification.verifyUsername(username) && Verification.verifyPassword(password))
             {
                 CatanersShared.Message msg = new CatanersShared.Message(new Login(username, password, true).toJson(), CatanersShared.Translation.TYPE.Register);
                 CommunicationClient.Instance.sendToServer(msg.toJson());

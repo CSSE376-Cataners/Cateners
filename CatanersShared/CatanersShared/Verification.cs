@@ -9,13 +9,11 @@ namespace CatanersShared
 {
     public class Verification
     {
-        public static bool verifyInputString(String input){
-            Regex r = new Regex(@"^(?=.*[a-zA-Z0-9]).{4,15}$");
+        //username must be between 6 and 15 characters. No requirements on minimum letters/numbers. Special chars not allowed
+        public static bool verifyUsername(String input){
+            Regex r = new Regex(@"^([a-zA-Z0-9]){4,15}$");
             //Regex r = new Regex("^(?=.[a-zA-Z]{4})([a-zA-Z0-9]{6,15})$");
-            if (r.IsMatch(input)) {
-                return true;
-            }
-            return false;
+            return r.IsMatch(input);
         }
 
         public static bool verifyUserPass(String username)
