@@ -187,6 +187,13 @@ namespace CatenersServer
                         sendToClient(new Message(this.currentLobby.toJson(),Translation.TYPE.UpdateLobby).toJson());
                 break;
 
+                case Translation.TYPE.StartGame:
+                for (int i = 0; i < currentLobby.PlayerCount; i++)
+                {
+                    ((ServerPlayer)currentLobby.Players[i]).client.sendToClient(new Message("", Translation.TYPE.StartGame).toJson());
+                }
+                break;
+
                 default:
                     // We Are just going to ignore it.
                 break;
