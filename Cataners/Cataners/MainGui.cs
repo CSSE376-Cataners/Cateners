@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CatanersShared;
 using WaveEngineGame;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cataners
 {
@@ -26,6 +27,7 @@ namespace Cataners
             Console.WriteLine("connected to the server");
         }
 
+        [ExcludeFromCodeCoverage]
         private void closing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)
@@ -34,11 +36,13 @@ namespace Cataners
             }
         }
 
+        [ExcludeFromCodeCoverage]
         private void mainQuitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
+        [ExcludeFromCodeCoverage]
         private void loginButton_Click(object sender, EventArgs e)
         {
 
@@ -96,12 +100,14 @@ namespace Cataners
 
         }
 
+        [ExcludeFromCodeCoverage]
         private void signUpButton_Click(object sender, EventArgs e)
         {
             SignUpForm signup = new SignUpForm();
             signup.ShowDialog();
         }
 
+        [ExcludeFromCodeCoverage]
         private void createGameButton_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -110,6 +116,7 @@ namespace Cataners
 
         }
 
+        [ExcludeFromCodeCoverage]
         private void joinGameButton_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -117,6 +124,7 @@ namespace Cataners
             joinform.ShowDialog();
         }
 
+        [ExcludeFromCodeCoverage]
         private void startWaveTestButton_Click(object sender, EventArgs e)
         {
             this.Close();
