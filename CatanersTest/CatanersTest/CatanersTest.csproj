@@ -81,6 +81,7 @@
     <Compile Include="TestMain.cs" />
     <Compile Include="TestMessage.cs" />
     <Compile Include="TestTranslation.cs" />
+    <Compile Include="VariablesTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
