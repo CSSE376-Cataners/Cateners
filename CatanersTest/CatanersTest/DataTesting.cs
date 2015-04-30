@@ -17,6 +17,8 @@ namespace CatanersTest
             Assert.NotNull(Data.Lobbies);
             Assert.NotNull(Data.currentLobby);
             Assert.AreEqual("", Data.username);
+
+            new Data();
         }
     }
 }
