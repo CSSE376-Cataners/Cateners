@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Game.cs" />
+    <Compile Include="LogicCenter.cs" />
     <Compile Include="MyScene.cs" />
   </ItemGroup>
   <ItemGroup>
