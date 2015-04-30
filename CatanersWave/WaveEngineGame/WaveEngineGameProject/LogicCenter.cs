@@ -23,7 +23,7 @@ namespace CatanersShared
             this.placementNumber = placementNumber;
             this.canAddComponent = true;
         }
-        public int getPlacementNumber()
+        public virtual int getPlacementNumber()
         {
             return this.placementNumber;
         }
@@ -61,7 +61,7 @@ namespace CatanersShared
             this.placementNumber = num;
         }
 
-        public int getPlacementNumber()
+        public virtual int getPlacementNumber()
         {
             return this.placementNumber;
         }
@@ -96,8 +96,7 @@ namespace CatanersShared
         }
         public int[] toShadow()
         {
-            return new int[0];
-            //return new int[] { this.type, this.placementNumber, this.rollNumber, this.settlementList[0].getPlacementNumber(), this.settlementList[1].getPlacementNumber(), this.settlementList[2].getPlacementNumber(), this.settlementList[3].getPlacementNumber(), this.settlementList[4].getPlacementNumber(), this.settlementList[5].getPlacementNumber() };
+            return new int[] { this.type, this.placementNumber, this.rollNumber, this.settlementList[0].getPlacementNumber(), this.settlementList[1].getPlacementNumber(), this.settlementList[2].getPlacementNumber(), this.settlementList[3].getPlacementNumber(), this.settlementList[4].getPlacementNumber(), this.settlementList[5].getPlacementNumber() };
         }
     }
 
