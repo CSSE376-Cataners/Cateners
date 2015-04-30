@@ -47,7 +47,7 @@ namespace CatanersShared
         // override object.GetHashCode
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return this.message.GetHashCode() + this.type.GetHashCode();
         }
     }
 }
