@@ -52,7 +52,7 @@ namespace CatanersShared
         {
             get
             {
-                return owner;
+                return (Player)owner;
             }
             set
             {
@@ -126,7 +126,7 @@ namespace CatanersShared
         // override object.GetHashCode
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return this.GameName.GetHashCode() + this.MaxTimePerTurn.GetHashCode() + this.owner.GetHashCode();
         }
 
         public static List<Lobby> jsonToLobbyList(String s)

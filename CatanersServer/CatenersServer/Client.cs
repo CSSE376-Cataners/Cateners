@@ -148,9 +148,9 @@ namespace CatenersServer
                     {
                         if (Data.INSTANCE.Lobbies[i].lobbyID == lobbyID)
                         {
-                            this.currentLobby = Data.INSTANCE.Lobbies[i];
-                            if (this.currentLobby.PlayerCount < 4)
+                            if (Data.INSTANCE.Lobbies[i].PlayerCount < 4)
                             {
+                                this.currentLobby = Data.INSTANCE.Lobbies[i];
                                 this.currentLobby.addPlayer(this.player);
                                 break;
                             }
@@ -185,6 +185,13 @@ namespace CatenersServer
                 case Translation.TYPE.UpdateLobby:
                     if(this.currentLobby != null)
                         sendToClient(new Message(this.currentLobby.toJson(),Translation.TYPE.UpdateLobby).toJson());
+                break;
+
+                case Translation.TYPE.StartGame:
+                for (int i = 0; i < currentLobby.PlayerCount; i++)
+                {
+                    ((ServerPlayer)currentLobby.Players[i]).client.sendToClient(new Message("", Translation.TYPE.StartGame).toJson());
+                }
                 break;
 
                 default:

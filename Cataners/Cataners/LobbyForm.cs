@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CatanersShared;
+using WaveEngineGame;
 
 namespace Cataners
 {
@@ -103,6 +104,12 @@ namespace Cataners
             this.Hide();
             MainGui.INSTANCE.Show();
       
+        }
+
+        private void startButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            Program.Main();
         }
     }
 }

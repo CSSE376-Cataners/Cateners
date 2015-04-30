@@ -67,6 +67,7 @@
     <Reference Include="WaveEngine.TiledMap, Version=1.4.2.0, Culture=neutral, processorArchitecture=x86" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataTesting.cs" />
     <Compile Include="LCTesting.cs" />
     <Compile Include="ClientTesting.cs" />
     <Compile Include="LobbyTesting.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="TestMain.cs" />
     <Compile Include="TestMessage.cs" />
     <Compile Include="TestTranslation.cs" />
+    <Compile Include="VariablesTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

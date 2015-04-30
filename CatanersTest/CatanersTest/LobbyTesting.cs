@@ -96,5 +96,14 @@ namespace CatanersTest
             Assert.AreEqual(0, target.PlayerCount);
 
         }
+
+        [Test]
+        public void testGetHashCode()
+        {
+            Lobby lobby1 = new Lobby("GameName", 10, new Player("Username"), 1);
+            Lobby lobby2 = new Lobby("GameName", 10, new Player("Username"), 1);
+
+            Assert.AreEqual(lobby1.GetHashCode(), lobby2.GetHashCode());
+        }
     }
 }

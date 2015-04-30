@@ -10,12 +10,14 @@
 
 #pragma warning disable 1591
 
+using System.Diagnostics.CodeAnalysis;
 namespace CatenersServer {
     
     
     /// <summary>
     ///Represents a strongly typed in-memory cache of data.
     ///</summary>
+    [ExcludeFromCodeCoverage]
     [global::System.Serializable()]
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
@@ -332,19 +334,20 @@ namespace CatenersServer {
             xs.Add(dsSchema);
             return type;
         }
-        
+
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public delegate void DataTable1RowChangeEventHandler(object sender, DataTable1RowChangeEvent e);
-        
+
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public delegate void checkUserDataTableRowChangeEventHandler(object sender, checkUserDataTableRowChangeEvent e);
-        
+
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public delegate void registerUserDataTableRowChangeEventHandler(object sender, registerUserDataTableRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
+        [ExcludeFromCodeCoverage]
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class DataTable1DataTable : global::System.Data.TypedTableBase<DataTable1Row> {
@@ -578,6 +581,7 @@ namespace CatenersServer {
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
+        [ExcludeFromCodeCoverage]
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class checkUserDataTableDataTable : global::System.Data.TypedTableBase<checkUserDataTableRow> {
@@ -839,6 +843,7 @@ namespace CatenersServer {
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
+        [ExcludeFromCodeCoverage]
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class registerUserDataTableDataTable : global::System.Data.TypedTableBase<registerUserDataTableRow> {
@@ -1072,6 +1077,7 @@ namespace CatenersServer {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
+        [ExcludeFromCodeCoverage]
         public partial class DataTable1Row : global::System.Data.DataRow {
             
             private DataTable1DataTable tableDataTable1;
@@ -1087,6 +1093,7 @@ namespace CatenersServer {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
+        [ExcludeFromCodeCoverage]
         public partial class checkUserDataTableRow : global::System.Data.DataRow {
             
             private checkUserDataTableDataTable tablecheckUserDataTable;
@@ -1158,6 +1165,7 @@ namespace CatenersServer {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
+        [ExcludeFromCodeCoverage]
         public partial class registerUserDataTableRow : global::System.Data.DataRow {
             
             private registerUserDataTableDataTable tableregisterUserDataTable;
@@ -1173,6 +1181,7 @@ namespace CatenersServer {
         /// <summary>
         ///Row event argument class
         ///</summary>
+        [ExcludeFromCodeCoverage]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public class DataTable1RowChangeEvent : global::System.EventArgs {
             
@@ -1207,6 +1216,7 @@ namespace CatenersServer {
         /// <summary>
         ///Row event argument class
         ///</summary>
+        [ExcludeFromCodeCoverage]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public class checkUserDataTableRowChangeEvent : global::System.EventArgs {
             
@@ -1241,6 +1251,7 @@ namespace CatenersServer {
         /// <summary>
         ///Row event argument class
         ///</summary>
+        [ExcludeFromCodeCoverage]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public class registerUserDataTableRowChangeEvent : global::System.EventArgs {
             
@@ -1273,12 +1284,14 @@ namespace CatenersServer {
         }
     }
 }
+
 namespace CatenersServer.catanersDataSetTableAdapters {
     
     
     /// <summary>
     ///Represents the connection and commands used to retrieve and save data.
     ///</summary>
+    [ExcludeFromCodeCoverage]
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.ComponentModel.DataObjectAttribute(true)]
@@ -1441,6 +1454,7 @@ namespace CatenersServer.catanersDataSetTableAdapters {
     /// <summary>
     ///Represents the connection and commands used to retrieve and save data.
     ///</summary>
+    [ExcludeFromCodeCoverage]
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.ComponentModel.DataObjectAttribute(true)]
@@ -1635,6 +1649,7 @@ namespace CatenersServer.catanersDataSetTableAdapters {
     /// <summary>
     ///Represents the connection and commands used to retrieve and save data.
     ///</summary>
+    [ExcludeFromCodeCoverage]
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.ComponentModel.DataObjectAttribute(true)]
@@ -1829,6 +1844,7 @@ namespace CatenersServer.catanersDataSetTableAdapters {
     /// <summary>
     ///TableAdapterManager is used to coordinate TableAdapters in the dataset to enable Hierarchical Update scenarios
     ///</summary>
+    [ExcludeFromCodeCoverage]
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerDesigner, Microsoft.VSD" +
@@ -2093,6 +2109,7 @@ namespace CatenersServer.catanersDataSetTableAdapters {
         /// <summary>
         ///Used to sort self-referenced table's rows
         ///</summary>
+        [ExcludeFromCodeCoverage]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private class SelfReferenceComparer : object, global::System.Collections.Generic.IComparer<global::System.Data.DataRow> {
             

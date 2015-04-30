@@ -14,7 +14,7 @@ namespace CatanersTest
     {
 
         [Test]
-        public void testInstanciation()
+        public void testInstantiation()
         {
             Player a = new Player("Test");
 
@@ -43,6 +43,16 @@ namespace CatanersTest
         {
             Player a = new Player("abc123");
             Assert.AreEqual("abc123", a.ToString());
+        }
+
+        [Test]
+        public void testPlayerHashCode()
+        {
+            Player bobby = new Player("bobbyTables");
+            Player bobby2 = new Player("bobbyTables");
+            int hash1 = bobby.GetHashCode();
+            int hash2 = bobby2.GetHashCode();
+            Assert.AreEqual(hash1, hash2);
         }
     }
 }

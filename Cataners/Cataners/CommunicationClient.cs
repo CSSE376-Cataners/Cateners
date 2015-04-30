@@ -10,6 +10,7 @@ using System.Net.Sockets;
 using System.IO;
 using System.Windows.Forms;
 using System.Threading;
+using WaveEngineGame;
 
 namespace Cataners
 {
@@ -139,6 +140,13 @@ namespace Cataners
                         Data.currentLobby = Lobby.fromJson(msg.message);
                         LobbyForm.INSTANCE.invokedRefresh();
                     }
+                    break;
+                case Translation.TYPE.LeaveLobby:
+                    //close lobby window
+                    break;
+
+                case Translation.TYPE.StartGame:
+                    Program.Main();
                     break;
             }
         }

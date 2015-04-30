@@ -57,7 +57,7 @@ namespace CatanersShared
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return this.username.GetHashCode() + this.password.GetHashCode();
         }
     }
 }

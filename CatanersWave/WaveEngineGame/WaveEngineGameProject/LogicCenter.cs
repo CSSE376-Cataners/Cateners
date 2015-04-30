@@ -294,4 +294,16 @@ namespace CatanersShared
             }
         }
     }
+
+    public class Resource{
+        String type;
+
+        public Resource(String type)
+        {
+            this.type = type;
+        }
+    }
+
+
+
 }
