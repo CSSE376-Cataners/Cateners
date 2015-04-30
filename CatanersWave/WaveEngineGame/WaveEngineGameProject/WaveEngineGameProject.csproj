@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Data.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="GamePlayer.cs" />
     <Compile Include="LogicCenter.cs" />
     <Compile Include="MyScene.cs" />
   </ItemGroup>
