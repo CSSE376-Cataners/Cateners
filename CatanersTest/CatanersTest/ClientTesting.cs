@@ -449,6 +449,9 @@ namespace CatanersTest
             ServerPlayer player2 = new ServerPlayer("client2", client2);
             client2.player = player2;
 
+            player1.Ready = true;
+            player2.Ready = true;
+
 
             Lobby lobby = new Lobby("Gamename", 10, player1, 1);
             lobby.addPlayer(player2);
