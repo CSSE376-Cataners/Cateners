@@ -462,6 +462,36 @@ namespace CatanersTest
             Assert.AreEqual(new Message("", Translation.TYPE.StartGame).toJson(), client2.lastCall);
         }
 
+        [Test]
+        public void testCheckReadyTrue()
+        {
+
+            FakeClient client1 = new FakeClient();
+            FakeClient client2 = new FakeClient();
+            FakeClient client3 = new FakeClient();
+
+            ServerPlayer player1 = new ServerPlayer("p1", client1);
+            ServerPlayer player2 = new ServerPlayer("p2", client2);
+            ServerPlayer player3 = new ServerPlayer("p3", client3);
+
+            client1.player = player1;
+            client2.player = player2;
+            client3.player = player3;
+
+            Lobby lobsters = new Lobby("game", 1000, player1, 100);
+
+            client1.currentLobby = lobsters;
+            client2.currentLobby = lobsters;
+            client3.currentLobby = lobsters;
+
+            player1.Ready = true;
+            player2.Ready = true;
+            player3.Ready = true;
+
+            Assert.IsTrue(client1.checkReady());
+
+        }
+
         public class FakeClient : Client
         {
 
