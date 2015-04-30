@@ -267,8 +267,6 @@ namespace CatenersServer
                     playerTurn = 0;
                     break;
             }
-            
-
         } 
 
 
