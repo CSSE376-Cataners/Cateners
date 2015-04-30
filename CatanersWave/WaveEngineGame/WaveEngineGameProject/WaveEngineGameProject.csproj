@@ -48,12 +48,8 @@
   <ItemGroup>
     <Compile Include="Data.cs" />
     <Compile Include="Game.cs" />
-<<<<<<< HEAD
     <Compile Include="LocalConversion.cs" />
-=======
     <Compile Include="GamePlayer.cs" />
-    <Compile Include="LogicCenter.cs" />
->>>>>>> origin/master
     <Compile Include="MyScene.cs" />
   </ItemGroup>
   <ItemGroup>
