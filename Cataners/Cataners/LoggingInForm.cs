@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace Cataners
 {
     public partial class LoggingInForm : Form
     {
-        static int timerCount = 0;
+        public int timerCount = 0;
         Timer time = new Timer();
 
         public LoggingInForm()
@@ -20,6 +21,7 @@ namespace Cataners
             InitializeComponent();
         }
 
+        [ExcludeFromCodeCoverage]
         public void LoggingInForm_Load(object sender, EventArgs e)
         {
             
@@ -29,6 +31,7 @@ namespace Cataners
 
         }
 
+        [ExcludeFromCodeCoverage]
         private void TimerEventHandler(Object myObject, EventArgs myEventArgs)
         {
             time.Stop();
@@ -60,11 +63,6 @@ namespace Cataners
                 timerCount++;
                 time.Enabled = true;
             }
-
-        }
-
-        private void loggingInLabel3_Click(object sender, EventArgs e)
-        {
 
         }
     }

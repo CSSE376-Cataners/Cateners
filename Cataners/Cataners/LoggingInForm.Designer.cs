@@ -1,4 +1,5 @@
-﻿namespace Cataners
+﻿using System.Diagnostics.CodeAnalysis;
+namespace Cataners
 {
     partial class LoggingInForm
     {
@@ -11,6 +12,7 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        [ExcludeFromCodeCoverage]
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -63,7 +65,6 @@
             this.loggingInLabel3.Size = new System.Drawing.Size(129, 22);
             this.loggingInLabel3.TabIndex = 2;
             this.loggingInLabel3.Text = "Logging in :D";
-            this.loggingInLabel3.Click += new System.EventHandler(this.loggingInLabel3_Click);
             // 
             // LoggingInForm
             // 
