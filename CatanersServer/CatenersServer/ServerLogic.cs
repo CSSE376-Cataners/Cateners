@@ -96,13 +96,10 @@ namespace CatenersServer
         private static int numberOfHexes = 19;
         private HexServer[] hexArray;
         private SettlementServer[] settlementArray;
-<<<<<<< HEAD
         private Lobby lobby;
         public ServerLogic(Lobby lobby)
-=======
         public int playerTurn;
         public ServerLogic()
->>>>>>> origin/master
         {
             this.hexArray = new HexServer[numberOfHexes];
             this.generatehexArray();
