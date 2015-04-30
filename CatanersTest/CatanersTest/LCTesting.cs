@@ -15,6 +15,10 @@ using Rhino.Mocks;
 using Newtonsoft.Json.Converters;
 using Microsoft.QualityTools.Testing.Fakes;
 using System.Reflection;
+using WaveEngine;
+using WaveEngineGame;
+using WaveEngineGameProject;
+using WaveEngine.Framework;
 
 namespace CatanersTest
 {
@@ -95,11 +99,34 @@ namespace CatanersTest
                 Assert.NotNull(hexList[i].getSettlementList());
                 SettlementHolder[] currList = hexList[i].getSettlementList();
                 Assert.AreEqual(currList.Length, 6);
-                Assert.AreEqual(hexList[i].getSettlementList(), testArray2[i]);
+                Assert.AreEqual(currList, testArray2[hexList[i].getPlacementNumber()]);
             }
         }
 
         [Test]
+        public void testHexToShadow()
+        {
+            Entity entMock = mocks.DynamicMock<Entity>();
+            HexHolder targetHolder = new HexHolder(entMock, 2);
+            targetHolder.setPlacementNumber(3);
+            targetHolder.setRollNumber(3);
+            SettlementHolder[] setArray = new SettlementHolder[6];
+            for (int k = 0; k < 6; k++)
+            {
+                setArray[k] = mocks.DynamicMock<SettlementHolder>();
+            }
+            targetHolder.setSettlementList(setArray);
+            Expect.Call(setArray[0].getPlacementNumber()).Return(1);
+            Expect.Call(setArray[1].getPlacementNumber()).Return(4);
+            Expect.Call(setArray[2].getPlacementNumber()).Return(5);
+            Expect.Call(setArray[3].getPlacementNumber()).Return(7);
+            Expect.Call(setArray[4].getPlacementNumber()).Return(8);
+            Expect.Call(setArray[5].getPlacementNumber()).Return(12);
+            mocks.ReplayAll();
+            Assert.AreEqual(targetHolder.toShadow(), new int[] { 2, 3, 3, 1, 4, 5, 7, 8, 12 });
+            mocks.VerifyAll();
+        }
+
         public void TestResourceConstructor()
         {
             Resource wheat = new Resource("wheat");

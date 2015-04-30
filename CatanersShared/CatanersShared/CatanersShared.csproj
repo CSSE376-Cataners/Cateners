@@ -56,7 +56,6 @@
     <Reference Include="WaveEngine.TiledMap, Version=1.4.2.0, Culture=neutral, processorArchitecture=x86" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LogicCenter.cs" />
     <Compile Include="Lobby.cs" />
     <Compile Include="Login.cs" />
     <Compile Include="Message.cs" />

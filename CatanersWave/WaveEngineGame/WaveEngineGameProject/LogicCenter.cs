@@ -16,10 +16,12 @@ namespace CatanersShared
     {
         private Entity settlement;
         private int placementNumber;
+        public Boolean canAddComponent;
         public SettlementHolder(Entity settlement, int placementNumber)
         {
             this.settlement = settlement;
             this.placementNumber = placementNumber;
+            this.canAddComponent = true;
         }
         public int getPlacementNumber()
         {
@@ -38,10 +40,12 @@ namespace CatanersShared
         private int rollNumber;
         private Entity rollEntity;
         private SettlementHolder[] settlementList;
+        private int type;
 
-        public HexHolder(Entity hex)
+        public HexHolder(Entity hex, int type)
         {
             this.hex = hex;
+            this.type = type;
             this.placementNumber = 0;
             this.rollNumber = 0;
             this.settlementList = new SettlementHolder[6];
@@ -90,6 +94,11 @@ namespace CatanersShared
         {
             this.settlementList = newArray;
         }
+        public int[] toShadow()
+        {
+            return new int[0];
+            //return new int[] { this.type, this.placementNumber, this.rollNumber, this.settlementList[0].getPlacementNumber(), this.settlementList[1].getPlacementNumber(), this.settlementList[2].getPlacementNumber(), this.settlementList[3].getPlacementNumber(), this.settlementList[4].getPlacementNumber(), this.settlementList[5].getPlacementNumber() };
+        }
     }
 
     public class LogicCenter
@@ -101,8 +110,9 @@ namespace CatanersShared
         {
             this.hexNumber = hexNumber;
             this.hexList = new HexHolder[this.hexNumber];
-            this.generateDefaultSettlements();
             this.generateHexList();
+            this.generateDefaultSettlements();
+            this.assignSettlements();
         }
 
         public SettlementHolder[] getSettlementList()
@@ -121,7 +131,7 @@ namespace CatanersShared
                 Entity tempEntity = new Entity(name)
                 .AddComponent(new Sprite("SheepHex.wpk"))
                 .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
-                this.hexList[count] = new HexHolder(tempEntity);
+                this.hexList[count] = new HexHolder(tempEntity, 1);
                 count++;
             }
 
@@ -131,7 +141,7 @@ namespace CatanersShared
                 Entity tempEntity2 = new Entity(name)
                 .AddComponent(new Sprite("ForestHex.wpk"))
                 .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
-                this.hexList[count] = new HexHolder(tempEntity2);
+                this.hexList[count] = new HexHolder(tempEntity2, 2);
                 count++;
             }
 
@@ -141,14 +151,14 @@ namespace CatanersShared
                 Entity tempEntity3 = new Entity(name)
                 .AddComponent(new Sprite("OreHex.wpk"))
                 .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
-                this.hexList[count] = new HexHolder(tempEntity3);
+                this.hexList[count] = new HexHolder(tempEntity3, 3);
                 count++;
             }
 
             Entity tempEntity4 = new Entity("DesertHex")
             .AddComponent(new Sprite("DesertHex.wpk"))
             .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
-            this.hexList[count] = new HexHolder(tempEntity4);
+            this.hexList[count] = new HexHolder(tempEntity4, 4);
             count++;
 
             for (int p = 0; p < 3; p++)
@@ -157,7 +167,7 @@ namespace CatanersShared
                 Entity tempEntity5 = new Entity(name)
                 .AddComponent(new Sprite("BrickHex.wpk"))
                 .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
-                this.hexList[count] = new HexHolder(tempEntity5);
+                this.hexList[count] = new HexHolder(tempEntity5, 5);
                 count++;
             }
 
@@ -167,7 +177,7 @@ namespace CatanersShared
                 Entity tempEntity6 = new Entity(name)
                 .AddComponent(new Sprite("WheatHex.wpk"))
                 .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
-                this.hexList[count] = new HexHolder(tempEntity6);
+                this.hexList[count] = new HexHolder(tempEntity6, 6);
                 count++;
             }
 
@@ -199,36 +209,38 @@ namespace CatanersShared
         {
             for (int i = 0; i < 19; i++)
             {
-                if(i < 3)
+                HexHolder currHex = this.hexList[i];
+                int currNum = currHex.getPlacementNumber();
+                if(currNum < 3)
                 {
-                    int a = i;
+                    int a = currNum;
                     int b = a + 3;
                     int c = b + 4;
                     int d = c + 5;
                     SettlementHolder[] newArray = new SettlementHolder[6] {this.settlementList[a], this.settlementList[b], this.settlementList[b + 1], this.settlementList[c], this.settlementList[c + 1], this.settlementList[d]};
                     hexList[i].setSettlementList(newArray);
                 }
-                else if (i < 7)
+                else if (currNum < 7)
                 {
-                    int a = i + 4;
+                    int a = currNum + 4;
                     int b = a + 4;
                     int c = b + 5;
                     int d = c + 6;
                     SettlementHolder[] newArray = new SettlementHolder[6] { this.settlementList[a], this.settlementList[b], this.settlementList[b + 1], this.settlementList[c], this.settlementList[c + 1], this.settlementList[d] };
                     hexList[i].setSettlementList(newArray);
                 }
-                else if (i < 12)
+                else if (currNum < 12)
                 {
-                    int a = i + 9;
+                    int a = currNum + 9;
                     int b = a + 5;
                     int c = b + 6;
                     int d = c + 6;
                     SettlementHolder[] newArray = new SettlementHolder[6] { this.settlementList[a], this.settlementList[b], this.settlementList[b + 1], this.settlementList[c], this.settlementList[c + 1], this.settlementList[d] };
                     hexList[i].setSettlementList(newArray);
                 }
-                else if (i < 16)
+                else if (currHex.getPlacementNumber() < 16)
                 {
-                    int a = i + 16;
+                    int a = currNum + 16;
                     int b = a + 5;
                     int c = b + 5;
                     int d = c + 5;
@@ -237,7 +249,7 @@ namespace CatanersShared
                 }
                 else
                 {
-                    int a = i + 23;
+                    int a = currNum + 23;
                     int b = a + 4;
                     int c = b + 4;
                     int d = c + 4;
