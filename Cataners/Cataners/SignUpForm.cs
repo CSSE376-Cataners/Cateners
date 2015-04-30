@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CatanersShared;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cataners
 {
@@ -18,6 +19,7 @@ namespace Cataners
             InitializeComponent();
         }
 
+        [ExcludeFromCodeCoverage]
         private void registerButton_Click(object sender, EventArgs e)
         {
 
@@ -47,6 +49,7 @@ namespace Cataners
 
         }
 
+        [ExcludeFromCodeCoverage]
         public void confirmPasswordTextBox_TextChanged(object sender, EventArgs e)
         {
             String username = usernameTextbox.Text;
@@ -69,6 +72,7 @@ namespace Cataners
 
         }
 
+        [ExcludeFromCodeCoverage]
         private void usernameTextbox_TextChanged(object sender, EventArgs e)
         {
             String username = usernameTextbox.Text;
@@ -86,6 +90,7 @@ namespace Cataners
             }
         }
 
+        [ExcludeFromCodeCoverage]
         private void passwordTextBox_TextChanged(object sender, EventArgs e)
         {
             String username = usernameTextbox.Text;
