@@ -95,7 +95,8 @@ namespace CatenersServer
         private static int numberOfHexes = 19;
         private HexServer[] hexArray;
         private SettlementServer[] settlementArray;
-        public ServerLogic(int hexNumber)
+        public int playerTurn;
+        public ServerLogic()
         {
             this.hexArray = new HexServer[numberOfHexes];
             this.generatehexArray();
@@ -241,15 +242,22 @@ namespace CatenersServer
                 }
             }
         }
-    }
 
-    public class Resource
-    {
-        String type;
-
-        public Resource(String type)
+        public int generateRandomDiceRoll()
         {
-            this.type = type;
+            Random rand = new Random();
+            int dice = rand.Next(2, 13);
+            return dice;
         }
+
+        public void updateTurn()
+        {
+            playerTurn = 2;
+
+        } 
+
+
+
     }
+
 }
