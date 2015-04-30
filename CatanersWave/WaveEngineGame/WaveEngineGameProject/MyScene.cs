@@ -44,7 +44,7 @@ namespace WaveEngineGameProject
         public static float SETTLEMENT_WIDTH = 684 * SETTLEMENT_SCALE_X;
         public static float SETTLEMENT_HEIGHT = 684 * SETTLEMENT_SCALE_Y;
 
-        LogicCenter logicCenter = new LogicCenter(hexNumber);
+        LocalConversion logicCenter = new LocalConversion();
 
         protected override void CreateScene()
         {
@@ -52,8 +52,13 @@ namespace WaveEngineGameProject
 
             //Create a 3D camera
             //EntityManager.Remove(AlphaLayer);
+<<<<<<< HEAD
             Button newButton = new Button(); 
             newButton.Text = "Regenerate Board"; 
+=======
+            /*Button newButton = new Button(); 
+            newButton.Text = "New Button"; 
+>>>>>>> origin/master
             newButton.Width = 120; 
             newButton.Height = 40;
             EntityManager.Add(newButton);
@@ -155,12 +160,12 @@ namespace WaveEngineGameProject
             };
             EntityManager.Add(player4);*/
 
-            this.drawHexes();
+            this.drawHexes();*/
         }
 
         public void drawHexes()
         {
-            this.hexList = logicCenter.getHexList();
+            /*this.hexList = logicCenter.getHexArray();
             for (int g = 0; g < 19; g++)
             {
                 HexHolder current = this.hexList[g];
@@ -497,17 +502,17 @@ namespace WaveEngineGameProject
                     }
                 EntityManager.Add(current.getRollEntity());
                 EntityManager.Add(current.getHex());
-            }
+            }*/
         }
 
-        private void button_Pressed(object sender, GestureEventArgs e)
+        /*private void button_Pressed(object sender, GestureEventArgs e)
         {
             ScreenContext screenContext = new ScreenContext(new MyScene())
             {
                 Name = "Next Frame"
             };
             WaveServices.ScreenContextManager.To(screenContext);
-        }
+        }*/
 
         protected override void Start()
         {
