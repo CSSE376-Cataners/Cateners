@@ -104,7 +104,6 @@ namespace CatanersTest
         }
 
         [Test]
-<<<<<<< HEAD
         public void testHexToShadow()
         {
             Entity entMock = mocks.DynamicMock<Entity>();
@@ -126,12 +125,12 @@ namespace CatanersTest
             mocks.ReplayAll();
             Assert.AreEqual(targetHolder.toShadow(), new int[] { 2, 3, 3, 1, 4, 5, 7, 8, 12 });
             mocks.VerifyAll();
-=======
+        }
+
         public void TestResourceConstructor()
         {
             Resource wheat = new Resource("wheat");
             Assert.NotNull(wheat);
->>>>>>> origin/master
         }
     }
 }
