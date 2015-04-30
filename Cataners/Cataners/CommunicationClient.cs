@@ -11,6 +11,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Threading;
 using WaveEngineGame;
+using WaveEngineGameProject;
 
 namespace Cataners
 {
