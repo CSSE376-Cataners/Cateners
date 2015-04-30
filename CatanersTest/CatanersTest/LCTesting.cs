@@ -128,10 +128,5 @@ namespace CatanersTest
             mocks.VerifyAll();
         }
 
-        public void TestResourceConstructor()
-        {
-            Resource wheat = new Resource("wheat");
-            Assert.NotNull(wheat);
-        }
     }
 }
