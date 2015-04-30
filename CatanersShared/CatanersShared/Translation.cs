@@ -10,6 +10,6 @@ namespace CatanersShared
 {
     public class Translation
     {
-        public enum TYPE { Login, Register, RequestLobbies, JoinLobby, CreateLobby, UpdateLobby, ChangeReadyStatus, LeaveLobby, Chat, Game, StartGame, Unknown };
+        public enum TYPE { Login, Register, RequestLobbies, JoinLobby, CreateLobby, UpdateLobby, ChangeReadyStatus, LeaveLobby, Chat, Game, StartGame, Unknown , HexMessage};
     }
 }

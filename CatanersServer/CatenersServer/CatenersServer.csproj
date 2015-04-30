@@ -55,6 +55,18 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WaveEngine.Adapter, Version=1.4.2.0, Culture=neutral, PublicKeyToken=6e72eaf7d6c3c55b, processorArchitecture=x86" />
+    <Reference Include="WaveEngine.Adapter.Video, Version=1.3.2.0, Culture=neutral, PublicKeyToken=6e72eaf7d6c3c55b, processorArchitecture=x86" />
+    <Reference Include="WaveEngine.Analytics, Version=1.4.2.0, Culture=neutral, PublicKeyToken=6e72eaf7d6c3c55b, processorArchitecture=x86" />
+    <Reference Include="WaveEngine.Common, Version=1.4.2.0, Culture=neutral, PublicKeyToken=6e72eaf7d6c3c55b, processorArchitecture=x86" />
+    <Reference Include="WaveEngine.Components, Version=1.4.2.0, Culture=neutral, PublicKeyToken=6e72eaf7d6c3c55b, processorArchitecture=x86" />
+    <Reference Include="WaveEngine.Framework, Version=1.4.2.0, Culture=neutral, PublicKeyToken=6e72eaf7d6c3c55b, processorArchitecture=x86" />
+    <Reference Include="WaveEngine.ImageEffects, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="WaveEngine.Materials, Version=1.4.2.0, Culture=neutral, PublicKeyToken=6e72eaf7d6c3c55b, processorArchitecture=x86" />
+    <Reference Include="WaveEngine.OculusRift, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="WaveEngine.Physics, Version=1.4.2.0, Culture=neutral, PublicKeyToken=6e72eaf7d6c3c55b, processorArchitecture=x86" />
+    <Reference Include="WaveEngine.Spine, Version=1.4.2.0, Culture=neutral, processorArchitecture=x86" />
+    <Reference Include="WaveEngine.TiledMap, Version=1.4.2.0, Culture=neutral, processorArchitecture=x86" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="catanersDataSet.cs">
@@ -66,6 +78,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>catanersDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="ServerLogic.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="CommunicationServer.cs" />
     <Compile Include="Data.cs" />
@@ -103,6 +116,14 @@
     <ProjectReference Include="..\..\CatanersShared\CatanersShared\CatanersShared.csproj">
       <Project>{0b6057c1-b6ec-416c-ba05-6f019daaad4d}</Project>
       <Name>CatanersShared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CatanersWave\WaveEngineGame\WaveEngineGameProject\WaveEngineGameProject.csproj">
+      <Project>{b1aeaa98-30cc-46f1-ba74-82075006675b}</Project>
+      <Name>WaveEngineGameProject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CatanersWave\WaveEngineGame\WaveEngineGame\WaveEngineGame.csproj">
+      <Project>{c3a2e831-0a38-44a4-8bef-1a53735bc9d2}</Project>
+      <Name>WaveEngineGame</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

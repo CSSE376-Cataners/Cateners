@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="Data.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="LogicCenter.cs" />
+    <Compile Include="LocalConversion.cs" />
     <Compile Include="MyScene.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +127,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="TheSettlersofCatan.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\CatanersShared\CatanersShared\CatanersShared.csproj">
