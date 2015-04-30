@@ -76,35 +76,70 @@ namespace WaveEngineGameProject
                 Margin = new Thickness(CENTERWIDTH-(80),0,0,0)
             };
             EntityManager.Add(title);
+            //player name
 
+            String player1Text = Data.currentLobby.Players[0].ToString();
+            
+            //add player
             TextBlock player1 = new TextBlock()
             {
-                Text = "Player1",
+                Text = player1Text,
                 Width = 100,
                 Foreground = Color.Blue,
                 Margin = new Thickness(CENTERWIDTH-(WORDOFFSET), 100, 0, 0),
             };
             EntityManager.Add(player1);
+
+            String player2Text;
+            if(Data.currentLobby.PlayerCount>1){
+                    player2Text = Data.currentLobby.Players[1].ToString();
+            }
+            else
+            {
+                player2Text = "player2";
+            }
+
             TextBlock player2 = new TextBlock()
             {
-                Text = "Player2",
+                Text = player2Text,
                 Width = 100,
                 Foreground = Color.Red,
                 Margin = new Thickness(CENTERWIDTH + 400-WORDOFFSET, CENTERHEIGHT, 0, 0),
                 
             };
             EntityManager.Add(player2);
+
+            String player3Text;
+            if (Data.currentLobby.PlayerCount >2)
+            {
+                player3Text = Data.currentLobby.Players[2].ToString();
+            }
+            else
+            {
+                player3Text = "player3";
+            }
             TextBlock player3 = new TextBlock()
             {
-                Text = "Player3",
+                Text = player3Text,
                 Width = 100,
                 Foreground = Color.Green,
                 Margin = new Thickness(CENTERWIDTH-WORDOFFSET, CENTERHEIGHT*(2)-100, 0, 0),
             };
             EntityManager.Add(player3);
+
+            String player4Text;
+            if (Data.currentLobby.PlayerCount>3)
+            {
+                player4Text = Data.currentLobby.Players[3].ToString();
+            }
+            else
+            {
+                player4Text = "player4";
+            }
+
             TextBlock player4 = new TextBlock()
             {
-                Text = "Player4",
+                Text = player4Text,
                 Width = 100,
                 Foreground = Color.Black,
                 Margin = new Thickness(CENTERWIDTH - 400-WORDOFFSET, CENTERHEIGHT, 0, 0),
