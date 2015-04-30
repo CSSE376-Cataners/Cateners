@@ -109,8 +109,14 @@ namespace Cataners
 
         private void startButton_Click(object sender, EventArgs e)
         {
-            this.Close();
-            Program.Main();
+            if (Data.currentLobby.Players.Count == 4)
+            {
+                CommunicationClient.Instance.sendToServer(new CatanersShared.Message("", Translation.TYPE.StartGame).toJson());
+            }
+            else
+            {
+                MessageBox.Show("Please wait until four people have joined your game");
+            }
         }
     }
 }
