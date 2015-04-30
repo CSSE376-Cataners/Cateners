@@ -252,12 +252,20 @@ namespace CatenersServer
 
         public void updateTurn()
         {
-            if (playerTurn == 1) {
-                playerTurn = 2;
-            }
-            else
+            switch (playerTurn)
             {
-                playerTurn = 1;
+                case 0:
+                    playerTurn = 1;
+                    break;
+                case 1:
+                    playerTurn = 2;
+                    break;
+                case 2:
+                    playerTurn = 3;
+                    break;
+                case 3:
+                    playerTurn = 0;
+                    break;
             }
             
 
