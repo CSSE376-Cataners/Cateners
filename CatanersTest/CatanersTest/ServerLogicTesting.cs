@@ -54,6 +54,13 @@ namespace CatanersTest
             logic.updateTurn();
             Assert.AreEqual(2, logic.playerTurn);
         }
+        [Test]
+        public void testThatPlayerTurnSwitches()
+        {
+            logic.playerTurn = 0;
+            logic.updateTurn();
+            Assert.AreEqual(1, logic.playerTurn);
+        }
 
         /*public void TestResourceConstructor()
         {
