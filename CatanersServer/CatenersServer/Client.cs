@@ -188,15 +188,39 @@ namespace CatenersServer
                 break;
 
                 case Translation.TYPE.StartGame:
-                for (int i = 0; i < currentLobby.PlayerCount; i++)
+                if (checkReady())
                 {
-                    ((ServerPlayer)currentLobby.Players[i]).client.sendToClient(new Message("", Translation.TYPE.StartGame).toJson());
+                    for (int i = 0; i < currentLobby.PlayerCount; i++)
+                    {
+                        ((ServerPlayer)currentLobby.Players[i]).client.sendToClient(new Message("", Translation.TYPE.StartGame).toJson());
+                    }
                 }
                 break;
 
                 default:
                     // We Are just going to ignore it.
                 break;
+            }
+        }
+
+        public bool checkReady()
+        {
+            int readyCount=0;
+            for (int i = 0; i < currentLobby.PlayerCount; i++)
+            {
+                if (currentLobby.Players[i].Ready)
+                {
+                    readyCount++;
+                }
+            }
+
+            if (readyCount == currentLobby.PlayerCount)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
