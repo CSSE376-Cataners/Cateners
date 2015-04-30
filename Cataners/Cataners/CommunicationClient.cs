@@ -68,7 +68,7 @@ namespace Cataners
         }
 
         StreamWriter writer;
-        public void sendToServer(String msg)
+        public virtual void sendToServer(String msg)
         {
             if (instance.clientSocket.Connected)
             {
