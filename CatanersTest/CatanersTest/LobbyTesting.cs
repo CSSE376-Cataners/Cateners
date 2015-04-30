@@ -105,5 +105,20 @@ namespace CatanersTest
 
             Assert.AreEqual(lobby1.GetHashCode(), lobby2.GetHashCode());
         }
+
+        [Test]
+        public void testJsonToLobbyList()
+        {
+            Lobby lobby = new Lobby("Gamename", 10, new Player("Owner"), 1);
+            Lobby lobby2 = new Lobby("Gamename2" ,10 , new Player("Owner2"), 2);
+
+            List<Lobby> list = new List<Lobby>();
+            list.Add(lobby);
+            list.Add(lobby2);
+
+            String lobbyText =  Newtonsoft.Json.JsonConvert.SerializeObject(list);
+
+            CollectionAssert.AreEqual(list, Lobby.jsonToLobbyList(lobbyText));
+        }
     }
 }
