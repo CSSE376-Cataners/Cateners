@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LobbyForm));
             this.playersDataGridView = new System.Windows.Forms.DataGridView();
             this.playerNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -69,8 +69,8 @@
             // playerNameColumn
             // 
             this.playerNameColumn.DataPropertyName = "Username";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.playerNameColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.playerNameColumn.DefaultCellStyle = dataGridViewCellStyle1;
             this.playerNameColumn.DividerWidth = 3;
             this.playerNameColumn.HeaderText = "Player Name";
             this.playerNameColumn.Name = "playerNameColumn";
@@ -116,6 +116,7 @@
             this.startButton.TabIndex = 3;
             this.startButton.Text = "Start Game";
             this.startButton.UseVisualStyleBackColor = true;
+            this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 
             // refreshTimer
             // 
