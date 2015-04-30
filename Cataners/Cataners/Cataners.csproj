@@ -62,7 +62,6 @@
     <Compile Include="CreateGameForm.Designer.cs">
       <DependentUpon>CreateGameForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Data.cs" />
     <Compile Include="LobbyForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -172,6 +171,10 @@
     <ProjectReference Include="..\..\CatanersShared\CatanersShared\CatanersShared.csproj">
       <Project>{0b6057c1-b6ec-416c-ba05-6f019daaad4d}</Project>
       <Name>CatanersShared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CatanersWave\WaveEngineGame\WaveEngineGameProject\WaveEngineGameProject.csproj">
+      <Project>{b1aeaa98-30cc-46f1-ba74-82075006675b}</Project>
+      <Name>WaveEngineGameProject</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\CatanersWave\WaveEngineGame\WaveEngineGame\WaveEngineGame.csproj">
       <Project>{c3a2e831-0a38-44a4-8bef-1a53735bc9d2}</Project>
