@@ -53,7 +53,7 @@ namespace WaveEngineGameProject
             //Create a 3D camera
             //EntityManager.Remove(AlphaLayer);
             Button newButton = new Button(); 
-            newButton.Text = "New Button"; 
+            newButton.Text = "Regenerate Board"; 
             newButton.Width = 120; 
             newButton.Height = 40;
             EntityManager.Add(newButton);
@@ -77,8 +77,16 @@ namespace WaveEngineGameProject
             };
             EntityManager.Add(title);
             //player name
-
-            String player1Text = Data.currentLobby.Players[0].ToString();
+            //String player1Text;
+            /*
+            if (Data.currentLobby.PlayerCount == 1)
+            {
+                player1Text = Data.currentLobby.Players[0].ToString();
+            }
+            else
+            {
+                player1Text = "player1";
+            }
             
             //add player
             TextBlock player1 = new TextBlock()
@@ -145,7 +153,7 @@ namespace WaveEngineGameProject
                 Margin = new Thickness(CENTERWIDTH - 400-WORDOFFSET, CENTERHEIGHT, 0, 0),
 
             };
-            EntityManager.Add(player4);
+            EntityManager.Add(player4);*/
 
             this.drawHexes();
         }
