@@ -71,7 +71,9 @@
     <Compile Include="DataTesting.cs" />
     <Compile Include="LCTesting.cs" />
     <Compile Include="ClientTesting.cs" />
+    <Compile Include="LobbyFormTestingcs.cs" />
     <Compile Include="LobbyTesting.cs" />
+    <Compile Include="LogingInFormTesting.cs" />
     <Compile Include="MainGuiTesting.cs" />
     <Compile Include="PlayerTesting.cs" />
     <Compile Include="RegistrationTesting.cs" />

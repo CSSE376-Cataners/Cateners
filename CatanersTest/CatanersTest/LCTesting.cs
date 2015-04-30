@@ -43,10 +43,13 @@ namespace CatanersTest
             Assert.AreEqual(targetHolder.toShadow(), new int[] { 2, 3, 3, 0, 1, 2, 3, 4, 5 });
         }
 
+<<<<<<< HEAD
         /*public void TestResourceConstructor()
         {
             Resource wheat = new Resource("wheat");
             Assert.NotNull(wheat);
         }*/
+=======
+>>>>>>> origin/master
     }
 }
