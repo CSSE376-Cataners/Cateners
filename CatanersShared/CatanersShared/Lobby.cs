@@ -13,6 +13,7 @@ namespace CatanersShared
         private int maxTimePerTurn;
         private Player owner;
         public int lobbyID;
+        public Boolean allReady;
 
         private List<Player> players;
 
