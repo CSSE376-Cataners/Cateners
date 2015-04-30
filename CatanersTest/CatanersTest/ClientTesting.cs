@@ -192,7 +192,9 @@ namespace CatanersTest
 
             Assert.Null(client.currentLobby);
 
+            Lobby lobbypre = new Lobby("Gamename2", - 1, new Player("YAYDA"), 1);
             Lobby lobby = new Lobby("Gamename", -1, new Player("Owner"), 10);
+            Data.INSTANCE.Lobbies.Add(lobbypre);
             Data.INSTANCE.Lobbies.Add(lobby);
 
             client.processesMessage(joinGame);
@@ -348,6 +350,21 @@ namespace CatanersTest
         }
 
         [Test]
+        public void testProcessMessageJoiningFullLobby()
+        {
+            FakeClient client = new FakeClient();
+
+            Lobby lobby = new Lobby("GameName", 10, new Player("PlayerOwner"), 1);
+            lobby.addPlayer(new Player("Player1"));
+            lobby.addPlayer(new Player("Player2"));
+            lobby.addPlayer(new Player("Player3"));
+
+            client.processesMessage(new Message("1", Translation.TYPE.JoinLobby).toJson());
+
+            Assert.Null(client.currentLobby);
+        }
+
+        [Test]
         public void testSendToClient()
         {
             Client client = new Client();
@@ -375,7 +392,7 @@ namespace CatanersTest
             TcpClient tcpClient = new TcpClient("127.0.0.1",9999);
 
             listener.Start();
-            tcpClient.ConnectAsync("127.0.0.1",9999);
+            await tcpClient.ConnectAsync("127.0.0.1",9999);
 
             TcpClient serverSide = await listener.AcceptTcpClientAsync();
 

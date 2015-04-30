@@ -148,9 +148,9 @@ namespace CatenersServer
                     {
                         if (Data.INSTANCE.Lobbies[i].lobbyID == lobbyID)
                         {
-                            this.currentLobby = Data.INSTANCE.Lobbies[i];
-                            if (this.currentLobby.PlayerCount < 4)
+                            if (Data.INSTANCE.Lobbies[i].PlayerCount < 4)
                             {
+                                this.currentLobby = Data.INSTANCE.Lobbies[i];
                                 this.currentLobby.addPlayer(this.player);
                                 break;
                             }

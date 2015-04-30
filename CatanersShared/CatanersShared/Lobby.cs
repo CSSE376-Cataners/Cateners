@@ -52,7 +52,7 @@ namespace CatanersShared
         {
             get
             {
-                return owner;
+                return (Player)owner;
             }
             set
             {
