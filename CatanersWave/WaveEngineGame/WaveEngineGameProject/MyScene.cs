@@ -52,13 +52,10 @@ namespace WaveEngineGameProject
 
             //Create a 3D camera
             //EntityManager.Remove(AlphaLayer);
-<<<<<<< HEAD
             Button newButton = new Button(); 
             newButton.Text = "Regenerate Board"; 
-=======
             /*Button newButton = new Button(); 
             newButton.Text = "New Button"; 
->>>>>>> origin/master
             newButton.Width = 120; 
             newButton.Height = 40;
             EntityManager.Add(newButton);
@@ -160,7 +157,7 @@ namespace WaveEngineGameProject
             };
             EntityManager.Add(player4);*/
 
-            this.drawHexes();*/
+            this.drawHexes();
         }
 
         public void drawHexes()

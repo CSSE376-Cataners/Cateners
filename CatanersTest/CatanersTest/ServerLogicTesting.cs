@@ -23,11 +23,15 @@ using WaveEngine.Framework;
 namespace CatanersTest
 {
     [TestFixture()]
-    class LCTesting
+    class ServerLogicTesting
     {
-
+        ServerLogic logic; 
         private MockRepository mocks = new MockRepository();
-
+        [SetUp]
+        public void ServerLogicSetup()
+        {
+            logic = new ServerLogic();
+        }
         [Test]
         public void testHexToShadow()
         {
@@ -41,6 +45,14 @@ namespace CatanersTest
             }
             targetHolder.setSettlementArray(setArray);
             Assert.AreEqual(targetHolder.toShadow(), new int[] { 2, 3, 3, 0, 1, 2, 3, 4, 5 });
+        }
+
+        [Test]
+        public void testThatPlayerTurnSwitches()
+        {
+            logic.playerTurn = 1;
+            logic.updateTurn();
+            Assert.AreEqual(2, logic.playerTurn);
         }
 
         /*public void TestResourceConstructor()
