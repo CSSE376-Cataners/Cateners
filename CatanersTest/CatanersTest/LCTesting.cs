@@ -106,14 +106,15 @@ namespace CatanersTest
         [Test]
         public void testHexToShadow()
         {
-            Entity entMock = mocks.DynamicMock<Entity>();
-            HexHolder targetHolder = new HexHolder(entMock, 2);
+            Entity emptyEnt1 = new Entity();
+            Entity emptyEnt2 = new Entity();
+            HexHolder targetHolder = new HexHolder(emptyEnt1, 2);
             targetHolder.setPlacementNumber(3);
             targetHolder.setRollNumber(3);
             SettlementHolder[] setArray = new SettlementHolder[6];
             for (int k = 0; k < 6; k++)
             {
-                setArray[k] = mocks.DynamicMock<SettlementHolder>();
+                setArray[k] = mocks.DynamicMock<SettlementHolder>(emptyEnt2, 3);
             }
             targetHolder.setSettlementList(setArray);
             Expect.Call(setArray[0].getPlacementNumber()).Return(1);
