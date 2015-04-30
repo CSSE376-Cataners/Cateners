@@ -62,7 +62,7 @@
     <None Include="DesertHex.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="ForestHex.wpk">
+    <None Include="ForrestHex.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Island.wpk">

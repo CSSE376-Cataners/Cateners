@@ -26,6 +26,7 @@ namespace CatenersServer
         StreamReader reader;
 
         public ServerPlayer player;
+        public ServerLogic serverLogic;
 
         public Client(TcpClient tcp)
         {
@@ -187,12 +188,20 @@ namespace CatenersServer
                         sendToClient(new Message(this.currentLobby.toJson(),Translation.TYPE.UpdateLobby).toJson());
                 break;
 
+                case Translation.TYPE.RegenerateBoard:
+                if (this != null)
+                    this.serverLogic.generatehexArray();
+                break;
+
+
                 case Translation.TYPE.StartGame:
                 if (checkReady())
                 {
+                    ServerLogic newLogic = new ServerLogic();
                     for (int i = 0; i < currentLobby.PlayerCount; i++)
                     {
                         ((ServerPlayer)currentLobby.Players[i]).client.sendToClient(new Message("", Translation.TYPE.StartGame).toJson());
+                        ((ServerPlayer)currentLobby.Players[i]).client.serverLogic = newLogic;
                     }
                 }
                 break;
