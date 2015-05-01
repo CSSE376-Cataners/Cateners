@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CatanersShared;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cataners
 {
@@ -21,6 +22,7 @@ namespace Cataners
 
         }
 
+        [ExcludeFromCodeCoverage]
         private void createGameButton_Click(object sender, EventArgs e)
         {
 
