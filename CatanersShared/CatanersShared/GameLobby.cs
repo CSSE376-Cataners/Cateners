@@ -19,5 +19,15 @@ namespace CatanersShared
                 Players.Add(new GamePlayer(lobby.Players[i]));
             }
         }
+
+        public String toJson()
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+        }
+
+        public static Lobby fromJson(String s)
+        {
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<GameLobby>(s);
+        }
     }
 }

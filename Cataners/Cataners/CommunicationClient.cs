@@ -152,11 +152,15 @@ namespace Cataners
                     break;
 
                 case Translation.TYPE.StartGame:
+                    //Data.currentLobby = gameLobby
                     Program.Main();
                     break;
 
                 case Translation.TYPE.addResource:
                     AddResource addResource = AddResource.fromJson(msg.message);
+                        break;
+                case Translation.TYPE.GetGameLobby:
+                    Data.currentLobby = GameLobby.fromJson(msg.message);
                     break;
             }
         }
