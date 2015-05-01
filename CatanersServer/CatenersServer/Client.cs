@@ -9,6 +9,7 @@ using CatanersShared;
 using System.Collections;
 using System.IO;
 using System.Threading;
+using WaveEngineGameProject;
 
 namespace CatenersServer
 {
@@ -27,6 +28,7 @@ namespace CatenersServer
 
         public ServerPlayer player;
         public ServerLogic serverLogic;
+        public GameLobby gameLobby;
 
         public Client(TcpClient tcp)
         {
@@ -198,10 +200,12 @@ namespace CatenersServer
                 if (checkReady())
                 {
                     ServerLogic newLogic = new ServerLogic(this.currentLobby);
+                    gameLobby = newLogic.gameLobby;
                     for (int i = 0; i < currentLobby.PlayerCount; i++)
                     {
                         ((ServerPlayer)currentLobby.Players[i]).client.sendToClient(new Message("", Translation.TYPE.StartGame).toJson());
                         ((ServerPlayer)currentLobby.Players[i]).client.serverLogic = newLogic;
+                        ((ServerPlayer)currentLobby.Players[i]).client.gameLobby = gameLobby;
                     }
                 }
                 break;
