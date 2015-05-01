@@ -12,8 +12,8 @@ namespace CatanersShared
         private bool isMyTurn;
         public Dictionary<Resource.TYPE,int> resources;
 
-        public GamePlayer(Player player)
-            : base(player.Username)
+        public GamePlayer(String Username)
+            : base(Username)
         {
             resources = new Dictionary<Resource.TYPE, int>();
             resources.Add(Resource.TYPE.Brick, 0);
