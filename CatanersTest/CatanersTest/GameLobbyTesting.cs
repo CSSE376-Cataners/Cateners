@@ -41,6 +41,17 @@ namespace CatanersTest
         }
     }
 
+    [Test]
+    public void testGameLobbyToJson()
+    {
+        Lobby newLobby = new Lobby("Test", 3, new Player("Gandalf"), 2);
+        GameLobby gamelobby = new GameLobby(newLobby);
+        Console.WriteLine(gamelobby.toJson());
+        Assert.AreEqual("{\"Players\":[{\"resources\":{\"Brick\":0,\"Ore\":0,\"Sheep\":0,\"Wheat\":0,\"Wood\":0},\"Ready\":false,\"Username\":\"Gandalf\"}],\"lobbyID\":2,\"allReady\":false,\"GameName\":\"Test\",\"MaxTimePerTurn\":3,\"Owner\":{\"resources\":{\"Brick\":0,\"Ore\":0,\"Sheep\":0,\"Wheat\":0,\"Wood\":0},\"Ready\":false,\"Username\":\"Gandalf\"},\"PlayerCount\":1}", gamelobby.toJson());
+    }
+
+    
+
     }
 
 }
