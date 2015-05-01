@@ -98,6 +98,8 @@ namespace CatenersServer
         private SettlementServer[] settlementArray;
         private Lobby lobby;
         public int playerTurn;
+        public GameLobby gameLobby;
+
         public ServerLogic(Lobby lobby)
         {
             this.hexArray = new HexServer[numberOfHexes];
@@ -105,6 +107,7 @@ namespace CatenersServer
             this.generateDefaultSettlements();
             this.assignSettlements();
             this.lobby = lobby;
+            gameLobby = new GameLobby(lobby);
         }
 
         public SettlementServer[] getSettlementList()
