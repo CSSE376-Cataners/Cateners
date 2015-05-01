@@ -54,7 +54,7 @@ namespace CatanersTest
 
             Assert.False(form.ready);
             flags = BindingFlags.Instance | BindingFlags.NonPublic;
-            MethodInfo method = typeof(Lobby).GetMethod("readyButton_Click", flags);
+            MethodInfo method = typeof(LobbyForm).GetMethod("readyButton_Click", flags);
             method.Invoke(form, new object[] { null, null });
             Assert.True(form.ready);
             Assert.AreEqual(new CatanersShared.Message(true.ToString(), Translation.TYPE.ChangeReadyStatus).toJson(),client.lastCall);
