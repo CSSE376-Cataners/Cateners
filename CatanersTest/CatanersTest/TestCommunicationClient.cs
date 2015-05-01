@@ -92,6 +92,40 @@ namespace CatanersTest
             //client.processesMessage(new Message(Translation.intArraytwotoJson(array)))
         }
 
+        [Test]
+        public void testProcessMessageRequestLobbies()
+        {
+            FakeClient client = new FakeClient();
+
+            List<Lobby> list = new List<Lobby>();
+
+            list.Add(new Lobby("Gamename1", 10, new Player("One"), 1));
+            list.Add(new Lobby("Gamename2", 10, new Player("One"), 2));
+            list.Add(new Lobby("Gamename3", 10, new Player("One"), 3));
+            list.Add(new Lobby("Gamename4", 10, new Player("One"), 4));
+
+            client.processesMessage(new Message(Newtonsoft.Json.JsonConvert.SerializeObject(list), Translation.TYPE.RequestLobbies).toJson());
+
+            CollectionAssert.AreEqual(list, Data.Lobbies);
+        }
+
+
+        [Test]
+        public void testProcessMessageLeaveLobby()
+        {
+            FakeClient client = new FakeClient();
+            client.processesMessage(new Message("", Translation.TYPE.UpdateLobby).toJson());
+        }
+
+        [Test]
+        public void testProcessMessageStartGame()
+        {
+            FakeClient client = new FakeClient();
+            // Starts up wave lobby
+            //client.processesMessage(new Message("", Translation.TYPE.StartGame).toJson());
+        }
+        
+
         public class FakeClient : CommunicationClient
         {
             public FakeClient()
@@ -106,5 +140,7 @@ namespace CatanersTest
                 lastCall = msg;
             }
         }
+
+
     }
 }
