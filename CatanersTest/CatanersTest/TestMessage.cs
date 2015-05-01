@@ -40,5 +40,17 @@ namespace CatanersTest
             msg2.message = "Message Two";
             Assert.AreNotEqual(msg1.GetHashCode(), msg2.GetHashCode());
         }
+
+        [Test]
+        public void testMessageEquals()
+        {
+            Message msg1 = new Message("Message One", Translation.TYPE.Login);
+
+            Assert.False(msg1.Equals(" "));
+
+            msg1.message = null;
+
+            Assert.AreEqual(msg1, msg1);
+        }
     }
 }
