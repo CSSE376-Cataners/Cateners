@@ -17,7 +17,7 @@ namespace CatanersShared
 
         private List<Player> players;
 
-        public List<Player> Players
+        public virtual List<Player> Players
         {
             get
             {
