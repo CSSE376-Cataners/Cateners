@@ -10,8 +10,6 @@ namespace CatanersShared
     {
         private string username;
        // private List<Resource> resources;
-        private int victoryPoints;
-        private bool isMyTurn;
 
         public String Username {
             get
@@ -41,7 +39,7 @@ namespace CatanersShared
             //   http://go.microsoft.com/fwlink/?LinkId=85238
             //
 
-            if (obj == null || GetType() != obj.GetType())
+            if (obj == null || !(obj is Player))
             {
                 return false;
             }
