@@ -26,6 +26,21 @@ namespace CatanersTest
         Assert.AreEqual(gameLobby.Players, lobby.Players);
     }
 
-    
+    [Test]
+    public void TestThatAllPlayersGetAddedToGameLobby()
+    {
+        Lobby lobby = new Lobby("You Are Not Prepared", 100, new Player("Arthus"), 33);
+        lobby.addPlayer(new Player("LadySylvanas"));
+        lobby.addPlayer(new Player("Illidan"));
+
+        GameLobby gameLobby = new GameLobby(lobby);
+
+        for (int i = 0; i < lobby.PlayerCount; i++)
+        {
+            Assert.AreEqual(gameLobby.Players[i], lobby.Players[i]);
+        }
+    }
+
+    }
 
 }
