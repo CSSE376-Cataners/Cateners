@@ -50,7 +50,16 @@ namespace CatanersTest
         Assert.AreEqual("{\"Players\":[{\"resources\":{\"Brick\":0,\"Ore\":0,\"Sheep\":0,\"Wheat\":0,\"Wood\":0},\"Ready\":false,\"Username\":\"Gandalf\"}],\"lobbyID\":2,\"allReady\":false,\"GameName\":\"Test\",\"MaxTimePerTurn\":3,\"Owner\":{\"resources\":{\"Brick\":0,\"Ore\":0,\"Sheep\":0,\"Wheat\":0,\"Wood\":0},\"Ready\":false,\"Username\":\"Gandalf\"},\"PlayerCount\":1}", gamelobby.toJson());
     }
 
-    
+    [Test]
+    public void testGameLobbyFromJson()
+    {
+        Lobby testLobby = new Lobby("Test", 3, new Player("Saruman"), 2);
+        GameLobby gamelobby = new GameLobby(testLobby);
+        Console.WriteLine(gamelobby);
+        Lobby newLobby = Lobby.fromJson("{\"Players\":[{\"resources\":{\"Brick\":0,\"Ore\":0,\"Sheep\":0,\"Wheat\":0,\"Wood\":0},\"Ready\":false,\"Username\":\"Saruman\"}],\"lobbyID\":2,\"allReady\":false,\"GameName\":\"Test\",\"MaxTimePerTurn\":3,\"Owner\":{\"resources\":{\"Brick\":0,\"Ore\":0,\"Sheep\":0,\"Wheat\":0,\"Wood\":0},\"Ready\":false,\"Username\":\"Saruman\"},\"PlayerCount\":1}");
+        Console.WriteLine(newLobby);
+        Assert.True(testLobby.Equals(newLobby));
+    }
 
     }
 
