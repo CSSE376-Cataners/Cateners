@@ -10,11 +10,17 @@ namespace CatanersShared
     {
         private int victoryPoints;
         private bool isMyTurn;
-        //private Dictionary resources
+        public Dictionary<Resource.TYPE,int> resources;
+
         public GamePlayer(Player player)
             : base(player.Username)
         {
-
+            resources = new Dictionary<Resource.TYPE, int>();
+            resources.Add(Resource.TYPE.Brick, 0);
+            resources.Add(Resource.TYPE.Ore, 0);
+            resources.Add(Resource.TYPE.Sheep, 0);
+            resources.Add(Resource.TYPE.Wheat, 0);
+            resources.Add(Resource.TYPE.Wood, 0);
         }
 
     }
