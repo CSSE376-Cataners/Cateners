@@ -149,6 +149,10 @@ namespace Cataners
                 case Translation.TYPE.StartGame:
                     Program.Main();
                     break;
+
+                case Translation.TYPE.addResource:
+                    AddResource addResource = AddResource.fromJson(msg.message);
+                    break;
             }
         }
 
