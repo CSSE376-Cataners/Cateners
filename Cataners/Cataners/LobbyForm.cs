@@ -32,6 +32,8 @@ namespace Cataners
             CommunicationClient.Instance.sendToServer(new CatanersShared.Message("", Translation.TYPE.UpdateLobby).toJson());
 
         }
+
+        [ExcludeFromCodeCoverage]
         private void closing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)
