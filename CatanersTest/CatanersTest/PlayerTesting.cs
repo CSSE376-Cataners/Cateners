@@ -34,8 +34,21 @@ namespace CatanersTest
         {
             Player a = new Player("abc123");
             Player b = new Player("abc123");
+            Player c = new Player("123abc");
+
+            Player d = new Player(null);
 
             Assert.AreEqual(a, b);
+            Assert.AreEqual(d, d);
+            Assert.AreNotEqual(a, c);
+        }
+
+        [Test]
+        public void testPlayerEqualOtherCondition()
+        {
+            Player p = new Player("Test");
+            Assert.False(p.Equals(null));
+            Assert.False(p.Equals(" "));
         }
 
         [Test]
