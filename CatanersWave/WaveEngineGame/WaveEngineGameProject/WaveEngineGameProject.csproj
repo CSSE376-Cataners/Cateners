@@ -48,9 +48,7 @@
   <ItemGroup>
     <Compile Include="Data.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="GameLobby.cs" />
     <Compile Include="LocalConversion.cs" />
-    <Compile Include="GamePlayer.cs" />
     <Compile Include="MyScene.cs" />
   </ItemGroup>
   <ItemGroup>
