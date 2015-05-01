@@ -15,7 +15,7 @@ namespace CatanersTest
         public void TestConstructor()
         {
             Player player = new Player("Subway");
-            GamePlayer gamePlayer = new GamePlayer(player);
+            GamePlayer gamePlayer = new GamePlayer(player.Username);
 
             Assert.AreEqual(gamePlayer.Username, player.Username);
         }
@@ -24,7 +24,7 @@ namespace CatanersTest
         public void TestThatAllResourcesStartAtZero()
         {
             Player player = new Player("Frodo");
-            GamePlayer gameplayer = new GamePlayer(player);
+            GamePlayer gameplayer = new GamePlayer(player.Username);
 
             Assert.IsTrue(gameplayer.resources.ContainsKey(Resource.TYPE.Brick));
             Assert.IsTrue(gameplayer.resources.ContainsKey(Resource.TYPE.Ore));
