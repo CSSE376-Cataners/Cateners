@@ -25,5 +25,9 @@ namespace CatanersShared
             return Newtonsoft.Json.JsonConvert.SerializeObject(this);
         }
 
+        public static Lobby fromJson(String s)
+        {
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<GameLobby>(s);
+        }
     }
 }
