@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using System.Threading;
 using WaveEngineGame;
 using WaveEngineGameProject;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cataners
 {
@@ -48,6 +49,7 @@ namespace Cataners
             
         }
 
+        [ExcludeFromCodeCoverage]
         public async void Start()
         {
             try
@@ -131,10 +133,10 @@ namespace Cataners
                     int[][] array = Translation.jsonToIntArrayTwo(msg.message);
                     break;
                 case Translation.TYPE.RequestLobbies:
+                    Data.Lobbies.Clear();
+                    Data.Lobbies.AddRange(Lobby.jsonToLobbyList(msg.message));
                     if (JoinGameForm.INSTANCE != null)
                     {
-                        Data.Lobbies.Clear();
-                        Data.Lobbies.AddRange(Lobby.jsonToLobbyList(msg.message));
                         JoinGameForm.INSTANCE.invokedRefresh();
                     }
                     break;
