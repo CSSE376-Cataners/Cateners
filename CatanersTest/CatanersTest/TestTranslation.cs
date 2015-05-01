@@ -19,5 +19,17 @@ namespace CatanersTest
 
             Assert.Pass();
         }
+
+        [Test]
+        public void testIntArrayTranslation()
+        {
+            int[][] array = new int[][] { new int[] { 1, 2 }, new int[] { 3, 4 } };
+
+            String s = Translation.intArraytwotoJson(array);
+
+            int[][] newArray = Translation.jsonToIntArrayTwo(s);
+
+            CollectionAssert.AreEqual(array, newArray);
+        }
     }
 }

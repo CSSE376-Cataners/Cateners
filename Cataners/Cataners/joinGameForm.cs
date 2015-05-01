@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -29,6 +30,7 @@ namespace Cataners
             CommunicationClient.Instance.sendToServer(new CatanersShared.Message(null, Translation.TYPE.RequestLobbies).toJson());
         }
 
+        [ExcludeFromCodeCoverage]
         private void button1_Click(object sender, EventArgs e)
         {
             if (this.Visible)
@@ -42,6 +44,7 @@ namespace Cataners
             }
         }
 
+        [ExcludeFromCodeCoverage]
         private void RefreshButton_Click(object sender, EventArgs e)
         {
             CommunicationClient.Instance.sendToServer(new CatanersShared.Message(null, Translation.TYPE.RequestLobbies).toJson());
@@ -49,6 +52,7 @@ namespace Cataners
             //gameTable.Refresh();
         }
 
+        [ExcludeFromCodeCoverage]
         public void invokedRefresh()
         {
             if (this.Visible)
@@ -57,6 +61,7 @@ namespace Cataners
             }
         }
 
+        [ExcludeFromCodeCoverage]
         private void joinGameButton_Click(object sender, EventArgs e)
         {
 
@@ -82,6 +87,7 @@ namespace Cataners
 
         }
 
+        [ExcludeFromCodeCoverage]
         private void noTimeLimit(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.ColumnIndex == gameTable.Columns["maxTimePerTurnColumn"].Index && e.Value.ToString().Equals("-1"))
@@ -91,6 +97,7 @@ namespace Cataners
             }
         }
 
+        [ExcludeFromCodeCoverage]
         private void backToMainButton_Click(object sender, EventArgs e)
         {
             JoinGameForm.INSTANCE = null;

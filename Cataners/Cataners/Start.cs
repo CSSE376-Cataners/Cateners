@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Cataners
 {
+    [ExcludeFromCodeCoverage]
     static class Start
     {
         private static SplashScreen splashScreen;
@@ -25,7 +27,6 @@ namespace Cataners
             Application.Run();
             //Application.Run(new TestGraphics());
         }
-
 
         static void ShowSplash()
         {
