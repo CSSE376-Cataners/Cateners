@@ -197,7 +197,7 @@ namespace CatenersServer
                 case Translation.TYPE.StartGame:
                 if (checkReady())
                 {
-                    ServerLogic newLogic = new ServerLogic();
+                    ServerLogic newLogic = new ServerLogic(this.currentLobby);
                     for (int i = 0; i < currentLobby.PlayerCount; i++)
                     {
                         ((ServerPlayer)currentLobby.Players[i]).client.sendToClient(new Message("", Translation.TYPE.StartGame).toJson());

@@ -97,9 +97,8 @@ namespace CatenersServer
         private HexServer[] hexArray;
         private SettlementServer[] settlementArray;
         private Lobby lobby;
-        public ServerLogic(Lobby lobby)
         public int playerTurn;
-        public ServerLogic()
+        public ServerLogic(Lobby lobby)
         {
             this.hexArray = new HexServer[numberOfHexes];
             this.generatehexArray();
@@ -118,7 +117,8 @@ namespace CatenersServer
             this.generatehexArray();
             foreach (ServerPlayer player in this.lobby.Players)
             {
-                player.client.sendToClient(new Message(Translation.intArraytwotoJson(this.hexArray), Translation.TYPE.HexMessage));
+                // TODO Change to Real value;
+                player.client.sendToClient(new Message(Translation.intArraytwotoJson(new int[][] {}), Translation.TYPE.HexMessage).toJson());
             }
         }
 
