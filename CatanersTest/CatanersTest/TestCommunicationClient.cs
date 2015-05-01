@@ -114,7 +114,7 @@ namespace CatanersTest
         public void testProcessMessageLeaveLobby()
         {
             FakeClient client = new FakeClient();
-            client.processesMessage(new Message("", Translation.TYPE.UpdateLobby).toJson());
+            client.processesMessage(new Message("", Translation.TYPE.LeaveLobby).toJson());
         }
 
         [Test]
@@ -123,6 +123,20 @@ namespace CatanersTest
             FakeClient client = new FakeClient();
             // Starts up wave lobby
             //client.processesMessage(new Message("", Translation.TYPE.StartGame).toJson());
+        }
+
+        [Test]
+        public void testProcessMessageGetGameLobby()
+        {
+            GameLobby lobby = new GameLobby(new Lobby("Gamename", 10, new Player("Owner"), 1));
+
+            FakeClient client = new FakeClient();
+
+            Message s = new Message(lobby.toJson(), Translation.TYPE.GetGameLobby);
+
+            client.processesMessage(s.toJson());
+
+            Assert.AreEqual(lobby,Data.currentLobby);
         }
         
 
