@@ -94,14 +94,123 @@ namespace WaveEngineGameProject
         {
             this.settlementList = newArray;
         }
-        public int[] toShadow()
-        {
-            return new int[] { this.type, this.placementNumber, this.rollNumber, this.settlementList[0].getPlacementNumber(), this.settlementList[1].getPlacementNumber(), this.settlementList[2].getPlacementNumber(), this.settlementList[3].getPlacementNumber(), this.settlementList[4].getPlacementNumber(), this.settlementList[5].getPlacementNumber() };
-        }
     }
 
+    // static LocalConversion 
     public class LocalConversion
     {
+        private static int hexNumber = 19;
+        private HexHolder[] hexList;
+        private SettlementHolder[] settlementList;
+        public LocalConversion()
+        {
+            this.hexList = new HexHolder[hexNumber];
+            this.settlementList = new SettlementHolder[54];
+        }
 
+        public SettlementHolder[] getSettlementList()
+        {
+            return this.settlementList;
+        }
+
+        public void generateHexList(int[][] inputArray)
+        {
+            int forrestCount = 0;
+            int brickCount = 0;
+            int desertCount = 0;
+            int oreCount = 0;
+            int sheepCount = 0;
+            int wheatCount = 0;
+            int settlementCount = 0;
+            for (int i = 0; i < 19; i++)
+            {
+                int[] currHexRep = inputArray[i];
+                for (int k = 0; k < currHexRep.Length; k++)
+                {
+                    Entity tempEntity;
+                    if(currHexRep[0] == 1)
+                    {
+                        String name = "Forrest" + forrestCount.ToString();
+                        tempEntity = new Entity(name)
+                        .AddComponent(new Sprite("Forrest.wpk"))
+                        .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
+                        forrestCount++;
+                    }
+                    else if (currHexRep[0] == 2)
+                    {
+                        String name = "Desert" + desertCount.ToString();
+                        tempEntity = new Entity(name)
+                        .AddComponent(new Sprite("DesetHex.wpk"))
+                        .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
+                        desertCount++;
+                    }
+                    else if (currHexRep[0] == 3)
+                    {
+                        String name = "Ore" + oreCount.ToString();
+                        tempEntity = new Entity(name)
+                        .AddComponent(new Sprite("OreHex.wpk"))
+                        .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
+                        oreCount++;
+                    }
+                    else if (currHexRep[0] == 4)
+                    {
+                        String name = "Brick" + brickCount.ToString();
+                        tempEntity = new Entity(name)
+                        .AddComponent(new Sprite("BrickHex.wpk"))
+                        .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
+                        brickCount++;
+                    }
+                    else if (currHexRep[0] == 5)
+                    {
+                        String name = "Sheep" + sheepCount.ToString();
+                        tempEntity = new Entity(name)
+                        .AddComponent(new Sprite("SheepHex.wpk"))
+                        .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
+                        sheepCount++;
+                    }
+                    else
+                    {
+                        String name = "Wheat" + wheatCount.ToString();
+                        tempEntity = new Entity(name)
+                        .AddComponent(new Sprite("WheatHex.wpk"))
+                        .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
+                        sheepCount++;
+                    }
+                    this.hexList[i] = new HexHolder(tempEntity, 6);
+                    this.hexList[i].setPlacementNumber(currHexRep[1]);
+                    this.hexList[i].setRollNumber(currHexRep[2]);
+                    SettlementHolder[] newArray = new SettlementHolder[6];
+                    for (int h = 0; h < 5; h++)
+                    {
+                        Entity tempEnt = new Entity()
+                            .AddComponent(new Sprite("Settlement.wpk"))
+                            .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
+                        SettlementHolder tempHolder = new SettlementHolder(tempEnt, currHexRep[h + 3]);
+                        newArray[h] = tempHolder;
+                        this.settlementList[settlementCount] = tempHolder;
+                        settlementCount++;
+                    }
+                }
+            }
+            this.assignRollEntities();
+        }
+
+        public HexHolder[] getHexList()
+        {
+            return this.hexList;
+        }
+
+        public void assignRollEntities()
+        {
+            for (int k = 0; k < 19; k++)
+            {
+                HexHolder hexFocus = this.hexList[k];
+                String name = hexFocus.getHex().Name + hexFocus.getRollNumber().ToString();
+                Entity rollEntity = new Entity(name)
+                .AddComponent(new Sprite("RollNum" + hexFocus.getRollNumber().ToString() + ".wpk"))
+                .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
+                hexFocus.setRollEntity(rollEntity);
+            }
+        }
     }
 }

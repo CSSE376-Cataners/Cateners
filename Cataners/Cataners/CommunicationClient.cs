@@ -127,6 +127,9 @@ namespace Cataners
                 case Translation.TYPE.Register:
                     queues[Translation.TYPE.Register].Add(msg.message);
                     break;
+                case Translation.TYPE.HexMessage:
+                    int[][] array = Translation.jsonToIntArrayTwo(msg.message);
+                    break;
                 case Translation.TYPE.RequestLobbies:
                     if (JoinGameForm.INSTANCE != null)
                     {

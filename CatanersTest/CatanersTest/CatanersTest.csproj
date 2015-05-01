@@ -81,6 +81,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerPlayerTesting.cs" />
     <Compile Include="SignUpFormTesting.cs" />
+    <Compile Include="SplashScreenTesting.cs" />
     <Compile Include="TestCommunicationClient.cs" />
     <Compile Include="TestCommunicationServer.cs" />
     <Compile Include="TestMain.cs" />

@@ -10,6 +10,7 @@ using WaveEngine;
 using WaveEngine.Framework;
 using WaveEngine.Components.Graphics2D;
 using WaveEngine.Framework.Graphics;
+using CatanersShared;
 
 namespace CatenersServer
 {
@@ -95,18 +96,30 @@ namespace CatenersServer
         private static int numberOfHexes = 19;
         private HexServer[] hexArray;
         private SettlementServer[] settlementArray;
+        private Lobby lobby;
         public int playerTurn;
-        public ServerLogic()
+        public ServerLogic(Lobby lobby)
         {
             this.hexArray = new HexServer[numberOfHexes];
             this.generatehexArray();
             this.generateDefaultSettlements();
             this.assignSettlements();
+            this.lobby = lobby;
         }
 
         public SettlementServer[] getSettlementList()
         {
             return this.settlementArray;
+        }
+
+        public void sendGeneration()
+        {
+            this.generatehexArray();
+            foreach (ServerPlayer player in this.lobby.Players)
+            {
+                // TODO Change to Real value;
+                player.client.sendToClient(new Message(Translation.intArraytwotoJson(new int[][] {}), Translation.TYPE.HexMessage).toJson());
+            }
         }
 
         public void generatehexArray()

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using CatanersShared;
 using WaveEngineGame;
 using WaveEngineGameProject;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cataners
 {
@@ -17,7 +18,7 @@ namespace Cataners
     {
         public static LobbyForm INSTANCE;
         public delegate void refresher();
-        private bool ready;
+        public bool ready;
         public LobbyForm(String gameName)
         {
             InitializeComponent();
@@ -31,6 +32,8 @@ namespace Cataners
             CommunicationClient.Instance.sendToServer(new CatanersShared.Message("", Translation.TYPE.UpdateLobby).toJson());
 
         }
+
+        [ExcludeFromCodeCoverage]
         private void closing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)
@@ -56,6 +59,7 @@ namespace Cataners
             
         }
 
+        [ExcludeFromCodeCoverage]
         private void refreshLobby()
         {
             if (Data.currentLobby == null)
@@ -85,11 +89,13 @@ namespace Cataners
             playersDataGridView.Refresh();
         }
 
+        [ExcludeFromCodeCoverage]
         public void invokedRefresh()
         {
             this.Invoke(new refresher(refreshLobby));
         }
 
+        [ExcludeFromCodeCoverage]
         private void refreshTimer_Tick(object sender, EventArgs e)
         {
             if (Visible)
@@ -99,6 +105,7 @@ namespace Cataners
             }
         }
 
+        [ExcludeFromCodeCoverage]
         private void backButton_Click(object sender, EventArgs e)
         {
             CommunicationClient.Instance.sendToServer(new CatanersShared.Message("", Translation.TYPE.LeaveLobby).toJson());
@@ -107,6 +114,7 @@ namespace Cataners
       
         }
 
+        [ExcludeFromCodeCoverage]
         private void startButton_Click(object sender, EventArgs e)
         {
             if (Data.currentLobby.Players.Count == 4)

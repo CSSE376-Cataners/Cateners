@@ -40,6 +40,30 @@ namespace CatanersTest
 
         }
 
+        [Test]
+        public void testReadyUp()
+        {
+            BindingFlags flags = BindingFlags.Static | BindingFlags.NonPublic;
+            FieldInfo clientField = typeof(CommunicationClient).GetField("instance", flags);
+
+
+            FakeClient client = new FakeClient();
+            clientField.SetValue(new CommunicationClient(), client);
+
+            LobbyForm form = new LobbyForm("Whatever you like");
+
+            Assert.False(form.ready);
+            flags = BindingFlags.Instance | BindingFlags.NonPublic;
+            MethodInfo method = typeof(LobbyForm).GetMethod("readyButton_Click", flags);
+            method.Invoke(form, new object[] { null, null });
+            Assert.True(form.ready);
+            Assert.AreEqual(new CatanersShared.Message(true.ToString(), Translation.TYPE.ChangeReadyStatus).toJson(),client.lastCall);
+
+            method.Invoke(form, new object[] { null, null });
+            Assert.False(form.ready);
+            Assert.AreEqual(new CatanersShared.Message(false.ToString(), Translation.TYPE.ChangeReadyStatus).toJson(), client.lastCall);
+        }
+
         public class FakeClient : CommunicationClient
         {
             public FakeClient()

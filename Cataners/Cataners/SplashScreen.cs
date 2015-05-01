@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -14,12 +15,11 @@ namespace Cataners
     {
         public SplashScreen()
         {
-
-
             InitializeComponent();
             this.ClientSize = this.BackgroundImage.Size;
         }
 
+        [ExcludeFromCodeCoverage]
         private void closeTimer_Tick(object sender, EventArgs e)
         {
             this.Close();
