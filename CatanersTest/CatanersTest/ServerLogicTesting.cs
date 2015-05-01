@@ -30,7 +30,7 @@ namespace CatanersTest
         [SetUp]
         public void ServerLogicSetup()
         {
-            logic = new ServerLogic( new Lobby());
+            logic = new ServerLogic( new Lobby("Basketball",100,new Player("Michael Jordan"),10));
         }
         [Test]
         public void testHexToShadow()

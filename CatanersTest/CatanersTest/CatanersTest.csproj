@@ -69,6 +69,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataTesting.cs" />
+    <Compile Include="GameLobbyTesting.cs" />
+    <Compile Include="GamePlayerTesting.cs" />
     <Compile Include="ServerLogicTesting.cs" />
     <Compile Include="ClientTesting.cs" />
     <Compile Include="LobbyFormTestingcs.cs" />
