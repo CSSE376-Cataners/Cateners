@@ -28,5 +28,10 @@ namespace CatanersShared
             this.ChatType = y;
             this.Special = Special;
         }
+
+        public String toJson()
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+        }
     }
 }
