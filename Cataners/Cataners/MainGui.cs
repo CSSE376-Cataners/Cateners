@@ -15,6 +15,7 @@ namespace Cataners
 {
     public partial class MainGui : Form
     {
+        public delegate void hider();
         public static MainGui INSTANCE;
         public MainGui()
         {
@@ -25,6 +26,14 @@ namespace Cataners
             CommunicationClient client = new  CommunicationClient();
             client.Start();
             Console.WriteLine("connected to the server");
+        }
+        public void invokedHide()
+        {
+            this.Invoke(new hider(hide));
+        }
+
+        private void hide(){
+            this.Hide();
         }
 
         [ExcludeFromCodeCoverage]
