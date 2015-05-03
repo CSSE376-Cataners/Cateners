@@ -43,9 +43,29 @@ namespace CatanersTest
         }
 
         [Test]
-        public void testGenerate()
+        public void testGenerateError()
         {
             int[][] inputArray = new int[1][] {new int[9] {0, 0, 12, 1, 4, 5, 7, 8, 12}};
+            Boolean switcher = false;
+            try
+            {
+                localConversion.generateHexList(inputArray);
+            }
+            catch
+            {
+                switcher = true;
+            }
+            if (!switcher)
+            {
+                Assert.True(false);
+            }
+            Assert.True(true);
+        }
+
+        [Test]
+        public void testGenerateForrest()
+        {
+            int[][] inputArray = new int[1][] { new int[9] { 1, 0, 12, 1, 4, 5, 7, 8, 12 } };
             localConversion.generateHexList(inputArray);
             HexHolder[] testArray = (HexHolder[])typeof(LocalConversion).GetField("hexList", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(localConversion);
             SettlementHolder[] testArray2 = (SettlementHolder[])typeof(HexHolder).GetField("settlementList", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(testArray[0]);
@@ -54,10 +74,10 @@ namespace CatanersTest
             Assert.AreEqual(testArray[0].getHex().Name, "Forrest0");
             Assert.AreEqual(testArray2[0].getPlacementNumber(), 1);
             Assert.AreEqual(testArray2[1].getPlacementNumber(), 4);
-            Assert.AreEqual(testArray2[0].getPlacementNumber(), 5);
-            Assert.AreEqual(testArray2[0].getPlacementNumber(), 7);
-            Assert.AreEqual(testArray2[0].getPlacementNumber(), 8);
-            Assert.AreEqual(testArray2[0].getPlacementNumber(), 12);
+            Assert.AreEqual(testArray2[2].getPlacementNumber(), 5);
+            Assert.AreEqual(testArray2[3].getPlacementNumber(), 7);
+            Assert.AreEqual(testArray2[4].getPlacementNumber(), 8);
+            Assert.AreEqual(testArray2[5].getPlacementNumber(), 12);
         }
     }
 }
