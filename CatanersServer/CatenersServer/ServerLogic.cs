@@ -91,15 +91,6 @@ namespace CatenersServer
     }
     public class ServerLogic
     {
-        private static ServerLogic instance;
-
-        public static ServerLogic Instance
-        {
-            get
-            {
-                return instance;
-            }
-        }
         private static int numberOfHexes = 19;
         private HexServer[] hexArray;
         private SettlementServer[] settlementArray;
@@ -125,10 +116,15 @@ namespace CatenersServer
         public void sendGeneration()
         {
             this.generatehexArray();
+            int[][] passedArray = new int[this.hexArray.Length][];
+            for (int k = 0; k < this.hexArray.Length; k++)
+            {
+                passedArray[k] = this.hexArray[k].toShadow();
+            }
             foreach (ServerPlayer player in this.lobby.Players)
             {
                 // TODO Change to Real value;
-                player.client.sendToClient(new Message(Translation.intArraytwotoJson(new int[][] {}), Translation.TYPE.HexMessage).toJson());
+                player.client.sendToClient(new Message(Translation.intArraytwotoJson(passedArray), Translation.TYPE.HexMessage).toJson());
             }
         }
 
