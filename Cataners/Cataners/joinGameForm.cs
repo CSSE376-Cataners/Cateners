@@ -24,10 +24,20 @@ namespace Cataners
             InitializeComponent();
             gameTable.CellFormatting += noTimeLimit;
             INSTANCE = this;
+            this.FormClosing += closing;
             var bs = new BindingSource();
             bs.DataSource = Data.Lobbies;
             gameTable.DataSource = bs;
             CommunicationClient.Instance.sendToServer(new CatanersShared.Message(null, Translation.TYPE.RequestLobbies).toJson());
+        }
+
+        [ExcludeFromCodeCoverage]
+        private void closing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                backToMainButton_Click(sender, e);
+            }
         }
 
         [ExcludeFromCodeCoverage]
