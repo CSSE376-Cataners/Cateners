@@ -34,10 +34,8 @@ namespace Cataners
         [ExcludeFromCodeCoverage]
         private void closing(object sender, FormClosingEventArgs e)
         {
-            if (e.CloseReason == CloseReason.UserClosing)
-            {
-                backToMainButton_Click(sender, e);
-            }
+            JoinGameForm.INSTANCE = null;
+            MainGui.INSTANCE.Show();
         }
 
         [ExcludeFromCodeCoverage]
@@ -110,9 +108,7 @@ namespace Cataners
         [ExcludeFromCodeCoverage]
         private void backToMainButton_Click(object sender, EventArgs e)
         {
-            JoinGameForm.INSTANCE = null;
             this.Close();
-            MainGui.INSTANCE.Show();
         }
 
     }

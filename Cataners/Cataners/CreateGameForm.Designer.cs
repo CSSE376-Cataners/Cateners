@@ -38,6 +38,7 @@ namespace Cataners
             this.timePerTurnLabel = new System.Windows.Forms.Label();
             this.maxTimeComboBox = new System.Windows.Forms.ComboBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.backToMainButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -114,12 +115,24 @@ namespace Cataners
             this.pictureBox1.TabIndex = 7;
             this.pictureBox1.TabStop = false;
             // 
+            // backToMainButton
+            // 
+            this.backToMainButton.Font = new System.Drawing.Font("Britannic Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.backToMainButton.Location = new System.Drawing.Point(55, 357);
+            this.backToMainButton.Name = "backToMainButton";
+            this.backToMainButton.Size = new System.Drawing.Size(165, 62);
+            this.backToMainButton.TabIndex = 8;
+            this.backToMainButton.Text = "Back to Main";
+            this.backToMainButton.UseVisualStyleBackColor = true;
+            this.backToMainButton.Click += new System.EventHandler(this.backToMainButton_Click);
+            // 
             // CreateGameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LawnGreen;
             this.ClientSize = new System.Drawing.Size(787, 452);
+            this.Controls.Add(this.backToMainButton);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.maxTimeComboBox);
             this.Controls.Add(this.timePerTurnLabel);
@@ -146,5 +159,6 @@ namespace Cataners
         private System.Windows.Forms.Label timePerTurnLabel;
         private System.Windows.Forms.ComboBox maxTimeComboBox;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button backToMainButton;
     }
 }

@@ -19,7 +19,14 @@ namespace Cataners
         {
             this.parent = parent;
             InitializeComponent();
+            this.FormClosing += closing;
 
+        }
+        [ExcludeFromCodeCoverage]
+        private void closing(object sender, FormClosingEventArgs e)
+        {
+            JoinGameForm.INSTANCE = null;
+            MainGui.INSTANCE.Show();
         }
 
         [ExcludeFromCodeCoverage]
@@ -46,6 +53,11 @@ namespace Cataners
             LobbyForm.INSTANCE = new LobbyForm(newLobby.GameName);
             this.Close();
             LobbyForm.INSTANCE.Show();
+        }
+
+        private void backToMainButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
     }
