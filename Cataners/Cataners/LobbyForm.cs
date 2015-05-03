@@ -19,6 +19,7 @@ namespace Cataners
         public delegate void refresher();
         public delegate void closer();
         public bool ready;
+        private bool startButtonClose;
         public LobbyForm(String gameName)
         {
             InitializeComponent();
@@ -123,7 +124,10 @@ namespace Cataners
         [ExcludeFromCodeCoverage]
         private void backButton_Click(object sender, EventArgs e)
         {
-            CommunicationClient.Instance.sendToServer(new CatanersShared.Message("", Translation.TYPE.LeaveLobby).toJson());
+            if (!startButtonClose)
+            {
+                CommunicationClient.Instance.sendToServer(new CatanersShared.Message("", Translation.TYPE.LeaveLobby).toJson());
+            }
             this.Hide();
             MainGui.INSTANCE.Show();
       
@@ -132,6 +136,7 @@ namespace Cataners
         [ExcludeFromCodeCoverage]
         private void startButton_Click(object sender, EventArgs e)
         {
+            startButtonClose = true;
             CommunicationClient.Instance.sendToServer(new CatanersShared.Message("", Translation.TYPE.StartGame).toJson());
             CommunicationClient.Instance.sendToServer(new CatanersShared.Message("", Translation.TYPE.GetGameLobby).toJson());
             this.Close();
