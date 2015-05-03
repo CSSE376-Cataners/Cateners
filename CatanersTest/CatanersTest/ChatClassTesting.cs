@@ -61,7 +61,7 @@ namespace CatanersTest
             Assert.False(chat.Equals(chat2));
             Assert.False(chat.Equals(chat3));
             Assert.False(chat.Equals(Other));
-
+            Assert.False(chat.Equals(null));
         }
 
         [Test]
