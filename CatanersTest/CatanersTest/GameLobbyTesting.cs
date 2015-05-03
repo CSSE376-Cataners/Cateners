@@ -23,7 +23,7 @@ namespace CatanersTest
         Assert.AreEqual(gameLobby.MaxTimePerTurn, lobby.MaxTimePerTurn);
         Assert.AreEqual(gameLobby.Owner, lobby.Owner);
         Assert.AreEqual(gameLobby.lobbyID, lobby.lobbyID);
-        Assert.AreEqual(gameLobby.Players, lobby.Players);
+        Assert.AreEqual(gameLobby.gamePlayers.Count, lobby.Players.Count);
     }
 
     [Test]
@@ -47,7 +47,7 @@ namespace CatanersTest
         Lobby newLobby = new Lobby("Test", 3, new Player("Gandalf"), 2);
         GameLobby gamelobby = new GameLobby(newLobby);
         Console.WriteLine(gamelobby.toJson());
-        Assert.AreEqual("{\"Players\":[{\"resources\":{\"Brick\":0,\"Ore\":0,\"Sheep\":0,\"Wheat\":0,\"Wood\":0},\"Ready\":false,\"Username\":\"Gandalf\"}],\"lobbyID\":2,\"allReady\":false,\"GameName\":\"Test\",\"MaxTimePerTurn\":3,\"Owner\":{\"resources\":{\"Brick\":0,\"Ore\":0,\"Sheep\":0,\"Wheat\":0,\"Wood\":0},\"Ready\":false,\"Username\":\"Gandalf\"},\"PlayerCount\":1}", gamelobby.toJson());
+        Assert.AreEqual("{\"gamePlayers\":[{\"resources\":{\"Brick\":0,\"Ore\":0,\"Sheep\":0,\"Wheat\":0,\"Wood\":0},\"Ready\":false,\"Username\":\"Gandalf\"}],\"lobbyID\":2,\"allReady\":false,\"Players\":[{\"resources\":{\"Brick\":0,\"Ore\":0,\"Sheep\":0,\"Wheat\":0,\"Wood\":0},\"Ready\":false,\"Username\":\"Gandalf\"}],\"GameName\":\"Test\",\"MaxTimePerTurn\":3,\"Owner\":{\"resources\":{\"Brick\":0,\"Ore\":0,\"Sheep\":0,\"Wheat\":0,\"Wood\":0},\"Ready\":false,\"Username\":\"Gandalf\"},\"PlayerCount\":1}", gamelobby.toJson());
     }
 
     [Test]
