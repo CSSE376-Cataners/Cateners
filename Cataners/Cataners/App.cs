@@ -99,7 +99,7 @@ namespace Cataners
                     }
                     else
                     {
-                        if (MyScene.toAdd.Count > 0)
+                        if (MyScene.toAdd.Count > 0 || MyScene.toAddDecor.Count > 0)
                         {
                             if (!ready)
                             {
