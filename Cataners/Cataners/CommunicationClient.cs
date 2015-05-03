@@ -161,7 +161,6 @@ namespace Cataners
 
                 case Translation.TYPE.addResource:
                     AddResource addResource = AddResource.fromJson(msg.message);
-<<<<<<< HEAD
                     GameLobby currentLobby = (GameLobby)Data.currentLobby;
                     if (currentLobby == null)
                     {
@@ -173,15 +172,11 @@ namespace Cataners
                         {
                             if (currentLobby.gamePlayers[i].Equals(addResource.player))
                             {
-                                currentLobby.gamePlayers[i].resources[addResource.resourceType] = addResource.number;
+                                currentLobby.gamePlayers[i].resources[addResource.resourceType] += addResource.number;
                             }
                         }
                     }
-                    
                         break;
-=======
-                    break;
->>>>>>> origin/master
                 case Translation.TYPE.GetGameLobby:
                     Data.currentLobby = GameLobby.fromJson(msg.message);
                     break;
