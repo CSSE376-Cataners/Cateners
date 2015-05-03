@@ -22,5 +22,15 @@ namespace CatanersTest
             Assert.AreEqual(chat.ChatType, Chat.TYPE.Normal);
             Assert.AreEqual(chat.Special,"Reciver");
         }
+
+
+        [Test]
+        public void testToJson()
+        {
+            Chat chat = new Chat("Message", Chat.TYPE.Normal, "Reciver");
+
+            Console.WriteLine(chat.toJson());
+            Assert.AreEqual("{\"ChatType\":0,\"Message\":\"Message\",\"Special\":\"Reciver\"}",chat.toJson());
+        }
     }
 }
