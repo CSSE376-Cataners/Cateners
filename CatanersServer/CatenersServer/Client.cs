@@ -177,6 +177,9 @@ namespace CatenersServer
                 }
                 break;
 
+                case Translation.TYPE.GetGameLobby:
+                    sendToClient(new Message(this.gameLobby.toJson(), Translation.TYPE.GetGameLobby).toJson());
+                break;
 
                 case Translation.TYPE.StartGame:
                 if (checkReady())
