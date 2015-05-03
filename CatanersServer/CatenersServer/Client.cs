@@ -178,6 +178,7 @@ namespace CatenersServer
                 break;
 
                 case Translation.TYPE.GetGameLobby:
+                    if(this.gameLobby != null)
                     sendToClient(new Message(this.gameLobby.toJson(), Translation.TYPE.GetGameLobby).toJson());
                 break;
 
