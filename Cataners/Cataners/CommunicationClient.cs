@@ -155,7 +155,10 @@ namespace Cataners
                     }
                     break;
                 case Translation.TYPE.LeaveLobby:
-                    LobbyForm.INSTANCE.InvokedClose();
+                    if (LobbyForm.INSTANCE != null)
+                    {
+                        LobbyForm.INSTANCE.InvokedClose();
+                    }
                     break;
 
                 case Translation.TYPE.StartGame:
