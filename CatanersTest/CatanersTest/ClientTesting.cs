@@ -535,6 +535,11 @@ namespace CatanersTest
             client.player = p1;
 
             String getGameLobbyMessage = new Message("", Translation.TYPE.GetGameLobby).toJson();
+
+            client.processesMessage(getGameLobbyMessage);
+            Assert.Null(client.lastCall);
+
+            
             Lobby lobsters = new Lobby("",10,p1,1);
             GameLobby game = new GameLobby(lobsters);
             client.gameLobby = game;
