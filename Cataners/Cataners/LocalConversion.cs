@@ -160,7 +160,7 @@ namespace Cataners
                 {
                     String name = "Forrest" + forrestCount.ToString();
                     tempEntity = new Entity(name)
-                    .AddComponent(new Sprite("Forrest.wpk"))
+                    .AddComponent(new Sprite("ForrestHex.wpk"))
                     .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
                     forrestCount++;
                 }
@@ -168,7 +168,7 @@ namespace Cataners
                 {
                     String name = "Desert" + desertCount.ToString();
                     tempEntity = new Entity(name)
-                    .AddComponent(new Sprite("DesetHex.wpk"))
+                    .AddComponent(new Sprite("DesertHex.wpk"))
                     .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
                     desertCount++;
                 }

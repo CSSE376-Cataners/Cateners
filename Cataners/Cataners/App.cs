@@ -110,6 +110,12 @@ namespace Cataners
                                     MyScene.Instance.EntityManager.Add(e);
                                 }
                                 MyScene.Instance.toAdd.Clear();
+
+                                foreach (BaseDecorator e in MyScene.Instance.toAddDecor)
+                                {
+                                    MyScene.Instance.EntityManager.Add(e);
+                                }
+                                MyScene.Instance.toAddDecor.Clear();
                             }
                         }
                         this.game.UpdateFrame(elapsedTime);

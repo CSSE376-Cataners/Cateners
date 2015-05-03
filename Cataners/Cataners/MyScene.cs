@@ -55,6 +55,7 @@ namespace Cataners
         public static float SETTLEMENT_HEIGHT = 684 * SETTLEMENT_SCALE_Y;
 
         public List<Entity> toAdd = new List<Entity>();
+        public List<BaseDecorator> toAddDecor = new List<BaseDecorator>();
 
         LocalConversion localConversion = new LocalConversion();
 
@@ -207,7 +208,7 @@ namespace Cataners
                 Margin = new Thickness(CENTERWIDTH - 400 - WORDOFFSET, CENTERHEIGHT+500, 0, 0),
 
             };
-            EntityManager.Add(player4Resources);
+            toAddDecor.Add(player4Resources);
         }
 
         public void drawHexes()
