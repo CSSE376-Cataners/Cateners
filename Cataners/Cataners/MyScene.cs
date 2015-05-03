@@ -17,6 +17,7 @@ using WaveEngine.Framework.Services;
 using CatanersShared;
 using WaveEngine.Common.Input;
 using WaveEngine.Framework.UI;
+using System.Collections.Generic;
 #endregion
 
 namespace Cataners
@@ -36,12 +37,12 @@ namespace Cataners
         public static float WORDOFFSET = 40.0f;
         public static float CENTERWIDTH = (WaveServices.Platform.ScreenWidth) / 2;
         public static float CENTERHEIGHT = (WaveServices.Platform.ScreenHeight) / 2;
-        public static float WIDTH_TO_HEIGHT = ((float) WaveServices.Platform.ScreenWidth) / ((float) WaveServices.Platform.ScreenHeight);
-        public static float HEX_WIDTH = (((float) WaveServices.Platform.ScreenWidth) / 8.0f) / WIDTH_TO_HEIGHT;
+        public static float WIDTH_TO_HEIGHT = ((float)WaveServices.Platform.ScreenWidth) / ((float)WaveServices.Platform.ScreenHeight);
+        public static float HEX_WIDTH = (((float)WaveServices.Platform.ScreenWidth) / 8.0f) / WIDTH_TO_HEIGHT;
         public static float HEX_SCALE_X = HEX_WIDTH / 220.0f;
-        public static float HEX_SCALE_Y = HEX_WIDTH * ((float) 1.1681818181) / 257.0f;
-        public static float HEX_HEIGHT = (HEX_WIDTH * (float) 1.168181818);
-        public static float TRIANGLE_HEIGHT = HEX_HEIGHT * (float) 0.2723735409;
+        public static float HEX_SCALE_Y = HEX_WIDTH * ((float)1.1681818181) / 257.0f;
+        public static float HEX_HEIGHT = (HEX_WIDTH * (float)1.168181818);
+        public static float TRIANGLE_HEIGHT = HEX_HEIGHT * (float)0.2723735409;
         public static float HEX_START_X = (((float)WaveServices.Platform.ScreenWidth) / 2.0f) - ((HEX_WIDTH * 3) / 2);
         public static float HEX_START_Y = (((float)WaveServices.Platform.ScreenHeight) / 2.0f) - ((3 * HEX_HEIGHT) - (4 * TRIANGLE_HEIGHT));
         public static float ROLL_NUMBER_SCALE = HEX_WIDTH / (2 * 50);
@@ -52,9 +53,12 @@ namespace Cataners
         public static float SETTLEMENT_WIDTH = 684 * SETTLEMENT_SCALE_X;
         public static float SETTLEMENT_HEIGHT = 684 * SETTLEMENT_SCALE_Y;
 
+        public List<Entity> toAdd = new List<Entity>();
+
         LocalConversion localConversion = new LocalConversion();
 
-        public MyScene() : base()
+        public MyScene()
+            : base()
         {
             instance = this;
         }
@@ -64,9 +68,9 @@ namespace Cataners
             //Insert your scene definition here.
 
             //Create a 3D camera
-            Button newButton = new Button(); 
-            newButton.Text = "Regenerate Board"; 
-            newButton.Width = 120; 
+            Button newButton = new Button();
+            newButton.Text = "Regenerate Board";
+            newButton.Width = 120;
             newButton.Height = 40;
             EntityManager.Add(newButton);
             newButton.Entity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(button_Pressed);
@@ -75,23 +79,25 @@ namespace Cataners
             Entity background = new Entity("Background")
             .AddComponent(new Sprite("Background.wpk"))
             .AddComponent(new SpriteRenderer(DefaultLayers.Alpha))
-            .AddComponent(new Transform2D(){
+            .AddComponent(new Transform2D()
+            {
                 Scale = new Vector2((HEX_WIDTH * (5.2f)) / 677, (HEX_HEIGHT * (5.2f)) / 559),
                 X = HEX_START_X - (HEX_WIDTH * 1.1f),
                 Y = HEX_START_Y - ((HEX_HEIGHT * 1.2f) / 2),
-                DrawOrder = .9f});
+                DrawOrder = .9f
+            });
             this.EntityManager.Add(background);
             TextBlock title = new TextBlock()
             {
                 Text = "Settlers of Catan",
                 Foreground = Color.Blue,
-                Margin = new Thickness(CENTERWIDTH-(80),0,0,0)
+                Margin = new Thickness(CENTERWIDTH - (80), 0, 0, 0)
             };
             EntityManager.Add(title);
             this.hexList = LocalConversion.Instance.getHexList();
             addPlayerNames();
             addResources();
-            
+
         }
 
         public void addPlayerNames()
@@ -182,7 +188,7 @@ namespace Cataners
 
         public void addResources()
         {
-            String resources="";
+            String resources = "";
             if (Data.currentLobby is GameLobby)
             {
                 resources = ((GameLobby)Data.currentLobby).gamePlayers[0].resources.ToString();
@@ -192,7 +198,7 @@ namespace Cataners
                 Text = resources,
                 Width = 100,
                 Foreground = Color.Black,
-                Margin = new Thickness(CENTERWIDTH - 400 - WORDOFFSET, CENTERHEIGHT+50, 0, 0),
+                Margin = new Thickness(CENTERWIDTH - 400 - WORDOFFSET, CENTERHEIGHT + 50, 0, 0),
 
             };
             EntityManager.Add(player4Resources);
@@ -202,7 +208,7 @@ namespace Cataners
         {
             this.hexList = LocalConversion.Instance.getHexList();
             Console.WriteLine(this.hexList.ToString());
-            lock (App.renderLock)
+            lock (toAdd)
             {
                 for (int g = 0; g < 19; g++)
                 {
@@ -271,7 +277,7 @@ namespace Cataners
                                 currSettle.canAddComponent = false;
                                 Console.WriteLine(currSettle.getPlacementNumber());
                                 Entity e = currSettle.getSettlement();
-                                EntityManager.Add(e);
+                                toAdd.Add(e);
                             }
                         }
                     }
@@ -338,7 +344,7 @@ namespace Cataners
                                 currSettle.canAddComponent = false;
                                 Console.WriteLine(currSettle.getPlacementNumber());
                                 Entity e = currSettle.getSettlement();
-                                EntityManager.Add(e);
+                                toAdd.Add(e);
                             }
                         }
                     }
@@ -405,7 +411,7 @@ namespace Cataners
                                 currSettle.canAddComponent = false;
                                 Console.WriteLine(currSettle.getPlacementNumber());
                                 Entity e = currSettle.getSettlement();
-                                EntityManager.Add(e);
+                                toAdd.Add(e);
                             }
                         }
                     }
@@ -472,7 +478,7 @@ namespace Cataners
                                 currSettle.canAddComponent = false;
                                 Console.WriteLine(currSettle.getPlacementNumber());
                                 Entity e = currSettle.getSettlement();
-                                EntityManager.Add(e);
+                                toAdd.Add(e);
                             }
                         }
                     }
@@ -539,12 +545,12 @@ namespace Cataners
                                 currSettle.canAddComponent = false;
                                 Console.WriteLine(currSettle.getPlacementNumber());
                                 Entity e = currSettle.getSettlement();
-                                EntityManager.Add(e);
+                                toAdd.Add(e);
                             }
                         }
                     }
-                    EntityManager.Add(current.getRollEntity());
-                    EntityManager.Add(current.getHex());
+                    toAdd.Add(current.getRollEntity());
+                    toAdd.Add(current.getHex());
                 }
             }
         }
