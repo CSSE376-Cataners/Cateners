@@ -294,6 +294,11 @@ namespace CatenersServer
             }
         }
 
+        public string getPlayerResources(GamePlayer player)
+        {
+            return player.resources.ToString();
+        }
+
         public void ResourceAllocationAfterDiceRoll()
         {
             switch (dice)
