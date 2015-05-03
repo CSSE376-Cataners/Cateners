@@ -42,5 +42,26 @@ namespace CatanersTest
 
             Assert.AreEqual(chat, Chat.fromJson(inJson));
         }
+
+        [Test]
+        public void testEquals()
+        {
+            Chat chat = new Chat("Message", Chat.TYPE.Normal, "Reciver");
+            Chat chat1 = new Chat("Message1", Chat.TYPE.Normal, "Reciver");
+            Chat chat2 = new Chat("Message", Chat.TYPE.Private, "Reciver");
+            Chat chat3 = new Chat("Message", Chat.TYPE.Normal, "Reciver1");
+            Chat chat4 = new Chat("Message", Chat.TYPE.Normal, "Reciver");
+
+            Object Other = "Random";
+
+
+            Assert.True(chat.Equals(chat));
+            Assert.True(chat.Equals(chat4));
+            Assert.False(chat.Equals(chat1));
+            Assert.False(chat.Equals(chat2));
+            Assert.False(chat.Equals(chat3));
+            Assert.False(chat.Equals(Other));
+
+        }
     }
 }
