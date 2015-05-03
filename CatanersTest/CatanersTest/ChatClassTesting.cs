@@ -17,6 +17,8 @@ namespace CatanersTest
         public void testConstructor()
         {
             Chat chat = new Chat("Message", TYPE.Normal, "Reciver");
+
+            Assert.AreEqual(chat.message = "Message", chat.type = TYPE.Normal, chat.extra = "Reciver");
         }
     }
 }
