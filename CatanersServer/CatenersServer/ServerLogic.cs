@@ -241,9 +241,14 @@ namespace CatenersServer
             }
         }
 
-        public HexServer[] gethexArray()
+        public int[][] gethexArray()
         {
-            return this.hexArray;
+            int[][] array = new int[this.hexArray.Length][];
+            for (int i = 0; i < this.hexArray.Length; i++)
+            {
+                array[i] = this.hexArray[i].toShadow();
+            }
+            return array;
         }
 
         public void assignRollNumbers()
