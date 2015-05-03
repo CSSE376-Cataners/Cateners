@@ -155,7 +155,7 @@ namespace Cataners
                     }
                     break;
                 case Translation.TYPE.LeaveLobby:
-                    if (LobbyForm.INSTANCE != null)
+                    if (LobbyForm.INSTANCE != null && LobbyForm.INSTANCE.Visible)
                     {
                         LobbyForm.INSTANCE.InvokedClose();
                     }
