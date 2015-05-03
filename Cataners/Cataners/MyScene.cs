@@ -54,6 +54,11 @@ namespace Cataners
 
         LocalConversion localConversion = new LocalConversion();
 
+        public MyScene() : base()
+        {
+            instance = this;
+        }
+
         protected override void CreateScene()
         {
             //Insert your scene definition here.
@@ -168,11 +173,14 @@ namespace Cataners
         public void drawHexes()
         {
             this.hexList = LocalConversion.Instance.getHexList();
-            for (int g = 0; g < 19; g++)
+            Console.WriteLine(this.hexList.ToString());
+            lock (EntityManager)
             {
-                HexHolder current = this.hexList[g];
-                int posNum = current.getPlacementNumber();
-                if (posNum < 3)
+                for (int g = 0; g < 19; g++)
+                {
+                    HexHolder current = this.hexList[g];
+                    int posNum = current.getPlacementNumber();
+                    if (posNum < 3)
                     {
                         current.getHex().AddComponent(new Transform2D()
                         {
@@ -193,52 +201,52 @@ namespace Cataners
                             SettlementHolder currSettle = current.getSettlementList()[k];
                             if (currSettle.canAddComponent)
                             {
-                            float XLoc;
-                            float YLoc;
-                            if (k == 0)
-                            {
-                                XLoc = current.getHex().FindComponent<Transform2D>().X + (HEX_WIDTH / 2) - (SETTLEMENT_WIDTH / 2);
-                                YLoc = current.getHex().FindComponent<Transform2D>().Y - (SETTLEMENT_HEIGHT / 2);
-                            }
-                            else if (k == 1)
-                            {
-                                XLoc = current.getHex().FindComponent<Transform2D>().X - (SETTLEMENT_WIDTH / 2);
-                                YLoc = current.getHex().FindComponent<Transform2D>().Y + TRIANGLE_HEIGHT - (SETTLEMENT_HEIGHT / 2);
-                            }
-                            else if (k == 2)
-                            {
-                                XLoc = current.getHex().FindComponent<Transform2D>().X + HEX_WIDTH - (SETTLEMENT_WIDTH / 2);
-                                YLoc = current.getHex().FindComponent<Transform2D>().Y + TRIANGLE_HEIGHT - (SETTLEMENT_HEIGHT / 2);
-                            }
-                            else if (k == 3)
-                            {
-                                XLoc = current.getHex().FindComponent<Transform2D>().X - (SETTLEMENT_WIDTH / 2);
-                                YLoc = current.getHex().FindComponent<Transform2D>().Y - TRIANGLE_HEIGHT + HEX_HEIGHT - (SETTLEMENT_HEIGHT / 2);
-                            }
-                            else if (k == 4)
-                            {
-                                XLoc = current.getHex().FindComponent<Transform2D>().X + HEX_WIDTH - (SETTLEMENT_WIDTH / 2);
-                                YLoc = current.getHex().FindComponent<Transform2D>().Y - TRIANGLE_HEIGHT + HEX_HEIGHT - (SETTLEMENT_HEIGHT / 2);
-                            }
-                            else
-                            {
-                                XLoc = current.getHex().FindComponent<Transform2D>().X + (HEX_WIDTH / 2) - (SETTLEMENT_WIDTH / 2);
-                                YLoc = current.getHex().FindComponent<Transform2D>().Y + HEX_HEIGHT - (SETTLEMENT_HEIGHT / 2);
-                            }
-                            currSettle.getSettlement().AddComponent(new Transform2D()
-                            {
-                                Scale = new Vector2(SETTLEMENT_SCALE_X, SETTLEMENT_SCALE_Y),
-                                X = XLoc,
-                                Y = YLoc,
-                                DrawOrder = .05f
-                            });
-                            currSettle.canAddComponent = false;
-                            Console.WriteLine(currSettle.getPlacementNumber());
-                            EntityManager.Add(currSettle.getSettlement());
+                                float XLoc;
+                                float YLoc;
+                                if (k == 0)
+                                {
+                                    XLoc = current.getHex().FindComponent<Transform2D>().X + (HEX_WIDTH / 2) - (SETTLEMENT_WIDTH / 2);
+                                    YLoc = current.getHex().FindComponent<Transform2D>().Y - (SETTLEMENT_HEIGHT / 2);
+                                }
+                                else if (k == 1)
+                                {
+                                    XLoc = current.getHex().FindComponent<Transform2D>().X - (SETTLEMENT_WIDTH / 2);
+                                    YLoc = current.getHex().FindComponent<Transform2D>().Y + TRIANGLE_HEIGHT - (SETTLEMENT_HEIGHT / 2);
+                                }
+                                else if (k == 2)
+                                {
+                                    XLoc = current.getHex().FindComponent<Transform2D>().X + HEX_WIDTH - (SETTLEMENT_WIDTH / 2);
+                                    YLoc = current.getHex().FindComponent<Transform2D>().Y + TRIANGLE_HEIGHT - (SETTLEMENT_HEIGHT / 2);
+                                }
+                                else if (k == 3)
+                                {
+                                    XLoc = current.getHex().FindComponent<Transform2D>().X - (SETTLEMENT_WIDTH / 2);
+                                    YLoc = current.getHex().FindComponent<Transform2D>().Y - TRIANGLE_HEIGHT + HEX_HEIGHT - (SETTLEMENT_HEIGHT / 2);
+                                }
+                                else if (k == 4)
+                                {
+                                    XLoc = current.getHex().FindComponent<Transform2D>().X + HEX_WIDTH - (SETTLEMENT_WIDTH / 2);
+                                    YLoc = current.getHex().FindComponent<Transform2D>().Y - TRIANGLE_HEIGHT + HEX_HEIGHT - (SETTLEMENT_HEIGHT / 2);
+                                }
+                                else
+                                {
+                                    XLoc = current.getHex().FindComponent<Transform2D>().X + (HEX_WIDTH / 2) - (SETTLEMENT_WIDTH / 2);
+                                    YLoc = current.getHex().FindComponent<Transform2D>().Y + HEX_HEIGHT - (SETTLEMENT_HEIGHT / 2);
+                                }
+                                currSettle.getSettlement().AddComponent(new Transform2D()
+                                {
+                                    Scale = new Vector2(SETTLEMENT_SCALE_X, SETTLEMENT_SCALE_Y),
+                                    X = XLoc,
+                                    Y = YLoc,
+                                    DrawOrder = .05f
+                                });
+                                currSettle.canAddComponent = false;
+                                Console.WriteLine(currSettle.getPlacementNumber());
+                                EntityManager.Add(currSettle.getSettlement());
                             }
                         }
                     }
-                else if (posNum < 7)
+                    else if (posNum < 7)
                     {
                         current.getHex().AddComponent(new Transform2D()
                         {
@@ -304,7 +312,7 @@ namespace Cataners
                             }
                         }
                     }
-                else if (posNum < 12)
+                    else if (posNum < 12)
                     {
                         current.getHex().AddComponent(new Transform2D()
                         {
@@ -370,7 +378,7 @@ namespace Cataners
                             }
                         }
                     }
-                else if (posNum < 16)
+                    else if (posNum < 16)
                     {
                         current.getHex().AddComponent(new Transform2D()
                         {
@@ -436,7 +444,7 @@ namespace Cataners
                             }
                         }
                     }
-                else
+                    else
                     {
                         current.getHex().AddComponent(new Transform2D()
                         {
@@ -502,8 +510,9 @@ namespace Cataners
                             }
                         }
                     }
-                EntityManager.Add(current.getRollEntity());
-                EntityManager.Add(current.getHex());
+                    EntityManager.Add(current.getRollEntity());
+                    EntityManager.Add(current.getHex());
+                }
             }
         }
 
