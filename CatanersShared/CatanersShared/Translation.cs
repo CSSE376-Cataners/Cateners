@@ -11,7 +11,7 @@ namespace CatanersShared
     public class Translation
     {
         public enum TYPE { Login, Register, RequestLobbies, JoinLobby, CreateLobby, UpdateLobby, ChangeReadyStatus, 
-                            LeaveLobby, Chat, Game, StartGame, Unknown , HexMessage, RegenerateBoard, addResource,GetGameLobby};
+                            LeaveLobby, Chat, Game, StartGame, Unknown , HexMessage, RegenerateBoard, addResource, GetGameLobby};
 
         public static int[][] jsonToIntArrayTwo(string s) 
         {

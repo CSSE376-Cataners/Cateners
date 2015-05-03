@@ -19,7 +19,7 @@ using WaveEngine.Common.Input;
 using WaveEngine.Framework.UI;
 #endregion
 
-namespace WaveEngineGameProject
+namespace Cataners
 {
     public class MyScene : Scene
     {
@@ -44,18 +44,15 @@ namespace WaveEngineGameProject
         public static float SETTLEMENT_WIDTH = 684 * SETTLEMENT_SCALE_X;
         public static float SETTLEMENT_HEIGHT = 684 * SETTLEMENT_SCALE_Y;
 
-        LocalConversion logicCenter = new LocalConversion();
+        LocalConversion localConversion = new LocalConversion();
 
         protected override void CreateScene()
         {
             //Insert your scene definition here.
 
             //Create a 3D camera
-            //EntityManager.Remove(AlphaLayer);
             Button newButton = new Button(); 
             newButton.Text = "Regenerate Board"; 
-            /*Button newButton = new Button(); 
-            newButton.Text = "New Button"; 
             newButton.Width = 120; 
             newButton.Height = 40;
             EntityManager.Add(newButton);
@@ -79,8 +76,7 @@ namespace WaveEngineGameProject
             };
             EntityManager.Add(title);
             //player name
-            //String player1Text;
-            /*
+            /*String player1Text;
             if (Data.currentLobby.PlayerCount == 1)
             {
                 player1Text = Data.currentLobby.Players[0].ToString();
@@ -157,12 +153,13 @@ namespace WaveEngineGameProject
             };
             EntityManager.Add(player4);*/
 
+            //This may be right, but either way it's for testing purposes for now
             this.drawHexes();
         }
 
         public void drawHexes()
         {
-            /*this.hexList = logicCenter.getHexArray();
+            this.hexList = localConversion.getHexList();
             for (int g = 0; g < 19; g++)
             {
                 HexHolder current = this.hexList[g];
@@ -499,17 +496,17 @@ namespace WaveEngineGameProject
                     }
                 EntityManager.Add(current.getRollEntity());
                 EntityManager.Add(current.getHex());
-            }*/
+            }
         }
 
-        /*private void button_Pressed(object sender, GestureEventArgs e)
+        private void button_Pressed(object sender, GestureEventArgs e)
         {
             ScreenContext screenContext = new ScreenContext(new MyScene())
             {
                 Name = "Next Frame"
             };
             WaveServices.ScreenContextManager.To(screenContext);
-        }*/
+        }
 
         protected override void Start()
         {

@@ -8,11 +8,11 @@ using WaveEngine.Framework;
 using WaveEngine.Framework.Graphics;
 using WaveEngine.Framework.Services;
 
-namespace WaveEngineGame
+namespace Cataners
 {
     public class App : WaveEngine.Adapter.Application
     {
-        WaveEngineGameProject.Game game;
+        Cataners.Game game;
         SpriteBatch spriteBatch;
         Texture2D splashScreen;
         bool splashState = true;
@@ -31,7 +31,7 @@ namespace WaveEngineGame
 
         public override void Initialize()
         {
-            this.game = new WaveEngineGameProject.Game();
+            this.game = new Cataners.Game();
             this.game.Initialize(this);
 
             #region WAVE SOFTWARE LICENSE AGREEMENT

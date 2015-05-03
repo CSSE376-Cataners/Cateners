@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CatanersShared;
 using WaveEngine;
 using WaveEngine.Components.Graphics2D;
 using WaveEngine.Framework;
 using WaveEngine.Framework.Graphics;
 using WaveEngine.Framework.Managers;
 
-namespace WaveEngineGameProject
+namespace Cataners
 {
     public class SettlementHolder
     {
@@ -96,7 +97,6 @@ namespace WaveEngineGameProject
         }
     }
 
-    // static LocalConversion 
     public class LocalConversion
     {
         private static int hexNumber = 19;
@@ -115,6 +115,7 @@ namespace WaveEngineGameProject
 
         public void generateHexList(int[][] inputArray)
         {
+            this.hexList = new HexHolder[inputArray.Length];
             int forrestCount = 0;
             int brickCount = 0;
             int desertCount = 0;
@@ -122,7 +123,7 @@ namespace WaveEngineGameProject
             int sheepCount = 0;
             int wheatCount = 0;
             int settlementCount = 0;
-            for (int i = 0; i < 19; i++)
+            for (int i = 0; i < inputArray.Length; i++)
             {
                 int[] currHexRep = inputArray[i];
                 for (int k = 0; k < currHexRep.Length; k++)
@@ -195,6 +196,11 @@ namespace WaveEngineGameProject
             this.assignRollEntities();
         }
 
+        public void sendGameMessage(String message)
+        {
+            CommunicationClient.Instance.sendToServer(new Message("", Translation.TYPE.RegenerateBoard).toJson());
+        }
+
         public HexHolder[] getHexList()
         {
             return this.hexList;
@@ -202,7 +208,7 @@ namespace WaveEngineGameProject
 
         public void assignRollEntities()
         {
-            for (int k = 0; k < 19; k++)
+            for (int k = 0; k < this.hexList.Length; k++)
             {
                 HexHolder hexFocus = this.hexList[k];
                 String name = hexFocus.getHex().Name + hexFocus.getRollNumber().ToString();

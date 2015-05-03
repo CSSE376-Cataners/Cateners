@@ -8,11 +8,11 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Net.Sockets;
 using System.IO;
+using System.Windows;
 using System.Windows.Forms;
 using System.Threading;
-using WaveEngineGame;
-using WaveEngineGameProject;
 using System.Diagnostics.CodeAnalysis;
+
 
 namespace Cataners
 {
@@ -21,14 +21,16 @@ namespace Cataners
         private StreamReader reader;
         private Boolean Enabled;
 
-        public Dictionary<Translation.TYPE,BlockingCollection<Object>> queues;
+        public Dictionary<Translation.TYPE, BlockingCollection<Object>> queues;
 
 
         private static CommunicationClient instance;
 
-        public static CommunicationClient Instance {
-            get{
-                return instance;  
+        public static CommunicationClient Instance
+        {
+            get
+            {
+                return instance;
             }
         }
 
@@ -40,13 +42,13 @@ namespace Cataners
             this.clientSocket = new System.Net.Sockets.TcpClient();
             CommunicationClient.instance = this;
             clientSocket.ReceiveTimeout = 3;
-            queues = new Dictionary<Translation.TYPE,BlockingCollection<object>>();
+            queues = new Dictionary<Translation.TYPE, BlockingCollection<object>>();
 
-            foreach(Translation.TYPE t in Enum.GetValues(typeof(Translation.TYPE))) 
+            foreach (Translation.TYPE t in Enum.GetValues(typeof(Translation.TYPE)))
             {
                 queues.Add(t, new BlockingCollection<object>());
             }
-            
+
         }
 
         [ExcludeFromCodeCoverage]
@@ -64,8 +66,8 @@ namespace Cataners
             }
             catch
             {
-                MessageBox.Show("Our servers seem to be having some trouble - we apologize for the inconvenience.", "Error - Server Not Available", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Application.Exit();
+                System.Windows.Forms.MessageBox.Show("Our servers seem to be having some trouble - we apologize for the inconvenience.", "Error - Server Not Available", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                System.Windows.Forms.Application.Exit();
             }
         }
 
@@ -95,10 +97,10 @@ namespace Cataners
                     Thread thread = new Thread(() => processesMessage(line));
                     thread.Start();
                 }
-                catch(IOException)
+                catch (IOException)
                 {
-                    MessageBox.Show("You've been disconnected from the server", "Error - I/O", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Application.Exit();
+                    System.Windows.Forms.MessageBox.Show("You've been disconnected from the server", "Error - I/O", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    System.Windows.Forms.Application.Exit();
                 }
             }
             Enabled = false;
@@ -111,7 +113,8 @@ namespace Cataners
             {
                 msg = CatanersShared.Message.fromJson(s);
             }
-            catch (Exception) {
+            catch (Exception)
+            {
                 Console.WriteLine("Recived Invalid Message: " + s);
                 return;
             }
@@ -158,6 +161,7 @@ namespace Cataners
 
                 case Translation.TYPE.addResource:
                     AddResource addResource = AddResource.fromJson(msg.message);
+<<<<<<< HEAD
                     GameLobby currentLobby = (GameLobby)Data.currentLobby;
                     if (currentLobby == null)
                     {
@@ -175,6 +179,9 @@ namespace Cataners
                     }
                     
                         break;
+=======
+                    break;
+>>>>>>> origin/master
                 case Translation.TYPE.GetGameLobby:
                     Data.currentLobby = GameLobby.fromJson(msg.message);
                     break;
