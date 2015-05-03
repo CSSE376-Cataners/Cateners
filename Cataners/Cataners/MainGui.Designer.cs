@@ -42,6 +42,7 @@ namespace Cataners
             this.loginButton = new System.Windows.Forms.Button();
             this.signUpButton = new System.Windows.Forms.Button();
             this.startWaveTestButton = new System.Windows.Forms.Button();
+            this.youLoggedInButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.mainPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,7 +51,7 @@ namespace Cataners
             this.createGameButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.createGameButton.ForeColor = System.Drawing.Color.Black;
             this.createGameButton.Location = new System.Drawing.Point(24, 567);
-            this.createGameButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.createGameButton.Margin = new System.Windows.Forms.Padding(4);
             this.createGameButton.Name = "createGameButton";
             this.createGameButton.Size = new System.Drawing.Size(236, 112);
             this.createGameButton.TabIndex = 1;
@@ -63,7 +64,7 @@ namespace Cataners
             // 
             this.joinGameButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.joinGameButton.Location = new System.Drawing.Point(281, 565);
-            this.joinGameButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.joinGameButton.Margin = new System.Windows.Forms.Padding(4);
             this.joinGameButton.Name = "joinGameButton";
             this.joinGameButton.Size = new System.Drawing.Size(236, 112);
             this.joinGameButton.TabIndex = 2;
@@ -76,7 +77,7 @@ namespace Cataners
             // 
             this.mainQuitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mainQuitButton.Location = new System.Drawing.Point(1060, 565);
-            this.mainQuitButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.mainQuitButton.Margin = new System.Windows.Forms.Padding(4);
             this.mainQuitButton.Name = "mainQuitButton";
             this.mainQuitButton.Size = new System.Drawing.Size(236, 112);
             this.mainQuitButton.TabIndex = 3;
@@ -88,7 +89,7 @@ namespace Cataners
             // 
             this.mainPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("mainPictureBox.Image")));
             this.mainPictureBox.Location = new System.Drawing.Point(359, 26);
-            this.mainPictureBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.mainPictureBox.Margin = new System.Windows.Forms.Padding(4);
             this.mainPictureBox.Name = "mainPictureBox";
             this.mainPictureBox.Size = new System.Drawing.Size(501, 193);
             this.mainPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -161,7 +162,7 @@ namespace Cataners
             // startWaveTestButton
             // 
             this.startWaveTestButton.Location = new System.Drawing.Point(1149, 14);
-            this.startWaveTestButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.startWaveTestButton.Margin = new System.Windows.Forms.Padding(4);
             this.startWaveTestButton.Name = "startWaveTestButton";
             this.startWaveTestButton.Size = new System.Drawing.Size(147, 63);
             this.startWaveTestButton.TabIndex = 10;
@@ -169,12 +170,29 @@ namespace Cataners
             this.startWaveTestButton.UseVisualStyleBackColor = true;
             this.startWaveTestButton.Click += new System.EventHandler(this.startWaveTestButton_Click);
             // 
+            // youLoggedInButton
+            // 
+            this.youLoggedInButton.BackColor = System.Drawing.Color.Chocolate;
+            this.youLoggedInButton.CausesValidation = false;
+            this.youLoggedInButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.youLoggedInButton.Font = new System.Drawing.Font("Britannic Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.youLoggedInButton.ForeColor = System.Drawing.Color.Black;
+            this.youLoggedInButton.Location = new System.Drawing.Point(281, 270);
+            this.youLoggedInButton.Name = "youLoggedInButton";
+            this.youLoggedInButton.Size = new System.Drawing.Size(689, 278);
+            this.youLoggedInButton.TabIndex = 11;
+            this.youLoggedInButton.TabStop = false;
+            this.youLoggedInButton.Text = "You have successfully logged in";
+            this.youLoggedInButton.UseVisualStyleBackColor = false;
+            this.youLoggedInButton.Visible = false;
+            // 
             // MainGui
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Chocolate;
             this.ClientSize = new System.Drawing.Size(1312, 692);
+            this.Controls.Add(this.youLoggedInButton);
             this.Controls.Add(this.startWaveTestButton);
             this.Controls.Add(this.signUpButton);
             this.Controls.Add(this.loginButton);
@@ -188,7 +206,7 @@ namespace Cataners
             this.Controls.Add(this.mainPictureBox);
             this.ForeColor = System.Drawing.Color.Black;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainGui";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainGui";
@@ -211,6 +229,7 @@ namespace Cataners
         private System.Windows.Forms.Button loginButton;
         private System.Windows.Forms.Button signUpButton;
         private System.Windows.Forms.Button startWaveTestButton;
+        private System.Windows.Forms.Button youLoggedInButton;
 
     }
 }

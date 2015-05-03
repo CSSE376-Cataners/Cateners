@@ -151,11 +151,10 @@ namespace Cataners
                     }
                     break;
                 case Translation.TYPE.LeaveLobby:
-                    //close lobby window
+                    LobbyForm.INSTANCE.InvokedClose();
                     break;
 
                 case Translation.TYPE.StartGame:
-                    //Data.currentLobby = gameLobby
                     Program.Main();
                     break;
 

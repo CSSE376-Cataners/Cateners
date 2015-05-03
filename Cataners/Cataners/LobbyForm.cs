@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CatanersShared;
 using Cataners;
-using Cataners;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Cataners
@@ -18,6 +17,7 @@ namespace Cataners
     {
         public static LobbyForm INSTANCE;
         public delegate void refresher();
+        public delegate void closer();
         public bool ready;
         public LobbyForm(String gameName)
         {
@@ -33,12 +33,11 @@ namespace Cataners
 
         }
 
-        [ExcludeFromCodeCoverage]
         private void closing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)
             {
-                Application.Exit();
+                backButton_Click(sender, e);
             }
         }
 
@@ -93,6 +92,17 @@ namespace Cataners
         public void invokedRefresh()
         {
             this.Invoke(new refresher(refreshLobby));
+        }
+
+        [ExcludeFromCodeCoverage]
+        public void InvokedClose()
+        {
+            this.Invoke(new closer(CloseLobby));
+        }
+        public void CloseLobby(){
+            MessageBox.Show("The host has left the building.");
+            this.Close();
+            MainGui.INSTANCE.Show();
         }
 
         [ExcludeFromCodeCoverage]

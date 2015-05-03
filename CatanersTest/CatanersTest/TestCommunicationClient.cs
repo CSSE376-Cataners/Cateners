@@ -190,9 +190,6 @@ namespace CatanersTest
 
             client.processesMessage(msg.toJson()); 
             Assert.AreEqual(2, ((GameLobby)Data.currentLobby).gamePlayers[0].resources[Resource.TYPE.Wheat]);
-            
-            
-
 
         }
 

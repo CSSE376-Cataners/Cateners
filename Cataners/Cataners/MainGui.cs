@@ -74,6 +74,9 @@ namespace Cataners
                     createGameButton.Visible = true;
                     signUpButton.Visible = false;
                     loginButton.Visible = false;
+                    youLoggedInButton.Visible = true;
+                    passwordTextbox.Enabled = false;
+                    usernameTextbox.Enabled = false;
                 }
                 else
                 {
