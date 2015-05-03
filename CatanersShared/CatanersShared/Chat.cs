@@ -53,7 +53,7 @@ namespace CatanersShared
         // override object.GetHashCode
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return Message.GetHashCode() + ChatType.GetHashCode() + Special.GetHashCode();
         }
 
         public static Chat fromJson(string inJson)
