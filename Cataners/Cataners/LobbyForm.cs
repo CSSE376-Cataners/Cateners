@@ -138,7 +138,6 @@ namespace Cataners
         {
             startButtonClose = true;
             CommunicationClient.Instance.sendToServer(new CatanersShared.Message("", Translation.TYPE.StartGame).toJson());
-            CommunicationClient.Instance.sendToServer(new CatanersShared.Message("", Translation.TYPE.GetGameLobby).toJson());
             this.Close();
             MainGui.INSTANCE.Hide();
             /*if (Data.currentLobby.Players.Count == 4)

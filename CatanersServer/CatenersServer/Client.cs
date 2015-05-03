@@ -183,6 +183,7 @@ namespace CatenersServer
                 break;
 
                 case Translation.TYPE.StartGame:
+                if(currentLobby != null) {
                 if (checkReady())
                 {
                     ServerLogic newLogic = new ServerLogic(this.currentLobby);
@@ -195,6 +196,7 @@ namespace CatenersServer
                         ((ServerPlayer)currentLobby.Players[i]).client.serverLogic = newLogic;
                         ((ServerPlayer)currentLobby.Players[i]).client.gameLobby = gameLobby;
                     }
+                }
                 }
                 break;
 

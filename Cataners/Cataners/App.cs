@@ -13,8 +13,9 @@ namespace Cataners
     public class App : WaveEngine.Adapter.Application
     {
         public static object renderLock = "";
+        public static App INSTANCE;
 
-        Cataners.Game game;
+        public Cataners.Game game;
         SpriteBatch spriteBatch;
         Texture2D splashScreen;
         bool splashState = true;
@@ -24,7 +25,7 @@ namespace Cataners
 
         public App()
         {
-
+            INSTANCE = this;
             this.Width = 1910;
             this.Height = 1000;
             this.FullScreen = false;
@@ -96,7 +97,21 @@ namespace Cataners
                     }
                     else
                     {
-                        renderLock.ToString();
+                        if (MyScene.Instance.toAdd.Count > 0)
+                        {
+                            if (MyScene.Instance.EntityManager == null)
+                            {
+                                Console.WriteLine("Null EntityManager");
+                            }
+                            else
+                            {
+                                foreach (Entity e in MyScene.Instance.toAdd)
+                                {
+                                    MyScene.Instance.EntityManager.Add(e);
+                                }
+                                MyScene.Instance.toAdd.Clear();
+                            }
+                        }
                         this.game.UpdateFrame(elapsedTime);
                     }
                 }
