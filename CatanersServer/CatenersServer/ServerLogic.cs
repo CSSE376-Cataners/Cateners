@@ -116,6 +116,8 @@ namespace CatenersServer
         public void sendGeneration()
         {
             this.generatehexArray();
+            this.generateDefaultSettlements();
+            this.assignSettlements();
             int[][] passedArray = new int[this.hexArray.Length][];
             for (int k = 0; k < this.hexArray.Length; k++)
             {
@@ -188,7 +190,7 @@ namespace CatenersServer
 
         public void assignSettlements()
         {
-            for (int i = 0; i < 19; i++)
+            for (int i = 0; i < this.hexArray.Length; i++)
             {
                 HexServer currHex = this.hexArray[i];
                 int currNum = currHex.getPlacementNumber();
