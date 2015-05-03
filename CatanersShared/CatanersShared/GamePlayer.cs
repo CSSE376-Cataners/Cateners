@@ -12,6 +12,7 @@ namespace CatanersShared
         private bool isMyTurn;
         public Dictionary<Resource.TYPE,int> resources;
 
+
         public GamePlayer(String Username)
             : base(Username)
         {
