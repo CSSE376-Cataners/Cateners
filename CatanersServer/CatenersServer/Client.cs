@@ -173,7 +173,9 @@ namespace CatenersServer
                 if (this.serverLogic != null)
                 {
                     this.serverLogic.generatehexArray();
-                    sendToClient(new Message(Translation.intArraytwotoJson(this.serverLogic.gethexArray()), Translation.TYPE.HexMessage).toJson());
+                    int[][] array = this.serverLogic.gethexArray();
+                     foreach(ServerPlayer p in this.currentLobby.Players)
+                        p.client.sendToClient(new Message(Translation.intArraytwotoJson(array), Translation.TYPE.HexMessage).toJson());
                 }
                 break;
 

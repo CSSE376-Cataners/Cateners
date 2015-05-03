@@ -54,8 +54,8 @@ namespace Cataners
         public static float SETTLEMENT_WIDTH = 684 * SETTLEMENT_SCALE_X;
         public static float SETTLEMENT_HEIGHT = 684 * SETTLEMENT_SCALE_Y;
 
-        public List<Entity> toAdd = new List<Entity>();
-        public List<BaseDecorator> toAddDecor = new List<BaseDecorator>();
+        public static List<Entity> toAdd = new List<Entity>();
+        public static List<BaseDecorator> toAddDecor = new List<BaseDecorator>();
 
         LocalConversion localConversion = new LocalConversion();
 
@@ -117,7 +117,6 @@ namespace Cataners
                 {
                     player1Text = "player1";
                 }
-
                 //add player
                 TextBlock player1 = new TextBlock()
                 {
@@ -213,6 +212,7 @@ namespace Cataners
 
         public void drawHexes()
         {
+            
             this.hexList = LocalConversion.Instance.getHexList();
             Console.WriteLine(this.hexList.ToString());
             lock (toAdd)
@@ -564,11 +564,6 @@ namespace Cataners
 
         private void button_Pressed(object sender, GestureEventArgs e)
         {
-            ScreenContext screenContext = new ScreenContext(new MyScene())
-            {
-                Name = "Next Frame"
-            };
-            WaveServices.ScreenContextManager.To(screenContext);
             CommunicationClient.Instance.sendToServer(new Message("", Translation.TYPE.RegenerateBoard).toJson());
         }
 

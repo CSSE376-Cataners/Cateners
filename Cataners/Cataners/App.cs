@@ -23,6 +23,8 @@ namespace Cataners
         Vector2 position;
         Color backgroundSplashColor;
 
+        bool ready = false;
+
         public App()
         {
             INSTANCE = this;
@@ -97,26 +99,41 @@ namespace Cataners
                     }
                     else
                     {
-                        if (MyScene.Instance.toAdd.Count > 0)
+                        if (MyScene.toAdd.Count > 0)
                         {
-                            if (MyScene.Instance.EntityManager == null)
+                            if (!ready)
                             {
-                                Console.WriteLine("Null EntityManager");
+                                MyScene newScene = new MyScene();
+                                ScreenContext screenContext = new ScreenContext(newScene)
+                                {
+                                    Name = "Next Frame"
+                                };
+                                WaveServices.ScreenContextManager.To(screenContext);
+                                ready = true;
                             }
                             else
                             {
-                                foreach (Entity e in MyScene.Instance.toAdd)
+                                if (MyScene.Instance.EntityManager == null)
                                 {
-                                    MyScene.Instance.EntityManager.Add(e);
+                                    Console.WriteLine("Null EntityManager");
                                 }
-                                MyScene.Instance.toAdd.Clear();
+                                else
+                                {
+                                    foreach (Entity e in MyScene.toAdd)
+                                    {
+                                        MyScene.Instance.EntityManager.Add(e);
+                                    }
+                                    MyScene.toAdd.Clear();
 
-                                foreach (BaseDecorator e in MyScene.Instance.toAddDecor)
-                                {
-                                    MyScene.Instance.EntityManager.Add(e);
+                                    foreach (BaseDecorator e in MyScene.toAddDecor)
+                                    {
+                                        MyScene.Instance.EntityManager.Add(e);
+                                    }
+                                    MyScene.toAddDecor.Clear();
                                 }
-                                MyScene.Instance.toAddDecor.Clear();
+                                ready = false;
                             }
+                            
                         }
                         this.game.UpdateFrame(elapsedTime);
                     }
