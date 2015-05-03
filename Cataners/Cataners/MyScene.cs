@@ -165,9 +165,8 @@ namespace Cataners
             //This may be right, but either way it's for testing purposes for now
         }
 
-        public void drawHexes(int[][] array)
+        public void drawHexes()
         {
-            LocalConversion.Instance.generateHexList(array);
             this.hexList = LocalConversion.Instance.getHexList();
             for (int g = 0; g < 19; g++)
             {
@@ -515,6 +514,7 @@ namespace Cataners
                 Name = "Next Frame"
             };
             WaveServices.ScreenContextManager.To(screenContext);
+            CommunicationClient.Instance.sendToServer(new Message("", Translation.TYPE.RegenerateBoard).toJson());
         }
 
         protected override void Start()

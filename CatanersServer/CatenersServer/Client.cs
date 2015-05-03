@@ -172,6 +172,7 @@ namespace CatenersServer
                 case Translation.TYPE.RegenerateBoard:
                 if (this != null)
                     this.serverLogic.generatehexArray();
+                sendToClient(new Message(this.serverLogic.gethexArray().ToString(), Translation.TYPE.HexMessage).toJson());
                 break;
 
 

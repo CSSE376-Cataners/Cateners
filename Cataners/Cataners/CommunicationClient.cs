@@ -135,10 +135,10 @@ namespace Cataners
                 case Translation.TYPE.Register:
                     queues[Translation.TYPE.Register].Add(msg.message);
                     break;
-                /*case Translation.TYPE.HexMessage:
+                case Translation.TYPE.HexMessage:
                     int[][] array = Translation.jsonToIntArrayTwo(msg.message);
-                    MyScene.Instance.drawHexes(array);
-                    break;*/
+                    MyScene.Instance.drawHexes();
+                    break;
                 case Translation.TYPE.RequestLobbies:
                     Data.Lobbies.Clear();
                     Data.Lobbies.AddRange(Lobby.jsonToLobbyList(msg.message));

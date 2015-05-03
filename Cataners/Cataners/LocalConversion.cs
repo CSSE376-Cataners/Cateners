@@ -221,7 +221,6 @@ namespace Cataners
                 this.hexList[i].setSettlementList(newArray);
             }
             this.assignRollEntities();
-            
         }
 
         public HexHolder[] getHexList()
