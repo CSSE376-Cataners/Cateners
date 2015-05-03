@@ -137,6 +137,7 @@ namespace Cataners
                     break;
                 case Translation.TYPE.HexMessage:
                     int[][] array = Translation.jsonToIntArrayTwo(msg.message);
+                    LocalConversion.Instance.generateHexList(array);
                     MyScene.Instance.drawHexes();
                     break;
                 case Translation.TYPE.RequestLobbies:

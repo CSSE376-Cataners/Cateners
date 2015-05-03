@@ -202,7 +202,7 @@ namespace Cataners
                     tempEntity = new Entity(name)
                     .AddComponent(new Sprite("WheatHex.wpk"))
                     .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
-                    sheepCount++;
+                    wheatCount++;
                 }
                 else
                 {
