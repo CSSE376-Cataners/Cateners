@@ -63,5 +63,25 @@ namespace CatanersTest
             Assert.False(chat.Equals(Other));
 
         }
+
+        [Test]
+        public void testHashCode()
+        {
+            Chat chat = new Chat("Message", Chat.TYPE.Normal, "Reciver");
+            Chat chat1 = new Chat("Message1", Chat.TYPE.Normal, "Reciver");
+            Chat chat2 = new Chat("Message", Chat.TYPE.Private, "Reciver");
+            Chat chat3 = new Chat("Message", Chat.TYPE.Normal, "Reciver1");
+            Chat chat4 = new Chat("Message", Chat.TYPE.Normal, "Reciver");
+
+            Object Other = "Random";
+
+
+            Assert.AreEqual(chat.GetHashCode(),chat.GetHashCode());
+            Assert.AreEqual(chat.GetHashCode(), chat4.GetHashCode());
+            Assert.AreNotEqual(chat.GetHashCode(), chat1.GetHashCode());
+            Assert.AreNotEqual(chat.GetHashCode(), chat2.GetHashCode());
+            Assert.AreNotEqual(chat.GetHashCode(), chat3.GetHashCode());
+            
+        }
     }
 }
