@@ -161,27 +161,7 @@ namespace CatenersServer
                 break;
 
                 case Translation.TYPE.LeaveLobby:
-                if (this.currentLobby != null)
-                {
-                    //if person that leaves is owner
-                    if (this.currentLobby.Owner.Equals(this.player))
-                    {
-                        currentLobby.removePlayer(this.player);
-                        for (int i = 0; i < currentLobby.PlayerCount; i++)
-                        {
-                            ((ServerPlayer)currentLobby.Players[i]).client.sendToClient(new Message("", Translation.TYPE.LeaveLobby).toJson());
-                        }
-                        currentLobby.removeAll();
-                        Data.INSTANCE.Lobbies.Remove(currentLobby);
-                    }
-                    else
-                    {
-                        currentLobby.removePlayer(this.player);
-                    }
-                }
-                    
-
-                    this.currentLobby = null;
+                leaveLobby();
                     break;
 
                 case Translation.TYPE.UpdateLobby:
@@ -238,5 +218,35 @@ namespace CatenersServer
             }
         }
 
+        public void leaveLobby()
+        {
+            if (this.currentLobby != null)
+            {
+                //if person that leaves is owner
+                if (this.currentLobby.Owner.Equals(this.player))
+                {
+                    currentLobby.removePlayer(this.player);
+                    for (int i = 0; i < currentLobby.PlayerCount; i++)
+                    {
+                        ((ServerPlayer)currentLobby.Players[i]).client.sendToClient(new Message("", Translation.TYPE.LeaveLobby).toJson());
+                    }
+                    currentLobby.removeAll();
+                    Data.INSTANCE.Lobbies.Remove(currentLobby);
+                }
+                else
+                {
+                    currentLobby.removePlayer(this.player);
+                }
+            }
+
+
+            this.currentLobby = null;
+        }
+
+
+        public void socketClosed()
+        {
+            leaveLobby();
+        }
     }
 }

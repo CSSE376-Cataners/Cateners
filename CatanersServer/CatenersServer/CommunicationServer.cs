@@ -26,13 +26,13 @@ namespace CatenersServer
         {
             this.listener.Start(maxUsers);
             Console.WriteLine("Server Started.");
-
+            Client client = null;
             try
             {
                 while (true)
                 {
                     TcpClient cl = await listener.AcceptTcpClientAsync().ConfigureAwait(false);
-                    Client client = new Client(cl);
+                    client = new Client(cl);
                     System.Console.WriteLine("Client Connected Start from: " + ((IPEndPoint)cl.Client.RemoteEndPoint).Address.ToString());
                     Thread clientThread = new Thread(client.queueMessagesAsync);
                     clientThread.Start();
@@ -44,6 +44,12 @@ namespace CatenersServer
                 Console.Write("Server Ended With Exception: " + e.Message);
             }
             this.listener.Stop();
+
+            if (client != null)
+            {
+                client.socketClosed();
+            }
+            
         }
         
     }
