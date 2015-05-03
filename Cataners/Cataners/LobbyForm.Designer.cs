@@ -41,6 +41,7 @@ namespace Cataners
             this.startButton = new System.Windows.Forms.Button();
             this.refreshTimer = new System.Windows.Forms.Timer(this.components);
             this.backButton = new System.Windows.Forms.Button();
+            this.waitingButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.playersDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -137,12 +138,24 @@ namespace Cataners
             this.backButton.UseVisualStyleBackColor = true;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
+            // waitingButton
+            // 
+            this.waitingButton.Enabled = false;
+            this.waitingButton.Location = new System.Drawing.Point(652, 423);
+            this.waitingButton.Name = "waitingButton";
+            this.waitingButton.Size = new System.Drawing.Size(165, 83);
+            this.waitingButton.TabIndex = 5;
+            this.waitingButton.Text = "Waiting on the owner to start the game...";
+            this.waitingButton.UseVisualStyleBackColor = true;
+            this.waitingButton.Visible = false;
+            // 
             // LobbyForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Aqua;
             this.ClientSize = new System.Drawing.Size(867, 575);
+            this.Controls.Add(this.waitingButton);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.readyButton);
@@ -169,5 +182,6 @@ namespace Cataners
         private System.Windows.Forms.DataGridViewTextBoxColumn playerNameColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn statusColumn;
         private System.Windows.Forms.Button backButton;
+        private System.Windows.Forms.Button waitingButton;
     }
 }

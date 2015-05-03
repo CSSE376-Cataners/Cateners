@@ -158,11 +158,15 @@ namespace Cataners
                 case Translation.TYPE.LeaveLobby:
                     if (LobbyForm.INSTANCE != null && LobbyForm.INSTANCE.Visible)
                     {
-                        LobbyForm.INSTANCE.InvokedClose();
+                        bool notStart = false;
+                        LobbyForm.INSTANCE.InvokedClose(notStart);
                     }
                     break;
 
                 case Translation.TYPE.StartGame:
+                    bool start = true;
+                    LobbyForm.INSTANCE.InvokedClose(start);
+                    MainGui.INSTANCE.invokedHide();
                     Program.Main();
                     LocalConversion.Instance.generateHexList(Translation.jsonToIntArrayTwo(msg.message));
                     break;

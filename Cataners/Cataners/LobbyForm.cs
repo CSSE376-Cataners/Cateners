@@ -17,7 +17,7 @@ namespace Cataners
     {
         public static LobbyForm INSTANCE;
         public delegate void refresher();
-        public delegate void closer();
+        public delegate void closer(bool start);
         public bool ready;
         private bool startButtonClose;
         public LobbyForm(String gameName)
@@ -88,6 +88,10 @@ namespace Cataners
                 {
                     startButton.Visible = true;
                 }
+                else
+                {
+                    waitingButton.Visible = true;
+                }
             }
 
                 playersDataGridView.Show();
@@ -101,14 +105,24 @@ namespace Cataners
         }
 
         [ExcludeFromCodeCoverage]
-        public void InvokedClose()
+        public void InvokedClose(bool start)
         {
-            this.Invoke(new closer(CloseLobby));
+            this.Invoke(new closer(CloseLobby),new object[]{start});
         }
-        public void CloseLobby(){
-            MessageBox.Show("The host has left the building.");
-            this.Close();
-            MainGui.INSTANCE.Show();
+        public void CloseLobby(bool start){
+            if (!start)
+            {
+                MessageBox.Show("The host has left the building.");
+                this.Close();
+                MainGui.INSTANCE.Show();
+            }
+            else
+            {
+                this.Close();
+                MainGui.INSTANCE.Hide();
+            }
+            
+            
         }
 
         [ExcludeFromCodeCoverage]
@@ -136,10 +150,10 @@ namespace Cataners
         [ExcludeFromCodeCoverage]
         private void startButton_Click(object sender, EventArgs e)
         {
-            startButtonClose = true;
+            //startButtonClose = true;
             CommunicationClient.Instance.sendToServer(new CatanersShared.Message("", Translation.TYPE.StartGame).toJson());
-            this.Close();
-            MainGui.INSTANCE.Hide();
+            //this.Close();
+            //MainGui.INSTANCE.Hide();
             /*if (Data.currentLobby.Players.Count == 4)
             {
                 CommunicationClient.Instance.sendToServer(new CatanersShared.Message("", Translation.TYPE.StartGame).toJson());
