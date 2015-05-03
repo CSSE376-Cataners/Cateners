@@ -199,6 +199,7 @@ namespace CatenersServer
                 if (checkReady())
                 {
                     ServerLogic newLogic = new ServerLogic(this.currentLobby);
+                    this.serverLogic = newLogic;
                     gameLobby = newLogic.gameLobby;
                     for (int i = 0; i < currentLobby.PlayerCount; i++)
                     {
