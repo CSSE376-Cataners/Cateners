@@ -23,6 +23,14 @@ namespace Cataners
 {
     public class MyScene : Scene
     {
+        private static MyScene instance;
+        public static MyScene Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
         private HexHolder[] hexList;
         public static int hexNumber = 19;
         public static float WORDOFFSET = 40.0f;
@@ -75,6 +83,7 @@ namespace Cataners
                 Margin = new Thickness(CENTERWIDTH-(80),0,0,0)
             };
             EntityManager.Add(title);
+            this.hexList = LocalConversion.Instance.getHexList();
             //player name
             /*String player1Text;
             if (Data.currentLobby.PlayerCount == 1)
@@ -154,12 +163,12 @@ namespace Cataners
             EntityManager.Add(player4);*/
 
             //This may be right, but either way it's for testing purposes for now
-            this.drawHexes();
         }
 
-        public void drawHexes()
+        public void drawHexes(int[][] array)
         {
-            this.hexList = localConversion.getHexList();
+            LocalConversion.Instance.generateHexList(array);
+            this.hexList = LocalConversion.Instance.getHexList();
             for (int g = 0; g < 19; g++)
             {
                 HexHolder current = this.hexList[g];

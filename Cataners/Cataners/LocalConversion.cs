@@ -107,18 +107,39 @@ namespace Cataners
 
     public class LocalConversion
     {
+        private static LocalConversion instance;
+        public static LocalConversion Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
         private static int hexNumber = 19;
         private HexHolder[] hexList;
         private SettlementHolder[] settlementList;
         public LocalConversion()
         {
+            instance = this;
             this.hexList = new HexHolder[hexNumber];
-            this.settlementList = new SettlementHolder[54];
+            this.generateSettlementList();
         }
 
         public SettlementHolder[] getSettlementList()
         {
             return this.settlementList;
+        }
+
+        public void generateSettlementList()
+        {
+            this.settlementList = new SettlementHolder[54];
+            for (int i = 0; i < this.settlementList.Length; i++)
+            {
+                Entity tempEnt = new Entity()
+                    .AddComponent(new Sprite("Settlement.wpk"))
+                    .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
+                this.settlementList[i] = new SettlementHolder(tempEnt, i);
+            }
         }
 
         public void generateHexList(int[][] inputArray)
@@ -130,7 +151,7 @@ namespace Cataners
             int oreCount = 0;
             int sheepCount = 0;
             int wheatCount = 0;
-            int settlementCount = 0;
+
             for (int i = 0; i < inputArray.Length; i++)
             {
                 int[] currHexRep = inputArray[i];
@@ -194,18 +215,13 @@ namespace Cataners
                 int settlementNumber = 0;
                 for (int k = 3; k < currHexRep.Length; k++)
                 {
-                    Entity tempEnt = new Entity()
-                    .AddComponent(new Sprite("Settlement.wpk"))
-                    .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
-                    SettlementHolder tempHolder = new SettlementHolder(tempEnt, currHexRep[k]);
-                    newArray[settlementNumber] = tempHolder;
-                    this.settlementList[settlementCount] = tempHolder;
-                    settlementCount++;
+                    newArray[settlementNumber] = this.settlementList[currHexRep[k]];
                     settlementNumber++;
                 }
                 this.hexList[i].setSettlementList(newArray);
             }
             this.assignRollEntities();
+            
         }
 
         public HexHolder[] getHexList()

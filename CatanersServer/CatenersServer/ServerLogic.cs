@@ -113,7 +113,7 @@ namespace CatenersServer
             return this.settlementArray;
         }
 
-        public void sendGeneration()
+        public string sendGeneration()
         {
             this.generatehexArray();
             this.generateDefaultSettlements();
@@ -123,11 +123,7 @@ namespace CatenersServer
             {
                 passedArray[k] = this.hexArray[k].toShadow();
             }
-            foreach (ServerPlayer player in this.lobby.Players)
-            {
-                // TODO Change to Real value;
-                player.client.sendToClient(new Message(Translation.intArraytwotoJson(passedArray), Translation.TYPE.HexMessage).toJson());
-            }
+            return Translation.intArraytwotoJson(passedArray);
         }
 
         public void generatehexArray()
@@ -177,6 +173,8 @@ namespace CatenersServer
                 this.hexArray[g].setPlacementNumber(nextIndex);
             }
             this.assignRollNumbers();
+            this.generateDefaultSettlements();
+            this.assignSettlements();
         }
 
         public void generateDefaultSettlements()

@@ -201,13 +201,13 @@ namespace CatenersServer
                     ServerLogic newLogic = new ServerLogic(this.currentLobby);
                     this.serverLogic = newLogic;
                     gameLobby = newLogic.gameLobby;
+                    string toPass = newLogic.sendGeneration();
                     for (int i = 0; i < currentLobby.PlayerCount; i++)
                     {
-                        ((ServerPlayer)currentLobby.Players[i]).client.sendToClient(new Message("", Translation.TYPE.StartGame).toJson());
+                        ((ServerPlayer)currentLobby.Players[i]).client.sendToClient(new Message(toPass, Translation.TYPE.StartGame).toJson());
                         ((ServerPlayer)currentLobby.Players[i]).client.serverLogic = newLogic;
                         ((ServerPlayer)currentLobby.Players[i]).client.gameLobby = gameLobby;
                     }
-                    newLogic.sendGeneration();
                 }
                 break;
 

@@ -20,6 +20,8 @@ namespace Cataners
     {
         private StreamReader reader;
         private Boolean Enabled;
+        private MyScene currScene;
+        private LocalConversion localConversion;
 
         public Dictionary<Translation.TYPE, BlockingCollection<Object>> queues;
 
@@ -38,6 +40,7 @@ namespace Cataners
 
         public CommunicationClient()
         {
+            new LocalConversion();
             this.Enabled = false;
             this.clientSocket = new System.Net.Sockets.TcpClient();
             CommunicationClient.instance = this;
@@ -132,9 +135,10 @@ namespace Cataners
                 case Translation.TYPE.Register:
                     queues[Translation.TYPE.Register].Add(msg.message);
                     break;
-                case Translation.TYPE.HexMessage:
+                /*case Translation.TYPE.HexMessage:
                     int[][] array = Translation.jsonToIntArrayTwo(msg.message);
-                    break;
+                    MyScene.Instance.drawHexes(array);
+                    break;*/
                 case Translation.TYPE.RequestLobbies:
                     Data.Lobbies.Clear();
                     Data.Lobbies.AddRange(Lobby.jsonToLobbyList(msg.message));
@@ -156,6 +160,7 @@ namespace Cataners
 
                 case Translation.TYPE.StartGame:
                     Program.Main();
+                    LocalConversion.Instance.generateHexList(Translation.jsonToIntArrayTwo(msg.message));
                     break;
 
                 case Translation.TYPE.addResource:
@@ -181,7 +186,6 @@ namespace Cataners
                     break;
             }
         }
-
         /*
         public async Task<string> awaitingMessage(Translation.TYPE type)
         {
@@ -190,5 +194,10 @@ namespace Cataners
             return "";
         }
          */
+
+        internal void setLC(LocalConversion newConversion)
+        {
+            this.localConversion = newConversion;
+        }
     }
 }
