@@ -13,6 +13,14 @@ using WaveEngine.Framework.Managers;
 
 namespace Cataners
 {
+
+    public class HexTypeException : ArgumentOutOfRangeException
+    {
+        public HexTypeException(string argument, string message) : base(argument, message)
+        {       
+        }
+    }
+
     public class SettlementHolder
     {
         private Entity settlement;
@@ -126,72 +134,76 @@ namespace Cataners
             for (int i = 0; i < inputArray.Length; i++)
             {
                 int[] currHexRep = inputArray[i];
-                for (int k = 0; k < currHexRep.Length; k++)
+                Entity tempEntity;
+                if (currHexRep[0] == 1)
                 {
-                    Entity tempEntity;
-                    if(currHexRep[0] == 1)
-                    {
-                        String name = "Forrest" + forrestCount.ToString();
-                        tempEntity = new Entity(name)
-                        .AddComponent(new Sprite("Forrest.wpk"))
-                        .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
-                        forrestCount++;
-                    }
-                    else if (currHexRep[0] == 2)
-                    {
-                        String name = "Desert" + desertCount.ToString();
-                        tempEntity = new Entity(name)
-                        .AddComponent(new Sprite("DesetHex.wpk"))
-                        .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
-                        desertCount++;
-                    }
-                    else if (currHexRep[0] == 3)
-                    {
-                        String name = "Ore" + oreCount.ToString();
-                        tempEntity = new Entity(name)
-                        .AddComponent(new Sprite("OreHex.wpk"))
-                        .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
-                        oreCount++;
-                    }
-                    else if (currHexRep[0] == 4)
-                    {
-                        String name = "Brick" + brickCount.ToString();
-                        tempEntity = new Entity(name)
-                        .AddComponent(new Sprite("BrickHex.wpk"))
-                        .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
-                        brickCount++;
-                    }
-                    else if (currHexRep[0] == 5)
-                    {
-                        String name = "Sheep" + sheepCount.ToString();
-                        tempEntity = new Entity(name)
-                        .AddComponent(new Sprite("SheepHex.wpk"))
-                        .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
-                        sheepCount++;
-                    }
-                    else
-                    {
-                        String name = "Wheat" + wheatCount.ToString();
-                        tempEntity = new Entity(name)
-                        .AddComponent(new Sprite("WheatHex.wpk"))
-                        .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
-                        sheepCount++;
-                    }
-                    this.hexList[i] = new HexHolder(tempEntity, 6);
-                    this.hexList[i].setPlacementNumber(currHexRep[1]);
-                    this.hexList[i].setRollNumber(currHexRep[2]);
-                    SettlementHolder[] newArray = new SettlementHolder[6];
-                    for (int h = 0; h < 5; h++)
-                    {
-                        Entity tempEnt = new Entity()
-                            .AddComponent(new Sprite("Settlement.wpk"))
-                            .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
-                        SettlementHolder tempHolder = new SettlementHolder(tempEnt, currHexRep[h + 3]);
-                        newArray[h] = tempHolder;
-                        this.settlementList[settlementCount] = tempHolder;
-                        settlementCount++;
-                    }
+                    String name = "Forrest" + forrestCount.ToString();
+                    tempEntity = new Entity(name)
+                    .AddComponent(new Sprite("Forrest.wpk"))
+                    .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
+                    forrestCount++;
                 }
+                else if (currHexRep[0] == 2)
+                {
+                    String name = "Desert" + desertCount.ToString();
+                    tempEntity = new Entity(name)
+                    .AddComponent(new Sprite("DesetHex.wpk"))
+                    .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
+                    desertCount++;
+                }
+                else if (currHexRep[0] == 3)
+                {
+                    String name = "Ore" + oreCount.ToString();
+                    tempEntity = new Entity(name)
+                    .AddComponent(new Sprite("OreHex.wpk"))
+                    .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
+                    oreCount++;
+                }
+                else if (currHexRep[0] == 4)
+                {
+                    String name = "Brick" + brickCount.ToString();
+                    tempEntity = new Entity(name)
+                    .AddComponent(new Sprite("BrickHex.wpk"))
+                    .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
+                    brickCount++;
+                }
+                else if (currHexRep[0] == 5)
+                {
+                    String name = "Sheep" + sheepCount.ToString();
+                    tempEntity = new Entity(name)
+                    .AddComponent(new Sprite("SheepHex.wpk"))
+                    .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
+                    sheepCount++;
+                }
+                else if (currHexRep[0] == 6)
+                {
+                    String name = "Wheat" + wheatCount.ToString();
+                    tempEntity = new Entity(name)
+                    .AddComponent(new Sprite("WheatHex.wpk"))
+                    .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
+                    sheepCount++;
+                }
+                else
+                {
+                    throw new HexTypeException("typeName", "Hex Type Number Out of Range");
+                }
+                this.hexList[i] = new HexHolder(tempEntity, currHexRep[0]);
+                this.hexList[i].setPlacementNumber(currHexRep[1]);
+                this.hexList[i].setRollNumber(currHexRep[2]);
+                SettlementHolder[] newArray = new SettlementHolder[6];
+                int settlementNumber = 0;
+                for (int k = 3; k < currHexRep.Length; k++)
+                {
+                    Entity tempEnt = new Entity()
+                    .AddComponent(new Sprite("Settlement.wpk"))
+                    .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
+                    SettlementHolder tempHolder = new SettlementHolder(tempEnt, currHexRep[k]);
+                    newArray[settlementNumber] = tempHolder;
+                    this.settlementList[settlementCount] = tempHolder;
+                    settlementCount++;
+                    settlementNumber++;
+                }
+                this.hexList[i].setSettlementList(newArray);
             }
             this.assignRollEntities();
         }
