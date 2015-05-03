@@ -165,6 +165,7 @@ namespace Cataners
 
                 case Translation.TYPE.StartGame:
                     bool start = true;
+                    LobbyForm.INSTANCE.startButtonClose = true;
                     LobbyForm.INSTANCE.InvokedClose(start);
                     MainGui.INSTANCE.invokedHide();
                     Program.Main();
