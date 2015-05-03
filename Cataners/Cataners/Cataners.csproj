@@ -43,6 +43,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -250,6 +251,10 @@
     <None Include="Resources\Kestrel.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CatanersServer\CatenersServer\CatenersServer.csproj">
+      <Project>{1f95432a-1a6d-4eee-b7d6-82e32ab3b9fb}</Project>
+      <Name>CatenersServer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CatanersShared\CatanersShared\CatanersShared.csproj">
       <Project>{0b6057c1-b6ec-416c-ba05-6f019daaad4d}</Project>
       <Name>CatanersShared</Name>

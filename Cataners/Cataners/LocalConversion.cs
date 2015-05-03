@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CatanersShared;
 using WaveEngine;
 using WaveEngine.Components.Graphics2D;
 using WaveEngine.Framework;
@@ -96,7 +97,6 @@ namespace Cataners
         }
     }
 
-    // static LocalConversion 
     public class LocalConversion
     {
         private static int hexNumber = 19;
@@ -193,6 +193,11 @@ namespace Cataners
                 }
             }
             this.assignRollEntities();
+        }
+
+        public void sendGameMessage(String message)
+        {
+            CommunicationClient.Instance.sendToServer(new Message("", Translation.TYPE.RegenerateBoard).toJson());
         }
 
         public HexHolder[] getHexList()

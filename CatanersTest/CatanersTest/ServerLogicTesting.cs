@@ -17,7 +17,6 @@ using Microsoft.QualityTools.Testing.Fakes;
 using System.Reflection;
 using WaveEngine;
 using Cataners;
-using Cataners;
 using WaveEngine.Framework;
 
 namespace CatanersTest
@@ -27,11 +26,13 @@ namespace CatanersTest
     {
         ServerLogic logic; 
         private MockRepository mocks = new MockRepository();
+
         [SetUp]
         public void ServerLogicSetup()
         {
-            logic = new ServerLogic( new Lobby("Basketball",100,new Player("Michael Jordan"),10));
+            logic = new ServerLogic( new Lobby("Basketball", 100, new Player("Michael Jordan"), 10));
         }
+
         [Test]
         public void testHexToShadow()
         {
