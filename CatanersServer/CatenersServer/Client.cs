@@ -170,9 +170,11 @@ namespace CatenersServer
                 break;
 
                 case Translation.TYPE.RegenerateBoard:
-                if (this != null)
+                if (this.serverLogic != null)
+                {
                     this.serverLogic.generatehexArray();
-                sendToClient(new Message(Translation.intArraytwotoJson(this.serverLogic.gethexArray()), Translation.TYPE.HexMessage).toJson());
+                    sendToClient(new Message(Translation.intArraytwotoJson(this.serverLogic.gethexArray()), Translation.TYPE.HexMessage).toJson());
+                }
                 break;
 
 
