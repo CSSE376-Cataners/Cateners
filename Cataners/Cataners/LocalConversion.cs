@@ -208,11 +208,6 @@ namespace Cataners
             this.assignRollEntities();
         }
 
-        public void sendGameMessage(String message)
-        {
-            CommunicationClient.Instance.sendToServer(new Message("", Translation.TYPE.RegenerateBoard).toJson());
-        }
-
         public HexHolder[] getHexList()
         {
             return this.hexList;

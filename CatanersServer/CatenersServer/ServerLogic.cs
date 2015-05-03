@@ -91,6 +91,15 @@ namespace CatenersServer
     }
     public class ServerLogic
     {
+        private static ServerLogic instance;
+
+        public static ServerLogic Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
         private static int numberOfHexes = 19;
         private HexServer[] hexArray;
         private SettlementServer[] settlementArray;

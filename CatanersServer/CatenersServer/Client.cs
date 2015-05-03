@@ -205,6 +205,7 @@ namespace CatenersServer
                         ((ServerPlayer)currentLobby.Players[i]).client.sendToClient(new Message("", Translation.TYPE.StartGame).toJson());
                         ((ServerPlayer)currentLobby.Players[i]).client.serverLogic = newLogic;
                         ((ServerPlayer)currentLobby.Players[i]).client.gameLobby = gameLobby;
+                        ServerLogic.Instance.sendGeneration();
                     }
                 }
                 break;
