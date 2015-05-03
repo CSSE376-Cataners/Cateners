@@ -17,6 +17,7 @@ using WaveEngine.Framework.Services;
 using CatanersShared;
 using WaveEngine.Common.Input;
 using WaveEngine.Framework.UI;
+using System.Text;
 #endregion
 
 namespace Cataners
@@ -64,6 +65,7 @@ namespace Cataners
             //Insert your scene definition here.
 
             //Create a 3D camera
+            CommunicationClient.Instance.sendToServer(new CatanersShared.Message("", Translation.TYPE.GetGameLobby).toJson());
             Button newButton = new Button(); 
             newButton.Text = "Regenerate Board"; 
             newButton.Width = 120; 
@@ -182,17 +184,21 @@ namespace Cataners
 
         public void addResources()
         {
-            String resources="";
+            StringBuilder sb = new StringBuilder();
             if (Data.currentLobby is GameLobby)
             {
-                resources = ((GameLobby)Data.currentLobby).gamePlayers[0].resources.ToString();
+                
+                foreach (var item in ((GameLobby)Data.currentLobby).gamePlayers[0].resources)
+                {
+                    sb.Append(item.Key + ": " + item.Value + ", ");
+                }
             }
             TextBlock player4Resources = new TextBlock()
             {
-                Text = resources,
+                Text = sb.ToString(),
                 Width = 100,
                 Foreground = Color.Black,
-                Margin = new Thickness(CENTERWIDTH - 400 - WORDOFFSET, CENTERHEIGHT+50, 0, 0),
+                Margin = new Thickness(CENTERWIDTH - 400 - WORDOFFSET, CENTERHEIGHT+500, 0, 0),
 
             };
             EntityManager.Add(player4Resources);
