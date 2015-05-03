@@ -56,9 +56,9 @@ namespace CatanersShared
             return base.GetHashCode();
         }
 
-        public static object fromJson(string inJson)
+        public static Chat fromJson(string inJson)
         {
-            throw new NotImplementedException();
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<Chat>(inJson);
         }
     }
 }
