@@ -89,85 +89,113 @@ namespace Cataners
             };
             EntityManager.Add(title);
             this.hexList = LocalConversion.Instance.getHexList();
-            //player name
-            /*String player1Text;
-            if (Data.currentLobby.PlayerCount == 1)
-            {
-                player1Text = Data.currentLobby.Players[0].ToString();
-            }
-            else
-            {
-                player1Text = "player1";
-            }
+            addPlayerNames();
+            addResources();
             
-            //add player
-            TextBlock player1 = new TextBlock()
-            {
-                Text = player1Text,
-                Width = 100,
-                Foreground = Color.Blue,
-                Margin = new Thickness(CENTERWIDTH-(WORDOFFSET), 100, 0, 0),
-            };
-            EntityManager.Add(player1);
+        }
 
-            String player2Text;
-            if(Data.currentLobby.PlayerCount>1){
+        public void addPlayerNames()
+        {
+            //player name
+            String player1Text;
+            if (Data.currentLobby != null)
+            {
+                if (Data.currentLobby.PlayerCount == 1)
+                {
+                    player1Text = Data.currentLobby.Players[0].ToString();
+                }
+                else
+                {
+                    player1Text = "player1";
+                }
+
+                //add player
+                TextBlock player1 = new TextBlock()
+                {
+                    Text = player1Text,
+                    Width = 100,
+                    Foreground = Color.Blue,
+                    Margin = new Thickness(CENTERWIDTH - (WORDOFFSET), 100, 0, 0),
+                };
+                EntityManager.Add(player1);
+
+                String player2Text;
+                if (Data.currentLobby.PlayerCount > 1)
+                {
                     player2Text = Data.currentLobby.Players[1].ToString();
-            }
-            else
-            {
-                player2Text = "player2";
-            }
+                }
+                else
+                {
+                    player2Text = "player2";
+                }
 
-            TextBlock player2 = new TextBlock()
-            {
-                Text = player2Text,
-                Width = 100,
-                Foreground = Color.Red,
-                Margin = new Thickness(CENTERWIDTH + 400-WORDOFFSET, CENTERHEIGHT, 0, 0),
-                
-            };
-            EntityManager.Add(player2);
+                TextBlock player2 = new TextBlock()
+                {
+                    Text = player2Text,
+                    Width = 100,
+                    Foreground = Color.Red,
+                    Margin = new Thickness(CENTERWIDTH + 400 - WORDOFFSET, CENTERHEIGHT, 0, 0),
 
-            String player3Text;
-            if (Data.currentLobby.PlayerCount >2)
-            {
-                player3Text = Data.currentLobby.Players[2].ToString();
-            }
-            else
-            {
-                player3Text = "player3";
-            }
-            TextBlock player3 = new TextBlock()
-            {
-                Text = player3Text,
-                Width = 100,
-                Foreground = Color.Green,
-                Margin = new Thickness(CENTERWIDTH-WORDOFFSET, CENTERHEIGHT*(2)-100, 0, 0),
-            };
-            EntityManager.Add(player3);
+                };
+                EntityManager.Add(player2);
 
-            String player4Text;
-            if (Data.currentLobby.PlayerCount>3)
-            {
-                player4Text = Data.currentLobby.Players[3].ToString();
-            }
-            else
-            {
-                player4Text = "player4";
-            }
+                String player3Text;
+                if (Data.currentLobby.PlayerCount > 2)
+                {
+                    player3Text = Data.currentLobby.Players[2].ToString();
+                }
+                else
+                {
+                    player3Text = "player3";
+                }
+                TextBlock player3 = new TextBlock()
+                {
+                    Text = player3Text,
+                    Width = 100,
+                    Foreground = Color.Green,
+                    Margin = new Thickness(CENTERWIDTH - WORDOFFSET, CENTERHEIGHT * (2) - 100, 0, 0),
+                };
+                EntityManager.Add(player3);
 
-            TextBlock player4 = new TextBlock()
+                String player4Text;
+                if (Data.currentLobby.PlayerCount > 3)
+                {
+                    player4Text = Data.currentLobby.Players[3].ToString();
+                }
+                else
+                {
+                    player4Text = "player4";
+                }
+
+                TextBlock player4 = new TextBlock()
+                {
+                    Text = player4Text,
+                    Width = 100,
+                    Foreground = Color.Black,
+                    Margin = new Thickness(CENTERWIDTH - 400 - WORDOFFSET, CENTERHEIGHT, 0, 0),
+
+                };
+                EntityManager.Add(player4);
+            }
+            //This may be right, but either way it's for testing purposes for now
+        }
+
+        public void addResources()
+        {
+            String resources="";
+            if (Data.currentLobby is GameLobby)
             {
-                Text = player4Text,
+                resources = ((GameLobby)Data.currentLobby).gamePlayers[0].resources.ToString();
+            }
+            TextBlock player4Resources = new TextBlock()
+            {
+                Text = resources,
                 Width = 100,
                 Foreground = Color.Black,
-                Margin = new Thickness(CENTERWIDTH - 400-WORDOFFSET, CENTERHEIGHT, 0, 0),
+                Margin = new Thickness(CENTERWIDTH - 400 - WORDOFFSET, CENTERHEIGHT+50, 0, 0),
 
             };
-            EntityManager.Add(player4);*/
-
-            //This may be right, but either way it's for testing purposes for now
+            EntityManager.Add(player4Resources);
         }
 
         public void drawHexes()
