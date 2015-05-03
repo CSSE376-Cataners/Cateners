@@ -19,7 +19,7 @@ using WaveEngine.Common.Input;
 using WaveEngine.Framework.UI;
 #endregion
 
-namespace WaveEngineGameProject
+namespace Cataners
 {
     public class MyScene : Scene
     {

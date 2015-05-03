@@ -16,8 +16,8 @@ using Newtonsoft.Json.Converters;
 using Microsoft.QualityTools.Testing.Fakes;
 using System.Reflection;
 using WaveEngine;
-using WaveEngineGame;
-using WaveEngineGameProject;
+using Cataners;
+using Cataners;
 using WaveEngine.Framework;
 
 namespace CatanersTest

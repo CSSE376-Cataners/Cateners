@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CatanersShared;
-using WaveEngineGame;
+using Cataners;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Cataners

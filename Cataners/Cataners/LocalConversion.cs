@@ -10,7 +10,7 @@ using WaveEngine.Framework;
 using WaveEngine.Framework.Graphics;
 using WaveEngine.Framework.Managers;
 
-namespace WaveEngineGameProject
+namespace Cataners
 {
     public class SettlementHolder
     {

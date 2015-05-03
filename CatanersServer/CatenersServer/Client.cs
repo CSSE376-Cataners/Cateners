@@ -9,7 +9,6 @@ using CatanersShared;
 using System.Collections;
 using System.IO;
 using System.Threading;
-using WaveEngineGameProject;
 
 namespace CatenersServer
 {

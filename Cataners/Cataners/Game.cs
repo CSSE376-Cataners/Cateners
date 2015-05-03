@@ -13,7 +13,7 @@ using WaveEngine.Materials;
 using WaveEngine.Components.Graphics2D;
 #endregion
 
-namespace WaveEngineGameProject
+namespace Cataners
 {
     public class Game : WaveEngine.Framework.Game
     {

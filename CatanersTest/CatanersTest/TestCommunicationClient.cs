@@ -7,7 +7,7 @@ using NUnit.Framework;
 using Cataners;
 using CatanersShared;
 using System.Reflection;
-using WaveEngineGameProject;
+using Cataners;
 
 namespace CatanersTest
 {

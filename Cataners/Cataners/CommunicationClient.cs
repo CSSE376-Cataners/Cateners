@@ -10,8 +10,8 @@ using System.Net.Sockets;
 using System.IO;
 using System.Windows.Forms;
 using System.Threading;
-using WaveEngineGame;
-using WaveEngineGameProject;
+using Cataners;
+using Cataners;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Cataners

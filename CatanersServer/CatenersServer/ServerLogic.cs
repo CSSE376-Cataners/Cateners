@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WaveEngineGameProject;
-using WaveEngineGame;
 using System.Collections;
 using WaveEngine;
 using WaveEngine.Framework;

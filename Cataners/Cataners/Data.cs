@@ -1,4 +1,4 @@
-﻿using WaveEngineGameProject;
+﻿using Cataners;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CatanersShared;
 
-namespace WaveEngineGameProject
+namespace Cataners
 {
     public class Data
     {

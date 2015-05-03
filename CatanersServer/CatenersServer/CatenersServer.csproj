@@ -117,14 +117,6 @@
       <Project>{0b6057c1-b6ec-416c-ba05-6f019daaad4d}</Project>
       <Name>CatanersShared</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\CatanersWave\WaveEngineGame\WaveEngineGameProject\WaveEngineGameProject.csproj">
-      <Project>{b1aeaa98-30cc-46f1-ba74-82075006675b}</Project>
-      <Name>WaveEngineGameProject</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CatanersWave\WaveEngineGame\WaveEngineGame\WaveEngineGame.csproj">
-      <Project>{c3a2e831-0a38-44a4-8bef-1a53735bc9d2}</Project>
-      <Name>WaveEngineGame</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
