@@ -83,7 +83,7 @@ namespace Cataners
                     playersDataGridView.Rows[i].Cells[0].Value = "Not Ready";
                 }
 
-                if (Data.username.Equals(Data.currentLobby.Owner))
+                if (Data.username.Equals(Data.currentLobby.Owner.Username))
                 {
                     startButton.Visible = true;
                 }

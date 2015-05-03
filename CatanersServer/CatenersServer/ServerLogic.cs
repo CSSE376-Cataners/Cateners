@@ -97,6 +97,7 @@ namespace CatenersServer
         private Lobby lobby;
         public int playerTurn;
         public GameLobby gameLobby;
+        public int dice;
 
         public ServerLogic(Lobby lobby)
         {
@@ -262,11 +263,11 @@ namespace CatenersServer
             }
         }
 
-        public int generateRandomDiceRoll()
+        public void generateRandomDiceRoll()
         {
             Random rand = new Random();
-            int dice = rand.Next(2, 13);
-            return dice;
+            this.dice = rand.Next(1, 7) + rand.Next(1,7);
+            
         }
 
         public void updateTurn()
@@ -286,7 +287,38 @@ namespace CatenersServer
                     playerTurn = 0;
                     break;
             }
-        } 
+        }
+
+        public void ResourceAllocationAfterDiceRoll()
+        {
+            switch (dice)
+            {
+                case 2:
+                    //give players who own spot with 2 resources
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    break;
+                case 9:
+                    break;
+                case 10:
+                    break;
+                case 11:
+                    break;
+                case 12:
+                    break;
+
+            }
+        }
 
 
 
