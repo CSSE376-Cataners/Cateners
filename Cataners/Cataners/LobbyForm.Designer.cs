@@ -118,6 +118,7 @@ namespace Cataners
             this.startButton.TabIndex = 3;
             this.startButton.Text = "Start Game";
             this.startButton.UseVisualStyleBackColor = true;
+            this.startButton.Visible = false;
             this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 
             // refreshTimer
