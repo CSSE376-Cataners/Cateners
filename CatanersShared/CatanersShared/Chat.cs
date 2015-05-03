@@ -33,5 +33,32 @@ namespace CatanersShared
         {
             return Newtonsoft.Json.JsonConvert.SerializeObject(this);
         }
+
+
+        // override object.Equals
+        public override bool Equals(object obj)
+        {
+            if (obj == null || !(obj is Chat))
+            {
+                return false;
+            }
+
+            Chat other = (Chat)obj;
+
+            return this.Message.Equals(other.Message) && this.ChatType == other.ChatType && this.Special.Equals(other.Special);
+
+
+        }
+
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public static object fromJson(string inJson)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
