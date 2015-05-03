@@ -24,12 +24,12 @@ namespace CatanersShared
     public class AddResource
     {
         public Player player;
-        public Resource resource;
+        public Resource.TYPE resourceType;
         public int number;
-        public AddResource(Player player, Resource resource, int number)
+        public AddResource(Player player, Resource.TYPE resourceType, int number)
         {
             this.player = player;
-            this.resource = resource;
+            this.resourceType = resourceType;
             this.number = number;
         }
 

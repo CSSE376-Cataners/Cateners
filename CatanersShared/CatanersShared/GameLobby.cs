@@ -8,7 +8,7 @@ namespace CatanersShared
 {
     public class GameLobby : Lobby
     {
-        public List<GamePlayer> Players;
+        public List<GamePlayer> gamePlayers;
 
         public GameLobby()
         {
@@ -18,11 +18,10 @@ namespace CatanersShared
         public GameLobby(Lobby lobby)
             : base(lobby.GameName, lobby.MaxTimePerTurn, new GamePlayer(lobby.Owner.Username), lobby.lobbyID)
         {
-            this.Players = new List<GamePlayer>();
-            Players.Clear();
+            this.gamePlayers = new List<GamePlayer>();
             for (int i = 0; i < lobby.PlayerCount; i++)
             {
-                Players.Add(new GamePlayer(lobby.Players[i].Username));
+                gamePlayers.Add(new GamePlayer(lobby.Players[i].Username));
             }
         }
 
@@ -31,9 +30,19 @@ namespace CatanersShared
             return Newtonsoft.Json.JsonConvert.SerializeObject(this);
         }
 
-        public new static Lobby fromJson(String s)
+        public new static GameLobby fromJson(String s)
         {
             return Newtonsoft.Json.JsonConvert.DeserializeObject<GameLobby>(s);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || !(obj is GameLobby))
+            {
+                return false;
+            }
+            GameLobby other = (GameLobby)obj;
+            return other.GameName.Equals(this.GameName) && other.MaxTimePerTurn == this.MaxTimePerTurn && other.Owner.Equals(this.Owner) && Enumerable.SequenceEqual(this.gamePlayers,other.gamePlayers);
         }
     }
 }
