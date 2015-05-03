@@ -174,7 +174,7 @@ namespace Cataners
         {
             this.hexList = LocalConversion.Instance.getHexList();
             Console.WriteLine(this.hexList.ToString());
-            lock (EntityManager)
+            lock (App.renderLock)
             {
                 for (int g = 0; g < 19; g++)
                 {
@@ -242,7 +242,8 @@ namespace Cataners
                                 });
                                 currSettle.canAddComponent = false;
                                 Console.WriteLine(currSettle.getPlacementNumber());
-                                EntityManager.Add(currSettle.getSettlement());
+                                Entity e = currSettle.getSettlement();
+                                EntityManager.Add(e);
                             }
                         }
                     }
@@ -308,7 +309,8 @@ namespace Cataners
                                 });
                                 currSettle.canAddComponent = false;
                                 Console.WriteLine(currSettle.getPlacementNumber());
-                                EntityManager.Add(currSettle.getSettlement());
+                                Entity e = currSettle.getSettlement();
+                                EntityManager.Add(e);
                             }
                         }
                     }
@@ -374,7 +376,8 @@ namespace Cataners
                                 });
                                 currSettle.canAddComponent = false;
                                 Console.WriteLine(currSettle.getPlacementNumber());
-                                EntityManager.Add(currSettle.getSettlement());
+                                Entity e = currSettle.getSettlement();
+                                EntityManager.Add(e);
                             }
                         }
                     }
@@ -440,7 +443,8 @@ namespace Cataners
                                 });
                                 currSettle.canAddComponent = false;
                                 Console.WriteLine(currSettle.getPlacementNumber());
-                                EntityManager.Add(currSettle.getSettlement());
+                                Entity e = currSettle.getSettlement();
+                                EntityManager.Add(e);
                             }
                         }
                     }
@@ -506,7 +510,8 @@ namespace Cataners
                                 });
                                 currSettle.canAddComponent = false;
                                 Console.WriteLine(currSettle.getPlacementNumber());
-                                EntityManager.Add(currSettle.getSettlement());
+                                Entity e = currSettle.getSettlement();
+                                EntityManager.Add(e);
                             }
                         }
                     }

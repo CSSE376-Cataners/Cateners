@@ -12,6 +12,8 @@ namespace Cataners
 {
     public class App : WaveEngine.Adapter.Application
     {
+        public static object renderLock = "";
+
         Cataners.Game game;
         SpriteBatch spriteBatch;
         Texture2D splashScreen;
@@ -94,6 +96,7 @@ namespace Cataners
                     }
                     else
                     {
+                        renderLock.ToString();
                         this.game.UpdateFrame(elapsedTime);
                     }
                 }
