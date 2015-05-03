@@ -138,7 +138,32 @@ namespace CatanersTest
 
             Assert.AreEqual(lobby,Data.currentLobby);
         }
-        
+       
+        [Test]
+        public void TestThatPlayerResourceGetsAdded()
+        {
+            Player player = new Player("Owner");
+            Lobby lobby = new Lobby("Game", 100, player, 10);
+            GamePlayer gamePlayer = new GamePlayer("Owner");
+            GameLobby gameLobby = new GameLobby(lobby);
+            FakeClient client = new FakeClient();
+
+            Message s = new Message(gameLobby.toJson(), Translation.TYPE.GetGameLobby);
+            client.processesMessage(s.toJson());
+
+            Assert.AreEqual(gameLobby, Data.currentLobby);
+            
+            AddResource addWheat = new AddResource(gamePlayer,Resource.TYPE.Wheat,1);
+            Message msg = new Message(addWheat.toJson(), Translation.TYPE.addResource);
+            client.processesMessage(msg.toJson());
+
+
+            Assert.AreEqual(1, ((GameLobby)Data.currentLobby).gamePlayers[0].resources[Resource.TYPE.Wheat]);
+
+
+
+        }
+
 
         public class FakeClient : CommunicationClient
         {
