@@ -461,8 +461,10 @@ namespace CatanersTest
             client2.currentLobby = lobby;
 
             client1.processesMessage(new Message("", Translation.TYPE.StartGame).toJson());
+            Message newmsg = Message.fromJson(client2.lastCall);
 
-            Assert.AreEqual(new Message("", Translation.TYPE.StartGame).toJson(), client2.lastCall);
+
+            Assert.AreEqual(Translation.TYPE.StartGame, newmsg.type);
         }
 
         [Test]
@@ -523,6 +525,22 @@ namespace CatanersTest
 
             Assert.IsFalse(client1.checkReady());
 
+        }
+
+        [Test]
+        public void TestThatClientGetsGameLobbyBack()
+        {
+            FakeClient client = new FakeClient();
+            ServerPlayer p1 = new ServerPlayer("p1",client);
+            client.player = p1;
+
+            String getGameLobbyMessage = new Message("", Translation.TYPE.GetGameLobby).toJson();
+            Lobby lobsters = new Lobby("",10,p1,1);
+            GameLobby game = new GameLobby(lobsters);
+            client.gameLobby = game;
+            client.processesMessage(getGameLobbyMessage);
+
+            Assert.AreEqual(new Message(game.toJson(), Translation.TYPE.GetGameLobby).toJson(), client.lastCall);
         }
 
         public class FakeClient : Client
