@@ -37,7 +37,7 @@ namespace CatanersTest
 
         for (int i = 0; i < lobby.PlayerCount; i++)
         {
-            Assert.AreEqual(gameLobby.Players[i], lobby.Players[i]);
+            Assert.AreEqual(gameLobby.gamePlayers[i], lobby.Players[i]);
         }
     }
 
