@@ -193,6 +193,10 @@ namespace Cataners
                 case Translation.TYPE.GetGameLobby:
                     Data.currentLobby = GameLobby.fromJson(msg.message);
                     break;
+                case Translation.TYPE.TradeResource:
+                    TradeForm trade = new TradeForm();
+
+                    break;
             }
         }
         /*

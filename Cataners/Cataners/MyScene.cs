@@ -77,6 +77,12 @@ namespace Cataners
             newButton.Height = 40;
             EntityManager.Add(newButton);
             newButton.Entity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(button_Pressed);
+            Button tradeButton = new Button();
+            tradeButton.Text = "Trade Resources";
+            tradeButton.Width = 120;
+            tradeButton.Height = 40;
+            EntityManager.Add(tradeButton);
+            tradeButton.Entity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(tradeButton_Pressed);
             FixedCamera2D camera2D = new FixedCamera2D("Camera2D") { BackgroundColor = Color.Gold };
             EntityManager.Add(camera2D);
             Entity background = new Entity("Background")
@@ -108,6 +114,7 @@ namespace Cataners
             String player1Text;
             if (Data.currentLobby != null)
             {
+             
                 if (Data.currentLobby.PlayerCount == 1)
                 {
                     player1Text = Data.currentLobby.Players[0].ToString();
@@ -648,6 +655,10 @@ namespace Cataners
         private void button_Pressed(object sender, GestureEventArgs e)
         {
             CommunicationClient.Instance.sendToServer(new Message("", Translation.TYPE.RegenerateBoard).toJson());
+        }
+        private void tradeButton_Pressed(object sender, GestureEventArgs e)
+        {
+            CommunicationClient.Instance.sendToServer(new Message("", Translation.TYPE.TradeResource).toJson());
         }
 
         protected override void Start()
