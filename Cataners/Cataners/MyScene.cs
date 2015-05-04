@@ -349,6 +349,8 @@ namespace Cataners
                                     Y = YLoc,
                                     DrawOrder = .05f
                                 });
+                                currSettle.getSettlement().AddComponent(new TouchGestures(true));
+                                currSettle.getSettlement().FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(settlement_Pressed);
                                 currSettle.canAddComponent = false;
                                 Console.WriteLine(currSettle.getPlacementNumber());
                                 Entity e = currSettle.getSettlement();
@@ -416,6 +418,8 @@ namespace Cataners
                                     Y = YLoc,
                                     DrawOrder = .05f
                                 });
+                                currSettle.getSettlement().AddComponent(new TouchGestures(true));
+                                currSettle.getSettlement().FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(settlement_Pressed);
                                 currSettle.canAddComponent = false;
                                 Console.WriteLine(currSettle.getPlacementNumber());
                                 Entity e = currSettle.getSettlement();
@@ -483,6 +487,8 @@ namespace Cataners
                                     Y = YLoc,
                                     DrawOrder = .05f
                                 });
+                                currSettle.getSettlement().AddComponent(new TouchGestures(true));
+                                currSettle.getSettlement().FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(settlement_Pressed);
                                 currSettle.canAddComponent = false;
                                 Console.WriteLine(currSettle.getPlacementNumber());
                                 Entity e = currSettle.getSettlement();
@@ -550,6 +556,8 @@ namespace Cataners
                                     Y = YLoc,
                                     DrawOrder = .05f
                                 });
+                                currSettle.getSettlement().AddComponent(new TouchGestures(true));
+                                currSettle.getSettlement().FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(settlement_Pressed);
                                 currSettle.canAddComponent = false;
                                 Console.WriteLine(currSettle.getPlacementNumber());
                                 Entity e = currSettle.getSettlement();
@@ -617,6 +625,8 @@ namespace Cataners
                                     Y = YLoc,
                                     DrawOrder = .05f
                                 });
+                                currSettle.getSettlement().AddComponent(new TouchGestures(true));
+                                currSettle.getSettlement().FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(settlement_Pressed);
                                 currSettle.canAddComponent = false;
                                 Console.WriteLine(currSettle.getPlacementNumber());
                                 Entity e = currSettle.getSettlement();
@@ -628,6 +638,11 @@ namespace Cataners
                     toAdd.Add(current.getHex());
                 }
             }
+        }
+
+        private void settlement_Pressed(object sender, GestureEventArgs e)
+        {
+            CommunicationClient.Instance.sendToServer(new Message(Data.username, Translation.TYPE.BuySettlement).toJson());
         }
 
         private void button_Pressed(object sender, GestureEventArgs e)

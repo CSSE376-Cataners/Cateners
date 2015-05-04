@@ -119,6 +119,9 @@ namespace CatenersServer
                     sendToClient(toSend.toJson());
                 break;
 
+                case Translation.TYPE.BuySettlement:
+                break;
+
                 case  Translation.TYPE.CreateLobby:
                     Lobby lobby = Lobby.fromJson(msg.message);
                     Player owner = new Player(this.userName);

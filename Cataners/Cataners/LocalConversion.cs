@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CatanersShared;
 using WaveEngine;
+using WaveEngine.Components.Gestures;
 using WaveEngine.Components.Graphics2D;
 using WaveEngine.Framework;
 using WaveEngine.Framework.Graphics;

@@ -127,6 +127,11 @@ namespace CatenersServer
             return Translation.intArraytwotoJson(passedArray);
         }
 
+        public Boolean determineSettlementAvailability()
+        {
+            return true;
+        }
+
         public void generatehexArray()
         {
             System.Random r = new System.Random();
@@ -137,13 +142,8 @@ namespace CatenersServer
                 this.hexArray[count] = new HexServer(1);
                 count++;
             }
-
-            for (int j = 0; j < 4; j++)
-            {
-                this.hexArray[count] = new HexServer(2);
-                count++;
-            }
-
+            this.hexArray[count] = new HexServer(2);
+            count++;
             for (int k = 0; k < 3; k++)
             {
                 this.hexArray[count] = new HexServer(3);
