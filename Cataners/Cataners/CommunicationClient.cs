@@ -192,7 +192,6 @@ namespace Cataners
                         break;
                 case Translation.TYPE.GetGameLobby:
                     Data.currentLobby = GameLobby.fromJson(msg.message);
-                    MyScene.Instance.addResources();
                     break;
             }
         }

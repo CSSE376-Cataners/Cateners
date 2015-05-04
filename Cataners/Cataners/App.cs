@@ -7,6 +7,7 @@ using WaveEngine.Common.Math;
 using WaveEngine.Framework;
 using WaveEngine.Framework.Graphics;
 using WaveEngine.Framework.Services;
+using CatanersShared;
 
 namespace Cataners
 {
@@ -119,6 +120,7 @@ namespace Cataners
                                 }
                                 else
                                 {
+                                    MyScene.Instance.addResources();
                                     foreach (Entity e in MyScene.toAdd)
                                     {
                                         MyScene.Instance.EntityManager.Add(e);

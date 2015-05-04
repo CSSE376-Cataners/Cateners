@@ -99,7 +99,6 @@ namespace Cataners
             EntityManager.Add(title);
             this.hexList = LocalConversion.Instance.getHexList();
             addPlayerNames();
-            addResources();
             
         }
 
@@ -193,21 +192,90 @@ namespace Cataners
             StringBuilder sb = new StringBuilder();
             if (Data.currentLobby is GameLobby)
             {
-                
-                foreach (var item in ((GameLobby)Data.currentLobby).gamePlayers[0].resources)
+                for (int i = 0; i < ((GameLobby)Data.currentLobby).gamePlayers.Count; i++)
                 {
-                    sb.Append(item.Key + ": " + item.Value + ", ");
-                }
-            }
-            TextBlock player4Resources = new TextBlock()
-            {
-                Text = sb.ToString(),
-                Width = 100,
-                Foreground = Color.Black,
-                Margin = new Thickness(CENTERWIDTH - 400 - WORDOFFSET, CENTERHEIGHT+500, 0, 0),
+                    foreach (var item in ((GameLobby)Data.currentLobby).gamePlayers[i].resources)
+                    {
+                        if (item.Key.Equals("ore"))
+                        {
+                            sb.Append(item.Key + ": " + item.Value + "\n");
+                        }
+                        sb.Append(item.Key + ": " + item.Value + " ");
+                    }
 
-            };
-            toAddDecor.Add(player4Resources);
+                        switch (i)
+                        {
+                            case 0:
+                                Entity player0ResourceEntity = new Entity("player" + (i) + "ResourceEntity")
+                                .AddComponent(new Transform2D()
+                                {
+                                    X = CENTERWIDTH +50 - WORDOFFSET,
+                                    Y = 130,
+                                    DrawOrder = 2.0f
+                                })
+                                .AddComponent(new TextControl()
+                                {
+                                    Text = sb.ToString(),
+                                    Foreground = Color.Blue
+                                })
+                                .AddComponent(new TextControlRenderer());
+
+                                toAdd.Add(player0ResourceEntity);
+                                break;
+                            case 1:
+                                Entity player1ResourceEntity = new Entity("player" + (i) + "ResourceEntity")
+                                .AddComponent(new Transform2D()
+                                {
+                                    X = CENTERWIDTH + 450 - WORDOFFSET,
+                                    Y = CENTERHEIGHT + 30,
+                                    DrawOrder = 2.0f
+                                })
+                                .AddComponent(new TextControl()
+                                {
+                                    Text = sb.ToString(),
+                                    Foreground = Color.Red
+                                })
+                                .AddComponent(new TextControlRenderer());
+
+                                toAdd.Add(player1ResourceEntity);
+                                break;
+                            case 2:
+                                Entity player2ResourceEntity = new Entity("player" + (i) + "ResourceEntity")
+                                .AddComponent(new Transform2D()
+                                {
+                                    X = CENTERWIDTH +50 - WORDOFFSET,
+                                    Y = (CENTERHEIGHT * 2) - 80,
+                                    DrawOrder = 2.0f
+                                })
+                                .AddComponent(new TextControl()
+                                {
+                                    Text = sb.ToString(),
+                                    Foreground = Color.Green
+                                })
+                                .AddComponent(new TextControlRenderer());
+
+                                toAdd.Add(player2ResourceEntity);
+                                break;
+                            case 3:
+                                Entity player3ResourceEntity = new Entity("player" + (i) + "ResourceEntity")
+                                .AddComponent(new Transform2D()
+                                {
+                                    X = CENTERWIDTH - 450 - WORDOFFSET,
+                                    Y = CENTERHEIGHT+30,
+                                    DrawOrder = 2.0f
+                                })
+                                .AddComponent(new TextControl()
+                                {
+                                    Text = sb.ToString(),
+                                    Foreground = Color.Black
+                                })
+                                .AddComponent(new TextControlRenderer());
+
+                                toAdd.Add(player3ResourceEntity);
+                                break;
+                        }                        
+                }
+            }         
         }
 
         public void drawHexes()
