@@ -130,7 +130,7 @@ namespace CatenersServer
 
         public Boolean determineSettlementAvailability()
         {
-            return true;
+            return false;
         }
 
         public void generatehexArray()
