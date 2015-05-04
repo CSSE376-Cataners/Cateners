@@ -8,7 +8,7 @@ using CatenersServer;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-[TestFixture()]
+[TestFixture]
 class SettlementTesting
 {
     private MockRepository mocks = new MockRepository();
@@ -17,7 +17,11 @@ class SettlementTesting
     public void SettlementTestingSetup()
     {
     }
-
+    [Test]
+    public void testWorkspace()
+    {
+        Assert.True(CatenersServer.ServerMain.testMethod());
+    }
     [Test]
     public void testAvailabilityFalseResources()
     {

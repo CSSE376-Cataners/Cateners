@@ -102,6 +102,7 @@ namespace CatenersServer
         public ServerLogic(Lobby lobby)
         {
             this.hexArray = new HexServer[numberOfHexes];
+            this.settlementArray = new SettlementServer[54];
             this.generatehexArray();
             this.generateDefaultSettlements();
             this.assignSettlements();
@@ -142,18 +143,23 @@ namespace CatenersServer
                 this.hexArray[count] = new HexServer(1);
                 count++;
             }
+
             this.hexArray[count] = new HexServer(2);
             count++;
+
             for (int k = 0; k < 3; k++)
             {
                 this.hexArray[count] = new HexServer(3);
                 count++;
             }
 
-            this.hexArray[count] = new HexServer(4);
-            count++;
+            for (int k = 0; k < 3; k++)
+            {
+                this.hexArray[count] = new HexServer(4);
+                count++;
+            }
 
-            for (int p = 0; p < 3; p++)
+            for (int p = 0; p < 4; p++)
             {
                 this.hexArray[count] = new HexServer(5);
                 count++;

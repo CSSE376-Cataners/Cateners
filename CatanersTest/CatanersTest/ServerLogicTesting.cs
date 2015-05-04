@@ -24,18 +24,17 @@ namespace CatanersTest
     [TestFixture()]
     class ServerLogicTesting
     {
-        ServerLogic logic; 
         private MockRepository mocks = new MockRepository();
 
         [SetUp]
         public void ServerLogicSetup()
         {
-            logic = new ServerLogic( new Lobby("Basketball", 100, new Player("Michael Jordan"), 10));
         }
 
         [Test]
         public void testHexToShadow()
         {
+            ServerLogic logic = new ServerLogic(new Lobby("Basketball", 100, new Player("Michael Jordan"), 10));
             HexServer targetHolder = new HexServer(2);
             targetHolder.setPlacementNumber(3);
             targetHolder.setRollNumber(3);
@@ -51,6 +50,7 @@ namespace CatanersTest
         [Test]
         public void testThatPlayerTurnSwitches()
         {
+            ServerLogic logic = new ServerLogic(new Lobby("Basketball", 100, new Player("Michael Jordan"), 10));
             logic.playerTurn = 1;
             logic.updateTurn();
             Assert.AreEqual(2, logic.playerTurn);
@@ -58,6 +58,7 @@ namespace CatanersTest
         [Test]
         public void testThatPlayerTurnSwitches2()
         {
+            ServerLogic logic = new ServerLogic(new Lobby("Basketball", 100, new Player("Michael Jordan"), 10));
             logic.playerTurn = 0;
             logic.updateTurn();
             Assert.AreEqual(1, logic.playerTurn);
@@ -65,6 +66,7 @@ namespace CatanersTest
         [Test]
         public void testAllPlayerSwitchesWork()
         {
+            ServerLogic logic = new ServerLogic(new Lobby("Basketball", 100, new Player("Michael Jordan"), 10));
             logic.playerTurn = 0;
             logic.updateTurn();
             Assert.AreEqual(1, logic.playerTurn);

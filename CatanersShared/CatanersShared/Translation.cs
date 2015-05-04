@@ -10,12 +10,9 @@ namespace CatanersShared
 {
     public class Translation
     {
-        public enum TYPE { Login, Register, RequestLobbies, JoinLobby, CreateLobby, UpdateLobby, ChangeReadyStatus, 
-<<<<<<< HEAD
-                            LeaveLobby, Chat, Game, StartGame, Unknown , HexMessage, RegenerateBoard, addResource, GetGameLobby, BuySettlement};
-=======
-                            LeaveLobby, Chat, Game, StartGame, Unknown , HexMessage, RegenerateBoard, addResource, GetGameLobby,TradeResource};
->>>>>>> origin/master
+        public enum TYPE {  Login, Register, RequestLobbies, JoinLobby, CreateLobby, UpdateLobby, ChangeReadyStatus,
+                            LeaveLobby, Chat, Game, StartGame, Unknown , HexMessage, RegenerateBoard, addResource, GetGameLobby,
+                            TradeResource, BuySettlement};
 
         public static int[][] jsonToIntArrayTwo(string s) 
         {
