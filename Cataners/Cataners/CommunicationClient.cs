@@ -20,7 +20,6 @@ namespace Cataners
     {
         private StreamReader reader;
         private Boolean Enabled;
-        private MyScene currScene;
         private LocalConversion localConversion;
 
         public Dictionary<Translation.TYPE, BlockingCollection<Object>> queues;

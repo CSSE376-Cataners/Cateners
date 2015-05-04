@@ -128,9 +128,27 @@ namespace CatenersServer
             return Translation.intArraytwotoJson(passedArray);
         }
 
-        public Boolean determineSettlementAvailability()
+        public Boolean determineSettlementAvailability(string username)
         {
-            return false;
+            foreach (GamePlayer player in this.gameLobby.gamePlayers)
+            {
+                if (player.Username == username)
+                {
+                    if((player.resources[Resource.TYPE.Wood] >= 1) && (player.resources[Resource.TYPE.Brick] >= 1) && (player.resources[Resource.TYPE.Sheep] >= 1) && (player.resources[Resource.TYPE.Wheat] >= 1))
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            throw new NonPlayerException("Player does not exist in the current lobby.");
+        }
+
+        public class NonPlayerException : NullReferenceException
+        {
+            public NonPlayerException(string message) : base(message)
+            {
+            }
         }
 
         public void generatehexArray()

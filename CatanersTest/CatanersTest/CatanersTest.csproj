@@ -70,7 +70,6 @@
   <ItemGroup>
     <Compile Include="ChatClassTesting.cs" />
     <Compile Include="PurchasingTesting.cs" />
-    <Compile Include="SettlementTesting.cs" />
     <Compile Include="LocalConversionTesting.cs" />
     <Compile Include="CreateGameFormTesting.cs" />
     <Compile Include="DataTesting.cs" />
