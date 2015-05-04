@@ -132,10 +132,11 @@ namespace CatenersServer
         {
             foreach (GamePlayer player in this.gameLobby.gamePlayers)
             {
-                if (player.Username == username)
+                if (player.Username.Equals(username))
                 {
                     if((player.resources[Resource.TYPE.Wood] >= 1) && (player.resources[Resource.TYPE.Brick] >= 1) && (player.resources[Resource.TYPE.Sheep] >= 1) && (player.resources[Resource.TYPE.Wheat] >= 1))
                     {
+                        Console.WriteLine(player.resources[Resource.TYPE.Brick].ToString() + player.resources[Resource.TYPE.Wheat].ToString() + player.resources[Resource.TYPE.Wood].ToString() + player.resources[Resource.TYPE.Sheep].ToString());
                         return true;
                     }
                     return false;
