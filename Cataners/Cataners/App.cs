@@ -123,7 +123,10 @@ namespace Cataners
                                     MyScene.Instance.addResources();
                                     foreach (Entity e in MyScene.toAdd)
                                     {
-                                        MyScene.Instance.EntityManager.Add(e);
+                                        if (e != null)
+                                        {
+                                            MyScene.Instance.EntityManager.Add(e);
+                                        }
                                     }
                                     MyScene.toAdd.Clear();
 

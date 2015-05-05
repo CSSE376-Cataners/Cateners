@@ -75,14 +75,14 @@ namespace Cataners
             newButton.Text = "Regenerate Board"; 
             newButton.Width = 120; 
             newButton.Height = 40;
-            EntityManager.Add(newButton);
             newButton.Entity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(button_Pressed);
-            Button tradeButton = new Button();
+            EntityManager.Add(newButton);
+            /*Button tradeButton = new Button();
             tradeButton.Text = "Trade Resources";
             tradeButton.Width = 120;
             tradeButton.Height = 40;
             EntityManager.Add(tradeButton);
-            tradeButton.Entity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(tradeButton_Pressed);
+            tradeButton.Entity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(tradeButton_Pressed);*/
             FixedCamera2D camera2D = new FixedCamera2D("Camera2D") { BackgroundColor = Color.Gold };
             EntityManager.Add(camera2D);
             Entity background = new Entity("Background")
@@ -356,8 +356,12 @@ namespace Cataners
                                     Y = YLoc,
                                     DrawOrder = .05f
                                 });
+                                currSettle.getSettlement().AddComponent(new RectangleCollider());
                                 currSettle.getSettlement().AddComponent(new TouchGestures(true));
-                                currSettle.getSettlement().FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(settlement_Pressed);
+                                currSettle.getSettlement().FindComponent<TouchGestures>().TouchPressed += (sender, GestureEventArgs) =>
+                                {
+                                    Console.WriteLine(currSettle.getPlacementNumber());
+                                };
                                 currSettle.canAddComponent = false;
                                 Console.WriteLine(currSettle.getPlacementNumber());
                                 Entity e = currSettle.getSettlement();
@@ -425,8 +429,12 @@ namespace Cataners
                                     Y = YLoc,
                                     DrawOrder = .05f
                                 });
+                                currSettle.getSettlement().AddComponent(new RectangleCollider());
                                 currSettle.getSettlement().AddComponent(new TouchGestures(true));
-                                currSettle.getSettlement().FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(settlement_Pressed);
+                                currSettle.getSettlement().FindComponent<TouchGestures>().TouchPressed += (sender, GestureEventArgs) =>
+                                {
+                                    Console.WriteLine(currSettle.getPlacementNumber());
+                                };
                                 currSettle.canAddComponent = false;
                                 Console.WriteLine(currSettle.getPlacementNumber());
                                 Entity e = currSettle.getSettlement();
@@ -494,8 +502,12 @@ namespace Cataners
                                     Y = YLoc,
                                     DrawOrder = .05f
                                 });
+                                currSettle.getSettlement().AddComponent(new RectangleCollider());
                                 currSettle.getSettlement().AddComponent(new TouchGestures(true));
-                                currSettle.getSettlement().FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(settlement_Pressed);
+                                currSettle.getSettlement().FindComponent<TouchGestures>().TouchPressed += (sender, GestureEventArgs) =>
+                                {
+                                    Console.WriteLine(currSettle.getPlacementNumber());
+                                };
                                 currSettle.canAddComponent = false;
                                 Console.WriteLine(currSettle.getPlacementNumber());
                                 Entity e = currSettle.getSettlement();
@@ -563,8 +575,12 @@ namespace Cataners
                                     Y = YLoc,
                                     DrawOrder = .05f
                                 });
+                                currSettle.getSettlement().AddComponent(new RectangleCollider());
                                 currSettle.getSettlement().AddComponent(new TouchGestures(true));
-                                currSettle.getSettlement().FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(settlement_Pressed);
+                                currSettle.getSettlement().FindComponent<TouchGestures>().TouchPressed += (sender, GestureEventArgs) =>
+                                {
+                                    Console.WriteLine(currSettle.getPlacementNumber());
+                                };
                                 currSettle.canAddComponent = false;
                                 Console.WriteLine(currSettle.getPlacementNumber());
                                 Entity e = currSettle.getSettlement();
@@ -632,6 +648,7 @@ namespace Cataners
                                     Y = YLoc,
                                     DrawOrder = .05f
                                 });
+                                currSettle.getSettlement().AddComponent(new RectangleCollider());
                                 currSettle.getSettlement().AddComponent(new TouchGestures(true));
                                 currSettle.getSettlement().FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(settlement_Pressed);
                                 currSettle.canAddComponent = false;
@@ -649,13 +666,15 @@ namespace Cataners
 
         private void settlement_Pressed(object sender, GestureEventArgs e)
         {
-            CommunicationClient.Instance.sendToServer(new Message(Data.username, Translation.TYPE.BuySettlement).toJson());
+            Console.WriteLine("clicked");
+            //CommunicationClient.Instance.sendToServer(new Message(Data.username, Translation.TYPE.BuySettlement).toJson());
         }
 
         private void button_Pressed(object sender, GestureEventArgs e)
         {
             CommunicationClient.Instance.sendToServer(new Message("", Translation.TYPE.RegenerateBoard).toJson());
         }
+
         private void tradeButton_Pressed(object sender, GestureEventArgs e)
         {
             CommunicationClient.Instance.sendToServer(new Message("", Translation.TYPE.TradeResource).toJson());
