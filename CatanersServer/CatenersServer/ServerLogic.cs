@@ -142,6 +142,13 @@ namespace CatenersServer
 
         public Boolean determineSettlementAvailability(string username, int settlementID, int[] neighbors)
         {
+            foreach (int neighbor in neighbors)
+            {
+                if (this.settlementArray[neighbor].getIsActive())
+                {
+                    return false;
+                }
+            }
             foreach (GamePlayer player in this.gameLobby.gamePlayers)
             {
                 if (player.Username.Equals(username))
