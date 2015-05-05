@@ -17,11 +17,13 @@ namespace CatenersServer
         private int typeNum;
         private int placementNumber;
         public Boolean canAddComponent;
+        private Boolean isActive;
         public SettlementServer(int typeNum, int placementNumber)
         {
             this.typeNum = typeNum;
             this.placementNumber = placementNumber;
             this.canAddComponent = true;
+            this.isActive = false;
         }
 
         public int getPlacementNumber()
@@ -32,6 +34,16 @@ namespace CatenersServer
         public int getTypeNum()
         {
             return this.typeNum;
+        }
+
+        public void setActive()
+        {
+            this.isActive = !this.isActive;
+        }
+
+        public Boolean getIsActive()
+        {
+            return this.isActive;
         }
     }
 
@@ -128,7 +140,7 @@ namespace CatenersServer
             return Translation.intArraytwotoJson(passedArray);
         }
 
-        public Boolean determineSettlementAvailability(string username)
+        public Boolean determineSettlementAvailability(string username, int settlementID, int[] neighbors)
         {
             foreach (GamePlayer player in this.gameLobby.gamePlayers)
             {
@@ -136,13 +148,17 @@ namespace CatenersServer
                 {
                     if((player.resources[Resource.TYPE.Wood] >= 1) && (player.resources[Resource.TYPE.Brick] >= 1) && (player.resources[Resource.TYPE.Sheep] >= 1) && (player.resources[Resource.TYPE.Wheat] >= 1))
                     {
-                        Console.WriteLine(player.resources[Resource.TYPE.Brick].ToString() + player.resources[Resource.TYPE.Wheat].ToString() + player.resources[Resource.TYPE.Wood].ToString() + player.resources[Resource.TYPE.Sheep].ToString());
                         return true;
                     }
                     return false;
                 }
             }
             throw new NonPlayerException("Player does not exist in the current lobby.");
+        }
+
+        public void setSettlementActivity(int index)
+        {
+            this.settlementArray[index].setActive();
         }
 
         public class NonPlayerException : NullReferenceException
