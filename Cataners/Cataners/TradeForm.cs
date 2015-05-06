@@ -26,9 +26,10 @@ namespace Cataners
         public void initializeValues(){
             //initialize players in the target box
             for (int i = 0; i < ((GameLobby)Data.currentLobby).gamePlayers.Count; i++ ) {
-                
+                if (!((GameLobby)Data.currentLobby).gamePlayers[i].Username.Equals(Data.username))
+                {
                     targetOfTradeComboBox.Items.Add(((GameLobby)Data.currentLobby).gamePlayers[i].Username);
-                
+                }
             }
             
         }

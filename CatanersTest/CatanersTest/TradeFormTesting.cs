@@ -34,10 +34,27 @@ namespace CatanersTest
            FieldInfo info = (typeof(TradeForm).GetField("targetOfTradeComboBox", flags));
            ComboBox box = (ComboBox)info.GetValue(trade);
            
-
            Assert.AreEqual(p1.Username, box.Items[0]);
 
         }
+
+       [Test]
+       public void TestThatOwnerNotInComboBox()
+       {
+           Player p1 = new Player("Bobby Tables");
+           GameLobby lobby = new GameLobby(new Lobby("game", 100, p1, 10));
+           Data.currentLobby = lobby;
+           Data.username = p1.Username;
+           GamePlayer p2 = new GamePlayer("Rocky");
+           ((GameLobby)Data.currentLobby).gamePlayers.Add(p2);
+           trade.initializeValues();
+           BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
+           FieldInfo info = (typeof(TradeForm).GetField("targetOfTradeComboBox", flags));
+           ComboBox box = (ComboBox)info.GetValue(trade);
+
+           Assert.AreEqual(p2.Username, box.Items[0]);
+
+       }
 
         [Test]
        public void TestBrickCheck()
