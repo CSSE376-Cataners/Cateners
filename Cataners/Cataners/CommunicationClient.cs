@@ -196,6 +196,11 @@ namespace Cataners
                 case Translation.TYPE.OpenTradeWindow:
                     
                     break;
+                case Translation.TYPE.Chat:
+                    Chat chat = Chat.fromJson(msg.message);
+                    if (ChatBox.INSTANCE != null)
+                        ChatBox.INSTANCE.Invoke(new Action( () => ChatBox.INSTANCE.addChat(chat)));
+                    break;
             }
         }
         /*
