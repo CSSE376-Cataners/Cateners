@@ -23,12 +23,12 @@ namespace Cataners
             currentTrader = null;
         }
 
-        public void initializeValues(GamePlayer user){
+        public void initializeValues(String username){
             //initialize players in the target box
             for (int i = 0; i < ((GameLobby)Data.currentLobby).gamePlayers.Count; i++ ) {
                 targetOfTradeComboBox.Items.Add(((GameLobby)Data.currentLobby).gamePlayers[i].Username);
             }
-            currentTrader = user;
+            
         }
 
         private void giveBrickTextBox_TextChanged(object sender, EventArgs e)
@@ -38,6 +38,17 @@ namespace Cataners
 
         private void CheckBrickQuantity()
         {
+
+            /*int val = Int32.Parse(giveBrickTextBox.Text);
+            if (val > .resources[Resource.TYPE.Brick])
+            {
+                brickCheck = false;
+            }
+            else
+            {
+                brickCheck = true;
+            }*/
+
         }
 
     }

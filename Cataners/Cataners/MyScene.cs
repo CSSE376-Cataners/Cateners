@@ -677,7 +677,8 @@ namespace Cataners
 
         private void tradeButton_Pressed(object sender, GestureEventArgs e)
         {
-            CommunicationClient.Instance.sendToServer(new Message(Data.username, Translation.TYPE.OpenTradeWindow).toJson());
+            TradeForm.INSTANCE.Show();
+            TradeForm.INSTANCE.initializeValues(Data.username);
         }
 
         protected override void Start()
