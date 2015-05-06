@@ -8,7 +8,6 @@ using Cataners;
 using CatanersShared;
 using System.Reflection;
 using Cataners;
-using System.Windows.Forms;
 
 namespace CatanersTest
 {
@@ -207,16 +206,17 @@ namespace CatanersTest
             chat1 = new Chat("I am Player1!!!! Respond", Chat.TYPE.Normal, "Player1");
             message1 = new CatanersShared.Message(chat1.toJson(), Translation.TYPE.Chat);
             ChatBox box = new ChatBox();
+            box.Show();
             client.processesMessage(message1.toJson());
 
             BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
             FieldInfo info = typeof(ChatBox).GetField("richTextBox", flags);
 
-            RichTextBox rtb = (RichTextBox)info.GetValue(box);
-
-            Assert.True(rtb.Text.Length < 1);
+            System.Windows.Forms.RichTextBox rtb = (System.Windows.Forms.RichTextBox)info.GetValue(box);
+            int length = rtb.Text.Length;
             client.processesMessage(message1.toJson());
-            Assert.True(rtb.Text.Length > 1);
+            Assert.True(rtb.Text.Length > length);
+            box.Close();
 
         }
 
