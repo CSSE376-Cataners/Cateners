@@ -35,17 +35,22 @@
             // 
             // richTextBox
             // 
+            this.richTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBox.Location = new System.Drawing.Point(3, 3);
             this.richTextBox.Margin = new System.Windows.Forms.Padding(1);
             this.richTextBox.Name = "richTextBox";
             this.richTextBox.ReadOnly = true;
-            this.richTextBox.Size = new System.Drawing.Size(644, 206);
+            this.richTextBox.Size = new System.Drawing.Size(650, 206);
             this.richTextBox.TabIndex = 0;
             this.richTextBox.Text = "";
             // 
             // textEntryBox
             // 
             this.textEntryBox.AcceptsReturn = true;
+            this.textEntryBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textEntryBox.Location = new System.Drawing.Point(3, 213);
             this.textEntryBox.Multiline = true;
             this.textEntryBox.Name = "textEntryBox";
@@ -54,6 +59,7 @@
             // 
             // sendButton
             // 
+            this.sendButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.sendButton.Location = new System.Drawing.Point(600, 213);
             this.sendButton.Name = "sendButton";
             this.sendButton.Size = new System.Drawing.Size(47, 23);
