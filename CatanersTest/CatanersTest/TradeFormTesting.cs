@@ -63,6 +63,11 @@ namespace CatanersTest
            Player p1 = new Player("Bobby Tables");
            GameLobby lobby = new GameLobby(new Lobby("game", 100, p1, 10));
            ((GameLobby)lobby).gamePlayers[0].resources[Resource.TYPE.Brick] = 1;
+           Data.currentLobby = lobby;
+           Data.username = p1.Username;
+           GamePlayer p2 = new GamePlayer("jimmy");
+          ((GameLobby)lobby).gamePlayers.Add(p2);
+           trade.initializeValues();
 
            BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
            FieldInfo info = (typeof(TradeForm).GetField("giveBrickTextBox", flags));
@@ -80,7 +85,12 @@ namespace CatanersTest
             bool check = true;
             Player p1 = new Player("Bobby Tables");
             GameLobby lobby = new GameLobby(new Lobby("game", 100, p1, 10));
+            Data.currentLobby = lobby;
+            Data.username = p1.Username;
             ((GameLobby)lobby).gamePlayers[0].resources[Resource.TYPE.Brick] = 100;
+            GamePlayer p2 = new GamePlayer("jimmy");
+            ((GameLobby)lobby).gamePlayers.Add(p2);
+            trade.initializeValues();
 
             BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
             FieldInfo info = (typeof(TradeForm).GetField("giveBrickTextBox", flags));
