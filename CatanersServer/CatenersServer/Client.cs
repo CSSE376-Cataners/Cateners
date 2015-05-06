@@ -204,7 +204,22 @@ namespace CatenersServer
                 }
                 }
                 break;
+                case Translation.TYPE.Chat:
+                    if (currentLobby != null)
+                    {
+                        Chat revchat = Chat.fromJson(msg.message);
+                        Chat sendChat = new Chat(revchat.Message, Chat.TYPE.Normal, this.userName);
+                        Message toSendMsg = new Message(sendChat.toJson(), Translation.TYPE.Chat);
+                        foreach (ServerPlayer player in currentLobby.Players)
+                        {
+                            if (!player.Username.Equals(this.userName))
+                            {
+                                player.client.sendToClient(toSendMsg.toJson());
+                            }
+                        }
+                    }
 
+                break;
                 default:
                     // We Are just going to ignore it.
                 break;
