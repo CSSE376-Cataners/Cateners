@@ -91,6 +91,7 @@
             this.giveBrickTextBox.Name = "giveBrickTextBox";
             this.giveBrickTextBox.Size = new System.Drawing.Size(59, 30);
             this.giveBrickTextBox.TabIndex = 3;
+            this.giveBrickTextBox.TextChanged += new System.EventHandler(this.giveBrickTextBox_TextChanged);
             // 
             // giveOreTextBox
             // 

@@ -189,20 +189,23 @@ namespace CatenersServer
 
                 case Translation.TYPE.StartGame:
                 if(currentLobby != null) {
-                if (checkReady())
-                {
-                    ServerLogic newLogic = new ServerLogic(this.currentLobby);
-                    this.serverLogic = newLogic;
-                    gameLobby = newLogic.gameLobby;
-                    string toPass = newLogic.sendGeneration();
-                    for (int i = 0; i < currentLobby.PlayerCount; i++)
+                    if (checkReady())
                     {
-                        ((ServerPlayer)currentLobby.Players[i]).client.sendToClient(new Message(toPass, Translation.TYPE.StartGame).toJson());
-                        ((ServerPlayer)currentLobby.Players[i]).client.serverLogic = newLogic;
-                        ((ServerPlayer)currentLobby.Players[i]).client.gameLobby = gameLobby;
+                        ServerLogic newLogic = new ServerLogic(this.currentLobby);
+                        this.serverLogic = newLogic;
+                        gameLobby = newLogic.gameLobby;
+                        string toPass = newLogic.sendGeneration();
+                        for (int i = 0; i < currentLobby.PlayerCount; i++)
+                        {
+                            ((ServerPlayer)currentLobby.Players[i]).client.sendToClient(new Message(toPass, Translation.TYPE.StartGame).toJson());
+                            ((ServerPlayer)currentLobby.Players[i]).client.serverLogic = newLogic;
+                            ((ServerPlayer)currentLobby.Players[i]).client.gameLobby = gameLobby;
+                        }
                     }
                 }
-                }
+                break;
+                case Translation.TYPE.OpenTradeWindow:
+
                 break;
                 case Translation.TYPE.Chat:
                     if (currentLobby != null)
