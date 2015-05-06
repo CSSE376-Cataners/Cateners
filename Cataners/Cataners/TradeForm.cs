@@ -89,5 +89,10 @@ namespace Cataners
             return (currentTrader.resources[Resource.TYPE.Sheep] > val) ? true : false;
         }
 
+        public bool CheckWheatQuantity()
+        {
+            return true;
+        }
+
     }
 }
