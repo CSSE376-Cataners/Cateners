@@ -143,5 +143,13 @@ namespace Cataners
             Program.Main();
         }
 
+        private void openChatButton_Click(object sender, EventArgs e)
+        {
+            if (ChatBox.INSTANCE == null)
+            {
+                new ChatBox().Show();
+            }
+        }
+
     }
 }
