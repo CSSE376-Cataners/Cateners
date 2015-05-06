@@ -189,11 +189,12 @@ namespace Cataners
         {
             if (brickCheck & oreCheck & sheepCheck & wheatCheck & woodCheck)
             {
-                //send message to sever
+                //send message to server
             }
             else
             {
-                
+                String error = printWrongResources();
+                MessageBox.Show(error);
             }
         }
 
