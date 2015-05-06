@@ -688,5 +688,11 @@ namespace Cataners
 
             // This method is called after the CreateScene and Initialize methods and before the first Update.
         }
+
+
+        public void setAsPurchasedSettle(string name)
+        {
+            this.EntityManager.Find(name).FindComponent<Sprite>().TexturePath.Replace(this.EntityManager.Find(name).FindComponent<Sprite>().TexturePath, "SettlementBlue.wpk");
+        }
     }
 }

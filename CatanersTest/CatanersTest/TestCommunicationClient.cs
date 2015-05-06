@@ -7,7 +7,6 @@ using NUnit.Framework;
 using Cataners;
 using CatanersShared;
 using System.Reflection;
-using Cataners;
 
 namespace CatanersTest
 {

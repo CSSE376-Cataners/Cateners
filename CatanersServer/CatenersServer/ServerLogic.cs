@@ -223,6 +223,7 @@ namespace CatenersServer
                 {
                     if((player.resources[Resource.TYPE.Wood] >= 1) && (player.resources[Resource.TYPE.Brick] >= 1) && (player.resources[Resource.TYPE.Sheep] >= 1) && (player.resources[Resource.TYPE.Wheat] >= 1))
                     {
+                        this.settlementArray[settlementID].setActive();
                         return true;
                     }
                     return false;

@@ -41,6 +41,11 @@ namespace Cataners
         {
             return this.settlement;
         }
+
+        public string getName()
+        {
+            return this.settlement.Name;
+        }
     }
 
     public class HexHolder
@@ -59,6 +64,10 @@ namespace Cataners
             this.placementNumber = 0;
             this.rollNumber = 0;
             this.settlementList = new SettlementHolder[6];
+        }
+        public string getName()
+        {
+            return this.hex.Name;
         }
 
         public SettlementHolder[] getSettlementList()
@@ -240,6 +249,12 @@ namespace Cataners
                 .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
                 hexFocus.setRollEntity(rollEntity);
             }
+        }
+
+        public void setAsPurchasedSettle(int placement)
+        {
+            string name = this.settlementList[placement].getName();
+            MyScene.Instance.setAsPurchasedSettle(name);
         }
     }
 }

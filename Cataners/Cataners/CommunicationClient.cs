@@ -162,6 +162,10 @@ namespace Cataners
                     }
                     break;
 
+                case Translation.TYPE.BuySettlement:
+                    localConversion.setAsPurchasedSettle(int.Parse(msg.message));
+                break;
+
                 case Translation.TYPE.StartGame:
                     bool start = true;
                     LobbyForm.INSTANCE.startButtonClose = true;
