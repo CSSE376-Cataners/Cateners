@@ -20,7 +20,6 @@ namespace Cataners
     {
         private StreamReader reader;
         private Boolean Enabled;
-        private LocalConversion localConversion;
 
         public Dictionary<Translation.TYPE, BlockingCollection<Object>> queues;
 
@@ -163,7 +162,7 @@ namespace Cataners
                     break;
 
                 case Translation.TYPE.BuySettlement:
-                    localConversion.setAsPurchasedSettle(int.Parse(msg.message));
+                    LocalConversion.Instance.setAsPurchasedSettle(int.Parse(msg.message));
                 break;
 
                 case Translation.TYPE.StartGame:
@@ -215,10 +214,5 @@ namespace Cataners
             return "";
         }
          */
-
-        internal void setLC(LocalConversion newConversion)
-        {
-            this.localConversion = newConversion;
-        }
     }
 }

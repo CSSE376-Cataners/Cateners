@@ -101,7 +101,10 @@ namespace Cataners
         [ExcludeFromCodeCoverage]
         public void invokedRefresh()
         {
-            this.Invoke(new refresher(refreshLobby));
+            if (this.Visible && !this.IsDisposed && !this.Disposing)
+            {
+                this.Invoke(new refresher(refreshLobby));
+            }
         }
 
         [ExcludeFromCodeCoverage]

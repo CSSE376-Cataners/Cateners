@@ -364,6 +364,7 @@ namespace Cataners
                                 currSettle.getSettlement().FindComponent<TouchGestures>().TouchPressed += (sender, GestureEventArgs) =>
                                 {
                                     Console.WriteLine(currSettle.getPlacementNumber());
+                                    CommunicationClient.Instance.sendToServer(new Message(currSettle.getPlacementNumber().ToString(), Translation.TYPE.BuySettlement).toJson());
                                 };
                                 currSettle.canAddComponent = false;
                                 Console.WriteLine(currSettle.getPlacementNumber());
@@ -437,6 +438,7 @@ namespace Cataners
                                 currSettle.getSettlement().FindComponent<TouchGestures>().TouchPressed += (sender, GestureEventArgs) =>
                                 {
                                     Console.WriteLine(currSettle.getPlacementNumber());
+                                    CommunicationClient.Instance.sendToServer(new Message(currSettle.getPlacementNumber().ToString(), Translation.TYPE.BuySettlement).toJson());
                                 };
                                 currSettle.canAddComponent = false;
                                 Console.WriteLine(currSettle.getPlacementNumber());
@@ -510,6 +512,7 @@ namespace Cataners
                                 currSettle.getSettlement().FindComponent<TouchGestures>().TouchPressed += (sender, GestureEventArgs) =>
                                 {
                                     Console.WriteLine(currSettle.getPlacementNumber());
+                                    CommunicationClient.Instance.sendToServer(new Message(currSettle.getPlacementNumber().ToString(), Translation.TYPE.BuySettlement).toJson());
                                 };
                                 currSettle.canAddComponent = false;
                                 Console.WriteLine(currSettle.getPlacementNumber());
@@ -583,6 +586,7 @@ namespace Cataners
                                 currSettle.getSettlement().FindComponent<TouchGestures>().TouchPressed += (sender, GestureEventArgs) =>
                                 {
                                     Console.WriteLine(currSettle.getPlacementNumber());
+                                    CommunicationClient.Instance.sendToServer(new Message(currSettle.getPlacementNumber().ToString(), Translation.TYPE.BuySettlement).toJson());
                                 };
                                 currSettle.canAddComponent = false;
                                 Console.WriteLine(currSettle.getPlacementNumber());
@@ -693,7 +697,8 @@ namespace Cataners
         public void setAsPurchasedSettle(string name)
         {
             Console.WriteLine("here");
-            this.EntityManager.Find(name).FindComponent<Sprite>().TexturePath.Replace(this.EntityManager.Find(name).FindComponent<Sprite>().TexturePath, "SettlementBlue.wpk");
+            this.EntityManager.Find(name).RemoveComponent<Sprite>();
+            this.EntityManager.Find(name).AddComponent(new Sprite("SettlementBlue.wpk"));
         }
     }
 }

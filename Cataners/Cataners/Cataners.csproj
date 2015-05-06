@@ -238,7 +238,9 @@
     <None Include="Settlement.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="SettlementBlue.wpk" />
+    <None Include="SettlementBlue.wpk">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="SheepHex.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -145,7 +145,7 @@ namespace Cataners
             this.settlementList = new SettlementHolder[54];
             for (int i = 0; i < this.settlementList.Length; i++)
             {
-                Entity tempEnt = new Entity()
+                Entity tempEnt = new Entity("Settlement"+i.ToString())
                     .AddComponent(new Sprite("Settlement.wpk"))
                     .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
                 this.settlementList[i] = new SettlementHolder(tempEnt, i);
