@@ -549,32 +549,37 @@ namespace CatanersTest
         }
 
         [Test]
-        public void testChatMessageToLobbyOrGameLobby()
+        public void testChatMessageToLobby()
         {
-            FakeClient client1 = new FakeClient();            
-            GamePlayer player1 = new GamePlayer("client1");
-            client1.userName = player1.Username;
+            FakeClient client1 = new FakeClient();
+            client1.userName = "client1";
+            ServerPlayer player1 = new ServerPlayer(client1.userName, client1);
+            client1.player = player1;
+            
             
             FakeClient client2 = new FakeClient();
-            GamePlayer player2 = new GamePlayer("client2");
-            client2.userName = player2.Username;
+            client2.userName = "client2";
+            ServerPlayer player2 = new ServerPlayer(client2.userName, client2);
+            client2.player = player2;
 
             FakeClient client3 = new FakeClient();
-            GamePlayer player3 = new GamePlayer("client3");
-            client3.userName = player3.Username;
+            client3.userName = "client3";
+            ServerPlayer player3 = new ServerPlayer(client3.userName, client3);
+            client3.player = player3;
 
             FakeClient client4 = new FakeClient();
-            GamePlayer player4 = new GamePlayer("client4");
-            client4.userName = player4.Username;
+            client4.userName = "client4";
+            ServerPlayer player4 = new ServerPlayer(client4.userName, client4);
+            client4.player = player4;
 
-            Lobby lobby = new Lobby("GameName", 10, new Player("Owner"), 1);
-            GameLobby gLobby = new GameLobby(lobby);
-            gLobby.gamePlayers.Clear();
-
-            gLobby.gamePlayers.Add(player1);
-            gLobby.gamePlayers.Add(player2);
-            gLobby.gamePlayers.Add(player3);
-            gLobby.gamePlayers.Add(player4);
+            Lobby lobby = new Lobby("GameName", 10, client1.player, 1);
+            lobby.Players.Add(player2);
+            lobby.Players.Add(player3);
+            lobby.Players.Add(player4);
+            client1.currentLobby = lobby;
+            client2.currentLobby = lobby;
+            client3.currentLobby = lobby;
+            client4.currentLobby = lobby;
             // Done with setup
 
             Chat chat1 = new Chat("I am Player1", Chat.TYPE.Normal, null);
@@ -585,9 +590,9 @@ namespace CatanersTest
             
             client1.processesMessage(message1.toJson());
             Assert.Null(client1.lastCall);
-            Assert.AreEqual(client2.lastCall, message1R.toJson());
-            Assert.AreEqual(client3.lastCall, message1R.toJson());
-            Assert.AreEqual(client4.lastCall, message1R.toJson());
+            Assert.AreEqual(message1R.toJson(), client2.lastCall);
+            Assert.AreEqual(message1R.toJson(), client3.lastCall);
+            Assert.AreEqual(message1R.toJson(), client4.lastCall);
 
 
             Chat chat2 = new Chat("I am Player2", Chat.TYPE.Normal, null);
@@ -597,10 +602,10 @@ namespace CatanersTest
 
 
             client2.processesMessage(message2.toJson());
-            Assert.AreEqual(client2.lastCall, message1R.toJson());
-            Assert.AreEqual(client1.lastCall, message2R.toJson());
-            Assert.AreEqual(client3.lastCall, message2R.toJson());
-            Assert.AreEqual(client4.lastCall, message2R.toJson());
+            Assert.AreEqual(message1R.toJson(), client2.lastCall); // Should be same as last value;
+            Assert.AreEqual(message2R.toJson(), client1.lastCall);
+            Assert.AreEqual(message2R.toJson(), client3.lastCall);
+            Assert.AreEqual(message2R.toJson(), client4.lastCall);
 
 
             FakeClient client5 = new FakeClient();
