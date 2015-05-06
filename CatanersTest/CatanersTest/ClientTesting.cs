@@ -551,17 +551,21 @@ namespace CatanersTest
         [Test]
         public void testChatMessageToLobbyOrGameLobby()
         {
-            FakeClient client1 = new FakeClient();
+            FakeClient client1 = new FakeClient();            
             GamePlayer player1 = new GamePlayer("client1");
+            client1.userName = player1.Username;
             
             FakeClient client2 = new FakeClient();
             GamePlayer player2 = new GamePlayer("client2");
+            client2.userName = player2.Username;
 
             FakeClient client3 = new FakeClient();
             GamePlayer player3 = new GamePlayer("client3");
-            
+            client3.userName = player3.Username;
+
             FakeClient client4 = new FakeClient();
             GamePlayer player4 = new GamePlayer("client4");
+            client4.userName = player4.Username;
 
             Lobby lobby = new Lobby("GameName", 10, new Player("Owner"), 1);
             GameLobby gLobby = new GameLobby(lobby);
