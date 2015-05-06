@@ -167,9 +167,9 @@ namespace Cataners
                     LobbyForm.INSTANCE.startButtonClose = true;
                     LobbyForm.INSTANCE.InvokedClose(start);
                     MainGui.INSTANCE.invokedHide();
-                    Program.Main();
                     TradeForm trade = new TradeForm();
                     LocalConversion.Instance.generateHexList(Translation.jsonToIntArrayTwo(msg.message));
+                    Program.Main();
                     break;
 
                 case Translation.TYPE.addResource:

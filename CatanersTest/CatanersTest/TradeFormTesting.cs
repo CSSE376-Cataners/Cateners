@@ -29,7 +29,7 @@ namespace CatanersTest
            GameLobby lobby = new GameLobby(new Lobby("game", 100, p1, 10));
            Data.currentLobby = lobby;
            GamePlayer gp1 = new GamePlayer("Bobby Tables");
-           trade.initializeValues(gp1);
+           trade.initializeValues();
            BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
            FieldInfo info = (typeof(TradeForm).GetField("targetOfTradeComboBox", flags));
            ComboBox box = (ComboBox)info.GetValue(trade);

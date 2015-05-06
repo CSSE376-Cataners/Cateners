@@ -77,12 +77,15 @@ namespace Cataners
             newButton.Height = 40;
             newButton.Entity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(button_Pressed);
             EntityManager.Add(newButton);
-            /*Button tradeButton = new Button();
+            Button tradeButton = new Button();
             tradeButton.Text = "Trade Resources";
             tradeButton.Width = 120;
             tradeButton.Height = 40;
+            Transform2D button2d = tradeButton.Entity.FindComponent<Transform2D>();
+            button2d.X= CENTERWIDTH*2 - 120;
+            button2d.Y = CENTERHEIGHT * 2 - 40;
             EntityManager.Add(tradeButton);
-            tradeButton.Entity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(tradeButton_Pressed);*/
+            tradeButton.Entity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(tradeButton_Pressed);
             FixedCamera2D camera2D = new FixedCamera2D("Camera2D") { BackgroundColor = Color.Gold };
             EntityManager.Add(camera2D);
             Entity background = new Entity("Background")
@@ -676,7 +679,7 @@ namespace Cataners
         private void tradeButton_Pressed(object sender, GestureEventArgs e)
         {
             TradeForm.INSTANCE.Show();
-            TradeForm.INSTANCE.initializeValues(Data.username);
+            TradeForm.INSTANCE.initializeValues();
         }
 
         protected override void Start()
