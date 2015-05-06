@@ -57,6 +57,8 @@ namespace Cataners
         public void addChat(Chat chat)
         {
             richTextBox.Text += String.Format("[{0}] {1}: {2}", DateTime.Now.ToString("T"), chat.Special, chat.Message) + "\n";
+            richTextBox.SelectionStart = richTextBox.Text.Length;
+            richTextBox.ScrollToCaret();
         }
     }
 }
