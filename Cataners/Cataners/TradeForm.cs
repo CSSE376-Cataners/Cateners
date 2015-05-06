@@ -41,6 +41,12 @@ namespace Cataners
                     currentTrader = ((GameLobby)Data.currentLobby).gamePlayers[i];
                 }
             }
+
+            giveBrickTextBox.Text = "0";
+            giveOreTextBox.Text = "0";
+            giveSheepTextBox.Text = "0";
+            giveWheatTextBox.Text = "0";
+            giveWoodTextBox.Text = "0";
             
         }
 
@@ -54,7 +60,7 @@ namespace Cataners
             catch {
                 return false;
             }
-            return (currentTrader.resources[Resource.TYPE.Brick] > val) ? true : false;
+            return (currentTrader.resources[Resource.TYPE.Brick] >= val) ? true : false;
             
         }
 
@@ -70,7 +76,7 @@ namespace Cataners
             {
                 return false;
             }
-            return (currentTrader.resources[Resource.TYPE.Ore] > val) ? true : false;
+            return (currentTrader.resources[Resource.TYPE.Ore] >= val) ? true : false;
             
         }
 
@@ -86,7 +92,7 @@ namespace Cataners
             {
                 return false;
             }
-            return (currentTrader.resources[Resource.TYPE.Sheep] > val) ? true : false;
+            return (currentTrader.resources[Resource.TYPE.Sheep] >= val) ? true : false;
         }
 
         public bool CheckWheatQuantity()
@@ -101,7 +107,7 @@ namespace Cataners
             {
                 return false;
             }
-            return (currentTrader.resources[Resource.TYPE.Wheat] > val) ? true : false;
+            return (currentTrader.resources[Resource.TYPE.Wheat] >= val) ? true : false;
         }
 
         public bool CheckWoodQuantity()
@@ -116,7 +122,7 @@ namespace Cataners
             {
                 return false;
             }
-            return (currentTrader.resources[Resource.TYPE.Wood] > val) ? true : false;
+            return (currentTrader.resources[Resource.TYPE.Wood] >= val) ? true : false;
         }
 
         private void giveBrickTextBox_TextChanged(object sender, EventArgs e)
@@ -142,6 +148,54 @@ namespace Cataners
         private void giveWoodTextBox_TextChanged(object sender, EventArgs e)
         {
             woodCheck = CheckWoodQuantity();
+        }
+
+        public String printWrongResources()
+        {
+            List<String> broken = new List<String>();
+            if (!brickCheck)
+            {
+                broken.Add("Brick");
+            }
+            if (!oreCheck)
+            {
+                broken.Add("Ore");
+            }
+            if (!sheepCheck)
+            {
+                broken.Add("Sheep");
+            }
+            if (!wheatCheck)
+            {
+                broken.Add("Wheat");
+            }
+            if (!woodCheck)
+            {
+                broken.Add("Wood");
+            }
+            StringBuilder sb = new StringBuilder();
+            sb.Append("The following boxes are either invalid or greater than your current resources: ");
+            for (int i = 0; i < broken.Count - 1; i++)
+            {
+                sb.Append(broken[i] + ", ");
+            }
+            sb.Append(broken[broken.Count - 1]);
+
+            return sb.ToString();
+
+        }
+
+        private void tradeButton_Click(object sender, EventArgs e)
+        {
+            if (brickCheck & oreCheck & sheepCheck & wheatCheck & woodCheck)
+            {
+                //send message to server
+            }
+            else
+            {
+                String error = printWrongResources();
+                MessageBox.Show(error);
+            }
         }
 
     }

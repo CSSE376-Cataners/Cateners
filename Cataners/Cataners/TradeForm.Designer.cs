@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TradeForm));
             this.tradeLabel = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.tradeButton = new System.Windows.Forms.Button();
             this.targetOfTradeComboBox = new System.Windows.Forms.ComboBox();
             this.giveBrickTextBox = new System.Windows.Forms.TextBox();
             this.giveOreTextBox = new System.Windows.Forms.TextBox();
@@ -68,14 +68,15 @@
             this.tradeLabel.TabIndex = 0;
             this.tradeLabel.Text = "Trade";
             // 
-            // button1
+            // tradeButton
             // 
-            this.button1.Location = new System.Drawing.Point(808, 344);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(106, 46);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Trade";
-            this.button1.UseVisualStyleBackColor = true;
+            this.tradeButton.Location = new System.Drawing.Point(808, 344);
+            this.tradeButton.Name = "tradeButton";
+            this.tradeButton.Size = new System.Drawing.Size(106, 46);
+            this.tradeButton.TabIndex = 1;
+            this.tradeButton.Text = "Trade";
+            this.tradeButton.UseVisualStyleBackColor = true;
+            this.tradeButton.Click += new System.EventHandler(this.tradeButton_Click);
             // 
             // targetOfTradeComboBox
             // 
@@ -307,7 +308,7 @@
             this.Controls.Add(this.giveOreTextBox);
             this.Controls.Add(this.giveBrickTextBox);
             this.Controls.Add(this.targetOfTradeComboBox);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.tradeButton);
             this.Controls.Add(this.tradeLabel);
             this.Font = new System.Drawing.Font("Britannic Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -324,7 +325,7 @@
         #endregion
 
         private System.Windows.Forms.Label tradeLabel;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button tradeButton;
         private System.Windows.Forms.ComboBox targetOfTradeComboBox;
         private System.Windows.Forms.TextBox giveBrickTextBox;
         private System.Windows.Forms.TextBox giveOreTextBox;
