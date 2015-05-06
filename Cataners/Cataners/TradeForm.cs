@@ -16,6 +16,11 @@ namespace Cataners
         public static TradeForm INSTANCE;
         private GamePlayer currentTrader;
         private bool brickCheck;
+        private bool oreCheck;
+        private bool sheepCheck;
+        private bool wheatCheck;
+        private bool woodCheck;
+
         int val;
         public TradeForm()
         {
@@ -37,11 +42,6 @@ namespace Cataners
                 }
             }
             
-        }
-
-        private void giveBrickTextBox_TextChanged(object sender, EventArgs e)
-        {
-            brickCheck = CheckBrickQuantity();
         }
 
         public bool CheckBrickQuantity()
@@ -117,6 +117,31 @@ namespace Cataners
                 return false;
             }
             return (currentTrader.resources[Resource.TYPE.Wood] > val) ? true : false;
+        }
+
+        private void giveBrickTextBox_TextChanged(object sender, EventArgs e)
+        {
+            brickCheck = CheckBrickQuantity();
+        }
+
+        private void giveOreTextBox_TextChanged(object sender, EventArgs e)
+        {
+            oreCheck = CheckOreQuantity();
+        }
+
+        private void giveSheepTextBox_TextChanged(object sender, EventArgs e)
+        {
+            sheepCheck = CheckSheepQuantity();
+        }
+
+        private void giveWheatTextBox_TextChanged(object sender, EventArgs e)
+        {
+            wheatCheck = CheckWheatQuantity();
+        }
+
+        private void giveWoodTextBox_TextChanged(object sender, EventArgs e)
+        {
+            woodCheck = CheckWoodQuantity();
         }
 
     }

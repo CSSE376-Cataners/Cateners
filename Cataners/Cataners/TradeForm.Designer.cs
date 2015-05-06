@@ -99,6 +99,7 @@
             this.giveOreTextBox.Name = "giveOreTextBox";
             this.giveOreTextBox.Size = new System.Drawing.Size(59, 30);
             this.giveOreTextBox.TabIndex = 4;
+            this.giveOreTextBox.TextChanged += new System.EventHandler(this.giveOreTextBox_TextChanged);
             // 
             // giveSheepTextBox
             // 
@@ -106,6 +107,7 @@
             this.giveSheepTextBox.Name = "giveSheepTextBox";
             this.giveSheepTextBox.Size = new System.Drawing.Size(59, 30);
             this.giveSheepTextBox.TabIndex = 5;
+            this.giveSheepTextBox.TextChanged += new System.EventHandler(this.giveSheepTextBox_TextChanged);
             // 
             // giveWheatTextBox
             // 
@@ -113,6 +115,7 @@
             this.giveWheatTextBox.Name = "giveWheatTextBox";
             this.giveWheatTextBox.Size = new System.Drawing.Size(59, 30);
             this.giveWheatTextBox.TabIndex = 6;
+            this.giveWheatTextBox.TextChanged += new System.EventHandler(this.giveWheatTextBox_TextChanged);
             // 
             // giveWoodTextBox
             // 
@@ -120,6 +123,7 @@
             this.giveWoodTextBox.Name = "giveWoodTextBox";
             this.giveWoodTextBox.Size = new System.Drawing.Size(59, 30);
             this.giveWoodTextBox.TabIndex = 7;
+            this.giveWoodTextBox.TextChanged += new System.EventHandler(this.giveWoodTextBox_TextChanged);
             // 
             // targetOfTradeLabel
             // 
