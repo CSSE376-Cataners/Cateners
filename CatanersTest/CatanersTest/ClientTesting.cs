@@ -548,6 +548,63 @@ namespace CatanersTest
             Assert.AreEqual(new Message(game.toJson(), Translation.TYPE.GetGameLobby).toJson(), client.lastCall);
         }
 
+        [Test]
+        public void testChatMessageToLobbyOrGameLobby()
+        {
+            FakeClient client1 = new FakeClient();
+            GamePlayer player1 = new GamePlayer("client1");
+            
+            FakeClient client2 = new FakeClient();
+            GamePlayer player2 = new GamePlayer("client2");
+
+            FakeClient client3 = new FakeClient();
+            GamePlayer player3 = new GamePlayer("client3");
+            
+            FakeClient client4 = new FakeClient();
+            GamePlayer player4 = new GamePlayer("client4");
+
+            Lobby lobby = new Lobby("GameName", 10, new Player("Owner"), 1);
+            GameLobby gLobby = new GameLobby(lobby);
+            gLobby.gamePlayers.Clear();
+
+            gLobby.gamePlayers.Add(player1);
+            gLobby.gamePlayers.Add(player2);
+            gLobby.gamePlayers.Add(player3);
+            gLobby.gamePlayers.Add(player4);
+            // Done with setup
+
+            Chat chat1 = new Chat("I am Player1", Chat.TYPE.Normal, null);
+            Message message1 = new Message(chat1.toJson(), Translation.TYPE.Chat);
+            Chat chat1R = new Chat(chat1.Message, Chat.TYPE.Normal, player1.Username);
+            Message message1R = new Message(chat1R.toJson(), Translation.TYPE.Chat);
+            
+            
+            client1.processesMessage(message1.toJson());
+            Assert.Null(client1.lastCall);
+            Assert.AreEqual(client2.lastCall, message1R.toJson());
+            Assert.AreEqual(client3.lastCall, message1R.toJson());
+            Assert.AreEqual(client4.lastCall, message1R.toJson());
+
+
+            Chat chat2 = new Chat("I am Player2", Chat.TYPE.Normal, null);
+            Message message2 = new Message(chat2.toJson(), Translation.TYPE.Chat);
+            Chat chat2R = new Chat(chat2.Message, Chat.TYPE.Normal, player2.Username);
+            Message message2R = new Message(chat2R.toJson(), Translation.TYPE.Chat);
+
+
+            client2.processesMessage(message2.toJson());
+            Assert.AreEqual(client2.lastCall, message1R.toJson());
+            Assert.AreEqual(client1.lastCall, message2R.toJson());
+            Assert.AreEqual(client3.lastCall, message2R.toJson());
+            Assert.AreEqual(client4.lastCall, message2R.toJson());
+
+
+            FakeClient client5 = new FakeClient();
+            client5.processesMessage(message2.toJson());
+            Assert.Null(client5.lastCall);
+
+        }
+
         public class FakeClient : Client
         {
 
