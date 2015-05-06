@@ -391,6 +391,28 @@ namespace CatanersTest
             Assert.AreEqual("The following boxes are either invalid or greater than your current resources: Brick",mystring);
             
         }
+
+        [Test]
+        public void testErrorMessageBrokenOre()
+        {
+            Player p1 = new Player("Bobby Tables");
+            GameLobby lobby = new GameLobby(new Lobby("game", 100, p1, 10));
+            ((GameLobby)lobby).gamePlayers[0].resources[Resource.TYPE.Ore] = 1;
+            Data.currentLobby = lobby;
+            Data.username = p1.Username;
+            GamePlayer p2 = new GamePlayer("jimmy");
+            ((GameLobby)lobby).gamePlayers.Add(p2);
+            trade.initializeValues();
+
+            BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
+            FieldInfo info = (typeof(TradeForm).GetField("giveOreTextBox", flags));
+            TextBox box = (TextBox)info.GetValue(trade);
+            box.Text = "100";
+
+            String mystring = trade.printWrongResources();
+            Assert.AreEqual("The following boxes are either invalid or greater than your current resources: Ore", mystring);
+
+        }
         
     }
 }
