@@ -11,10 +11,12 @@ using WaveEngine.Components.Animation;
 using WaveEngine.Framework.Graphics;
 using WaveEngine.Materials;
 using WaveEngine.Components.Graphics2D;
+using System.Diagnostics.CodeAnalysis;
 #endregion
 
 namespace Cataners
 {
+    [ExcludeFromCodeCoverage]
     public class Game : WaveEngine.Framework.Game
     {
         public override void Initialize(IApplication application)

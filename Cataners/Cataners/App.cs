@@ -8,9 +8,11 @@ using WaveEngine.Framework;
 using WaveEngine.Framework.Graphics;
 using WaveEngine.Framework.Services;
 using CatanersShared;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cataners
 {
+    [ExcludeFromCodeCoverage]
     public class App : WaveEngine.Adapter.Application
     {
         public static object renderLock = "";
