@@ -614,6 +614,20 @@ namespace CatanersTest
 
         }
 
+        [Test]
+        public void testSocketClosed()
+        {
+            FakeClient client = new FakeClient();
+
+            // Make sure does not Error when nothing to clear;
+            client.socketClosed();
+
+            client.currentLobby = new Lobby("Random", 10, new Player("HERE"), 66);
+
+            client.socketClosed();
+            Assert.Null(client.currentLobby);
+        }
+
         public class FakeClient : Client
         {
 
