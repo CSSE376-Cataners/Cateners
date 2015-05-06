@@ -38,9 +38,9 @@ namespace CatanersTest
 
             Player d = new Player(null);
 
-            Assert.AreEqual(a, b);
-            Assert.AreEqual(d, d);
-            Assert.AreNotEqual(a, c);
+            Assert.True(a.Equals(b));
+            Assert.True(d.Equals(d));
+            Assert.False(a.Equals(c));
         }
 
         [Test]

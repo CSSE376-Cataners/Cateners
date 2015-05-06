@@ -6,19 +6,9 @@ using System.Threading.Tasks;
 
 namespace CatanersShared
 {
-    public class Resource
+    public static class Resource
     {
             public enum TYPE { Wheat, Sheep, Brick, Ore, Wood };
-
-            public static String toJson(TYPE t)
-            {
-                return Newtonsoft.Json.JsonConvert.SerializeObject(t);
-            }
-
-            public static Resource.TYPE fromJson(String json)
-            {
-                return Newtonsoft.Json.JsonConvert.DeserializeObject<Resource.TYPE>(json);
-            } 
     }
 
     public class AddResource
