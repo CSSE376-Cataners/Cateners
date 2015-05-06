@@ -17,11 +17,11 @@ namespace CatanersShared
             : base(Username)
         {
             resources = new Dictionary<Resource.TYPE, int>();
-            resources.Add(Resource.TYPE.Brick, 0);
-            resources.Add(Resource.TYPE.Ore, 0);
-            resources.Add(Resource.TYPE.Sheep, 0);
-            resources.Add(Resource.TYPE.Wheat, 0);
-            resources.Add(Resource.TYPE.Wood, 0);
+            resources.Add(Resource.TYPE.Brick, 100);
+            resources.Add(Resource.TYPE.Ore, 100);
+            resources.Add(Resource.TYPE.Sheep, 100);
+            resources.Add(Resource.TYPE.Wheat, 100);
+            resources.Add(Resource.TYPE.Wood, 100);
         }
 
     }

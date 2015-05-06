@@ -692,6 +692,7 @@ namespace Cataners
 
         public void setAsPurchasedSettle(string name)
         {
+            Console.WriteLine("here");
             this.EntityManager.Find(name).FindComponent<Sprite>().TexturePath.Replace(this.EntityManager.Find(name).FindComponent<Sprite>().TexturePath, "SettlementBlue.wpk");
         }
     }
