@@ -54,7 +54,9 @@ namespace Cataners
 
         public bool CheckOreQuantity()
         {
-            return false;
+            String txt = giveOreTextBox.Text;
+            int val = Int32.Parse(txt);
+            return (currentTrader.resources[Resource.TYPE.Brick] > val) ? true : false;
         }
 
     }
