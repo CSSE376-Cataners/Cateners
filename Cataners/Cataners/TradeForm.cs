@@ -101,12 +101,14 @@ namespace Cataners
             {
                 return false;
             }
-            return (currentTrader.resources[Resource.TYPE.Sheep] > val) ? true : false;
+            return (currentTrader.resources[Resource.TYPE.Wheat] > val) ? true : false;
         }
 
         public bool CheckWoodQuantity()
         {
-            return false;
+            String txt = giveWoodTextBox.Text;
+            val = Int32.Parse(txt);
+            return (currentTrader.resources[Resource.TYPE.Wood] > val) ? true : false;
         }
 
     }
