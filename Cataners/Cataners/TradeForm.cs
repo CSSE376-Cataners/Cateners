@@ -107,7 +107,15 @@ namespace Cataners
         public bool CheckWoodQuantity()
         {
             String txt = giveWoodTextBox.Text;
-            val = Int32.Parse(txt);
+            try
+            {
+                val = Int32.Parse(txt);
+
+            }
+            catch
+            {
+                return false;
+            }
             return (currentTrader.resources[Resource.TYPE.Wood] > val) ? true : false;
         }
 
