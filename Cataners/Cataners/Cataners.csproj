@@ -69,6 +69,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="ChatBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChatBox.Designer.cs">
+      <DependentUpon>ChatBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="CommunicationClient.cs" />
     <Compile Include="CreateGameForm.cs">
       <SubType>Form</SubType>
@@ -125,6 +131,9 @@
     <Compile Include="TradeForm.Designer.cs">
       <DependentUpon>TradeForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ChatBox.resx">
+      <DependentUpon>ChatBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CreateGameForm.resx">
       <DependentUpon>CreateGameForm.cs</DependentUpon>
     </EmbeddedResource>
