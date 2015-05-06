@@ -152,7 +152,11 @@ namespace Cataners
 
         public String printWrongResources()
         {
-            return "The following boxes are either invalid or greater than your current resources: Brick";
+            if (!brickCheck){
+                return "The following boxes are either invalid or greater than your current resources: Brick"; 
+            } else{
+                return "The following boxes are either invalid or greater than your current resources: Ore";
+            }
 
         }
 
