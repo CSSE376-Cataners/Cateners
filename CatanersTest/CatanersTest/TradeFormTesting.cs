@@ -57,8 +57,20 @@ namespace CatanersTest
        }
 
         [Test]
-       public void TestBrickCheck()
+       public void TestBrickCheckFalseIfNotEnoughResources()
        {
+           bool check = true;
+           Player p1 = new Player("Bobby Tables");
+           GameLobby lobby = new GameLobby(new Lobby("game", 100, p1, 10));
+           ((GamePlayer)p1).resources[Resource.TYPE.Brick] = 1;
+
+           BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
+           FieldInfo info = (typeof(TradeForm).GetField("giveBrickTextBox", flags));
+           TextBox box = (TextBox)info.GetValue(info);
+           box.Text = "1000";
+           check = trade.CheckBrickQuantity();
+           trade.CheckBrickQuantity();
+           Assert.IsFalse(check);
            
        }
         
