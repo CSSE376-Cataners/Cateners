@@ -8,6 +8,7 @@ using Cataners;
 using CatanersShared;
 using System.Reflection;
 using Cataners;
+using System.Windows.Forms;
 
 namespace CatanersTest
 {
@@ -192,6 +193,33 @@ namespace CatanersTest
             Assert.AreEqual(2, ((GameLobby)Data.currentLobby).gamePlayers[0].resources[Resource.TYPE.Wheat]);
 
         }
+
+
+        [Test]
+        public void testChatMessageRecived()
+        {
+            FakeClient client = new FakeClient();
+
+            Chat chat1 = new Chat("I am Player1", Chat.TYPE.Normal, "Player1");
+            CatanersShared.Message message1 = new CatanersShared.Message(chat1.toJson(), Translation.TYPE.Chat);
+            client.processesMessage(message1.toJson());
+
+            chat1 = new Chat("I am Player1!!!! Respond", Chat.TYPE.Normal, "Player1");
+            message1 = new CatanersShared.Message(chat1.toJson(), Translation.TYPE.Chat);
+            ChatBox box = new ChatBox();
+            client.processesMessage(message1.toJson());
+
+            BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
+            FieldInfo info = typeof(ChatBox).GetField("richTextBox", flags);
+
+            RichTextBox rtb = (RichTextBox)info.GetValue(box);
+
+            Assert.True(rtb.Text.Length < 1);
+            client.processesMessage(message1.toJson());
+            Assert.True(rtb.Text.Length > 1);
+
+        }
+
 
 
         public class FakeClient : CommunicationClient
