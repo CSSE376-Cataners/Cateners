@@ -16,6 +16,7 @@ namespace Cataners
         public static TradeForm INSTANCE;
         private GamePlayer currentTrader;
         private bool brickCheck;
+        int val;
         public TradeForm()
         {
             InitializeComponent();
@@ -46,8 +47,13 @@ namespace Cataners
         public bool CheckBrickQuantity()
         {
             String txt = giveBrickTextBox.Text;
-            //add try catch
-            int val = Int32.Parse(txt);
+            try
+            {
+                val = Int32.Parse(txt);
+            }
+            catch {
+                return false;
+            }
             return (currentTrader.resources[Resource.TYPE.Brick] > val) ? true : false;
             
         }
@@ -55,8 +61,17 @@ namespace Cataners
         public bool CheckOreQuantity()
         {
             String txt = giveOreTextBox.Text;
-            int val = Int32.Parse(txt);
+            try
+            {
+                val = Int32.Parse(txt);
+                
+            }
+            catch
+            {
+                return false;
+            }
             return (currentTrader.resources[Resource.TYPE.Brick] > val) ? true : false;
+            
         }
 
     }
