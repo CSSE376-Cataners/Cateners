@@ -168,6 +168,7 @@ namespace Cataners
                     LobbyForm.INSTANCE.InvokedClose(start);
                     MainGui.INSTANCE.invokedHide();
                     Program.Main();
+                    TradeForm trade = new TradeForm();
                     LocalConversion.Instance.generateHexList(Translation.jsonToIntArrayTwo(msg.message));
                     break;
 
@@ -192,9 +193,8 @@ namespace Cataners
                 case Translation.TYPE.GetGameLobby:
                     Data.currentLobby = GameLobby.fromJson(msg.message);
                     break;
-                case Translation.TYPE.TradeResource:
-                    TradeForm trade = new TradeForm();
-
+                case Translation.TYPE.OpenTradeWindow:
+                    
                     break;
             }
         }
