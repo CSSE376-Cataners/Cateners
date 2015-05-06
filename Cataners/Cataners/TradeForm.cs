@@ -74,5 +74,10 @@ namespace Cataners
             
         }
 
+        public bool CheckSheepQuantity()
+        {
+            return true;
+        }
+
     }
 }
