@@ -74,7 +74,6 @@ namespace CatanersTest
            TextBox box = (TextBox)info.GetValue(trade);
            box.Text = "1000";
            check = trade.CheckBrickQuantity();
-           trade.CheckBrickQuantity();
            Assert.IsFalse(check);
            
        }
@@ -97,7 +96,6 @@ namespace CatanersTest
             TextBox box = (TextBox)info.GetValue(trade);
             box.Text = "10";
             check = trade.CheckBrickQuantity();
-            trade.CheckBrickQuantity();
             Assert.IsTrue(check);
 
         }
@@ -120,8 +118,29 @@ namespace CatanersTest
             TextBox box = (TextBox)info.GetValue(trade);
             box.Text = "1000";
             check = trade.CheckOreQuantity();
-            trade.CheckOreQuantity();
             Assert.IsFalse(check);
+
+        }
+
+        [Test]
+        public void TestOreCheckTrueIfEnoughResources()
+        {
+            bool check = true;
+            Player p1 = new Player("Bobby Tables");
+            GameLobby lobby = new GameLobby(new Lobby("game", 100, p1, 10));
+            Data.currentLobby = lobby;
+            Data.username = p1.Username;
+            ((GameLobby)lobby).gamePlayers[0].resources[Resource.TYPE.Ore] = 100;
+            GamePlayer p2 = new GamePlayer("jimmy");
+            ((GameLobby)lobby).gamePlayers.Add(p2);
+            trade.initializeValues();
+
+            BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
+            FieldInfo info = (typeof(TradeForm).GetField("giveOreTextBox", flags));
+            TextBox box = (TextBox)info.GetValue(trade);
+            box.Text = "10";
+            check = trade.CheckOreQuantity();
+            Assert.IsTrue(check);
 
         }
         
