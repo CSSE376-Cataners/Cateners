@@ -45,12 +45,18 @@ namespace CatanersTest
         public void testMessageEquals()
         {
             Message msg1 = new Message("Message One", Translation.TYPE.Login);
+            Message msg1c = new Message("Message One", Translation.TYPE.Login);
+            Message msg1d = new Message("Message One", Translation.TYPE.RegenerateBoard);
+            Message msg2 = new Message("Message Two", Translation.TYPE.RegenerateBoard);
+
+
 
             Assert.False(msg1.Equals(" "));
-
-            msg1.message = null;
-
-            Assert.AreEqual(msg1, msg1);
+            Assert.False(msg1.Equals( msg1d));
+            Assert.True(msg1.Equals( msg1c));
+            Assert.False(msg1.Equals(msg2));
+            Assert.True(msg1.Equals( msg1));
+            Assert.False(msg1.Equals(null));
         }
     }
 }
