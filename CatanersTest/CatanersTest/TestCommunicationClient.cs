@@ -7,6 +7,7 @@ using NUnit.Framework;
 using Cataners;
 using CatanersShared;
 using System.Reflection;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CatanersTest
 {
@@ -220,7 +221,7 @@ namespace CatanersTest
         }
 
 
-
+        [ExcludeFromCodeCoverage]
         public class FakeClient : CommunicationClient
         {
             public FakeClient()

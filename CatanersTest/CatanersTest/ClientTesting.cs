@@ -389,10 +389,10 @@ namespace CatanersTest
         public async void testNormalConstructor()
         {
             TcpListener listener = new TcpListener(System.Net.IPAddress.Any ,9999);
-            TcpClient tcpClient = new TcpClient("127.0.0.1",9999);
+            
 
             listener.Start();
-            await tcpClient.ConnectAsync("127.0.0.1",9999);
+            TcpClient tcpClient = new TcpClient("127.0.0.1", 9999);
 
             TcpClient serverSide = await listener.AcceptTcpClientAsync();
 
@@ -404,11 +404,11 @@ namespace CatanersTest
             Assert.Null(client.currentLobby);
 
             BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
-            FieldInfo fieldTCP = typeof(FakeClient).GetField("tcp", flags);
-            FieldInfo fieldReader = typeof(FakeClient).GetField("reader", flags);
-            FieldInfo fieldWriter = typeof(FakeClient).GetField("writer", flags);
+            FieldInfo fieldTCP = typeof(Client).GetField("socket", flags);
+            FieldInfo fieldReader = typeof(Client).GetField("reader", flags);
+            FieldInfo fieldWriter = typeof(Client).GetField("writer", flags);
 
-            Assert.AreEqual(serverSide, fieldTCP.GetValue(serverSide));
+            Assert.AreEqual(serverSide, client.socket);
 
             Assert.NotNull(fieldReader.GetValue(client));
             Assert.NotNull(fieldWriter.GetValue(client));
