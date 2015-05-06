@@ -41,7 +41,7 @@ namespace Cataners
 
         public bool CheckBrickQuantity()
         {
-            return true;
+            return false;
         }
 
     }
