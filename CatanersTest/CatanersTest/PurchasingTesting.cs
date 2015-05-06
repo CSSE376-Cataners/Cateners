@@ -44,7 +44,7 @@ namespace CatanersTest
             this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
             this.newPlayer1.resources[Resource.TYPE.Wheat] = 1;
             this.newPlayer1.resources[Resource.TYPE.Wood] = 1;
-            Assert.True(testLogic.determineSettlementAvailability("Stentopher", 1, neighborArray));
+            Assert.True(testLogic.determineSettlementAvailability("Stentopher", 1));
         }
 
         [Test]
@@ -56,7 +56,7 @@ namespace CatanersTest
             this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
             this.newPlayer1.resources[Resource.TYPE.Wheat] = 1;
             this.newPlayer1.resources[Resource.TYPE.Wood] = 1;
-            Assert.False(testLogic.determineSettlementAvailability("Stentopher", 1, neighborArray));
+            Assert.False(testLogic.determineSettlementAvailability("Stentopher", 1));
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace CatanersTest
             this.newPlayer1.resources[Resource.TYPE.Brick] = 0;
             this.newPlayer1.resources[Resource.TYPE.Wheat] = 1;
             this.newPlayer1.resources[Resource.TYPE.Wood] = 1;
-            Assert.False(testLogic.determineSettlementAvailability("Stentopher", 1, neighborArray));
+            Assert.False(testLogic.determineSettlementAvailability("Stentopher", 1));
         }
 
         [Test]
@@ -80,7 +80,7 @@ namespace CatanersTest
             this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
             this.newPlayer1.resources[Resource.TYPE.Wheat] = 0;
             this.newPlayer1.resources[Resource.TYPE.Wood] = 1;
-            Assert.False(testLogic.determineSettlementAvailability("Stentopher", 1, neighborArray));
+            Assert.False(testLogic.determineSettlementAvailability("Stentopher", 1));
         }
 
         [Test]
@@ -92,7 +92,7 @@ namespace CatanersTest
             this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
             this.newPlayer1.resources[Resource.TYPE.Wheat] = 1;
             this.newPlayer1.resources[Resource.TYPE.Wood] = 0;
-            Assert.False(testLogic.determineSettlementAvailability("Stentopher", 1, neighborArray));
+            Assert.False(testLogic.determineSettlementAvailability("Stentopher", 1));
         }
 
         [Test]
@@ -104,9 +104,46 @@ namespace CatanersTest
             this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
             this.newPlayer1.resources[Resource.TYPE.Wheat] = 1;
             this.newPlayer1.resources[Resource.TYPE.Wood] = 1;
-            testLogic.setSettlementActivity(2);
-            this.neighborArray = new int[1] {2};
-            Assert.False(testLogic.determineSettlementAvailability("Stentopher", 1, neighborArray));
+            testLogic.setSettlementActivity(4);
+            Assert.False(testLogic.determineSettlementAvailability("Stentopher", 1));
+        }
+
+        [Test]
+        public void testAvailabilityTrueBoth()
+        {
+            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            this.newPlayer1 = testLogic.gameLobby.gamePlayers[1];
+            this.newPlayer1.resources[Resource.TYPE.Sheep] = 1;
+            this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
+            this.newPlayer1.resources[Resource.TYPE.Wheat] = 1;
+            this.newPlayer1.resources[Resource.TYPE.Wood] = 1;
+            this.neighborArray = new int[1] { 2 };
+            Assert.True(testLogic.determineSettlementAvailability("Stentopher", 1));
+        }
+
+        [Test]
+        public void testAvailabilityFalseBoth()
+        {
+            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            this.newPlayer1 = testLogic.gameLobby.gamePlayers[1];
+            this.newPlayer1.resources[Resource.TYPE.Sheep] = 1;
+            this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
+            this.newPlayer1.resources[Resource.TYPE.Wheat] = 1;
+            this.newPlayer1.resources[Resource.TYPE.Wood] = 0;
+            testLogic.setSettlementActivity(4);
+            Assert.False(testLogic.determineSettlementAvailability("Stentopher", 1));
+        }
+
+        [Test]
+        public void testAvailabilityTrueActivityFalseResource()
+        {
+            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            this.newPlayer1 = testLogic.gameLobby.gamePlayers[1];
+            this.newPlayer1.resources[Resource.TYPE.Sheep] = 1;
+            this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
+            this.newPlayer1.resources[Resource.TYPE.Wheat] = 1;
+            this.newPlayer1.resources[Resource.TYPE.Wood] = 0;
+            Assert.False(testLogic.determineSettlementAvailability("Stentopher", 1));
         }
     }
 }

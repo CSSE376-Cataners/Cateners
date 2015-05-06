@@ -12,6 +12,8 @@ namespace CatenersServer
     {
         private static Data instance = new Data();
 
+        public Dictionary<int, int[]> neighborDict;
+
         public static Data INSTANCE 
         {
             get
