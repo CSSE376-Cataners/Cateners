@@ -8,7 +8,7 @@ using CatanersShared;
 
 namespace Cataners
 {
-    public class Data
+    public static class Data
     {
         public static List<Lobby> Lobbies = new List<Lobby>();
         public static Lobby currentLobby = new Lobby();
