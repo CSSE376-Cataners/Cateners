@@ -413,6 +413,28 @@ namespace CatanersTest
             Assert.AreEqual("The following boxes are either invalid or greater than your current resources: Ore", mystring);
 
         }
+
+        [Test]
+        public void testErrorMessageBrokenSheep()
+        {
+            Player p1 = new Player("Bobby Tables");
+            GameLobby lobby = new GameLobby(new Lobby("game", 100, p1, 10));
+            ((GameLobby)lobby).gamePlayers[0].resources[Resource.TYPE.Sheep] = 1;
+            Data.currentLobby = lobby;
+            Data.username = p1.Username;
+            GamePlayer p2 = new GamePlayer("jimmy");
+            ((GameLobby)lobby).gamePlayers.Add(p2);
+            trade.initializeValues();
+
+            BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
+            FieldInfo info = (typeof(TradeForm).GetField("giveSheepTextBox", flags));
+            TextBox box = (TextBox)info.GetValue(trade);
+            box.Text = "100";
+
+            String mystring = trade.printWrongResources();
+            Assert.AreEqual("The following boxes are either invalid or greater than your current resources: Sheep", mystring);
+
+        }
         
     }
 }
