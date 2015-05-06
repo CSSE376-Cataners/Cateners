@@ -152,15 +152,36 @@ namespace Cataners
 
         public String printWrongResources()
         {
-            if (!brickCheck){
-                return "The following boxes are either invalid or greater than your current resources: Brick"; 
-            } else if (!oreCheck){
-                return "The following boxes are either invalid or greater than your current resources: Ore";
-            }
-            else
+            List<String> broken = new List<String>();
+            if (!brickCheck)
             {
-                return "The following boxes are either invalid or greater than your current resources: Sheep";
+                broken.Add("Brick");
             }
+            if (!oreCheck)
+            {
+                broken.Add("Ore");
+            }
+            if (!sheepCheck)
+            {
+                broken.Add("Sheep");
+            }
+            if (!wheatCheck)
+            {
+                broken.Add("Wheat");
+            }
+            if (!woodCheck)
+            {
+                broken.Add("Wood");
+            }
+            StringBuilder sb = new StringBuilder();
+            sb.Append("The following boxes are either invalid or greater than your current resources: ");
+            for (int i = 0; i < broken.Count - 1; i++)
+            {
+                sb.Append(broken[i] + ", ");
+            }
+            sb.Append(broken[broken.Count - 1]);
+
+            return sb.ToString();
 
         }
 
