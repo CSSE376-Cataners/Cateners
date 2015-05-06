@@ -70,13 +70,23 @@ namespace Cataners
             {
                 return false;
             }
-            return (currentTrader.resources[Resource.TYPE.Brick] > val) ? true : false;
+            return (currentTrader.resources[Resource.TYPE.Ore] > val) ? true : false;
             
         }
 
         public bool CheckSheepQuantity()
         {
-            return false;
+            String txt = giveSheepTextBox.Text;
+            try
+            {
+                val = Int32.Parse(txt);
+
+            }
+            catch
+            {
+                return false;
+            }
+            return (currentTrader.resources[Resource.TYPE.Sheep] > val) ? true : false;
         }
 
     }
