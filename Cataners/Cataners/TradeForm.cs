@@ -30,6 +30,10 @@ namespace Cataners
                 {
                     targetOfTradeComboBox.Items.Add(((GameLobby)Data.currentLobby).gamePlayers[i].Username);
                 }
+                else
+                {
+                    currentTrader = ((GameLobby)Data.currentLobby).gamePlayers[i];
+                }
             }
             
         }
@@ -41,7 +45,10 @@ namespace Cataners
 
         public bool CheckBrickQuantity()
         {
-            return false;
+            String txt = giveBrickTextBox.Text;
+            int val = Int32.Parse(txt);
+            return (currentTrader.resources[Resource.TYPE.Brick] > val) ? true : false;
+            
         }
 
     }
