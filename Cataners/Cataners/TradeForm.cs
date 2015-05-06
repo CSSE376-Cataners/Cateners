@@ -91,7 +91,9 @@ namespace Cataners
 
         public bool CheckWheatQuantity()
         {
-            return false;
+            String txt = giveWheatTextBox.Text;
+            val = Int32.Parse(txt);
+            return (currentTrader.resources[Resource.TYPE.Sheep] > val) ? true : false;
         }
 
     }
