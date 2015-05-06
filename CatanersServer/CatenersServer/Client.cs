@@ -122,11 +122,13 @@ namespace CatenersServer
 
                 case Translation.TYPE.BuySettlement:
                     int parsedInt = int.Parse(msg.message);
-                    if (serverLogic.determineSettlementAvailability(this.userName, parsedInt))
+                    Boolean test = serverLogic.determineSettlementAvailability(this.userName, parsedInt);
+                    if (test)
                     {
                          Message settlementPurchased = new Message(parsedInt.ToString(), Translation.TYPE.BuySettlement);
                          sendToClient(settlementPurchased.toJson());
                     }
+                    Console.WriteLine(test);
                 break;
 
                 case  Translation.TYPE.CreateLobby:
