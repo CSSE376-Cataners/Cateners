@@ -154,8 +154,12 @@ namespace Cataners
         {
             if (!brickCheck){
                 return "The following boxes are either invalid or greater than your current resources: Brick"; 
-            } else{
+            } else if (!oreCheck){
                 return "The following boxes are either invalid or greater than your current resources: Ore";
+            }
+            else
+            {
+                return "The following boxes are either invalid or greater than your current resources: Sheep";
             }
 
         }
