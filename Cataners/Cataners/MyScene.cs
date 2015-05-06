@@ -650,7 +650,11 @@ namespace Cataners
                                 });
                                 currSettle.getSettlement().AddComponent(new RectangleCollider());
                                 currSettle.getSettlement().AddComponent(new TouchGestures(true));
-                                currSettle.getSettlement().FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(settlement_Pressed);
+                                currSettle.getSettlement().FindComponent<TouchGestures>().TouchPressed += (sender, GestureEventArgs) =>
+                                {
+                                    Console.WriteLine(currSettle.getPlacementNumber());
+                                    CommunicationClient.Instance.sendToServer(new Message(currSettle.getPlacementNumber().ToString(), Translation.TYPE.BuySettlement).toJson());
+                                };
                                 currSettle.canAddComponent = false;
                                 Console.WriteLine(currSettle.getPlacementNumber());
                                 Entity e = currSettle.getSettlement();
@@ -662,12 +666,6 @@ namespace Cataners
                     toAdd.Add(current.getHex());
                 }
             }
-        }
-
-        private void settlement_Pressed(object sender, GestureEventArgs e)
-        {
-            Console.WriteLine("clicked");
-            //CommunicationClient.Instance.sendToServer(new Message(Data.username, Translation.TYPE.BuySettlement).toJson());
         }
 
         private void button_Pressed(object sender, GestureEventArgs e)
