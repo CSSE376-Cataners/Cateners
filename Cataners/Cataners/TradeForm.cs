@@ -36,22 +36,12 @@ namespace Cataners
 
         private void giveBrickTextBox_TextChanged(object sender, EventArgs e)
         {
-            CheckBrickQuantity();
+            brickCheck = CheckBrickQuantity();
         }
 
-        private void CheckBrickQuantity()
+        public bool CheckBrickQuantity()
         {
-
-            /*int val = Int32.Parse(giveBrickTextBox.Text);
-            if (val > .resources[Resource.TYPE.Brick])
-            {
-                brickCheck = false;
-            }
-            else
-            {
-                brickCheck = true;
-            }*/
-
+            return true;
         }
 
     }
