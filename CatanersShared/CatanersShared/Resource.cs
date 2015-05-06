@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CatanersShared
 {
-    public class Resource
+    public static class Resource
     {
             public enum TYPE { Wheat, Sheep, Brick, Ore, Wood };
 
