@@ -54,6 +54,7 @@ namespace Cataners
 
         public bool CheckOreQuantity()
         {
+            return false;
         }
 
     }
