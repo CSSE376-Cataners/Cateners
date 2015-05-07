@@ -97,7 +97,7 @@ namespace CatanersTest
 
 
             Assert.True(trade.Equals(trade));
-            Assert.True(trade.Equals(tradea));
+            Assert.True(trade1.Equals(tradea));
             Assert.False(trade.Equals(trade1));
             Assert.False(trade.Equals(null));
             Assert.False(trade.Equals(""));
