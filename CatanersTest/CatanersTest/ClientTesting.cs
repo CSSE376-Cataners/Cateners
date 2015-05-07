@@ -628,6 +628,58 @@ namespace CatanersTest
             Assert.Null(client.currentLobby);
         }
 
+        [Test]
+        public void testOpenTrade()
+        {
+            Dictionary<Resource.TYPE, int> offer = new Dictionary<Resource.TYPE, int>();
+            Dictionary<Resource.TYPE, int> request = new Dictionary<Resource.TYPE, int>();
+
+            Trade trade = new Trade(new GamePlayer("Sender"), new GamePlayer("Reciver"), offer, request);
+            CatanersShared.Message msg = new CatanersShared.Message(trade.toJson(), Translation.TYPE.OpenTradeWindow);
+
+            FakeClient client = new FakeClient();
+            FakeClient reciver = new FakeClient();
+
+            // Ignore, Dont Crash;
+            client.processesMessage(msg.toJson());
+            Assert.Null(reciver.lastCall);
+
+            offer[Resource.TYPE.Wheat] = 10;
+            
+            ServerPlayer ptemp = new ServerPlayer("Sender",client);
+            ServerPlayer ptemp2 = new ServerPlayer("Reciver",reciver);
+
+            Lobby temp = new Lobby("Lobby",10,new Player("Sender"),1);
+            temp.addPlayer(ptemp2);
+            GameLobby gLobby = new GameLobby(temp);
+
+            client.player  = ptemp;
+            client.currentLobby = temp;
+            client.gameLobby = gLobby;
+
+            msg = new CatanersShared.Message(trade.toJson(), Translation.TYPE.OpenTradeWindow);
+
+            client.processesMessage(msg.toJson());
+            Assert.Null(reciver.lastCall);
+            // Still dont do anything as both do not have resources
+
+            client.gameLobby.gamePlayers[0].resources[Resource.TYPE.Wheat] = 10;
+
+            client.processesMessage(msg.toJson());
+            // Good
+            Assert.AreEqual(trade.toJson(),reciver.lastCall);
+
+
+            request[Resource.TYPE.Wheat] = 10;
+            client.gameLobby.gamePlayers[1].resources[Resource.TYPE.Wheat] = 10;
+
+            msg = new CatanersShared.Message(trade.toJson(), Translation.TYPE.OpenTradeWindow);
+            client.processesMessage(msg.toJson());
+
+            Assert.AreEqual(msg.toJson(), reciver.lastCall);
+
+        }
+
         public class FakeClient : Client
         {
 
