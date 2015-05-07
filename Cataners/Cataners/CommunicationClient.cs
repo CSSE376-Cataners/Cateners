@@ -212,7 +212,16 @@ namespace Cataners
                     MyScene.Instance.gameLobby = (GameLobby)Data.currentLobby;
                     break;
                 case Translation.TYPE.OpenTradeWindow:
-                    
+                    MessageBoxResult result = System.Windows.MessageBox.Show("Text on the inside", "Title Text", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        sendToServer(new CatanersShared.Message(true.ToString(), Translation.TYPE.TradeResponce).toJson());
+                    }
+                    else
+                    {
+                        sendToServer(new CatanersShared.Message(false.ToString(), Translation.TYPE.TradeResponce).toJson());
+                    }
                     break;
                 case Translation.TYPE.Chat:
                     Chat chat = Chat.fromJson(msg.message);
