@@ -519,6 +519,53 @@ namespace CatanersTest
 
 
         }
+
+        [Test]
+        public void TestOfferedDictionaryInitializationWithDifferentVals()
+        {
+            Player p1 = new Player("Bobby Tables");
+            GameLobby lobby = new GameLobby(new Lobby("game", 100, p1, 10));
+            ((GameLobby)lobby).gamePlayers[0].resources[Resource.TYPE.Brick] = 5;
+            ((GameLobby)lobby).gamePlayers[0].resources[Resource.TYPE.Ore] = 4;
+            ((GameLobby)lobby).gamePlayers[0].resources[Resource.TYPE.Sheep] = 3;
+            ((GameLobby)lobby).gamePlayers[0].resources[Resource.TYPE.Wheat] = 2;
+            ((GameLobby)lobby).gamePlayers[0].resources[Resource.TYPE.Wood] = 1;
+            Data.currentLobby = lobby;
+            Data.username = p1.Username;
+            GamePlayer p2 = new GamePlayer("jimmy");
+            ((GameLobby)lobby).gamePlayers.Add(p2);
+            trade.initializeValues();
+
+            BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
+            FieldInfo info = (typeof(TradeForm).GetField("giveBrickTextBox", flags));
+            TextBox box = (TextBox)info.GetValue(trade);
+            box.Text = "5";
+
+            FieldInfo info2 = (typeof(TradeForm).GetField("giveOreTextBox", flags));
+            TextBox box2 = (TextBox)info2.GetValue(trade);
+            box2.Text = "4";
+
+            FieldInfo info3 = (typeof(TradeForm).GetField("giveSheepTextBox", flags));
+            TextBox box3 = (TextBox)info3.GetValue(trade);
+            box3.Text = "3";
+
+            FieldInfo info4 = (typeof(TradeForm).GetField("giveWheatTextBox", flags));
+            TextBox box4 = (TextBox)info4.GetValue(trade);
+            box4.Text = "2";
+
+            FieldInfo info5 = (typeof(TradeForm).GetField("giveWoodTextBox", flags));
+            TextBox box5 = (TextBox)info5.GetValue(trade);
+            box5.Text = "1";
+
+            trade.InitializeDictionaries();
+            Assert.AreEqual(trade.offered[Resource.TYPE.Brick], 5);
+            Assert.AreEqual(trade.offered[Resource.TYPE.Ore], 4);
+            Assert.AreEqual(trade.offered[Resource.TYPE.Sheep], 3);
+            Assert.AreEqual(trade.offered[Resource.TYPE.Wheat], 2);
+            Assert.AreEqual(trade.offered[Resource.TYPE.Wood], 1);
+
+
+        }
         
     }
 }
