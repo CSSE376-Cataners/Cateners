@@ -291,5 +291,90 @@ namespace Cataners
             tradeButton.Enabled = true;
         }
 
+        private void recvBrickTextBox_TextChanged(object sender, EventArgs e)
+        {
+            String txt = recvBrickTextBox.Text;
+            try
+            {
+                val = Int32.Parse(txt);
+                if (val < 0)
+                {
+                    MessageBox.Show("Please do not enter a negative number");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Please enter a positive integer");
+            }
+        }
+
+        private void recvOreTextBox_TextChanged(object sender, EventArgs e)
+        {
+            String txt = recvOreTextBox.Text;
+            try
+            {
+                val = Int32.Parse(txt);
+                if (val < 0)
+                {
+                    MessageBox.Show("Please do not enter a negative number");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Please enter a positive integer");
+            }
+        }
+
+        private void recvSheepTextBox_TextChanged(object sender, EventArgs e)
+        {
+            String txt = recvSheepTextBox.Text;
+            try
+            {
+                val = Int32.Parse(txt);
+                if (val < 0)
+                {
+                    MessageBox.Show("Please do not enter a negative number");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Please enter a positive integer");
+            }
+        }
+
+        private void recvWheatTextBox_TextChanged(object sender, EventArgs e)
+        {
+            String txt = recvWheatTextBox.Text;
+            try
+            {
+                val = Int32.Parse(txt);
+                if (val < 0)
+                {
+                    MessageBox.Show("Please do not enter a negative number");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Please enter a positive integer");
+            }
+        }
+
+        private void recvWoodTextBox_TextChanged(object sender, EventArgs e)
+        {
+            String txt = recvWoodTextBox.Text;
+            try
+            {
+                val = Int32.Parse(txt);
+                if (val < 0)
+                {
+                    MessageBox.Show("Please do not enter a negative number");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Please enter a positive integer");
+            }
+        }
+
     }
 }
