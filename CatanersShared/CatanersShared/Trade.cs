@@ -28,6 +28,48 @@ namespace CatanersShared
         {
             return Newtonsoft.Json.JsonConvert.SerializeObject(this);
         }
+
+        // override object.Equals
+        public override bool Equals(object obj)
+        {
+            //       
+            // See the full list of guidelines at
+            //   http://go.microsoft.com/fwlink/?LinkID=85237  
+            // and also the guidance for operator== at
+            //   http://go.microsoft.com/fwlink/?LinkId=85238
+            //
+
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            // TODO: write your implementation of Equals() here
+            throw new NotImplementedException();
+            return base.Equals(obj);
+        }
+
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            return source.GetHashCode() + target.GetHashCode() + getResourcesHash(offeredResources) + getResourcesHash(wantedResources);
+        }
+
+        private static Array vals = Enum.GetValues(typeof(Resource.TYPE));
+
+        public static int getResourcesHash(Dictionary<Resource.TYPE,int> dic) 
+        {
+            int toReturn = 0;
+
+            int x = 1;
+            foreach (Resource.TYPE t in vals)
+            {
+                toReturn += dic[t] * x;
+                x *= 20;
+            }
+
+            return toReturn;
+        }
     }
 
     
