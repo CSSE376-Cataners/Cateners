@@ -61,7 +61,8 @@ namespace CatanersShared
             int x = 1;
             foreach (Resource.TYPE t in vals)
             {
-                toReturn += dic[t] * x;
+                if(dic.ContainsKey(t))
+                    toReturn += dic[t] * x;
                 x *= 20;
             }
 
