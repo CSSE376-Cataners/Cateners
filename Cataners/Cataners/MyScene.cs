@@ -56,10 +56,10 @@ namespace Cataners
 
         public static List<Entity> toAdd = new List<Entity>();
         public static List<BaseDecorator> toAddDecor = new List<BaseDecorator>();
-        private GamePlayer currentPlayer;
-        private GameLobby currentGameLobby;
-        private GamePlayer gameOwner;
-        private bool isMyTurn;
+        public GamePlayer currentPlayer;
+        public GamePlayer gameOwner;
+        public GameLobby gameLobby;
+        private bool isMyTurn = true;
 
         LocalConversion localConversion = new LocalConversion();
 
@@ -75,17 +75,6 @@ namespace Cataners
 
             //Create a 3D camera
             CommunicationClient.Instance.sendToServer(new CatanersShared.Message("", Translation.TYPE.GetGameLobby).toJson());
-            setCurrentPlayer();
-            setCurrentGameLobby();
-            //add regenerate board if owner
-            if(currentPlayer.Username.Equals(gameOwner)){
-                Button newButton = new Button(); 
-                newButton.Text = "Regenerate Board"; 
-                newButton.Width = 120; 
-                newButton.Height = 40;
-                newButton.Entity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(button_Pressed);
-                EntityManager.Add(newButton);
-            }
 
             FixedCamera2D camera2D = new FixedCamera2D("Camera2D") { BackgroundColor = Color.Gold };
             EntityManager.Add(camera2D);
@@ -108,6 +97,7 @@ namespace Cataners
             };
             EntityManager.Add(title);
             this.hexList = LocalConversion.Instance.getHexList();
+
             addPlayerNames();
         }
 
@@ -121,33 +111,48 @@ namespace Cataners
             Transform2D tradebutton2d = tradeButton.Entity.FindComponent<Transform2D>();
             tradebutton2d.X = CENTERWIDTH * 2 - 120;
             tradebutton2d.Y = CENTERHEIGHT * 2 - 100;
-            toAddDecor.Add(tradeButton);
             tradeButton.Entity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(tradeButton_Pressed);
-         
+            lock (toAddDecor)
+            {
+                toAddDecor.Add(tradeButton);
+            }
+            
+
         }
 
-        public void setCurrentGameLobby()
+        public void addRegenerateBoardButton()
         {
-            currentGameLobby = ((GameLobby)Data.currentLobby);
+            //add regenerate board if owner
+            if (currentPlayer.Username.Equals(gameOwner.Username))
+            {
+                Button newButton = new Button();
+                newButton.Text = "Regenerate Board";
+                newButton.Width = 120;
+                newButton.Height = 40;
+                newButton.Entity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(button_Pressed);
+                lock(toAddDecor){
+                    toAddDecor.Add(newButton);
+                }
+            }
         }
         public void setCurrentGameOwner()
         {
-            for (int i = 0; i < currentGameLobby.gamePlayers.Count; i++)
+            for (int i = 0; i < ((GameLobby)Data.currentLobby).gamePlayers.Count; i++)
             {
-                if (currentGameLobby.gamePlayers[i].Username.Equals(Data.currentLobby.Owner))
+                if (((GameLobby)Data.currentLobby).gamePlayers[i].Username.Equals(Data.currentLobby.Owner))
                 {
-                    gameOwner = currentGameLobby.gamePlayers[i];
+                    gameOwner = ((GameLobby)Data.currentLobby).gamePlayers[i];
                 }
             }
         }
 
         public void setCurrentPlayer()
         {
-            for (int i = 0; i < currentGameLobby.gamePlayers.Count; i++)
+            for (int i = 0; i < ((GameLobby)Data.currentLobby).gamePlayers.Count; i++)
             {
-                if (currentGameLobby.gamePlayers[i].Username == Data.username)
+                if (((GameLobby)Data.currentLobby).gamePlayers[i].Username == Data.username)
                 {
-                    currentPlayer = currentGameLobby.gamePlayers[i];
+                    currentPlayer = ((GameLobby)Data.currentLobby).gamePlayers[i];
                 }
             }
         }
@@ -242,10 +247,10 @@ namespace Cataners
             StringBuilder sb = new StringBuilder();
             if (Data.currentLobby is GameLobby)
             {
-                for (int i = 0; i < currentGameLobby.gamePlayers.Count; i++)
+                for (int i = 0; i < ((GameLobby)Data.currentLobby).gamePlayers.Count; i++)
                 {
                     sb.Clear();
-                    foreach (var item in currentGameLobby.gamePlayers[i].resources)
+                    foreach (var item in ((GameLobby)Data.currentLobby).gamePlayers[i].resources)
                     {
                         sb.Append(item.Key + ": " + item.Value + " ");
                     }
