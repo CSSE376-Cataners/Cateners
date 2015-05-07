@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CatanersShared
 {
-    class Trade
+    public class Trade
     {
 
         public GamePlayer source;
