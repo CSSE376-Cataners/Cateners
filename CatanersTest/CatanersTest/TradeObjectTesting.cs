@@ -51,7 +51,9 @@ namespace CatanersTest
         [Test]
         public void testFromJson()
         {
-
+            GamePlayer a = new GamePlayer("Player1");
+            GamePlayer b = new GamePlayer("Player1");
+            Assert.AreEqual(a.GetHashCode(),b.GetHashCode());
         }
 
         [Test]
@@ -91,7 +93,7 @@ namespace CatanersTest
                 requesta[t] = 10 + x++;
             }
 
-            Trade tradea = new Trade(new GamePlayer("Sender"), new GamePlayer("Reciver"), offer, request);
+            Trade tradea = new Trade(new GamePlayer("Sender"), new GamePlayer("Reciver"), offera, requesta);
 
 
             Assert.True(trade.Equals(trade));
@@ -149,11 +151,13 @@ namespace CatanersTest
                 requesta[t] = 10 + x++;
             }
 
-            Trade tradea = new Trade(new GamePlayer("Sender"), new GamePlayer("Reciver"), offer, request);
+            Trade tradea = new Trade(new GamePlayer("Sender"), new GamePlayer("Reciver"), offera, requesta);
 
+            int a = Trade.getResourcesHash(request);
+            int b = Trade.getResourcesHash(requesta);
 
             Assert.AreEqual(trade.GetHashCode(),trade.GetHashCode());
-            Assert.AreEqual(trade.GetHashCode(), tradea.GetHashCode());
+            Assert.AreEqual(trade1.GetHashCode(), tradea.GetHashCode());
             Assert.AreNotEqual(trade.GetHashCode(), trade1.GetHashCode());
 
 
