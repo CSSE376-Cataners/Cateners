@@ -208,11 +208,11 @@ namespace Cataners
             offered = new Dictionary<Resource.TYPE, int>();
             wanted = new Dictionary<Resource.TYPE, int>();
 
-            offered.Add(Resource.TYPE.Brick, 1);
-            offered.Add(Resource.TYPE.Ore, 2);
-            offered.Add(Resource.TYPE.Sheep, 3);
-            offered.Add(Resource.TYPE.Wheat, 4);
-            offered.Add(Resource.TYPE.Wood, 5);
+            offered.Add(Resource.TYPE.Brick, offeredBrick);
+            offered.Add(Resource.TYPE.Ore, offeredOre);
+            offered.Add(Resource.TYPE.Sheep, offeredSheep);
+            offered.Add(Resource.TYPE.Wheat, offeredWheat);
+            offered.Add(Resource.TYPE.Wood, offeredWood);
 
             
 
