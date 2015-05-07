@@ -29,6 +29,11 @@ namespace CatanersShared
             return Newtonsoft.Json.JsonConvert.SerializeObject(this);
         }
 
+        public static Trade fromJson(String s)
+        {
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<Trade>(s);
+        }
+
         // override object.Equals
         public override bool Equals(object obj)
         {
