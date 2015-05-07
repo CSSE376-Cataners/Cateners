@@ -83,7 +83,7 @@ namespace Cataners
             tradeButton.Height = 40;
             Transform2D button2d = tradeButton.Entity.FindComponent<Transform2D>();
             button2d.X= CENTERWIDTH*2 - 120;
-            button2d.Y = CENTERHEIGHT * 2 - 40;
+            button2d.Y = CENTERHEIGHT * 2 - 100;
             EntityManager.Add(tradeButton);
             tradeButton.Entity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(tradeButton_Pressed);
             FixedCamera2D camera2D = new FixedCamera2D("Camera2D") { BackgroundColor = Color.Gold };
