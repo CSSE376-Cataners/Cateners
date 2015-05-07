@@ -605,6 +605,47 @@ namespace CatanersTest
             Assert.AreEqual(trade.wanted[Resource.TYPE.Wheat], 2);
             Assert.AreEqual(trade.wanted[Resource.TYPE.Wood], 1);
 
+        }
+
+        [Test]
+        public void TestWantedDictionaryInitializationWithDiffVals()
+        {
+            Player p1 = new Player("Bobby Tables");
+            GameLobby lobby = new GameLobby(new Lobby("game", 100, p1, 10));
+            Data.currentLobby = lobby;
+            Data.username = p1.Username;
+            GamePlayer p2 = new GamePlayer("jimmy");
+            ((GameLobby)lobby).gamePlayers.Add(p2);
+            trade.initializeValues();
+
+            BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
+            FieldInfo info = (typeof(TradeForm).GetField("recvBrickTextBox", flags));
+            TextBox box = (TextBox)info.GetValue(trade);
+            box.Text = "1";
+
+            FieldInfo info2 = (typeof(TradeForm).GetField("recvOreTextBox", flags));
+            TextBox box2 = (TextBox)info2.GetValue(trade);
+            box2.Text = "2";
+
+            FieldInfo info3 = (typeof(TradeForm).GetField("recvSheepTextBox", flags));
+            TextBox box3 = (TextBox)info3.GetValue(trade);
+            box3.Text = "3";
+
+            FieldInfo info4 = (typeof(TradeForm).GetField("recvWheatTextBox", flags));
+            TextBox box4 = (TextBox)info4.GetValue(trade);
+            box4.Text = "4";
+
+            FieldInfo info5 = (typeof(TradeForm).GetField("recvWoodTextBox", flags));
+            TextBox box5 = (TextBox)info5.GetValue(trade);
+            box5.Text = "5";
+
+            trade.InitializeDictionaries();
+            Assert.AreEqual(trade.wanted[Resource.TYPE.Brick], 1);
+            Assert.AreEqual(trade.wanted[Resource.TYPE.Ore], 2);
+            Assert.AreEqual(trade.wanted[Resource.TYPE.Sheep], 3);
+            Assert.AreEqual(trade.wanted[Resource.TYPE.Wheat], 4);
+            Assert.AreEqual(trade.wanted[Resource.TYPE.Wood], 5);
+
 
         }
         
