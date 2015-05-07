@@ -75,7 +75,7 @@ namespace Cataners
             catch {
                 return false;
             }
-            return (currentTrader.resources[Resource.TYPE.Brick] >= val) ? true : false;
+            return (currentTrader.resources[Resource.TYPE.Brick] >= val && val >=0) ? true : false;
             
         }
 
@@ -92,7 +92,7 @@ namespace Cataners
             {
                 return false;
             }
-            return (currentTrader.resources[Resource.TYPE.Ore] >= val) ? true : false;
+            return (currentTrader.resources[Resource.TYPE.Ore] >= val && val >= 0) ? true : false;
             
         }
 
@@ -109,7 +109,7 @@ namespace Cataners
             {
                 return false;
             }
-            return (currentTrader.resources[Resource.TYPE.Sheep] >= val) ? true : false;
+            return (currentTrader.resources[Resource.TYPE.Sheep] >= val && val >= 0) ? true : false;
         }
 
         public bool CheckWheatQuantity()
@@ -125,7 +125,7 @@ namespace Cataners
             {
                 return false;
             }
-            return (currentTrader.resources[Resource.TYPE.Wheat] >= val) ? true : false;
+            return (currentTrader.resources[Resource.TYPE.Wheat] >= val && val >= 0) ? true : false;
         }
 
         public bool CheckWoodQuantity()
@@ -141,7 +141,7 @@ namespace Cataners
             {
                 return false;
             }
-            return (currentTrader.resources[Resource.TYPE.Wood] >= val) ? true : false;
+            return (currentTrader.resources[Resource.TYPE.Wood] >= val && val >= 0) ? true : false;
         }
 
         private void giveBrickTextBox_TextChanged(object sender, EventArgs e)
