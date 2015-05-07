@@ -206,8 +206,8 @@ namespace Cataners
                          {
                              Data.currentGamePlayer = ((GameLobby)Data.currentLobby).gamePlayers[i];
                          }
-                         MyScene.Instance.addRegenerateBoardButton();
-                         MyScene.Instance.addTradeButton();
+                         MyScene.addRegenerateBoardButton();
+                         MyScene.addTradeButton();
                     }
                     Data.currentGameLobby = (GameLobby)Data.currentLobby;
                     break;
