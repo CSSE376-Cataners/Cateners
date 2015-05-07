@@ -112,6 +112,59 @@ namespace CatanersTest
 
         }
 
+        [Test]
+        public void testHashCode()
+        {
+            Dictionary<Resource.TYPE, int> offer = new Dictionary<Resource.TYPE, int>();
+            Dictionary<Resource.TYPE, int> request = new Dictionary<Resource.TYPE, int>();
+
+            int x = 0;
+            foreach (Resource.TYPE t in Enum.GetValues(typeof(Resource.TYPE)))
+            {
+                offer[t] = 10 + x;
+                request[t] = 10 + x++;
+            }
+
+            Trade trade1 = new Trade(new GamePlayer("Sender"), new GamePlayer("Reciver"), offer, request);
+
+            Dictionary<Resource.TYPE, int> offer2 = new Dictionary<Resource.TYPE, int>();
+            Dictionary<Resource.TYPE, int> request2 = new Dictionary<Resource.TYPE, int>();
+
+            x = 5;
+            foreach (Resource.TYPE t in Enum.GetValues(typeof(Resource.TYPE)))
+            {
+                offer2[t] = 10 + x;
+                request2[t] = 10 + x++;
+            }
+
+            Trade trade = new Trade(new GamePlayer("Sender"), new GamePlayer("Reciver"), offer2, request2);
+
+            Dictionary<Resource.TYPE, int> offera = new Dictionary<Resource.TYPE, int>();
+            Dictionary<Resource.TYPE, int> requesta = new Dictionary<Resource.TYPE, int>();
+
+            x = 0;
+            foreach (Resource.TYPE t in Enum.GetValues(typeof(Resource.TYPE)))
+            {
+                offera[t] = 10 + x;
+                requesta[t] = 10 + x++;
+            }
+
+            Trade tradea = new Trade(new GamePlayer("Sender"), new GamePlayer("Reciver"), offer, request);
+
+
+            Assert.AreEqual(trade.GetHashCode(),trade.GetHashCode());
+            Assert.AreEqual(trade.GetHashCode(), tradea.GetHashCode());
+            Assert.AreNotEqual(trade.GetHashCode(), trade1.GetHashCode());
+
+
+            Trade trade3 = new Trade(new GamePlayer("Diffrent"), new GamePlayer("Reciver"), offer, request);
+            Trade trade4 = new Trade(new GamePlayer("Sender"), new GamePlayer("Diffrent"), offer, request);
+
+
+            Assert.AreNotEqual(trade.GetHashCode(), trade3.GetHashCode());
+            Assert.AreNotEqual(trade.GetHashCode(),trade4.GetHashCode());
+        }
+
 
     }
 }
