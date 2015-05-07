@@ -56,11 +56,7 @@ namespace Cataners
 
         public static List<Entity> toAdd = new List<Entity>();
         public static List<BaseDecorator> toAddDecor = new List<BaseDecorator>();
-        public GamePlayer currentPlayer = Data.currentGamePlayer;
-        public GamePlayer gameOwner = Data.currentGameOwner;
-        public GameLobby gameLobby = Data.currentGameLobby;
-        private bool isMyTurn = true;
-
+        
         LocalConversion localConversion = new LocalConversion();
 
         public MyScene()
@@ -101,7 +97,7 @@ namespace Cataners
             addPlayerNames();
         }
 
-        public void addTradeButton()
+        public static void addTradeButton()
         {
             //add tradebutton
             Button tradeButton = new Button();
@@ -120,10 +116,10 @@ namespace Cataners
 
         }
 
-        public void addRegenerateBoardButton()
+        public static void addRegenerateBoardButton()
         {
             //add regenerate board if owner
-            if (currentPlayer.Username.Equals(gameOwner.Username))
+            if (Data.username.Equals(Data.currentGameOwner.Username))
             {
                 Button newButton = new Button();
                 newButton.Text = "Regenerate Board";
@@ -226,10 +222,10 @@ namespace Cataners
             StringBuilder sb = new StringBuilder();
             if (Data.currentLobby is GameLobby)
             {
-                for (int i = 0; i < gameLobby.gamePlayers.Count; i++)
+                for (int i = 0; i < Data.currentGameLobby.gamePlayers.Count; i++)
                 {
                     sb.Clear();
-                    foreach (var item in gameLobby.gamePlayers[i].resources)
+                    foreach (var item in Data.currentGameLobby.gamePlayers[i].resources)
                     {
                         sb.Append(item.Key + ": " + item.Value + " ");
                     }
@@ -436,18 +432,15 @@ namespace Cataners
             }
         }
 
-        private void button_Pressed(object sender, GestureEventArgs e)
+        private static void button_Pressed(object sender, GestureEventArgs e)
         {
             CommunicationClient.Instance.sendToServer(new Message("", Translation.TYPE.RegenerateBoard).toJson());
         }
 
-        private void tradeButton_Pressed(object sender, GestureEventArgs e)
+        private static void tradeButton_Pressed(object sender, GestureEventArgs e)
         {
-            if (isMyTurn)
-            {
                 TradeForm.INSTANCE.Show();
                 TradeForm.INSTANCE.initializeValues();
-            }
         }
 
         protected override void Start()
