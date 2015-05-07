@@ -20,6 +20,20 @@ namespace Cataners
         private bool sheepCheck;
         private bool wheatCheck;
         private bool woodCheck;
+        private int offeredBrick;
+        private int offeredOre;
+        private int offeredSheep;
+        private int offeredWheat;
+        private int offeredWood;
+        private int wantedBrick;
+        private int wantedOre;
+        private int wantedSheep;
+        private int wantedWheat;
+        private int wantedWood;
+
+        GamePlayer target;
+        public Dictionary<Resource.TYPE, int> offered;
+        public Dictionary<Resource.TYPE, int> wanted;
 
         int val;
         public TradeForm()
@@ -56,6 +70,7 @@ namespace Cataners
             try
             {
                 val = Int32.Parse(txt);
+                offeredBrick = val;
             }
             catch {
                 return false;
@@ -70,6 +85,7 @@ namespace Cataners
             try
             {
                 val = Int32.Parse(txt);
+                offeredOre = val;
                 
             }
             catch
@@ -86,6 +102,7 @@ namespace Cataners
             try
             {
                 val = Int32.Parse(txt);
+                offeredSheep = val;
 
             }
             catch
@@ -101,6 +118,7 @@ namespace Cataners
             try
             {
                 val = Int32.Parse(txt);
+                offeredWheat = val;
 
             }
             catch
@@ -116,6 +134,7 @@ namespace Cataners
             try
             {
                 val = Int32.Parse(txt);
+                offeredWood = val;
 
             }
             catch
@@ -184,12 +203,28 @@ namespace Cataners
             return sb.ToString();
 
         }
+        public void InitializeDictionaries()
+        {
+            offered = new Dictionary<Resource.TYPE, int>();
+            wanted = new Dictionary<Resource.TYPE, int>();
+
+            offered.Add(Resource.TYPE.Brick, 1);
+            offered.Add(Resource.TYPE.Ore, 2);
+            offered.Add(Resource.TYPE.Sheep, 3);
+            offered.Add(Resource.TYPE.Wheat, 4);
+            offered.Add(Resource.TYPE.Wood, 5);
+
+            
+
+        }
 
         private void tradeButton_Click(object sender, EventArgs e)
         {
             if (brickCheck & oreCheck & sheepCheck & wheatCheck & woodCheck)
             {
-                //send message to server
+                target = (GamePlayer)targetOfTradeComboBox.SelectedValue;
+                InitializeDictionaries();
+                Trade tradeobj = new Trade(currentTrader, target, offered, wanted);
             }
             else
             {
