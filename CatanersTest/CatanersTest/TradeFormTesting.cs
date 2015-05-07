@@ -681,11 +681,11 @@ namespace CatanersTest
             box5.Text = "z";
 
             trade.InitializeDictionaries();
-            Assert.AreEqual(trade.wanted[Resource.TYPE.Brick], 2);
-            Assert.AreEqual(trade.wanted[Resource.TYPE.Ore], 4);
-            Assert.AreEqual(trade.wanted[Resource.TYPE.Sheep], 3);
-            Assert.AreEqual(trade.wanted[Resource.TYPE.Wheat], 1);
-            Assert.AreEqual(trade.wanted[Resource.TYPE.Wood], 5);
+            Assert.AreEqual(trade.wanted[Resource.TYPE.Brick], 0);
+            Assert.AreEqual(trade.wanted[Resource.TYPE.Ore], 0);
+            Assert.AreEqual(trade.wanted[Resource.TYPE.Sheep], 0);
+            Assert.AreEqual(trade.wanted[Resource.TYPE.Wheat], 0);
+            Assert.AreEqual(trade.wanted[Resource.TYPE.Wood], 0);
 
 
         }
