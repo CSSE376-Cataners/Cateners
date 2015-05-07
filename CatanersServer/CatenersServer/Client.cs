@@ -214,6 +214,52 @@ namespace CatenersServer
                 }
                 break;
                 case Translation.TYPE.OpenTradeWindow:
+                    // Not in a game
+                    if (gameLobby == null)
+                        return;
+                    Trade trade = Trade.fromJson(msg.message);
+
+                    // Trying to trade with self.
+                    if (trade.source.Username.Equals(trade.target.Username))
+                        return;
+
+                    GamePlayer sender = null;
+                    GamePlayer target = null;
+                    foreach (GamePlayer p in gameLobby.gamePlayers)
+                    {
+                        if (p.Username.Equals(this.userName))
+                        {
+                            sender = p;
+                        }
+                        if (p.Username.Equals(trade.target.Username))
+                        {
+                            target = p;
+                        }
+                    }
+                    if (sender == null || target == null)
+                        return;
+
+                    Dictionary<Resource.TYPE, int> offer = trade.offeredResources;
+                    Dictionary<Resource.TYPE, int> request = trade.wantedResources;
+
+                    foreach (Resource.TYPE t in Enum.GetValues(typeof(Resource.TYPE)))
+                    {
+                        // if sender does not have enough
+                        if (offer.ContainsKey(t) && offer[t] > sender.resources[t])
+                            return;
+                        // if target does not have enough
+                        if (request.ContainsKey(t) && request[t] > target.resources[t])
+                            return;
+                    }
+
+                    foreach (ServerPlayer p in currentLobby.Players)
+                    {
+                        if (p.Username.Equals(target.Username))
+                        {
+                            p.client.sendToClient(s);
+                            return;
+                        }
+                    }
 
                 break;
                 case Translation.TYPE.Chat:
