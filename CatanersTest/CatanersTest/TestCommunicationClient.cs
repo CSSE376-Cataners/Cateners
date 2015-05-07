@@ -220,6 +220,19 @@ namespace CatanersTest
 
         }
 
+        [Test]
+        public void testTradeResponce()
+        {
+            
+            CatanersShared.Message msg = new CatanersShared.Message(/* Type of Class for Responce */"", Translation.TYPE.OpenTradeWindow);
+
+            FakeClient client = new FakeClient();
+
+            client.processesMessage(msg.toJson());
+
+
+        }
+            
 
         [ExcludeFromCodeCoverage]
         public class FakeClient : CommunicationClient
