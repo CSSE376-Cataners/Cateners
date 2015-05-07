@@ -214,11 +214,28 @@ namespace Cataners
             offered.Add(Resource.TYPE.Wheat, offeredWheat);
             offered.Add(Resource.TYPE.Wood, offeredWood);
 
-            wanted.Add(Resource.TYPE.Brick, 5);
-            wanted.Add(Resource.TYPE.Ore, 4);
-            wanted.Add(Resource.TYPE.Sheep, 3);
-            wanted.Add(Resource.TYPE.Wheat, 2);
-            wanted.Add(Resource.TYPE.Wood, 1);
+            String txt = recvBrickTextBox.Text;
+            wantedBrick = Int32.Parse(txt);
+            wanted.Add(Resource.TYPE.Brick, wantedBrick);
+
+            txt = recvOreTextBox.Text;
+            wantedOre = Int32.Parse(txt);
+            wanted.Add(Resource.TYPE.Ore, wantedOre);
+ 
+            txt = recvSheepTextBox.Text;
+            wantedSheep = Int32.Parse(txt);
+            
+            wanted.Add(Resource.TYPE.Sheep, wantedSheep);
+
+            txt = recvWheatTextBox.Text;
+            wantedWheat = Int32.Parse(txt);
+            
+            wanted.Add(Resource.TYPE.Wheat, wantedWheat);
+
+            txt = recvWoodTextBox.Text;
+            wantedWood = Int32.Parse(txt);
+            
+            wanted.Add(Resource.TYPE.Wood, wantedWood);
 
         }
 
