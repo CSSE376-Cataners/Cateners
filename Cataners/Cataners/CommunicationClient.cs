@@ -202,7 +202,7 @@ namespace Cataners
                            MyScene.Instance.gameOwner = ((GameLobby)Data.currentLobby).gamePlayers[i];
                         }
 
-                         if (((GameLobby)Data.currentLobby).gamePlayers[i].Username == Data.username)
+                         if (((GameLobby)Data.currentLobby).gamePlayers[i].Username.Equals(Data.username))
                          {
                              MyScene.Instance.currentPlayer = ((GameLobby)Data.currentLobby).gamePlayers[i];
                          }
@@ -212,7 +212,19 @@ namespace Cataners
                     MyScene.Instance.gameLobby = (GameLobby)Data.currentLobby;
                     break;
                 case Translation.TYPE.OpenTradeWindow:
-                    MessageBoxResult result = System.Windows.MessageBox.Show("Text on the inside", "Title Text", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    Trade tradeobj = Trade.fromJson(msg.message);
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append("Player " + tradeobj.source.Username + " would like to trade you: ");
+                    foreach (var item in tradeobj.offeredResources)
+                    {
+                        sb.Append(item.Value + " " + item.Key + " ");
+                    }
+                    sb.Append(" in exchange for: ");
+                    foreach (var item in tradeobj.wantedResources)
+                    {
+                        sb.Append(item.Value + " " + item.Key + " ");
+                    }
+                    MessageBoxResult result = System.Windows.MessageBox.Show(sb.ToString(), "Trade Request", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                     if (result == MessageBoxResult.Yes)
                     {
