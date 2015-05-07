@@ -195,6 +195,21 @@ namespace Cataners
                         break;
                 case Translation.TYPE.GetGameLobby:
                     Data.currentLobby = GameLobby.fromJson(msg.message);
+                    for (int i = 0; i < ((GameLobby)Data.currentLobby).gamePlayers.Count; i++)
+                    {
+                        if (((GameLobby)Data.currentLobby).gamePlayers[i].Username.Equals(Data.currentLobby.Owner.Username))
+                        {
+                           MyScene.Instance.gameOwner = ((GameLobby)Data.currentLobby).gamePlayers[i];
+                        }
+
+                         if (((GameLobby)Data.currentLobby).gamePlayers[i].Username == Data.username)
+                         {
+                             MyScene.Instance.currentPlayer = ((GameLobby)Data.currentLobby).gamePlayers[i];
+                         }
+                         MyScene.Instance.addRegenerateBoardButton();
+                         MyScene.Instance.addTradeButton();
+                    }
+                    MyScene.Instance.gameLobby = (GameLobby)Data.currentLobby;
                     break;
                 case Translation.TYPE.OpenTradeWindow:
                     
