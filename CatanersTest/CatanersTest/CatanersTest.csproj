@@ -95,6 +95,7 @@
     <Compile Include="TestMessage.cs" />
     <Compile Include="TestTranslation.cs" />
     <Compile Include="TradeFormTesting.cs" />
+    <Compile Include="TradeObjectTesting.cs" />
     <Compile Include="VariablesTest.cs" />
   </ItemGroup>
   <ItemGroup>
