@@ -199,17 +199,17 @@ namespace Cataners
                     {
                         if (((GameLobby)Data.currentLobby).gamePlayers[i].Username.Equals(Data.currentLobby.Owner.Username))
                         {
-                           MyScene.Instance.gameOwner = ((GameLobby)Data.currentLobby).gamePlayers[i];
+                           Data.currentGameOwner = ((GameLobby)Data.currentLobby).gamePlayers[i];
                         }
 
                          if (((GameLobby)Data.currentLobby).gamePlayers[i].Username.Equals(Data.username))
                          {
-                             MyScene.Instance.currentPlayer = ((GameLobby)Data.currentLobby).gamePlayers[i];
+                             Data.currentGamePlayer = ((GameLobby)Data.currentLobby).gamePlayers[i];
                          }
                          MyScene.Instance.addRegenerateBoardButton();
                          MyScene.Instance.addTradeButton();
                     }
-                    MyScene.Instance.gameLobby = (GameLobby)Data.currentLobby;
+                    Data.currentGameLobby = (GameLobby)Data.currentLobby;
                     break;
                 case Translation.TYPE.OpenTradeWindow:
                     Trade tradeobj = Trade.fromJson(msg.message);

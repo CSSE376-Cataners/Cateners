@@ -56,9 +56,9 @@ namespace Cataners
 
         public static List<Entity> toAdd = new List<Entity>();
         public static List<BaseDecorator> toAddDecor = new List<BaseDecorator>();
-        public GamePlayer currentPlayer;
-        public GamePlayer gameOwner;
-        public GameLobby gameLobby;
+        public GamePlayer currentPlayer = Data.currentGamePlayer;
+        public GamePlayer gameOwner = Data.currentGameOwner;
+        public GameLobby gameLobby = Data.currentGameLobby;
         private bool isMyTurn = true;
 
         LocalConversion localConversion = new LocalConversion();
@@ -132,27 +132,6 @@ namespace Cataners
                 newButton.Entity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(button_Pressed);
                 lock(toAddDecor){
                     toAddDecor.Add(newButton);
-                }
-            }
-        }
-        public void setCurrentGameOwner()
-        {
-            for (int i = 0; i < ((GameLobby)Data.currentLobby).gamePlayers.Count; i++)
-            {
-                if (((GameLobby)Data.currentLobby).gamePlayers[i].Username.Equals(Data.currentLobby.Owner))
-                {
-                    gameOwner = ((GameLobby)Data.currentLobby).gamePlayers[i];
-                }
-            }
-        }
-
-        public void setCurrentPlayer()
-        {
-            for (int i = 0; i < ((GameLobby)Data.currentLobby).gamePlayers.Count; i++)
-            {
-                if (((GameLobby)Data.currentLobby).gamePlayers[i].Username == Data.username)
-                {
-                    currentPlayer = ((GameLobby)Data.currentLobby).gamePlayers[i];
                 }
             }
         }
@@ -247,10 +226,10 @@ namespace Cataners
             StringBuilder sb = new StringBuilder();
             if (Data.currentLobby is GameLobby)
             {
-                for (int i = 0; i < ((GameLobby)Data.currentLobby).gamePlayers.Count; i++)
+                for (int i = 0; i < gameLobby.gamePlayers.Count; i++)
                 {
                     sb.Clear();
-                    foreach (var item in ((GameLobby)Data.currentLobby).gamePlayers[i].resources)
+                    foreach (var item in gameLobby.gamePlayers[i].resources)
                     {
                         sb.Append(item.Key + ": " + item.Value + " ");
                     }
