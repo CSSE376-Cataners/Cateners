@@ -214,7 +214,11 @@ namespace Cataners
             offered.Add(Resource.TYPE.Wheat, offeredWheat);
             offered.Add(Resource.TYPE.Wood, offeredWood);
 
-            
+            wanted.Add(Resource.TYPE.Brick, 5);
+            wanted.Add(Resource.TYPE.Ore, 4);
+            wanted.Add(Resource.TYPE.Sheep, 3);
+            wanted.Add(Resource.TYPE.Wheat, 2);
+            wanted.Add(Resource.TYPE.Wood, 1);
 
         }
 
