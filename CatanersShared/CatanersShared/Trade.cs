@@ -23,6 +23,11 @@ namespace CatanersShared
 
         }
 
+
+        public String toJson()
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+        }
     }
 
     
