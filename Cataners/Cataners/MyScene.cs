@@ -56,6 +56,10 @@ namespace Cataners
 
         public static List<Entity> toAdd = new List<Entity>();
         public static List<BaseDecorator> toAddDecor = new List<BaseDecorator>();
+        private GamePlayer currentPlayer;
+        private GameLobby currentGameLobby;
+        private GamePlayer gameOwner;
+        private bool isMyTurn;
 
         LocalConversion localConversion = new LocalConversion();
 
@@ -71,21 +75,18 @@ namespace Cataners
 
             //Create a 3D camera
             CommunicationClient.Instance.sendToServer(new CatanersShared.Message("", Translation.TYPE.GetGameLobby).toJson());
-            Button newButton = new Button(); 
-            newButton.Text = "Regenerate Board"; 
-            newButton.Width = 120; 
-            newButton.Height = 40;
-            newButton.Entity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(button_Pressed);
-            EntityManager.Add(newButton);
-            Button tradeButton = new Button();
-            tradeButton.Text = "Trade Resources";
-            tradeButton.Width = 120;
-            tradeButton.Height = 40;
-            Transform2D button2d = tradeButton.Entity.FindComponent<Transform2D>();
-            button2d.X= CENTERWIDTH*2 - 120;
-            button2d.Y = CENTERHEIGHT * 2 - 100;
-            EntityManager.Add(tradeButton);
-            tradeButton.Entity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(tradeButton_Pressed);
+            setCurrentPlayer();
+            setCurrentGameLobby();
+            //add regenerate board if owner
+            if(currentPlayer.Username.Equals(gameOwner)){
+                Button newButton = new Button(); 
+                newButton.Text = "Regenerate Board"; 
+                newButton.Width = 120; 
+                newButton.Height = 40;
+                newButton.Entity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(button_Pressed);
+                EntityManager.Add(newButton);
+            }
+
             FixedCamera2D camera2D = new FixedCamera2D("Camera2D") { BackgroundColor = Color.Gold };
             EntityManager.Add(camera2D);
             Entity background = new Entity("Background")
@@ -108,7 +109,47 @@ namespace Cataners
             EntityManager.Add(title);
             this.hexList = LocalConversion.Instance.getHexList();
             addPlayerNames();
-            
+        }
+
+        public void addTradeButton()
+        {
+            //add tradebutton
+            Button tradeButton = new Button();
+            tradeButton.Text = "Trade Resources";
+            tradeButton.Width = 120;
+            tradeButton.Height = 40;
+            Transform2D tradebutton2d = tradeButton.Entity.FindComponent<Transform2D>();
+            tradebutton2d.X = CENTERWIDTH * 2 - 120;
+            tradebutton2d.Y = CENTERHEIGHT * 2 - 100;
+            toAddDecor.Add(tradeButton);
+            tradeButton.Entity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(tradeButton_Pressed);
+         
+        }
+
+        public void setCurrentGameLobby()
+        {
+            currentGameLobby = ((GameLobby)Data.currentLobby);
+        }
+        public void setCurrentGameOwner()
+        {
+            for (int i = 0; i < currentGameLobby.gamePlayers.Count; i++)
+            {
+                if (currentGameLobby.gamePlayers[i].Username.Equals(Data.currentLobby.Owner))
+                {
+                    gameOwner = currentGameLobby.gamePlayers[i];
+                }
+            }
+        }
+
+        public void setCurrentPlayer()
+        {
+            for (int i = 0; i < currentGameLobby.gamePlayers.Count; i++)
+            {
+                if (currentGameLobby.gamePlayers[i].Username == Data.username)
+                {
+                    currentPlayer = currentGameLobby.gamePlayers[i];
+                }
+            }
         }
 
         public void addPlayerNames()
@@ -194,7 +235,6 @@ namespace Cataners
                 };
                 EntityManager.Add(player4);
             }
-            //This may be right, but either way it's for testing purposes for now
         }
 
         public void addResources()
@@ -202,14 +242,11 @@ namespace Cataners
             StringBuilder sb = new StringBuilder();
             if (Data.currentLobby is GameLobby)
             {
-                for (int i = 0; i < ((GameLobby)Data.currentLobby).gamePlayers.Count; i++)
+                for (int i = 0; i < currentGameLobby.gamePlayers.Count; i++)
                 {
-                    foreach (var item in ((GameLobby)Data.currentLobby).gamePlayers[i].resources)
+                    sb.Clear();
+                    foreach (var item in currentGameLobby.gamePlayers[i].resources)
                     {
-                        if (item.Key.Equals("ore"))
-                        {
-                            sb.Append(item.Key + ": " + item.Value + "\n");
-                        }
                         sb.Append(item.Key + ": " + item.Value + " ");
                     }
 
@@ -682,8 +719,11 @@ namespace Cataners
 
         private void tradeButton_Pressed(object sender, GestureEventArgs e)
         {
-            TradeForm.INSTANCE.Show();
-            TradeForm.INSTANCE.initializeValues();
+            if (isMyTurn)
+            {
+                TradeForm.INSTANCE.Show();
+                TradeForm.INSTANCE.initializeValues();
+            }
         }
 
         protected override void Start()
