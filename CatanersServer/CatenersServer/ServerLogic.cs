@@ -19,6 +19,7 @@ namespace CatenersServer
         public Boolean canAddComponent;
         private Boolean isActive;
         private int[] neighbors;
+
         public SettlementServer(int typeNum, int placementNumber)
         {
             this.typeNum = typeNum;
@@ -120,6 +121,7 @@ namespace CatenersServer
         private Lobby lobby;
         public int playerTurn;
         public GameLobby gameLobby;
+        public Trade onGoingTrade;
         public int dice;
         private Dictionary<int, int[]> neighborDict = new Dictionary<int, int[]>();
 

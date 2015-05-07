@@ -186,8 +186,9 @@ namespace CatenersServer
                 {
                     this.serverLogic.generatehexArray();
                     int[][] array = this.serverLogic.gethexArray();
-                     foreach(ServerPlayer p in this.currentLobby.Players)
-                        p.client.sendToClient(new Message(Translation.intArraytwotoJson(array), Translation.TYPE.HexMessage).toJson());
+                    String boardString = new Message(Translation.intArraytwotoJson(array), Translation.TYPE.HexMessage).toJson();
+                    foreach(ServerPlayer p in this.currentLobby.Players)
+                        p.client.sendToClient(boardString);
                 }
                 break;
 
@@ -202,11 +203,15 @@ namespace CatenersServer
                     {
                         ServerLogic newLogic = new ServerLogic(this.currentLobby);
                         this.serverLogic = newLogic;
+                        this.serverLogic.generatehexArray();
+                        int[][] array = this.serverLogic.gethexArray();
+                        String boardString = new Message(Translation.intArraytwotoJson(array), Translation.TYPE.HexMessage).toJson();
                         gameLobby = newLogic.gameLobby;
                         string toPass = newLogic.sendGeneration();
                         for (int i = 0; i < currentLobby.PlayerCount; i++)
                         {
                             ((ServerPlayer)currentLobby.Players[i]).client.sendToClient(new Message(toPass, Translation.TYPE.StartGame).toJson());
+                            //((ServerPlayer)currentLobby.Players[i]).client.sendToClient(boardString);
                             ((ServerPlayer)currentLobby.Players[i]).client.serverLogic = newLogic;
                             ((ServerPlayer)currentLobby.Players[i]).client.gameLobby = gameLobby;
                         }
@@ -245,10 +250,10 @@ namespace CatenersServer
                     foreach (Resource.TYPE t in Enum.GetValues(typeof(Resource.TYPE)))
                     {
                         // if sender does not have enough
-                        if (offer.ContainsKey(t) && offer[t] > sender.resources[t])
+                        if (offer.ContainsKey(t) && offer[t] > sender.resources[t] && offer[t] >= 0)
                             return;
                         // if target does not have enough
-                        if (request.ContainsKey(t) && request[t] > target.resources[t])
+                        if (request.ContainsKey(t) && request[t] > target.resources[t] && request[t] >= 0)
                             return;
                     }
 
@@ -256,6 +261,7 @@ namespace CatenersServer
                     {
                         if (p.Username.Equals(target.Username))
                         {
+                            serverLogic.onGoingTrade = trade;
                             p.client.sendToClient(s);
                             return;
                         }
@@ -276,6 +282,9 @@ namespace CatenersServer
                             }
                         }
                     }
+
+                break;
+                case Translation.TYPE.TradeResponce:
 
                 break;
                 default:
