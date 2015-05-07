@@ -219,7 +219,8 @@ namespace Cataners
                     {
                         sb.Append(item.Value + " " + item.Key + " ");
                     }
-                    sb.Append(" in exchange for: ");
+                    sb.Append(Environment.NewLine);
+                    sb.Append("in exchange for: ");
                     foreach (var item in tradeobj.wantedResources)
                     {
                         sb.Append(item.Value + " " + item.Key + " ");

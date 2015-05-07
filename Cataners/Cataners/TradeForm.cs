@@ -275,7 +275,7 @@ namespace Cataners
         {
             if (brickCheck & oreCheck & sheepCheck & wheatCheck & woodCheck)
             {
-                target = (GamePlayer)targetOfTradeComboBox.SelectedValue;
+                target = new GamePlayer(targetOfTradeComboBox.SelectedItem.ToString());
                 InitializeDictionaries();
                 Trade tradeobj = new Trade(currentTrader, target, offered, wanted);
                 CommunicationClient.Instance.sendToServer(new CatanersShared.Message(tradeobj.toJson(),Translation.TYPE.OpenTradeWindow).toJson());
@@ -295,6 +295,10 @@ namespace Cataners
         private void recvBrickTextBox_TextChanged(object sender, EventArgs e)
         {
             String txt = recvBrickTextBox.Text;
+            if (txt.Equals(""))
+            {
+                return;
+            }
             try
             {
                 val = Int32.Parse(txt);
@@ -312,6 +316,10 @@ namespace Cataners
         private void recvOreTextBox_TextChanged(object sender, EventArgs e)
         {
             String txt = recvOreTextBox.Text;
+            if (txt.Equals(""))
+            {
+                return;
+            }
             try
             {
                 val = Int32.Parse(txt);
@@ -329,6 +337,10 @@ namespace Cataners
         private void recvSheepTextBox_TextChanged(object sender, EventArgs e)
         {
             String txt = recvSheepTextBox.Text;
+            if (txt.Equals(""))
+            {
+                return;
+            }
             try
             {
                 val = Int32.Parse(txt);
@@ -346,6 +358,10 @@ namespace Cataners
         private void recvWheatTextBox_TextChanged(object sender, EventArgs e)
         {
             String txt = recvWheatTextBox.Text;
+            if (txt.Equals(""))
+            {
+                return;
+            }
             try
             {
                 val = Int32.Parse(txt);
@@ -363,6 +379,10 @@ namespace Cataners
         private void recvWoodTextBox_TextChanged(object sender, EventArgs e)
         {
             String txt = recvWoodTextBox.Text;
+            if (txt.Equals(""))
+            {
+                return;
+            }
             try
             {
                 val = Int32.Parse(txt);
