@@ -638,7 +638,9 @@ namespace CatanersTest
             CatanersShared.Message msg = new CatanersShared.Message(trade.toJson(), Translation.TYPE.OpenTradeWindow);
 
             FakeClient client = new FakeClient();
+            client.userName = "Sender";
             FakeClient reciver = new FakeClient();
+            reciver.userName = "Reciver";
 
             // Ignore, Dont Crash;
             client.processesMessage(msg.toJson());
@@ -649,7 +651,7 @@ namespace CatanersTest
             ServerPlayer ptemp = new ServerPlayer("Sender",client);
             ServerPlayer ptemp2 = new ServerPlayer("Reciver",reciver);
 
-            Lobby temp = new Lobby("Lobby",10,new Player("Sender"),1);
+            Lobby temp = new Lobby("Lobby",10,ptemp,1);
             temp.addPlayer(ptemp2);
             GameLobby gLobby = new GameLobby(temp);
 
@@ -667,7 +669,7 @@ namespace CatanersTest
 
             client.processesMessage(msg.toJson());
             // Good
-            Assert.AreEqual(trade.toJson(),reciver.lastCall);
+            Assert.AreEqual(msg.toJson(),reciver.lastCall);
 
 
             request[Resource.TYPE.Wheat] = 10;
