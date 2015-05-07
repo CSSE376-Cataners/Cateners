@@ -233,6 +233,7 @@
             this.recvWoodTextBox.Name = "recvWoodTextBox";
             this.recvWoodTextBox.Size = new System.Drawing.Size(59, 30);
             this.recvWoodTextBox.TabIndex = 18;
+            this.recvWoodTextBox.TextChanged += new System.EventHandler(this.recvWoodTextBox_TextChanged);
             // 
             // recvWheatTextBox
             // 
@@ -240,6 +241,7 @@
             this.recvWheatTextBox.Name = "recvWheatTextBox";
             this.recvWheatTextBox.Size = new System.Drawing.Size(59, 30);
             this.recvWheatTextBox.TabIndex = 17;
+            this.recvWheatTextBox.TextChanged += new System.EventHandler(this.recvWheatTextBox_TextChanged);
             // 
             // recvSheepTextBox
             // 
@@ -247,6 +249,7 @@
             this.recvSheepTextBox.Name = "recvSheepTextBox";
             this.recvSheepTextBox.Size = new System.Drawing.Size(59, 30);
             this.recvSheepTextBox.TabIndex = 16;
+            this.recvSheepTextBox.TextChanged += new System.EventHandler(this.recvSheepTextBox_TextChanged);
             // 
             // recvOreTextBox
             // 
@@ -254,6 +257,7 @@
             this.recvOreTextBox.Name = "recvOreTextBox";
             this.recvOreTextBox.Size = new System.Drawing.Size(59, 30);
             this.recvOreTextBox.TabIndex = 15;
+            this.recvOreTextBox.TextChanged += new System.EventHandler(this.recvOreTextBox_TextChanged);
             // 
             // recvBrickTextBox
             // 
@@ -261,6 +265,7 @@
             this.recvBrickTextBox.Name = "recvBrickTextBox";
             this.recvBrickTextBox.Size = new System.Drawing.Size(59, 30);
             this.recvBrickTextBox.TabIndex = 14;
+            this.recvBrickTextBox.TextChanged += new System.EventHandler(this.recvBrickTextBox_TextChanged);
             // 
             // giveLabel
             // 
