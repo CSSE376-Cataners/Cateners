@@ -325,6 +325,82 @@ namespace Cataners
             }         
         }
 
+        public void hexAddTransform(HexHolder current, float xOffset, float yOffset, float drawOrder)
+        {
+            current.getHex().AddComponent(new Transform2D()
+            {
+                Scale = new Vector2(HEX_SCALE_X, HEX_SCALE_Y),
+                X = HEX_START_X + xOffset,
+                Y = HEX_START_Y + yOffset,
+                DrawOrder = drawOrder
+            });
+        }
+
+        public void rollEntityAddTransform(HexHolder current, float xOffset, float yOffset, float drawOrder)
+        {
+            current.getRollEntity().AddComponent(new Transform2D()
+            {
+                Scale = new Vector2(ROLL_NUMBER_SCALE, ROLL_NUMBER_SCALE),
+                X = HEX_START_X + xOffset,
+                Y = HEX_START_Y + yOffset,
+                DrawOrder = drawOrder
+            });
+        }
+
+        public void settlementAssignment(HexHolder current, float[] XLocArray, float[] YLocArray, float drawOrder)
+        {
+            for (int k = 0; k < 6; k++)
+            {
+                SettlementHolder currSettle = current.getSettlementList()[k];
+                Entity currEnt = currSettle.getSettlement();
+                int placementNumber = currSettle.getPlacementNumber();
+                if (currSettle.canAddComponent)
+                {
+                    currEnt.AddComponent(new Transform2D()
+                    {
+                        Scale = new Vector2(SETTLEMENT_SCALE_X, SETTLEMENT_SCALE_Y),
+                        X = XLocArray[k],
+                        Y = YLocArray[k],
+                        DrawOrder = drawOrder
+                    });
+                    currEnt.AddComponent(new RectangleCollider());
+                    currEnt.AddComponent(new TouchGestures(true));
+                    currEnt.FindComponent<TouchGestures>().TouchPressed += (sender, GestureEventArgs) =>
+                    {
+                        Console.WriteLine(placementNumber);
+                        CommunicationClient.Instance.sendToServer(new Message(placementNumber.ToString(), Translation.TYPE.BuySettlement).toJson());
+                    };
+                    currSettle.canAddComponent = false;
+                    Entity e = currEnt;
+                    toAdd.Add(e);
+                }
+            }
+        }
+
+        public float[] getXLocArraySettlement(HexHolder current)
+        {
+            float defX = current.getHex().FindComponent<Transform2D>().X;
+            float[] XLocArray = new float[6] { defX + (HEX_WIDTH / 2) - (SETTLEMENT_WIDTH / 2),
+                                               defX - (SETTLEMENT_WIDTH / 2),
+                                               defX + HEX_WIDTH - (SETTLEMENT_WIDTH / 2),
+                                               defX - (SETTLEMENT_WIDTH / 2),
+                                               defX + HEX_WIDTH - (SETTLEMENT_WIDTH / 2),
+                                               defX + (HEX_WIDTH / 2) - (SETTLEMENT_WIDTH / 2) };
+            return XLocArray;
+        }
+
+        public float[] getYLocArraySettlement(HexHolder current)
+        {
+            float defY = current.getHex().FindComponent<Transform2D>().Y;
+            float[] YLocArray = new float[6] { defY - (SETTLEMENT_HEIGHT / 2),
+                                               defY + TRIANGLE_HEIGHT - (SETTLEMENT_HEIGHT / 2),
+                                               defY + TRIANGLE_HEIGHT - (SETTLEMENT_HEIGHT / 2),
+                                               defY + HEX_HEIGHT - TRIANGLE_HEIGHT - (SETTLEMENT_HEIGHT / 2),
+                                               defY + HEX_HEIGHT - TRIANGLE_HEIGHT - (SETTLEMENT_HEIGHT / 2),
+                                               defY + HEX_HEIGHT - (SETTLEMENT_HEIGHT / 2) };
+            return YLocArray;
+        }
+
         public void drawHexes()
         {
             
@@ -338,373 +414,37 @@ namespace Cataners
                     int posNum = current.getPlacementNumber();
                     if (posNum < 3)
                     {
-                        current.getHex().AddComponent(new Transform2D()
-                        {
-                            Scale = new Vector2(HEX_SCALE_X, HEX_SCALE_Y),
-                            X = HEX_START_X + (HEX_WIDTH * posNum),
-                            Y = HEX_START_Y,
-                            DrawOrder = .6f
-                        });
-                        current.getRollEntity().AddComponent(new Transform2D()
-                        {
-                            Scale = new Vector2(ROLL_NUMBER_SCALE, ROLL_NUMBER_SCALE),
-                            X = HEX_START_X + (HEX_WIDTH * posNum) + (HEX_WIDTH / 2) - (ROLL_NUMBER_WIDTH / 2),
-                            Y = HEX_START_Y + (HEX_HEIGHT / 2) - (ROLL_NUMBER_HEIGHT / 2),
-                            DrawOrder = .1f
-                        });
-                        for (int k = 0; k < 6; k++)
-                        {
-                            SettlementHolder currSettle = current.getSettlementList()[k];
-                            if (currSettle.canAddComponent)
-                            {
-                                float XLoc;
-                                float YLoc;
-                                if (k == 0)
-                                {
-                                    XLoc = current.getHex().FindComponent<Transform2D>().X + (HEX_WIDTH / 2) - (SETTLEMENT_WIDTH / 2);
-                                    YLoc = current.getHex().FindComponent<Transform2D>().Y - (SETTLEMENT_HEIGHT / 2);
-                                }
-                                else if (k == 1)
-                                {
-                                    XLoc = current.getHex().FindComponent<Transform2D>().X - (SETTLEMENT_WIDTH / 2);
-                                    YLoc = current.getHex().FindComponent<Transform2D>().Y + TRIANGLE_HEIGHT - (SETTLEMENT_HEIGHT / 2);
-                                }
-                                else if (k == 2)
-                                {
-                                    XLoc = current.getHex().FindComponent<Transform2D>().X + HEX_WIDTH - (SETTLEMENT_WIDTH / 2);
-                                    YLoc = current.getHex().FindComponent<Transform2D>().Y + TRIANGLE_HEIGHT - (SETTLEMENT_HEIGHT / 2);
-                                }
-                                else if (k == 3)
-                                {
-                                    XLoc = current.getHex().FindComponent<Transform2D>().X - (SETTLEMENT_WIDTH / 2);
-                                    YLoc = current.getHex().FindComponent<Transform2D>().Y - TRIANGLE_HEIGHT + HEX_HEIGHT - (SETTLEMENT_HEIGHT / 2);
-                                }
-                                else if (k == 4)
-                                {
-                                    XLoc = current.getHex().FindComponent<Transform2D>().X + HEX_WIDTH - (SETTLEMENT_WIDTH / 2);
-                                    YLoc = current.getHex().FindComponent<Transform2D>().Y - TRIANGLE_HEIGHT + HEX_HEIGHT - (SETTLEMENT_HEIGHT / 2);
-                                }
-                                else
-                                {
-                                    XLoc = current.getHex().FindComponent<Transform2D>().X + (HEX_WIDTH / 2) - (SETTLEMENT_WIDTH / 2);
-                                    YLoc = current.getHex().FindComponent<Transform2D>().Y + HEX_HEIGHT - (SETTLEMENT_HEIGHT / 2);
-                                }
-                                currSettle.getSettlement().AddComponent(new Transform2D()
-                                {
-                                    Scale = new Vector2(SETTLEMENT_SCALE_X, SETTLEMENT_SCALE_Y),
-                                    X = XLoc,
-                                    Y = YLoc,
-                                    DrawOrder = .05f
-                                });
-                                currSettle.getSettlement().AddComponent(new RectangleCollider());
-                                currSettle.getSettlement().AddComponent(new TouchGestures(true));
-                                currSettle.getSettlement().FindComponent<TouchGestures>().TouchPressed += (sender, GestureEventArgs) =>
-                                {
-                                    Console.WriteLine(currSettle.getPlacementNumber());
-                                    CommunicationClient.Instance.sendToServer(new Message(currSettle.getPlacementNumber().ToString(), Translation.TYPE.BuySettlement).toJson());
-                                };
-                                currSettle.canAddComponent = false;
-                                Console.WriteLine(currSettle.getPlacementNumber());
-                                Entity e = currSettle.getSettlement();
-                                toAdd.Add(e);
-                            }
-                        }
+                        this.hexAddTransform(current, (HEX_WIDTH * posNum), 0, .6f);
+                        this.rollEntityAddTransform(current, (HEX_WIDTH * posNum) + (HEX_WIDTH / 2) - (ROLL_NUMBER_WIDTH / 2),
+                                                                (HEX_HEIGHT / 2) - (ROLL_NUMBER_HEIGHT / 2), .1f);
+                        this.settlementAssignment(current, this.getXLocArraySettlement(current), this.getYLocArraySettlement(current), .05f);
                     }
                     else if (posNum < 7)
                     {
-                        current.getHex().AddComponent(new Transform2D()
-                        {
-                            Scale = new Vector2(HEX_SCALE_X, HEX_SCALE_Y),
-                            X = HEX_START_X - (HEX_WIDTH / 2) + (HEX_WIDTH * (posNum - 3)),
-                            Y = HEX_START_Y + (HEX_HEIGHT - TRIANGLE_HEIGHT),
-                            DrawOrder = .6f
-                        });
-                        current.getRollEntity().AddComponent(new Transform2D()
-                        {
-                            Scale = new Vector2(ROLL_NUMBER_SCALE, ROLL_NUMBER_SCALE),
-                            X = HEX_START_X - (HEX_WIDTH / 2) + (HEX_WIDTH * (posNum - 3)) + (HEX_WIDTH / 2) - (ROLL_NUMBER_WIDTH / 2),
-                            Y = HEX_START_Y + (HEX_HEIGHT - TRIANGLE_HEIGHT) + (HEX_HEIGHT / 2) - (ROLL_NUMBER_HEIGHT / 2),
-                            DrawOrder = .1f
-                        });
-                        for (int k = 0; k < 6; k++)
-                        {
-                            SettlementHolder currSettle = current.getSettlementList()[k];
-                            if (currSettle.canAddComponent)
-                            {
-                                float XLoc;
-                                float YLoc;
-                                if (k == 0)
-                                {
-                                    XLoc = current.getHex().FindComponent<Transform2D>().X + (HEX_WIDTH / 2) - (SETTLEMENT_WIDTH / 2);
-                                    YLoc = current.getHex().FindComponent<Transform2D>().Y - (SETTLEMENT_HEIGHT / 2);
-                                }
-                                else if (k == 1)
-                                {
-                                    XLoc = current.getHex().FindComponent<Transform2D>().X - (SETTLEMENT_WIDTH / 2);
-                                    YLoc = current.getHex().FindComponent<Transform2D>().Y + TRIANGLE_HEIGHT - (SETTLEMENT_HEIGHT / 2);
-                                }
-                                else if (k == 2)
-                                {
-                                    XLoc = current.getHex().FindComponent<Transform2D>().X + HEX_WIDTH - (SETTLEMENT_WIDTH / 2);
-                                    YLoc = current.getHex().FindComponent<Transform2D>().Y + TRIANGLE_HEIGHT - (SETTLEMENT_HEIGHT / 2);
-                                }
-                                else if (k == 3)
-                                {
-                                    XLoc = current.getHex().FindComponent<Transform2D>().X - (SETTLEMENT_WIDTH / 2);
-                                    YLoc = current.getHex().FindComponent<Transform2D>().Y - TRIANGLE_HEIGHT + HEX_HEIGHT - (SETTLEMENT_HEIGHT / 2);
-                                }
-                                else if (k == 4)
-                                {
-                                    XLoc = current.getHex().FindComponent<Transform2D>().X + HEX_WIDTH - (SETTLEMENT_WIDTH / 2);
-                                    YLoc = current.getHex().FindComponent<Transform2D>().Y - TRIANGLE_HEIGHT + HEX_HEIGHT - (SETTLEMENT_HEIGHT / 2);
-                                }
-                                else
-                                {
-                                    XLoc = current.getHex().FindComponent<Transform2D>().X + (HEX_WIDTH / 2) - (SETTLEMENT_WIDTH / 2);
-                                    YLoc = current.getHex().FindComponent<Transform2D>().Y + HEX_HEIGHT - (SETTLEMENT_HEIGHT / 2);
-                                }
-                                currSettle.getSettlement().AddComponent(new Transform2D()
-                                {
-                                    Scale = new Vector2(SETTLEMENT_SCALE_X, SETTLEMENT_SCALE_Y),
-                                    X = XLoc,
-                                    Y = YLoc,
-                                    DrawOrder = .05f
-                                });
-                                currSettle.getSettlement().AddComponent(new RectangleCollider());
-                                currSettle.getSettlement().AddComponent(new TouchGestures(true));
-                                currSettle.getSettlement().FindComponent<TouchGestures>().TouchPressed += (sender, GestureEventArgs) =>
-                                {
-                                    Console.WriteLine(currSettle.getPlacementNumber());
-                                    CommunicationClient.Instance.sendToServer(new Message(currSettle.getPlacementNumber().ToString(), Translation.TYPE.BuySettlement).toJson());
-                                };
-                                currSettle.canAddComponent = false;
-                                Console.WriteLine(currSettle.getPlacementNumber());
-                                Entity e = currSettle.getSettlement();
-                                toAdd.Add(e);
-                            }
-                        }
+                        this.hexAddTransform(current, (-HEX_WIDTH / 2) + (HEX_WIDTH * (posNum - 3)), (HEX_HEIGHT - TRIANGLE_HEIGHT), .6f);
+                        this.rollEntityAddTransform(current, (-HEX_WIDTH / 2) + (HEX_WIDTH * (posNum - 3)) + (HEX_WIDTH / 2) - (ROLL_NUMBER_WIDTH / 2), 
+                                                                (HEX_HEIGHT - TRIANGLE_HEIGHT) + (HEX_HEIGHT / 2) - (ROLL_NUMBER_HEIGHT / 2), .1f);
+                        this.settlementAssignment(current, this.getXLocArraySettlement(current), this.getYLocArraySettlement(current), .05f);
                     }
                     else if (posNum < 12)
                     {
-                        current.getHex().AddComponent(new Transform2D()
-                        {
-                            Scale = new Vector2(HEX_SCALE_X, HEX_SCALE_Y),
-                            X = HEX_START_X - (HEX_WIDTH) + (HEX_WIDTH * (posNum - 7)),
-                            Y = HEX_START_Y + (2 * HEX_HEIGHT) - (2 * TRIANGLE_HEIGHT),
-                            DrawOrder = .6f
-                        });
-                        current.getRollEntity().AddComponent(new Transform2D()
-                        {
-                            Scale = new Vector2(ROLL_NUMBER_SCALE, ROLL_NUMBER_SCALE),
-                            X = HEX_START_X - (HEX_WIDTH) + (HEX_WIDTH * (posNum - 7)) + (HEX_WIDTH / 2) - (ROLL_NUMBER_WIDTH / 2),
-                            Y = HEX_START_Y + (2 * HEX_HEIGHT) - (2 * TRIANGLE_HEIGHT) + (HEX_HEIGHT / 2) - (ROLL_NUMBER_HEIGHT / 2),
-                            DrawOrder = .1f
-                        });
-                        for (int k = 0; k < 6; k++)
-                        {
-                            SettlementHolder currSettle = current.getSettlementList()[k];
-                            if (currSettle.canAddComponent)
-                            {
-                                float XLoc;
-                                float YLoc;
-                                if (k == 0)
-                                {
-                                    XLoc = current.getHex().FindComponent<Transform2D>().X + (HEX_WIDTH / 2) - (SETTLEMENT_WIDTH / 2);
-                                    YLoc = current.getHex().FindComponent<Transform2D>().Y - (SETTLEMENT_HEIGHT / 2);
-                                }
-                                else if (k == 1)
-                                {
-                                    XLoc = current.getHex().FindComponent<Transform2D>().X - (SETTLEMENT_WIDTH / 2);
-                                    YLoc = current.getHex().FindComponent<Transform2D>().Y + TRIANGLE_HEIGHT - (SETTLEMENT_HEIGHT / 2);
-                                }
-                                else if (k == 2)
-                                {
-                                    XLoc = current.getHex().FindComponent<Transform2D>().X + HEX_WIDTH - (SETTLEMENT_WIDTH / 2);
-                                    YLoc = current.getHex().FindComponent<Transform2D>().Y + TRIANGLE_HEIGHT - (SETTLEMENT_HEIGHT / 2);
-                                }
-                                else if (k == 3)
-                                {
-                                    XLoc = current.getHex().FindComponent<Transform2D>().X - (SETTLEMENT_WIDTH / 2);
-                                    YLoc = current.getHex().FindComponent<Transform2D>().Y - TRIANGLE_HEIGHT + HEX_HEIGHT - (SETTLEMENT_HEIGHT / 2);
-                                }
-                                else if (k == 4)
-                                {
-                                    XLoc = current.getHex().FindComponent<Transform2D>().X + HEX_WIDTH - (SETTLEMENT_WIDTH / 2);
-                                    YLoc = current.getHex().FindComponent<Transform2D>().Y - TRIANGLE_HEIGHT + HEX_HEIGHT - (SETTLEMENT_HEIGHT / 2);
-                                }
-                                else
-                                {
-                                    XLoc = current.getHex().FindComponent<Transform2D>().X + (HEX_WIDTH / 2) - (SETTLEMENT_WIDTH / 2);
-                                    YLoc = current.getHex().FindComponent<Transform2D>().Y + HEX_HEIGHT - (SETTLEMENT_HEIGHT / 2);
-                                }
-                                currSettle.getSettlement().AddComponent(new Transform2D()
-                                {
-                                    Scale = new Vector2(SETTLEMENT_SCALE_X, SETTLEMENT_SCALE_Y),
-                                    X = XLoc,
-                                    Y = YLoc,
-                                    DrawOrder = .05f
-                                });
-                                currSettle.getSettlement().AddComponent(new RectangleCollider());
-                                currSettle.getSettlement().AddComponent(new TouchGestures(true));
-                                currSettle.getSettlement().FindComponent<TouchGestures>().TouchPressed += (sender, GestureEventArgs) =>
-                                {
-                                    Console.WriteLine(currSettle.getPlacementNumber());
-                                    CommunicationClient.Instance.sendToServer(new Message(currSettle.getPlacementNumber().ToString(), Translation.TYPE.BuySettlement).toJson());
-                                };
-                                currSettle.canAddComponent = false;
-                                Console.WriteLine(currSettle.getPlacementNumber());
-                                Entity e = currSettle.getSettlement();
-                                toAdd.Add(e);
-                            }
-                        }
+                        this.hexAddTransform(current, (-HEX_WIDTH) + (HEX_WIDTH * (posNum - 7)), (2 * HEX_HEIGHT) - (2 * TRIANGLE_HEIGHT), .6f);
+                        this.rollEntityAddTransform(current, (-HEX_WIDTH) + (HEX_WIDTH * (posNum - 7)) + (HEX_WIDTH / 2) - (ROLL_NUMBER_WIDTH / 2), 
+                                                               (2 * HEX_HEIGHT) - (2 * TRIANGLE_HEIGHT) + (HEX_HEIGHT / 2) - (ROLL_NUMBER_HEIGHT / 2), .1f);
+                        this.settlementAssignment(current, this.getXLocArraySettlement(current), this.getYLocArraySettlement(current), .05f);
                     }
                     else if (posNum < 16)
                     {
-                        current.getHex().AddComponent(new Transform2D()
-                        {
-                            Scale = new Vector2(HEX_SCALE_X, HEX_SCALE_Y),
-                            X = HEX_START_X - (HEX_WIDTH / 2) + (HEX_WIDTH * (posNum - 12)),
-                            Y = HEX_START_Y + (3 * HEX_HEIGHT) - (3 * TRIANGLE_HEIGHT),
-                            DrawOrder = .6f
-                        });
-                        current.getRollEntity().AddComponent(new Transform2D()
-                        {
-                            Scale = new Vector2(ROLL_NUMBER_SCALE, ROLL_NUMBER_SCALE),
-                            X = HEX_START_X - (HEX_WIDTH / 2) + (HEX_WIDTH * (posNum - 12)) + (HEX_WIDTH / 2) - (ROLL_NUMBER_WIDTH / 2),
-                            Y = HEX_START_Y + (3 * HEX_HEIGHT) - (3 * TRIANGLE_HEIGHT) + (HEX_HEIGHT / 2) - (ROLL_NUMBER_HEIGHT / 2),
-                            DrawOrder = .1f
-                        });
-                        for (int k = 0; k < 6; k++)
-                        {
-                            SettlementHolder currSettle = current.getSettlementList()[k];
-                            if (currSettle.canAddComponent)
-                            {
-                                float XLoc;
-                                float YLoc;
-                                if (k == 0)
-                                {
-                                    XLoc = current.getHex().FindComponent<Transform2D>().X + (HEX_WIDTH / 2) - (SETTLEMENT_WIDTH / 2);
-                                    YLoc = current.getHex().FindComponent<Transform2D>().Y - (SETTLEMENT_HEIGHT / 2);
-                                }
-                                else if (k == 1)
-                                {
-                                    XLoc = current.getHex().FindComponent<Transform2D>().X - (SETTLEMENT_WIDTH / 2);
-                                    YLoc = current.getHex().FindComponent<Transform2D>().Y + TRIANGLE_HEIGHT - (SETTLEMENT_HEIGHT / 2);
-                                }
-                                else if (k == 2)
-                                {
-                                    XLoc = current.getHex().FindComponent<Transform2D>().X + HEX_WIDTH - (SETTLEMENT_WIDTH / 2);
-                                    YLoc = current.getHex().FindComponent<Transform2D>().Y + TRIANGLE_HEIGHT - (SETTLEMENT_HEIGHT / 2);
-                                }
-                                else if (k == 3)
-                                {
-                                    XLoc = current.getHex().FindComponent<Transform2D>().X - (SETTLEMENT_WIDTH / 2);
-                                    YLoc = current.getHex().FindComponent<Transform2D>().Y - TRIANGLE_HEIGHT + HEX_HEIGHT - (SETTLEMENT_HEIGHT / 2);
-                                }
-                                else if (k == 4)
-                                {
-                                    XLoc = current.getHex().FindComponent<Transform2D>().X + HEX_WIDTH - (SETTLEMENT_WIDTH / 2);
-                                    YLoc = current.getHex().FindComponent<Transform2D>().Y - TRIANGLE_HEIGHT + HEX_HEIGHT - (SETTLEMENT_HEIGHT / 2);
-                                }
-                                else
-                                {
-                                    XLoc = current.getHex().FindComponent<Transform2D>().X + (HEX_WIDTH / 2) - (SETTLEMENT_WIDTH / 2);
-                                    YLoc = current.getHex().FindComponent<Transform2D>().Y + HEX_HEIGHT - (SETTLEMENT_HEIGHT / 2);
-                                }
-                                currSettle.getSettlement().AddComponent(new Transform2D()
-                                {
-                                    Scale = new Vector2(SETTLEMENT_SCALE_X, SETTLEMENT_SCALE_Y),
-                                    X = XLoc,
-                                    Y = YLoc,
-                                    DrawOrder = .05f
-                                });
-                                currSettle.getSettlement().AddComponent(new RectangleCollider());
-                                currSettle.getSettlement().AddComponent(new TouchGestures(true));
-                                currSettle.getSettlement().FindComponent<TouchGestures>().TouchPressed += (sender, GestureEventArgs) =>
-                                {
-                                    Console.WriteLine(currSettle.getPlacementNumber());
-                                    CommunicationClient.Instance.sendToServer(new Message(currSettle.getPlacementNumber().ToString(), Translation.TYPE.BuySettlement).toJson());
-                                };
-                                currSettle.canAddComponent = false;
-                                Console.WriteLine(currSettle.getPlacementNumber());
-                                Entity e = currSettle.getSettlement();
-                                toAdd.Add(e);
-                            }
-                        }
+                        this.hexAddTransform(current, (-HEX_WIDTH / 2) + (HEX_WIDTH * (posNum - 12)), (3 * HEX_HEIGHT) - (3 * TRIANGLE_HEIGHT), .6f);
+                        this.rollEntityAddTransform(current, (-HEX_WIDTH / 2) + (HEX_WIDTH * (posNum - 12)) + (HEX_WIDTH / 2) - (ROLL_NUMBER_WIDTH / 2), (3 * HEX_HEIGHT) - (3 * TRIANGLE_HEIGHT) + (HEX_HEIGHT / 2) - (ROLL_NUMBER_HEIGHT / 2), .1f);
+                        this.settlementAssignment(current, this.getXLocArraySettlement(current), this.getYLocArraySettlement(current), .05f);
                     }
                     else
                     {
-                        current.getHex().AddComponent(new Transform2D()
-                        {
-                            Scale = new Vector2(HEX_SCALE_X, HEX_SCALE_Y),
-                            X = HEX_START_X + (HEX_WIDTH * (posNum - 16)),
-                            Y = HEX_START_Y + (4 * HEX_HEIGHT) - (4 * TRIANGLE_HEIGHT),
-                            DrawOrder = .6f
-                        });
-                        current.getRollEntity().AddComponent(new Transform2D()
-                        {
-                            Scale = new Vector2(ROLL_NUMBER_SCALE, ROLL_NUMBER_SCALE),
-                            X = HEX_START_X + (HEX_WIDTH * (posNum - 16)) + (HEX_WIDTH / 2) - (ROLL_NUMBER_WIDTH / 2),
-                            Y = HEX_START_Y + (4 * HEX_HEIGHT) - (4 * TRIANGLE_HEIGHT) + (HEX_HEIGHT / 2) - (ROLL_NUMBER_HEIGHT / 2),
-                            DrawOrder = .1f
-                        });
-                        for (int k = 0; k < 6; k++)
-                        {
-                            SettlementHolder currSettle = current.getSettlementList()[k];
-                            if (currSettle.canAddComponent)
-                            {
-                                float XLoc;
-                                float YLoc;
-                                if (k == 0)
-                                {
-                                    XLoc = current.getHex().FindComponent<Transform2D>().X + (HEX_WIDTH / 2) - (SETTLEMENT_WIDTH / 2);
-                                    YLoc = current.getHex().FindComponent<Transform2D>().Y - (SETTLEMENT_HEIGHT / 2);
-                                }
-                                else if (k == 1)
-                                {
-                                    XLoc = current.getHex().FindComponent<Transform2D>().X - (SETTLEMENT_WIDTH / 2);
-                                    YLoc = current.getHex().FindComponent<Transform2D>().Y + TRIANGLE_HEIGHT - (SETTLEMENT_HEIGHT / 2);
-                                }
-                                else if (k == 2)
-                                {
-                                    XLoc = current.getHex().FindComponent<Transform2D>().X + HEX_WIDTH - (SETTLEMENT_WIDTH / 2);
-                                    YLoc = current.getHex().FindComponent<Transform2D>().Y + TRIANGLE_HEIGHT - (SETTLEMENT_HEIGHT / 2);
-                                }
-                                else if (k == 3)
-                                {
-                                    XLoc = current.getHex().FindComponent<Transform2D>().X - (SETTLEMENT_WIDTH / 2);
-                                    YLoc = current.getHex().FindComponent<Transform2D>().Y - TRIANGLE_HEIGHT + HEX_HEIGHT - (SETTLEMENT_HEIGHT / 2);
-                                }
-                                else if (k == 4)
-                                {
-                                    XLoc = current.getHex().FindComponent<Transform2D>().X + HEX_WIDTH - (SETTLEMENT_WIDTH / 2);
-                                    YLoc = current.getHex().FindComponent<Transform2D>().Y - TRIANGLE_HEIGHT + HEX_HEIGHT - (SETTLEMENT_HEIGHT / 2);
-                                }
-                                else
-                                {
-                                    XLoc = current.getHex().FindComponent<Transform2D>().X + (HEX_WIDTH / 2) - (SETTLEMENT_WIDTH / 2);
-                                    YLoc = current.getHex().FindComponent<Transform2D>().Y + HEX_HEIGHT - (SETTLEMENT_HEIGHT / 2);
-                                }
-                                currSettle.getSettlement().AddComponent(new Transform2D()
-                                {
-                                    Scale = new Vector2(SETTLEMENT_SCALE_X, SETTLEMENT_SCALE_Y),
-                                    X = XLoc,
-                                    Y = YLoc,
-                                    DrawOrder = .05f
-                                });
-                                currSettle.getSettlement().AddComponent(new RectangleCollider());
-                                currSettle.getSettlement().AddComponent(new TouchGestures(true));
-                                currSettle.getSettlement().FindComponent<TouchGestures>().TouchPressed += (sender, GestureEventArgs) =>
-                                {
-                                    Console.WriteLine(currSettle.getPlacementNumber());
-                                    CommunicationClient.Instance.sendToServer(new Message(currSettle.getPlacementNumber().ToString(), Translation.TYPE.BuySettlement).toJson());
-                                };
-                                currSettle.canAddComponent = false;
-                                Console.WriteLine(currSettle.getPlacementNumber());
-                                Entity e = currSettle.getSettlement();
-                                toAdd.Add(e);
-                            }
-                        }
+                        this.hexAddTransform(current, (HEX_WIDTH * (posNum - 16)), (4 * HEX_HEIGHT) - (4 * TRIANGLE_HEIGHT), .6f);
+                        this.rollEntityAddTransform(current, (HEX_WIDTH * (posNum - 16)) + (HEX_WIDTH / 2) - (ROLL_NUMBER_WIDTH / 2),
+                                                                (4 * HEX_HEIGHT) - (4 * TRIANGLE_HEIGHT) + (HEX_HEIGHT / 2) - (ROLL_NUMBER_HEIGHT / 2), .1f);
+                        this.settlementAssignment(current, this.getXLocArraySettlement(current), this.getYLocArraySettlement(current), .05f);
                     }
                     toAdd.Add(current.getRollEntity());
                     toAdd.Add(current.getHex());
