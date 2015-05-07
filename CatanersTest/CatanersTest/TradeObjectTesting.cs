@@ -51,9 +51,23 @@ namespace CatanersTest
         [Test]
         public void testFromJson()
         {
-            GamePlayer a = new GamePlayer("Player1");
-            GamePlayer b = new GamePlayer("Player1");
-            Assert.AreEqual(a.GetHashCode(),b.GetHashCode());
+            Dictionary<Resource.TYPE, int> offer = new Dictionary<Resource.TYPE, int>();
+            Dictionary<Resource.TYPE, int> request = new Dictionary<Resource.TYPE, int>();
+
+            int x = 0;
+            foreach (Resource.TYPE t in Enum.GetValues(typeof(Resource.TYPE)))
+            {
+                offer[t] = 10 + x;
+                request[t] = 10 + x++;
+            }
+
+            Trade trade = new Trade(new GamePlayer("Sender"), new GamePlayer("Reciver"), offer, request);
+
+            String json = trade.toJson();
+
+            Trade reverse = Trade.fromJson(json);
+
+            Assert.AreEqual(trade, reverse);
         }
 
         [Test]
