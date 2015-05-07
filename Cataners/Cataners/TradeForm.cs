@@ -286,5 +286,10 @@ namespace Cataners
             }
         }
 
+        private void targetOfTradeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tradeButton.Enabled = true;
+        }
+
     }
 }

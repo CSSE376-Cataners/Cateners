@@ -70,6 +70,7 @@
             // 
             // tradeButton
             // 
+            this.tradeButton.Enabled = false;
             this.tradeButton.Location = new System.Drawing.Point(808, 344);
             this.tradeButton.Name = "tradeButton";
             this.tradeButton.Size = new System.Drawing.Size(106, 46);
@@ -85,6 +86,7 @@
             this.targetOfTradeComboBox.Name = "targetOfTradeComboBox";
             this.targetOfTradeComboBox.Size = new System.Drawing.Size(153, 30);
             this.targetOfTradeComboBox.TabIndex = 2;
+            this.targetOfTradeComboBox.SelectedIndexChanged += new System.EventHandler(this.targetOfTradeComboBox_SelectedIndexChanged);
             // 
             // giveBrickTextBox
             // 
