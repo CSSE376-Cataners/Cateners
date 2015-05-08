@@ -209,15 +209,14 @@ namespace CatenersServer
                         ServerLogic newLogic = new ServerLogic(this.currentLobby);
                         this.serverLogic = newLogic;
                         this.serverLogic.generatehexArray();
-                        int[][] array = this.serverLogic.gethexArray();
                         gameLobby = newLogic.gameLobby;
                         string toPass = newLogic.sendGeneration();
                         String getLobby = new CatanersShared.Message(serverLogic.gameLobby.toJson(), Translation.TYPE.GetGameLobby).toJson();
-                        String boardString = new Message(Translation.intArraytwotoJson(array), Translation.TYPE.HexMessage).toJson();
+                        
                         for (int i = 0; i < currentLobby.PlayerCount; i++)
                         {
                             ((ServerPlayer)currentLobby.Players[i]).client.sendToClient(new Message(toPass, Translation.TYPE.StartGame).toJson());
-                            ((ServerPlayer)currentLobby.Players[i]).client.sendToClient(boardString);
+                            //((ServerPlayer)currentLobby.Players[i]).client.sendToClient(boardString);
                             ((ServerPlayer)currentLobby.Players[i]).client.sendToClient(getLobby);
                             ((ServerPlayer)currentLobby.Players[i]).client.serverLogic = newLogic;
                             ((ServerPlayer)currentLobby.Players[i]).client.gameLobby = gameLobby;
