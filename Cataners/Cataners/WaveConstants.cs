@@ -32,9 +32,9 @@ namespace Cataners
 
         public static void setWaveValues()
         {
-             PLATFORM_WIDTH = (float)WaveServices.Platform.ScreenWidth;
-             PLATFORM_HEIGHT = (float)WaveServices.Platform.ScreenHeight;
-             WIDTH_TO_HEIGHT = (PLATFORM_WIDTH) / (PLATFORM_WIDTH);
+             PLATFORM_WIDTH = (float) WaveServices.Platform.ScreenWidth;
+             PLATFORM_HEIGHT = (float) WaveServices.Platform.ScreenHeight;
+             WIDTH_TO_HEIGHT = (PLATFORM_WIDTH) / (PLATFORM_HEIGHT);
              HEX_WIDTH = ((PLATFORM_WIDTH) / 8.0f) / WIDTH_TO_HEIGHT;
              HEX_SCALE_X = HEX_WIDTH / 220.0f;
              HEX_SCALE_Y = HEX_WIDTH * (1.1681818181f) / 257.0f;
