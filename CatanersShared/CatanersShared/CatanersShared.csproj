@@ -63,6 +63,7 @@
     <Compile Include="Login.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="PopUpMessage.cs" />
     <Compile Include="Resource.cs" />
     <Compile Include="Trade.cs" />
     <Compile Include="Variables.cs" />

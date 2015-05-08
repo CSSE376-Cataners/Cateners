@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChatClassTesting.cs" />
+    <Compile Include="PopUpMessageTesting.cs" />
     <Compile Include="PurchasingTesting.cs" />
     <Compile Include="LocalConversionTesting.cs" />
     <Compile Include="CreateGameFormTesting.cs" />

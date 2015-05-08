@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CatanersShared;
 
 namespace CatanersTest
 {
@@ -14,6 +15,12 @@ namespace CatanersTest
 
         [Test]
         public void PopUpMessageTestInitialize(){
+
+            PopUpMessage popup = new PopUpMessage("Title","Body",PopUpMessage.TYPE.Notification);
+
+            Assert.AreEqual("Title", popup.titleMsg);
+            Assert.AreEqual("Body", popup.bodyMsg);
+            Assert.AreEqual(PopUpMessage.TYPE.Notification, popup.type);
 
         }
     }
