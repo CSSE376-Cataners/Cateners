@@ -176,6 +176,7 @@ namespace Cataners
                     MainGui.INSTANCE.invokedHide();
                     TradeForm trade = new TradeForm();
                     LocalConversion.Instance.generateHexList(Translation.jsonToIntArrayTwo(msg.message));
+                    LocalConversion.Instance.drawHexes();
                     Program.Main();
                     break;
 
