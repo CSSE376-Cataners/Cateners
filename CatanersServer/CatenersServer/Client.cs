@@ -185,11 +185,15 @@ namespace CatenersServer
                 case Translation.TYPE.RegenerateBoard:
                 if (this.serverLogic != null)
                 {
+                    String getLobby = new CatanersShared.Message("", Translation.TYPE.GetGameLobby).toJson();
                     this.serverLogic.generatehexArray();
                     int[][] array = this.serverLogic.gethexArray();
                     String boardString = new Message(Translation.intArraytwotoJson(array), Translation.TYPE.HexMessage).toJson();
-                    foreach(ServerPlayer p in this.currentLobby.Players)
+                    foreach (ServerPlayer p in this.currentLobby.Players)
+                    {
                         p.client.sendToClient(boardString);
+                        p.client.sendToClient(getLobby);
+                    }
                 }
                 break;
 

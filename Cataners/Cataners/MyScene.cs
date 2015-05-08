@@ -55,8 +55,7 @@ namespace Cataners
             //Insert your scene definition here.
 
             //Create a 3D camera
-            CommunicationClient.Instance.sendToServer(new CatanersShared.Message("", Translation.TYPE.GetGameLobby).toJson());
-
+            
             FixedCamera2D camera2D = new FixedCamera2D("Camera2D") { BackgroundColor = Color.Gold };
             EntityManager.Add(camera2D);
             Entity background = new Entity("Background")
@@ -78,7 +77,6 @@ namespace Cataners
             };
             EntityManager.Add(title);
             this.hexList = LocalConversion.Instance.getHexList();
-            addPlayerNames();
             CommunicationClient.Instance.setGenerated();
         }
 
@@ -115,95 +113,122 @@ namespace Cataners
             }
         }
 
-        public void addPlayerNames()
+        public static void addPlayerNames()
         {
             //player name
             String player1Text;
-            if (Data.currentLobby != null)
+            if (Data.currentGameLobby != null)
             {
-             
-                if (Data.currentLobby.PlayerCount == 1)
+
+                
+
+                if (Data.currentGameLobby.gamePlayers.Count == 1)
                 {
-                    player1Text = Data.currentLobby.Players[0].ToString();
+                    player1Text = Data.currentGameLobby.gamePlayers[0].ToString();
                 }
                 else
                 {
                     player1Text = "player1";
                 }
                 //add player
-                TextBlock player1 = new TextBlock()
-                {
-                    Text = player1Text,
-                    Width = 100,
-                    Foreground = Color.Blue,
-                    Margin = new Thickness(WaveConstants.CENTERWIDTH - (WORDOFFSET), 100, 0, 0),
-                };
-                EntityManager.Add(player1);
+
+                Entity player1Name = new Entity("player1Name")
+                                .AddComponent(new Transform2D()
+                                {
+                                    X = WaveConstants.CENTERWIDTH - WORDOFFSET,
+                                    Y = 100,
+                                    DrawOrder = 2.0f
+                                })
+                                .AddComponent(new TextControl()
+                                {
+                                    Text = player1Text,
+                                    Foreground = Color.Blue
+                                })
+                                .AddComponent(new TextControlRenderer());
+                toAdd.Add(player1Name);
 
                 String player2Text;
-                if (Data.currentLobby.PlayerCount > 1)
+                if (Data.currentGameLobby.gamePlayers.Count > 1)
                 {
-                    player2Text = Data.currentLobby.Players[1].ToString();
+                    player2Text = Data.currentGameLobby.gamePlayers[1].ToString();
                 }
                 else
                 {
                     player2Text = "player2";
                 }
 
-                TextBlock player2 = new TextBlock()
-                {
-                    Text = player2Text,
-                    Width = 100,
-                    Foreground = Color.Red,
-                    Margin = new Thickness(WaveConstants.CENTERWIDTH + 400 - WORDOFFSET, WaveConstants.CENTERHEIGHT, 0, 0),
-
-                };
-                EntityManager.Add(player2);
+                Entity player2Name = new Entity("player2Name")
+                                .AddComponent(new Transform2D()
+                                {
+                                    X = WaveConstants.CENTERWIDTH + 400 - WORDOFFSET,
+                                    Y = WaveConstants.CENTERHEIGHT,
+                                    DrawOrder = 2.0f
+                                })
+                                .AddComponent(new TextControl()
+                                {
+                                    Text = player2Text.ToString(),
+                                    Foreground = Color.Red
+                                })
+                                .AddComponent(new TextControlRenderer());
+                toAdd.Add(player2Name);
 
                 String player3Text;
-                if (Data.currentLobby.PlayerCount > 2)
+                if (Data.currentGameLobby.gamePlayers.Count > 2)
                 {
-                    player3Text = Data.currentLobby.Players[2].ToString();
+                    player3Text = Data.currentGameLobby.gamePlayers[2].ToString();
                 }
                 else
                 {
                     player3Text = "player3";
                 }
-                TextBlock player3 = new TextBlock()
-                {
-                    Text = player3Text,
-                    Width = 100,
-                    Foreground = Color.Green,
-                    Margin = new Thickness(WaveConstants.CENTERWIDTH - WORDOFFSET, WaveConstants.CENTERHEIGHT * (2) - 100, 0, 0),
-                };
-                EntityManager.Add(player3);
+
+                Entity player3Name = new Entity("player3Name")
+                                .AddComponent(new Transform2D()
+                                {
+                                    X = WaveConstants.CENTERWIDTH - WORDOFFSET,
+                                    Y = WaveConstants.CENTERHEIGHT*2-100,
+                                    DrawOrder = 2.0f
+                                })
+                                .AddComponent(new TextControl()
+                                {
+                                    Text = player3Text.ToString(),
+                                    Foreground = Color.Green
+                                })
+                                .AddComponent(new TextControlRenderer());
+
+                toAdd.Add(player3Name);
 
                 String player4Text;
-                if (Data.currentLobby.PlayerCount > 3)
+                if (Data.currentGameLobby.gamePlayers.Count > 3)
                 {
-                    player4Text = Data.currentLobby.Players[3].ToString();
+                    player4Text = Data.currentGameLobby.gamePlayers[3].ToString();
                 }
                 else
                 {
                     player4Text = "player4";
                 }
 
-                TextBlock player4 = new TextBlock()
-                {
-                    Text = player4Text,
-                    Width = 100,
-                    Foreground = Color.Black,
-                    Margin = new Thickness(WaveConstants.CENTERWIDTH - 400 - WORDOFFSET, WaveConstants.CENTERHEIGHT, 0, 0),
-
-                };
-                EntityManager.Add(player4);
+                Entity player4Name = new Entity("player4Name")
+                                .AddComponent(new Transform2D()
+                                {
+                                    X = WaveConstants.CENTERWIDTH - 400 - WORDOFFSET,
+                                    Y = WaveConstants.CENTERHEIGHT,
+                                    DrawOrder = 2.0f
+                                })
+                                .AddComponent(new TextControl()
+                                {
+                                    Text = player4Text,
+                                    Foreground = Color.Black
+                                })
+                                .AddComponent(new TextControlRenderer());
+                toAdd.Add(player4Name);
             }
         }
 
         public static void addResources()
         {
             StringBuilder sb = new StringBuilder();
-            if (Data.currentLobby is GameLobby)
+            if (Data.currentGameLobby != null)
             {
                 for (int i = 0; i < Data.currentGameLobby.gamePlayers.Count; i++)
                 {

@@ -22,7 +22,10 @@ namespace CatanersShared
             for (int i = 0; i < lobby.PlayerCount; i++)
             {
                 gamePlayers.Add(new GamePlayer(lobby.Players[i].Username));
+                this.addPlayer(lobby.Players[i]);
             }
+
+            
         }
 
         public new String toJson()
