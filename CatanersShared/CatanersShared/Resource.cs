@@ -23,7 +23,15 @@ namespace CatanersShared
             this.number = number;
         }
 
-       
+        public String toJson()
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+        }
+
+        public static AddResource fromJson(String json)
+        {
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<AddResource>(json);
+        }
 
         public override bool Equals(object obj)
         {
