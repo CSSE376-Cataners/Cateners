@@ -17,7 +17,6 @@ namespace Cataners
     {
         public static object renderLock = "";
         public static App INSTANCE;
-
         public Cataners.Game game;
         SpriteBatch spriteBatch;
         Texture2D splashScreen;
@@ -35,6 +34,7 @@ namespace Cataners
             this.Height = 1000;
             this.FullScreen = false;
             this.WindowTitle = "WaveEngineGame";
+            
         }
 
         public override void Initialize()
