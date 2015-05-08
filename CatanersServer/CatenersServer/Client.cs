@@ -213,9 +213,9 @@ namespace CatenersServer
                         
                         for (int i = 0; i < currentLobby.PlayerCount; i++)
                         {
+                            ((ServerPlayer)currentLobby.Players[i]).client.sendToClient(getLobby);
                             ((ServerPlayer)currentLobby.Players[i]).client.sendToClient(new Message(toPass, Translation.TYPE.StartGame).toJson());
                             //((ServerPlayer)currentLobby.Players[i]).client.sendToClient(boardString);
-                            ((ServerPlayer)currentLobby.Players[i]).client.sendToClient(getLobby);
                             ((ServerPlayer)currentLobby.Players[i]).client.serverLogic = newLogic;
                             ((ServerPlayer)currentLobby.Players[i]).client.gameLobby = gameLobby;
                         }
@@ -229,7 +229,7 @@ namespace CatenersServer
 
                     return;
                 }
-                    if (serverLogic == null || serverLogic.onGoingTrade == null)
+                    if (serverLogic == null || serverLogic.onGoingTrade != null)
                         return;
                     Trade trade = Trade.fromJson(msg.message);
 
