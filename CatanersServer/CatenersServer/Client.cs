@@ -220,7 +220,12 @@ namespace CatenersServer
                 break;
                 case Translation.TYPE.OpenTradeWindow:
                     // Not in a game
-                    if (gameLobby == null)
+                if (gameLobby == null)
+                {
+
+                    return;
+                }
+                    if (serverLogic == null || serverLogic.onGoingTrade == null)
                         return;
                     Trade trade = Trade.fromJson(msg.message);
 
@@ -285,7 +290,47 @@ namespace CatenersServer
 
                 break;
                 case Translation.TYPE.TradeResponce:
+                    if (serverLogic != null && serverLogic.onGoingTrade != null)
+                    {
+                        if (serverLogic.onGoingTrade.target.Username.Equals(this.userName))
+                        {
+                            bool responce = Boolean.Parse(msg.message);
+                            if (responce)
+                            {
+                                sender = null;
+                                target = null;
+                                foreach (GamePlayer p in gameLobby.gamePlayers)
+                                {
+                                    if (p.Username.Equals(serverLogic.onGoingTrade.source.Username))
+                                    {
+                                        sender = p;
+                                    }
+                                    if (p.Username.Equals(this.userName))
+                                    {
+                                        target = p;
+                                    }
+                                }
 
+                                if (sender == null || target == null)
+                                    return;
+                                foreach (Resource.TYPE t in Enum.GetValues(typeof(Resource.TYPE)))
+                                {
+                                    if (serverLogic.onGoingTrade.offeredResources.ContainsKey(t))
+                                    {
+                                        sender.resources[t] -= serverLogic.onGoingTrade.offeredResources[t];
+                                        target.resources[t] += serverLogic.onGoingTrade.offeredResources[t];
+                                    }
+                                    if (serverLogic.onGoingTrade.wantedResources.ContainsKey(t))
+                                    {
+                                        target.resources[t] -= serverLogic.onGoingTrade.wantedResources[t];
+                                        sender.resources[t] += serverLogic.onGoingTrade.wantedResources[t];
+                                    }
+                                }
+                                // TODO: Update resources message;
+                            }
+                            serverLogic.onGoingTrade = null;
+                        }
+                    }
                 break;
                 default:
                     // We Are just going to ignore it.
