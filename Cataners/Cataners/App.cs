@@ -122,7 +122,7 @@ namespace Cataners
                                 }
                                 else
                                 {
-                                    MyScene.Instance.addResources();
+                                    MyScene.addResources();
                                     foreach (Entity e in MyScene.toAdd)
                                     {
                                         if (e != null)
