@@ -126,7 +126,10 @@ namespace CatenersServer
                     if (test)
                     {
                          Message settlementPurchased = new Message(parsedInt.ToString(), Translation.TYPE.BuySettlement);
-                         sendToClient(settlementPurchased.toJson());
+                         foreach (ServerPlayer p in this.currentLobby.Players)
+                         {
+                             p.client.sendToClient(settlementPurchased.toJson());
+                         }
                     }
                 break;
 
@@ -140,6 +143,7 @@ namespace CatenersServer
 
                     this.currentLobby = newLobby;
                 break;
+
                 case Translation.TYPE.ChangeReadyStatus:
                     if (this.currentLobby == null || this.userName == null)
                     {

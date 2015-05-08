@@ -279,6 +279,7 @@ namespace Cataners
                 InitializeDictionaries();
                 Trade tradeobj = new Trade(currentTrader, target, offered, wanted);
                 CommunicationClient.Instance.sendToServer(new CatanersShared.Message(tradeobj.toJson(),Translation.TYPE.OpenTradeWindow).toJson());
+                //this.Hide();
             }
             else
             {

@@ -138,7 +138,6 @@ namespace Cataners
                     queues[Translation.TYPE.Register].Add(msg.message);
                     break;
                 case Translation.TYPE.HexMessage:
-                    Console.WriteLine("Hello");
                     int[][] array = Translation.jsonToIntArrayTwo(msg.message);
                     LocalConversion.Instance.generateHexList(array);
                     LocalConversion.Instance.drawHexes();
