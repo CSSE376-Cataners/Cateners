@@ -691,16 +691,54 @@ namespace CatanersTest
             Dictionary<Resource.TYPE, int> offer = new Dictionary<Resource.TYPE, int>();
             Dictionary<Resource.TYPE, int> request = new Dictionary<Resource.TYPE, int>();
 
-            Trade trade = new Trade(new GamePlayer("Sender"), new GamePlayer("Reciver"), offer, request);
-
-            FakeClient client = new FakeClient();
-            client.userName = "Reciver";
-
+            Trade correctTrade = new Trade(new GamePlayer("Sender"), new GamePlayer("Reciver"), offer, request);
+            Trade incorrectTrade = new Trade(new GamePlayer("OddSend"), new GamePlayer("OddReciver"), offer, request);
             String acceptTrade = new Message(true.ToString(), Translation.TYPE.TradeResponce).toJson();
             String declineTrade = new Message(false.ToString(), Translation.TYPE.TradeResponce).toJson();
 
+            FakeClient clientR = new FakeClient();
+            clientR.userName = "Reciver";
+            clientR.player = new ServerPlayer(clientR.userName,clientR);
+
+            FakeClient clientS = new FakeClient();
+            clientS.userName = "Sender";
+            clientS.player = new ServerPlayer(clientS.userName, clientS);
+
+            Lobby lob = new Lobby("Gamename", 10, clientR.player, 1);
+            lob.addPlayer(clientS.player);
+
+            clientR.currentLobby = lob;
+            clientS.currentLobby = lob;
 
 
+            ServerLogic sl = new ServerLogic(lob);
+            clientR.serverLogic = sl;
+            clientS.serverLogic = sl;
+            clientR.gameLobby = sl.gameLobby;
+            clientS.gameLobby = sl.gameLobby;
+
+            // Should Do Nothing to state because ongoingtrade is null
+            clientR.processesMessage(acceptTrade);
+
+            sl.onGoingTrade = correctTrade;
+
+            clientR.processesMessage(declineTrade);
+
+            Assert.Null(sl.onGoingTrade);
+
+            sl.onGoingTrade = correctTrade;
+
+            clientR.processesMessage(acceptTrade);
+            Assert.Null(sl.onGoingTrade);
+
+            clientS.serverLogic.gameLobby.gamePlayers[1].resources[Resource.TYPE.Sheep] = 10;
+            offer[Resource.TYPE.Sheep] = 10;
+
+            sl.onGoingTrade = correctTrade;
+            clientR.processesMessage(acceptTrade);
+            Assert.Null(sl.onGoingTrade);
+            Assert.AreEqual(0, clientS.serverLogic.gameLobby.gamePlayers[1].resources[Resource.TYPE.Sheep]);
+            Assert.AreEqual(10, clientR.serverLogic.gameLobby.gamePlayers[0].resources[Resource.TYPE.Sheep]);
         }
 
         public class FakeClient : Client
