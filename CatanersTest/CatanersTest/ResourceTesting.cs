@@ -26,5 +26,17 @@ namespace CatanersTest
 
         }
 
+        [Test]
+        public void ResourceTestToJson()
+        {
+
+            Player player = new Player("Bobby Tables");
+            AddResource resource = new AddResource(player, Resource.TYPE.Brick, 3);
+            Console.WriteLine(resource.toJson());
+            Assert.AreEqual("{\"player\":{\"Ready\":false,\"Username\":\"Bobby Tables\"},\"resourceType\":2,\"number\":3}", resource.toJson());
+
+        }
+
+       
     }
 }
