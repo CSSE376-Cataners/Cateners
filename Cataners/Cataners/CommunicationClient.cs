@@ -141,6 +141,9 @@ namespace Cataners
                     int[][] array = Translation.jsonToIntArrayTwo(msg.message);
                     LocalConversion.Instance.generateHexList(array);
                     LocalConversion.Instance.drawHexes();
+                    MyScene.addRegenerateBoardButton();
+                    MyScene.addTradeButton();
+                    MyScene.addPlayerNames();
                     break;
                 case Translation.TYPE.RequestLobbies:
                     Data.Lobbies.Clear();
@@ -214,12 +217,9 @@ namespace Cataners
                          
                     }
                     Data.currentGameLobby = (GameLobby)Data.currentLobby;
-                    if (MyScene.Instance != null)
-                    {
-                         MyScene.addRegenerateBoardButton();
-                         MyScene.addTradeButton();
-                         MyScene.addPlayerNames();
-                    }
+                    MyScene.addRegenerateBoardButton();
+                    MyScene.addTradeButton();
+                    MyScene.addPlayerNames();
                     
                     break;
                 case Translation.TYPE.OpenTradeWindow:

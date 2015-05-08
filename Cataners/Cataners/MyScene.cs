@@ -122,7 +122,7 @@ namespace Cataners
 
                 
 
-                if (Data.currentGameLobby.gamePlayers.Count == 1)
+                if (Data.currentGameLobby.gamePlayers.Count > 0)
                 {
                     player1Text = Data.currentGameLobby.gamePlayers[0].ToString();
                 }
