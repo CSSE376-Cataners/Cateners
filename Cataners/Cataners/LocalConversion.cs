@@ -341,48 +341,50 @@ namespace Cataners
         {
             this.hexList = LocalConversion.Instance.getHexList();
             Console.WriteLine(this.hexList.ToString());
-            lock (MyScene.toAdd)
-            {
-                for (int g = 0; g < 19; g++)
+            if(MyScene.Instance != null){
+                lock (MyScene.toAdd)
                 {
-                    HexHolder current = this.hexList[g];
-                    int posNum = current.getPlacementNumber();
-                    if (posNum < 3)
+                    for (int g = 0; g < 19; g++)
                     {
-                        this.hexAddTransform(current, (WaveConstants.HEX_WIDTH * posNum), 0, .6f);
-                        this.rollEntityAddTransform(current, (WaveConstants.HEX_WIDTH * posNum) + (WaveConstants.HEX_WIDTH / 2) - (WaveConstants.ROLL_NUMBER_WIDTH / 2),
-                                                                (WaveConstants.HEX_HEIGHT / 2) - (WaveConstants.ROLL_NUMBER_HEIGHT / 2), .1f);
-                        this.settlementAssignment(current, getXLocArraySettlement(current), getYLocArraySettlement(current), .05f);
+                        HexHolder current = this.hexList[g];
+                        int posNum = current.getPlacementNumber();
+                        if (posNum < 3)
+                        {
+                            this.hexAddTransform(current, (WaveConstants.HEX_WIDTH * posNum), 0, .6f);
+                            this.rollEntityAddTransform(current, (WaveConstants.HEX_WIDTH * posNum) + (WaveConstants.HEX_WIDTH / 2) - (WaveConstants.ROLL_NUMBER_WIDTH / 2),
+                                                                    (WaveConstants.HEX_HEIGHT / 2) - (WaveConstants.ROLL_NUMBER_HEIGHT / 2), .1f);
+                            this.settlementAssignment(current, getXLocArraySettlement(current), getYLocArraySettlement(current), .05f);
+                        }
+                        else if (posNum < 7)
+                        {
+                            this.hexAddTransform(current, (-WaveConstants.HEX_WIDTH / 2) + (WaveConstants.HEX_WIDTH * (posNum - 3)), (WaveConstants.HEX_HEIGHT - WaveConstants.TRIANGLE_HEIGHT), .6f);
+                            this.rollEntityAddTransform(current, (-WaveConstants.HEX_WIDTH / 2) + (WaveConstants.HEX_WIDTH * (posNum - 3)) + (WaveConstants.HEX_WIDTH / 2) - (WaveConstants.ROLL_NUMBER_WIDTH / 2),
+                                                                    (WaveConstants.HEX_HEIGHT - WaveConstants.TRIANGLE_HEIGHT) + (WaveConstants.HEX_HEIGHT / 2) - (WaveConstants.ROLL_NUMBER_HEIGHT / 2), .1f);
+                            this.settlementAssignment(current, this.getXLocArraySettlement(current), this.getYLocArraySettlement(current), .05f);
+                        }
+                        else if (posNum < 12)
+                        {
+                            this.hexAddTransform(current, (-WaveConstants.HEX_WIDTH) + (WaveConstants.HEX_WIDTH * (posNum - 7)), (2 * WaveConstants.HEX_HEIGHT) - (2 * WaveConstants.TRIANGLE_HEIGHT), .6f);
+                            this.rollEntityAddTransform(current, (-WaveConstants.HEX_WIDTH) + (WaveConstants.HEX_WIDTH * (posNum - 7)) + (WaveConstants.HEX_WIDTH / 2) - (WaveConstants.ROLL_NUMBER_WIDTH / 2),
+                                                                   (2 * WaveConstants.HEX_HEIGHT) - (2 * WaveConstants.TRIANGLE_HEIGHT) + (WaveConstants.HEX_HEIGHT / 2) - (WaveConstants.ROLL_NUMBER_HEIGHT / 2), .1f);
+                            this.settlementAssignment(current, this.getXLocArraySettlement(current), this.getYLocArraySettlement(current), .05f);
+                        }
+                        else if (posNum < 16)
+                        {
+                            this.hexAddTransform(current, (-WaveConstants.HEX_WIDTH / 2) + (WaveConstants.HEX_WIDTH * (posNum - 12)), (3 * WaveConstants.HEX_HEIGHT) - (3 * WaveConstants.TRIANGLE_HEIGHT), .6f);
+                            this.rollEntityAddTransform(current, (-WaveConstants.HEX_WIDTH / 2) + (WaveConstants.HEX_WIDTH * (posNum - 12)) + (WaveConstants.HEX_WIDTH / 2) - (WaveConstants.ROLL_NUMBER_WIDTH / 2), (3 * WaveConstants.HEX_HEIGHT) - (3 * WaveConstants.TRIANGLE_HEIGHT) + (WaveConstants.HEX_HEIGHT / 2) - (WaveConstants.ROLL_NUMBER_HEIGHT / 2), .1f);
+                            this.settlementAssignment(current, this.getXLocArraySettlement(current), this.getYLocArraySettlement(current), .05f);
+                        }
+                        else
+                        {
+                            this.hexAddTransform(current, (WaveConstants.HEX_WIDTH * (posNum - 16)), (4 * WaveConstants.HEX_HEIGHT) - (4 * WaveConstants.TRIANGLE_HEIGHT), .6f);
+                            this.rollEntityAddTransform(current, (WaveConstants.HEX_WIDTH * (posNum - 16)) + (WaveConstants.HEX_WIDTH / 2) - (WaveConstants.ROLL_NUMBER_WIDTH / 2),
+                                                                    (4 * WaveConstants.HEX_HEIGHT) - (4 * WaveConstants.TRIANGLE_HEIGHT) + (WaveConstants.HEX_HEIGHT / 2) - (WaveConstants.ROLL_NUMBER_HEIGHT / 2), .1f);
+                            this.settlementAssignment(current, this.getXLocArraySettlement(current), this.getYLocArraySettlement(current), .05f);
+                        }
+                        MyScene.toAdd.Add(current.getRollEntity());
+                        MyScene.toAdd.Add(current.getHex());
                     }
-                    else if (posNum < 7)
-                    {
-                        this.hexAddTransform(current, (-WaveConstants.HEX_WIDTH / 2) + (WaveConstants.HEX_WIDTH * (posNum - 3)), (WaveConstants.HEX_HEIGHT - WaveConstants.TRIANGLE_HEIGHT), .6f);
-                        this.rollEntityAddTransform(current, (-WaveConstants.HEX_WIDTH / 2) + (WaveConstants.HEX_WIDTH * (posNum - 3)) + (WaveConstants.HEX_WIDTH / 2) - (WaveConstants.ROLL_NUMBER_WIDTH / 2),
-                                                                (WaveConstants.HEX_HEIGHT - WaveConstants.TRIANGLE_HEIGHT) + (WaveConstants.HEX_HEIGHT / 2) - (WaveConstants.ROLL_NUMBER_HEIGHT / 2), .1f);
-                        this.settlementAssignment(current, this.getXLocArraySettlement(current), this.getYLocArraySettlement(current), .05f);
-                    }
-                    else if (posNum < 12)
-                    {
-                        this.hexAddTransform(current, (-WaveConstants.HEX_WIDTH) + (WaveConstants.HEX_WIDTH * (posNum - 7)), (2 * WaveConstants.HEX_HEIGHT) - (2 * WaveConstants.TRIANGLE_HEIGHT), .6f);
-                        this.rollEntityAddTransform(current, (-WaveConstants.HEX_WIDTH) + (WaveConstants.HEX_WIDTH * (posNum - 7)) + (WaveConstants.HEX_WIDTH / 2) - (WaveConstants.ROLL_NUMBER_WIDTH / 2),
-                                                               (2 * WaveConstants.HEX_HEIGHT) - (2 * WaveConstants.TRIANGLE_HEIGHT) + (WaveConstants.HEX_HEIGHT / 2) - (WaveConstants.ROLL_NUMBER_HEIGHT / 2), .1f);
-                        this.settlementAssignment(current, this.getXLocArraySettlement(current), this.getYLocArraySettlement(current), .05f);
-                    }
-                    else if (posNum < 16)
-                    {
-                        this.hexAddTransform(current, (-WaveConstants.HEX_WIDTH / 2) + (WaveConstants.HEX_WIDTH * (posNum - 12)), (3 * WaveConstants.HEX_HEIGHT) - (3 * WaveConstants.TRIANGLE_HEIGHT), .6f);
-                        this.rollEntityAddTransform(current, (-WaveConstants.HEX_WIDTH / 2) + (WaveConstants.HEX_WIDTH * (posNum - 12)) + (WaveConstants.HEX_WIDTH / 2) - (WaveConstants.ROLL_NUMBER_WIDTH / 2), (3 * WaveConstants.HEX_HEIGHT) - (3 * WaveConstants.TRIANGLE_HEIGHT) + (WaveConstants.HEX_HEIGHT / 2) - (WaveConstants.ROLL_NUMBER_HEIGHT / 2), .1f);
-                        this.settlementAssignment(current, this.getXLocArraySettlement(current), this.getYLocArraySettlement(current), .05f);
-                    }
-                    else
-                    {
-                        this.hexAddTransform(current, (WaveConstants.HEX_WIDTH * (posNum - 16)), (4 * WaveConstants.HEX_HEIGHT) - (4 * WaveConstants.TRIANGLE_HEIGHT), .6f);
-                        this.rollEntityAddTransform(current, (WaveConstants.HEX_WIDTH * (posNum - 16)) + (WaveConstants.HEX_WIDTH / 2) - (WaveConstants.ROLL_NUMBER_WIDTH / 2),
-                                                                (4 * WaveConstants.HEX_HEIGHT) - (4 * WaveConstants.TRIANGLE_HEIGHT) + (WaveConstants.HEX_HEIGHT / 2) - (WaveConstants.ROLL_NUMBER_HEIGHT / 2), .1f);
-                        this.settlementAssignment(current, this.getXLocArraySettlement(current), this.getYLocArraySettlement(current), .05f);
-                    }
-                    MyScene.toAdd.Add(current.getRollEntity());
-                    MyScene.toAdd.Add(current.getHex());
                 }
             }
         }

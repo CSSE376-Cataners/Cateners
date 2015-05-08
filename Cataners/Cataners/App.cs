@@ -34,43 +34,12 @@ namespace Cataners
             this.Height = 1000;
             this.FullScreen = false;
             this.WindowTitle = "WaveEngineGame";
-            WaveConstants.PLATFORM_WIDTH = WaveServices.Platform.ScreenWidth;
-            WaveConstants.PLATFORM_HEIGHT = WaveServices.Platform.ScreenHeight;
         }
 
         public override void Initialize()
         {
             this.game = new Cataners.Game();
             this.game.Initialize(this);
-
-            #region WAVE SOFTWARE LICENSE AGREEMENT
-            this.backgroundSplashColor = new Color("#ebebeb");
-            this.spriteBatch = new SpriteBatch(WaveServices.GraphicsDevice);
-
-            var resourceNames = Assembly.GetExecutingAssembly().GetManifestResourceNames();
-            string name = string.Empty;
-
-            foreach (string item in resourceNames)
-            {
-                if (item.Contains("SplashScreen.wpk"))
-                {
-                    name = item;
-                    break;
-                }
-            }
-
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new InvalidProgramException("License terms not agreed.");
-            }
-
-            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(name))
-            {
-                this.splashScreen = WaveServices.Assets.Global.LoadAsset<Texture2D>(name, stream);
-            }
-
-            position = new Vector2();
-            #endregion
         }
 
         public override void Update(TimeSpan elapsedTime)
@@ -81,20 +50,6 @@ namespace Cataners
                 if (WaveServices.Input.KeyboardState.F10 == ButtonState.Pressed)
                 {
                     this.FullScreen = !this.FullScreen;
-                }
-
-                if (this.splashState)
-                {
-                    #region WAVE SOFTWARE LICENSE AGREEMENT
-                    this.time += elapsedTime;
-                    if (time > TimeSpan.FromSeconds(2))
-                    {
-                        this.splashState = false;
-                    }
-
-                    position.X = (this.Width - this.splashScreen.Width) / 2.0f;
-                    position.Y = (this.Height - this.splashScreen.Height) / 2.0f;
-                    #endregion
                 }
                 else
                 {
@@ -154,19 +109,7 @@ namespace Cataners
         {
             if (this.game != null && !this.game.HasExited)
             {
-                if (this.splashState)
-                {
-                    #region WAVE SOFTWARE LICENSE AGREEMENT
-                    WaveServices.GraphicsDevice.RenderTargets.SetRenderTarget(null);
-                    WaveServices.GraphicsDevice.Clear(ref this.backgroundSplashColor, ClearFlags.Target, 1);
-                    this.spriteBatch.DrawVM(this.splashScreen, this.position, Color.White);
-                    this.spriteBatch.Render();
-                    #endregion
-                }
-                else
-                {
-                    this.game.DrawFrame(elapsedTime);
-                }
+                this.game.DrawFrame(elapsedTime);
             }
         }
 

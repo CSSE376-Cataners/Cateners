@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 using WaveEngine.Adapter;
+using WaveEngine.Framework.Services;
 
 namespace Cataners
 {
@@ -13,6 +14,8 @@ namespace Cataners
             using (App game = new App())
             {
                 game.Run();
+                WaveConstants.PLATFORM_WIDTH = WaveServices.Platform.ScreenWidth;
+                WaveConstants.PLATFORM_HEIGHT = WaveServices.Platform.ScreenHeight;
             }
         }
     }
