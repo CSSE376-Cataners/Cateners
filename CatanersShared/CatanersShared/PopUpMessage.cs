@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 
 namespace CatanersShared
 {
-    class PopUpMessage
+    public class PopUpMessage
     {
         public enum TYPE { Notification, ResponseNeeded };
-        PopUpMessage.TYPE type;
-        String titleMsg;
-        String bodyMsg;
+        public PopUpMessage.TYPE type;
+        public String titleMsg;
+        public String bodyMsg;
 
         public PopUpMessage(String titleMessage, String bodyMessage, PopUpMessage.TYPE type)
         {
-            
+
+            this.titleMsg = titleMessage;
+            this.bodyMsg = bodyMessage;
+            this.type = type;
 
 
         }
