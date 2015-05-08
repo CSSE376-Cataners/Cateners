@@ -36,8 +36,7 @@ namespace Cataners
         private HexHolder[] hexList;
         public static int hexNumber = 19;
         public static float WORDOFFSET = 40.0f;
-        public static float CENTERWIDTH = (WaveServices.Platform.ScreenWidth) / 2;
-        public static float CENTERHEIGHT = (WaveServices.Platform.ScreenHeight) / 2;
+        
 
         public static List<Entity> toAdd = new List<Entity>();
         public static List<BaseDecorator> toAddDecor = new List<BaseDecorator>();
@@ -47,6 +46,7 @@ namespace Cataners
         public MyScene()
             : base()
         {
+            WaveConstants.setWaveValues();
             instance = this;
         }
 
@@ -74,7 +74,7 @@ namespace Cataners
             {
                 Text = "Settlers of Catan",
                 Foreground = Color.Blue,
-                Margin = new Thickness(CENTERWIDTH - (80), 0, 0, 0)
+                Margin = new Thickness(WaveConstants.CENTERWIDTH - (80), 0, 0, 0)
             };
             EntityManager.Add(title);
             this.hexList = LocalConversion.Instance.getHexList();
@@ -90,8 +90,8 @@ namespace Cataners
             tradeButton.Width = 120;
             tradeButton.Height = 40;
             Transform2D tradebutton2d = tradeButton.Entity.FindComponent<Transform2D>();
-            tradebutton2d.X = CENTERWIDTH * 2 - 120;
-            tradebutton2d.Y = CENTERHEIGHT * 2 - 100;
+            tradebutton2d.X = WaveConstants.CENTERWIDTH * 2 - 120;
+            tradebutton2d.Y = WaveConstants.CENTERHEIGHT * 2 - 100;
             tradeButton.Entity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(tradeButton_Pressed);
             lock (toAddDecor)
             {
@@ -136,7 +136,7 @@ namespace Cataners
                     Text = player1Text,
                     Width = 100,
                     Foreground = Color.Blue,
-                    Margin = new Thickness(CENTERWIDTH - (WORDOFFSET), 100, 0, 0),
+                    Margin = new Thickness(WaveConstants.CENTERWIDTH - (WORDOFFSET), 100, 0, 0),
                 };
                 EntityManager.Add(player1);
 
@@ -155,7 +155,7 @@ namespace Cataners
                     Text = player2Text,
                     Width = 100,
                     Foreground = Color.Red,
-                    Margin = new Thickness(CENTERWIDTH + 400 - WORDOFFSET, CENTERHEIGHT, 0, 0),
+                    Margin = new Thickness(WaveConstants.CENTERWIDTH + 400 - WORDOFFSET, WaveConstants.CENTERHEIGHT, 0, 0),
 
                 };
                 EntityManager.Add(player2);
@@ -174,7 +174,7 @@ namespace Cataners
                     Text = player3Text,
                     Width = 100,
                     Foreground = Color.Green,
-                    Margin = new Thickness(CENTERWIDTH - WORDOFFSET, CENTERHEIGHT * (2) - 100, 0, 0),
+                    Margin = new Thickness(WaveConstants.CENTERWIDTH - WORDOFFSET, WaveConstants.CENTERHEIGHT * (2) - 100, 0, 0),
                 };
                 EntityManager.Add(player3);
 
@@ -193,7 +193,7 @@ namespace Cataners
                     Text = player4Text,
                     Width = 100,
                     Foreground = Color.Black,
-                    Margin = new Thickness(CENTERWIDTH - 400 - WORDOFFSET, CENTERHEIGHT, 0, 0),
+                    Margin = new Thickness(WaveConstants.CENTERWIDTH - 400 - WORDOFFSET, WaveConstants.CENTERHEIGHT, 0, 0),
 
                 };
                 EntityManager.Add(player4);
@@ -219,7 +219,7 @@ namespace Cataners
                                 Entity player0ResourceEntity = new Entity("player" + (i) + "ResourceEntity")
                                 .AddComponent(new Transform2D()
                                 {
-                                    X = CENTERWIDTH +50 - WORDOFFSET,
+                                    X = WaveConstants.CENTERWIDTH +50 - WORDOFFSET,
                                     Y = 130,
                                     DrawOrder = 2.0f
                                 })
@@ -236,8 +236,8 @@ namespace Cataners
                                 Entity player1ResourceEntity = new Entity("player" + (i) + "ResourceEntity")
                                 .AddComponent(new Transform2D()
                                 {
-                                    X = CENTERWIDTH + 450 - WORDOFFSET,
-                                    Y = CENTERHEIGHT + 30,
+                                    X = WaveConstants.CENTERWIDTH + 450 - WORDOFFSET,
+                                    Y = WaveConstants.CENTERHEIGHT + 30,
                                     DrawOrder = 2.0f
                                 })
                                 .AddComponent(new TextControl()
@@ -253,8 +253,8 @@ namespace Cataners
                                 Entity player2ResourceEntity = new Entity("player" + (i) + "ResourceEntity")
                                 .AddComponent(new Transform2D()
                                 {
-                                    X = CENTERWIDTH +50 - WORDOFFSET,
-                                    Y = (CENTERHEIGHT * 2) - 80,
+                                    X = WaveConstants.CENTERWIDTH +50 - WORDOFFSET,
+                                    Y = (WaveConstants.CENTERHEIGHT * 2) - 80,
                                     DrawOrder = 2.0f
                                 })
                                 .AddComponent(new TextControl()
@@ -270,8 +270,8 @@ namespace Cataners
                                 Entity player3ResourceEntity = new Entity("player" + (i) + "ResourceEntity")
                                 .AddComponent(new Transform2D()
                                 {
-                                    X = CENTERWIDTH - 450 - WORDOFFSET,
-                                    Y = CENTERHEIGHT+30,
+                                    X = WaveConstants.CENTERWIDTH - 450 - WORDOFFSET,
+                                    Y = WaveConstants.CENTERHEIGHT+30,
                                     DrawOrder = 2.0f
                                 })
                                 .AddComponent(new TextControl()
