@@ -34,8 +34,7 @@ namespace Cataners
             this.Height = 1000;
             this.FullScreen = false;
             this.WindowTitle = "WaveEngineGame";
-            WaveConstants.PLATFORM_WIDTH = WaveServices.Platform.ScreenWidth;
-            WaveConstants.PLATFORM_HEIGHT = WaveServices.Platform.ScreenHeight;
+            
         }
 
         public override void Initialize()
