@@ -12,7 +12,7 @@ namespace CatanersShared
     {
         public enum TYPE {  Login, Register, RequestLobbies, JoinLobby, CreateLobby, UpdateLobby, ChangeReadyStatus,
                             LeaveLobby, Chat, Game, StartGame, Unknown , HexMessage, RegenerateBoard, addResource, GetGameLobby,
-                            OpenTradeWindow, BuySettlement, TradeResponce};
+                            OpenTradeWindow, BuySettlement, TradeResponce, PopUpMessage};
 
         public static int[][] jsonToIntArrayTwo(string s) 
         {

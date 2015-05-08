@@ -32,6 +32,18 @@ namespace CatanersShared
         {
             return Newtonsoft.Json.JsonConvert.DeserializeObject<AddResource>(json);
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || !(obj is AddResource))
+            {
+                return false;
+            }
+            
+            AddResource other = (AddResource)obj;
+
+            return this.number == other.number && this.player.Equals(other.player) && this.resourceType == other.resourceType;
+        }
     }
 
     
