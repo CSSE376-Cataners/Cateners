@@ -20,6 +20,7 @@ namespace Cataners
     {
         private StreamReader reader;
         private Boolean Enabled;
+        private Boolean sceneGenerated;
 
         public Dictionary<Translation.TYPE, BlockingCollection<Object>> queues;
 
@@ -43,6 +44,8 @@ namespace Cataners
             this.clientSocket = new System.Net.Sockets.TcpClient();
             CommunicationClient.instance = this;
             clientSocket.ReceiveTimeout = 3;
+            this.sceneGenerated = false;
+            this.hexesReady = false;
             queues = new Dictionary<Translation.TYPE, BlockingCollection<object>>();
 
             foreach (Translation.TYPE t in Enum.GetValues(typeof(Translation.TYPE)))
@@ -73,6 +76,7 @@ namespace Cataners
         }
 
         StreamWriter writer;
+        private bool hexesReady;
         public virtual void sendToServer(String msg)
         {
             if (instance.clientSocket.Connected)
@@ -136,7 +140,7 @@ namespace Cataners
                 case Translation.TYPE.HexMessage:
                     int[][] array = Translation.jsonToIntArrayTwo(msg.message);
                     LocalConversion.Instance.generateHexList(array);
-                    MyScene.Instance.drawHexes();
+                    LocalConversion.Instance.drawHexes();
                     break;
                 case Translation.TYPE.RequestLobbies:
                     Data.Lobbies.Clear();
@@ -206,10 +210,15 @@ namespace Cataners
                          {
                              Data.currentGamePlayer = ((GameLobby)Data.currentLobby).gamePlayers[i];
                          }
+                         
+                    }
+                    Data.currentGameLobby = (GameLobby)Data.currentLobby;
+                    if (MyScene.Instance != null)
+                    {
                          MyScene.addRegenerateBoardButton();
                          MyScene.addTradeButton();
                     }
-                    Data.currentGameLobby = (GameLobby)Data.currentLobby;
+                    
                     break;
                 case Translation.TYPE.OpenTradeWindow:
                     Trade tradeobj = Trade.fromJson(msg.message);
@@ -241,6 +250,19 @@ namespace Cataners
                     if (ChatBox.INSTANCE != null)
                         ChatBox.INSTANCE.Invoke(new Action( () => ChatBox.INSTANCE.addChat(chat)));
                     break;
+                case Translation.TYPE.PopUpMessage:
+                    PopUpMessage newMsg = PopUpMessage.fromJson(msg.message);
+                    switch (newMsg.type)
+                    {
+                        case PopUpMessage.TYPE.Notification:
+                            System.Windows.MessageBox.Show(newMsg.bodyMsg, newMsg.titleMsg);
+                            break;
+                        case PopUpMessage.TYPE.ResponseNeeded:
+                            MessageBoxResult result2 = System.Windows.MessageBox.Show(newMsg.bodyMsg, newMsg.titleMsg, MessageBoxButton.YesNo, MessageBoxImage.Question);
+                            break;
+                    }
+                    
+                    break;
             }
         }
         /*
@@ -251,5 +273,15 @@ namespace Cataners
             return "";
         }
          */
+
+        internal void setGenerated()
+        {
+            this.sceneGenerated = !this.sceneGenerated;
+        }
+
+        internal void setHexesReady()
+        {
+            this.hexesReady = !this.hexesReady;
+        }
     }
 }

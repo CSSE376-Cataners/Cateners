@@ -38,21 +38,6 @@ namespace Cataners
         public static float WORDOFFSET = 40.0f;
         public static float CENTERWIDTH = (WaveServices.Platform.ScreenWidth) / 2;
         public static float CENTERHEIGHT = (WaveServices.Platform.ScreenHeight) / 2;
-        public static float WIDTH_TO_HEIGHT = ((float)WaveServices.Platform.ScreenWidth) / ((float)WaveServices.Platform.ScreenHeight);
-        public static float HEX_WIDTH = (((float)WaveServices.Platform.ScreenWidth) / 8.0f) / WIDTH_TO_HEIGHT;
-        public static float HEX_SCALE_X = HEX_WIDTH / 220.0f;
-        public static float HEX_SCALE_Y = HEX_WIDTH * ((float)1.1681818181) / 257.0f;
-        public static float HEX_HEIGHT = (HEX_WIDTH * (float)1.168181818);
-        public static float TRIANGLE_HEIGHT = HEX_HEIGHT * (float)0.2723735409;
-        public static float HEX_START_X = (((float)WaveServices.Platform.ScreenWidth) / 2.0f) - ((HEX_WIDTH * 3) / 2);
-        public static float HEX_START_Y = (((float)WaveServices.Platform.ScreenHeight) / 2.0f) - ((3 * HEX_HEIGHT) - (4 * TRIANGLE_HEIGHT));
-        public static float ROLL_NUMBER_SCALE = HEX_WIDTH / (2 * 50);
-        public static float ROLL_NUMBER_WIDTH = 50 * ROLL_NUMBER_SCALE;
-        public static float ROLL_NUMBER_HEIGHT = 50 * ROLL_NUMBER_SCALE;
-        public static float SETTLEMENT_SCALE_X = (HEX_WIDTH / 10) / 684;
-        public static float SETTLEMENT_SCALE_Y = (HEX_HEIGHT / 10) / 559;
-        public static float SETTLEMENT_WIDTH = 684 * SETTLEMENT_SCALE_X;
-        public static float SETTLEMENT_HEIGHT = 684 * SETTLEMENT_SCALE_Y;
 
         public static List<Entity> toAdd = new List<Entity>();
         public static List<BaseDecorator> toAddDecor = new List<BaseDecorator>();
@@ -79,9 +64,9 @@ namespace Cataners
             .AddComponent(new SpriteRenderer(DefaultLayers.Alpha))
             .AddComponent(new Transform2D()
             {
-                Scale = new Vector2((HEX_WIDTH * (5.2f)) / 677, (HEX_HEIGHT * (5.2f)) / 559),
-                X = HEX_START_X - (HEX_WIDTH * 1.1f),
-                Y = HEX_START_Y - ((HEX_HEIGHT * 1.2f) / 2),
+                Scale = new Vector2((WaveConstants.HEX_WIDTH * (5.2f)) / 677, (WaveConstants.HEX_HEIGHT * (5.2f)) / 559),
+                X = WaveConstants.HEX_START_X - (WaveConstants.HEX_WIDTH * 1.1f),
+                Y = WaveConstants.HEX_START_Y - ((WaveConstants.HEX_HEIGHT * 1.2f) / 2),
                 DrawOrder = .9f
             });
             this.EntityManager.Add(background);
@@ -93,8 +78,8 @@ namespace Cataners
             };
             EntityManager.Add(title);
             this.hexList = LocalConversion.Instance.getHexList();
-
             addPlayerNames();
+            CommunicationClient.Instance.setGenerated();
         }
 
         public static void addTradeButton()
@@ -112,8 +97,6 @@ namespace Cataners
             {
                 toAddDecor.Add(tradeButton);
             }
-            
-
         }
 
         public static void addRegenerateBoardButton()
@@ -217,7 +200,7 @@ namespace Cataners
             }
         }
 
-        public void addResources()
+        public static void addResources()
         {
             StringBuilder sb = new StringBuilder();
             if (Data.currentLobby is GameLobby)
@@ -305,132 +288,6 @@ namespace Cataners
             }         
         }
 
-        public void hexAddTransform(HexHolder current, float xOffset, float yOffset, float drawOrder)
-        {
-            current.getHex().AddComponent(new Transform2D()
-            {
-                Scale = new Vector2(HEX_SCALE_X, HEX_SCALE_Y),
-                X = HEX_START_X + xOffset,
-                Y = HEX_START_Y + yOffset,
-                DrawOrder = drawOrder
-            });
-        }
-
-        public void rollEntityAddTransform(HexHolder current, float xOffset, float yOffset, float drawOrder)
-        {
-            current.getRollEntity().AddComponent(new Transform2D()
-            {
-                Scale = new Vector2(ROLL_NUMBER_SCALE, ROLL_NUMBER_SCALE),
-                X = HEX_START_X + xOffset,
-                Y = HEX_START_Y + yOffset,
-                DrawOrder = drawOrder
-            });
-        }
-
-        public void settlementAssignment(HexHolder current, float[] XLocArray, float[] YLocArray, float drawOrder)
-        {
-            for (int k = 0; k < 6; k++)
-            {
-                SettlementHolder currSettle = current.getSettlementList()[k];
-                Entity currEnt = currSettle.getSettlement();
-                int placementNumber = currSettle.getPlacementNumber();
-                if (currSettle.canAddComponent)
-                {
-                    currEnt.AddComponent(new Transform2D()
-                    {
-                        Scale = new Vector2(SETTLEMENT_SCALE_X, SETTLEMENT_SCALE_Y),
-                        X = XLocArray[k],
-                        Y = YLocArray[k],
-                        DrawOrder = drawOrder
-                    });
-                    currEnt.AddComponent(new RectangleCollider());
-                    currEnt.AddComponent(new TouchGestures(true));
-                    currEnt.FindComponent<TouchGestures>().TouchPressed += (sender, GestureEventArgs) =>
-                    {
-                        Console.WriteLine(placementNumber);
-                        CommunicationClient.Instance.sendToServer(new Message(placementNumber.ToString(), Translation.TYPE.BuySettlement).toJson());
-                    };
-                    currSettle.canAddComponent = false;
-                    Entity e = currEnt;
-                    toAdd.Add(e);
-                }
-            }
-        }
-
-        public float[] getXLocArraySettlement(HexHolder current)
-        {
-            float defX = current.getHex().FindComponent<Transform2D>().X;
-            float[] XLocArray = new float[6] { defX + (HEX_WIDTH / 2) - (SETTLEMENT_WIDTH / 2),
-                                               defX - (SETTLEMENT_WIDTH / 2),
-                                               defX + HEX_WIDTH - (SETTLEMENT_WIDTH / 2),
-                                               defX - (SETTLEMENT_WIDTH / 2),
-                                               defX + HEX_WIDTH - (SETTLEMENT_WIDTH / 2),
-                                               defX + (HEX_WIDTH / 2) - (SETTLEMENT_WIDTH / 2) };
-            return XLocArray;
-        }
-
-        public float[] getYLocArraySettlement(HexHolder current)
-        {
-            float defY = current.getHex().FindComponent<Transform2D>().Y;
-            float[] YLocArray = new float[6] { defY - (SETTLEMENT_HEIGHT / 2),
-                                               defY + TRIANGLE_HEIGHT - (SETTLEMENT_HEIGHT / 2),
-                                               defY + TRIANGLE_HEIGHT - (SETTLEMENT_HEIGHT / 2),
-                                               defY + HEX_HEIGHT - TRIANGLE_HEIGHT - (SETTLEMENT_HEIGHT / 2),
-                                               defY + HEX_HEIGHT - TRIANGLE_HEIGHT - (SETTLEMENT_HEIGHT / 2),
-                                               defY + HEX_HEIGHT - (SETTLEMENT_HEIGHT / 2) };
-            return YLocArray;
-        }
-
-        public void drawHexes()
-        {
-            
-            this.hexList = LocalConversion.Instance.getHexList();
-            Console.WriteLine(this.hexList.ToString());
-            lock (toAdd)
-            {
-                for (int g = 0; g < 19; g++)
-                {
-                    HexHolder current = this.hexList[g];
-                    int posNum = current.getPlacementNumber();
-                    if (posNum < 3)
-                    {
-                        this.hexAddTransform(current, (HEX_WIDTH * posNum), 0, .6f);
-                        this.rollEntityAddTransform(current, (HEX_WIDTH * posNum) + (HEX_WIDTH / 2) - (ROLL_NUMBER_WIDTH / 2),
-                                                                (HEX_HEIGHT / 2) - (ROLL_NUMBER_HEIGHT / 2), .1f);
-                        this.settlementAssignment(current, this.getXLocArraySettlement(current), this.getYLocArraySettlement(current), .05f);
-                    }
-                    else if (posNum < 7)
-                    {
-                        this.hexAddTransform(current, (-HEX_WIDTH / 2) + (HEX_WIDTH * (posNum - 3)), (HEX_HEIGHT - TRIANGLE_HEIGHT), .6f);
-                        this.rollEntityAddTransform(current, (-HEX_WIDTH / 2) + (HEX_WIDTH * (posNum - 3)) + (HEX_WIDTH / 2) - (ROLL_NUMBER_WIDTH / 2), 
-                                                                (HEX_HEIGHT - TRIANGLE_HEIGHT) + (HEX_HEIGHT / 2) - (ROLL_NUMBER_HEIGHT / 2), .1f);
-                        this.settlementAssignment(current, this.getXLocArraySettlement(current), this.getYLocArraySettlement(current), .05f);
-                    }
-                    else if (posNum < 12)
-                    {
-                        this.hexAddTransform(current, (-HEX_WIDTH) + (HEX_WIDTH * (posNum - 7)), (2 * HEX_HEIGHT) - (2 * TRIANGLE_HEIGHT), .6f);
-                        this.rollEntityAddTransform(current, (-HEX_WIDTH) + (HEX_WIDTH * (posNum - 7)) + (HEX_WIDTH / 2) - (ROLL_NUMBER_WIDTH / 2), 
-                                                               (2 * HEX_HEIGHT) - (2 * TRIANGLE_HEIGHT) + (HEX_HEIGHT / 2) - (ROLL_NUMBER_HEIGHT / 2), .1f);
-                        this.settlementAssignment(current, this.getXLocArraySettlement(current), this.getYLocArraySettlement(current), .05f);
-                    }
-                    else if (posNum < 16)
-                    {
-                        this.hexAddTransform(current, (-HEX_WIDTH / 2) + (HEX_WIDTH * (posNum - 12)), (3 * HEX_HEIGHT) - (3 * TRIANGLE_HEIGHT), .6f);
-                        this.rollEntityAddTransform(current, (-HEX_WIDTH / 2) + (HEX_WIDTH * (posNum - 12)) + (HEX_WIDTH / 2) - (ROLL_NUMBER_WIDTH / 2), (3 * HEX_HEIGHT) - (3 * TRIANGLE_HEIGHT) + (HEX_HEIGHT / 2) - (ROLL_NUMBER_HEIGHT / 2), .1f);
-                        this.settlementAssignment(current, this.getXLocArraySettlement(current), this.getYLocArraySettlement(current), .05f);
-                    }
-                    else
-                    {
-                        this.hexAddTransform(current, (HEX_WIDTH * (posNum - 16)), (4 * HEX_HEIGHT) - (4 * TRIANGLE_HEIGHT), .6f);
-                        this.rollEntityAddTransform(current, (HEX_WIDTH * (posNum - 16)) + (HEX_WIDTH / 2) - (ROLL_NUMBER_WIDTH / 2),
-                                                                (4 * HEX_HEIGHT) - (4 * TRIANGLE_HEIGHT) + (HEX_HEIGHT / 2) - (ROLL_NUMBER_HEIGHT / 2), .1f);
-                        this.settlementAssignment(current, this.getXLocArraySettlement(current), this.getYLocArraySettlement(current), .05f);
-                    }
-                    toAdd.Add(current.getRollEntity());
-                    toAdd.Add(current.getHex());
-                }
-            }
-        }
 
         private static void button_Pressed(object sender, GestureEventArgs e)
         {
@@ -454,7 +311,6 @@ namespace Cataners
         public void setAsPurchasedSettle(string name)
         {
             Console.WriteLine("here");
-            this.EntityManager.Find(name).RemoveComponent<Sprite>();
             this.EntityManager.Find(name).AddComponent(new Sprite("SettlementBlue.wpk"));
         }
     }
