@@ -217,7 +217,7 @@ namespace Cataners
             }
         }
 
-        public void addResources()
+        public static void addResources()
         {
             StringBuilder sb = new StringBuilder();
             if (Data.currentLobby is GameLobby)
