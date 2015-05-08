@@ -205,7 +205,6 @@ namespace CatenersServer
                         this.serverLogic = newLogic;
                         this.serverLogic.generatehexArray();
                         int[][] array = this.serverLogic.gethexArray();
-                        String boardString = new Message(Translation.intArraytwotoJson(array), Translation.TYPE.HexMessage).toJson();
                         gameLobby = newLogic.gameLobby;
                         string toPass = newLogic.sendGeneration();
                         for (int i = 0; i < currentLobby.PlayerCount; i++)

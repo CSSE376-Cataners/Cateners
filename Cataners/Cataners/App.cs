@@ -80,20 +80,6 @@ namespace Cataners
                 {
                     this.FullScreen = !this.FullScreen;
                 }
-
-                if (this.splashState)
-                {
-                    #region WAVE SOFTWARE LICENSE AGREEMENT
-                    this.time += elapsedTime;
-                    if (time > TimeSpan.FromSeconds(2))
-                    {
-                        this.splashState = false;
-                    }
-
-                    position.X = (this.Width - this.splashScreen.Width) / 2.0f;
-                    position.Y = (this.Height - this.splashScreen.Height) / 2.0f;
-                    #endregion
-                }
                 else
                 {
                     if (WaveServices.Input.KeyboardState.Escape == ButtonState.Pressed)

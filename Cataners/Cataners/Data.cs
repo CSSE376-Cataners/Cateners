@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CatanersShared;
+using WaveEngine.Framework.Services;
 
 namespace Cataners
 {
