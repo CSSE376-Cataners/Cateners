@@ -206,10 +206,15 @@ namespace Cataners
                          {
                              Data.currentGamePlayer = ((GameLobby)Data.currentLobby).gamePlayers[i];
                          }
-                         MyScene.addRegenerateBoardButton();
-                         MyScene.addTradeButton();
+                         
                     }
                     Data.currentGameLobby = (GameLobby)Data.currentLobby;
+                    if (MyScene.Instance != null)
+                    {
+                        MyScene.addRegenerateBoardButton();
+                        MyScene.addTradeButton();
+                    }
+                    
                     break;
                 case Translation.TYPE.OpenTradeWindow:
                     Trade tradeobj = Trade.fromJson(msg.message);
@@ -240,6 +245,19 @@ namespace Cataners
                     Chat chat = Chat.fromJson(msg.message);
                     if (ChatBox.INSTANCE != null)
                         ChatBox.INSTANCE.Invoke(new Action( () => ChatBox.INSTANCE.addChat(chat)));
+                    break;
+                case Translation.TYPE.PopUpMessage:
+                    PopUpMessage newMsg = PopUpMessage.fromJson(msg.message);
+                    switch (newMsg.type)
+                    {
+                        case PopUpMessage.TYPE.Notification:
+                            System.Windows.MessageBox.Show(newMsg.bodyMsg, newMsg.titleMsg);
+                            break;
+                        case PopUpMessage.TYPE.ResponseNeeded:
+                            MessageBoxResult result2 = System.Windows.MessageBox.Show(newMsg.bodyMsg, newMsg.titleMsg, MessageBoxButton.YesNo, MessageBoxImage.Question);
+                            break;
+                    }
+                    
                     break;
             }
         }
