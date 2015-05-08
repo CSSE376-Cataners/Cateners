@@ -59,7 +59,7 @@ namespace Cataners
                     }
                     else
                     {
-                        if (MyScene.toAdd.Count > 0 || MyScene.toAddDecor.Count > 0)
+                        if (MyScene.toAdd.Count > 0 || MyScene.toAddDecor.Count > 0 || (MyScene.Instance.EntityManager != null &&MyScene.Instance.EntityManager.Find("player2Name")==null) )
                         {
                             if (!ready)
                             {
@@ -80,20 +80,32 @@ namespace Cataners
                                 else
                                 {
                                     MyScene.addResources();
-                                    foreach (Entity e in MyScene.toAdd)
+                                    MyScene.addRegenerateBoardButton();
+                                    MyScene.addTradeButton();
+                                    MyScene.addPlayerNames();
+                                    lock (MyScene.toAdd)
                                     {
-                                        if (e != null)
+                                        foreach (Entity e in MyScene.toAdd)
+                                        {
+                                            if (e != null)
+                                            {
+                                                try
+                                                {
+                                                    MyScene.Instance.EntityManager.Add(e);
+                                                }
+                                                catch { }
+                                            }
+                                        }
+                                        MyScene.toAdd.Clear();
+                                    }
+                                    lock (MyScene.toAddDecor)
+                                    {
+                                        foreach (BaseDecorator e in MyScene.toAddDecor)
                                         {
                                             MyScene.Instance.EntityManager.Add(e);
                                         }
+                                        MyScene.toAddDecor.Clear();
                                     }
-                                    MyScene.toAdd.Clear();
-
-                                    foreach (BaseDecorator e in MyScene.toAddDecor)
-                                    {
-                                        MyScene.Instance.EntityManager.Add(e);
-                                    }
-                                    MyScene.toAddDecor.Clear();
                                 }
                                 ready = false;
                             }
