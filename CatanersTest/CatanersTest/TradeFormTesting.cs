@@ -648,7 +648,8 @@ namespace CatanersTest
 
         }
 
-        [Test]
+        // Manual Test
+        //[Test]
         public void TestWantedDictionaryInitializationWithInvalidEntries()
         {
             Player p1 = new Player("Bobby Tables");

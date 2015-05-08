@@ -185,11 +185,15 @@ namespace CatenersServer
                 case Translation.TYPE.RegenerateBoard:
                 if (this.serverLogic != null)
                 {
+                    String getLobby = new CatanersShared.Message(serverLogic.gameLobby.toJson(), Translation.TYPE.GetGameLobby).toJson();
                     this.serverLogic.generatehexArray();
                     int[][] array = this.serverLogic.gethexArray();
                     String boardString = new Message(Translation.intArraytwotoJson(array), Translation.TYPE.HexMessage).toJson();
-                    foreach(ServerPlayer p in this.currentLobby.Players)
+                    foreach (ServerPlayer p in this.currentLobby.Players)
+                    {
                         p.client.sendToClient(boardString);
+                        p.client.sendToClient(getLobby);
+                    }
                 }
                 break;
 
@@ -208,10 +212,13 @@ namespace CatenersServer
                         int[][] array = this.serverLogic.gethexArray();
                         gameLobby = newLogic.gameLobby;
                         string toPass = newLogic.sendGeneration();
+                        String getLobby = new CatanersShared.Message(serverLogic.gameLobby.toJson(), Translation.TYPE.GetGameLobby).toJson();
+                        String boardString = new Message(Translation.intArraytwotoJson(array), Translation.TYPE.HexMessage).toJson();
                         for (int i = 0; i < currentLobby.PlayerCount; i++)
                         {
                             ((ServerPlayer)currentLobby.Players[i]).client.sendToClient(new Message(toPass, Translation.TYPE.StartGame).toJson());
-                            //((ServerPlayer)currentLobby.Players[i]).client.sendToClient(boardString);
+                            ((ServerPlayer)currentLobby.Players[i]).client.sendToClient(boardString);
+                            ((ServerPlayer)currentLobby.Players[i]).client.sendToClient(getLobby);
                             ((ServerPlayer)currentLobby.Players[i]).client.serverLogic = newLogic;
                             ((ServerPlayer)currentLobby.Players[i]).client.gameLobby = gameLobby;
                         }

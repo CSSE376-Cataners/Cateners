@@ -217,6 +217,7 @@ namespace Cataners
                     {
                          MyScene.addRegenerateBoardButton();
                          MyScene.addTradeButton();
+                         MyScene.addPlayerNames();
                     }
                     
                     break;
