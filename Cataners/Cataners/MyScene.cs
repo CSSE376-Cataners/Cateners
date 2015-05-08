@@ -98,6 +98,10 @@ namespace Cataners
         public static void addRegenerateBoardButton()
         {
             //add regenerate board if owner
+            if (Data.currentGameOwner == null)
+            {
+                return;
+            }
             if (Data.username.Equals(Data.currentGameOwner.Username))
             {
                 Button newButton = new Button();
