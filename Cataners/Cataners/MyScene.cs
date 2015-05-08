@@ -36,8 +36,6 @@ namespace Cataners
         private HexHolder[] hexList;
         public static int hexNumber = 19;
         public static float WORDOFFSET = 40.0f;
-        
-
         public static List<Entity> toAdd = new List<Entity>();
         public static List<BaseDecorator> toAddDecor = new List<BaseDecorator>();
         
