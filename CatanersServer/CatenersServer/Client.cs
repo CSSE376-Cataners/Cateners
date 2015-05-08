@@ -122,6 +122,7 @@ namespace CatenersServer
 
                 case Translation.TYPE.BuySettlement:
                     int parsedInt = int.Parse(msg.message);
+                    Console.WriteLine("hello");
                     Boolean test = serverLogic.determineSettlementAvailability(this.userName, parsedInt);
                     if (test)
                     {

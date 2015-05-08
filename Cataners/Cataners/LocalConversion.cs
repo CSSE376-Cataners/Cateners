@@ -148,7 +148,9 @@ namespace Cataners
             this.settlementList = new SettlementHolder[54];
             for (int i = 0; i < this.settlementList.Length; i++)
             {
-                Entity tempEnt = new Entity("Settlement" + i.ToString()).AddComponent(new Sprite("Settlement.wpk"));
+                Entity tempEnt = new Entity("Settlement" + i.ToString())
+                    .AddComponent(new Sprite("Settlement.wpk"))
+                    .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
                 this.settlementList[i] = new SettlementHolder(tempEnt, i);
             }
         }
@@ -254,6 +256,7 @@ namespace Cataners
 
         public void setAsPurchasedSettle(int placement)
         {
+            Console.WriteLine("settle");
             string name = this.settlementList[placement].getName();
             MyScene.Instance.setAsPurchasedSettle(name);
         }

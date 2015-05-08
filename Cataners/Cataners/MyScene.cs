@@ -311,7 +311,6 @@ namespace Cataners
         public void setAsPurchasedSettle(string name)
         {
             Console.WriteLine("here");
-            this.EntityManager.Find(name).RemoveComponent<Sprite>();
             this.EntityManager.Find(name).AddComponent(new Sprite("SettlementBlue.wpk"));
         }
     }

@@ -74,6 +74,7 @@ namespace Cataners
 
         public override void Update(TimeSpan elapsedTime)
         {
+            this.splashState = false;
             if (this.game != null && !this.game.HasExited)
             {
                 if (WaveServices.Input.KeyboardState.F10 == ButtonState.Pressed)
