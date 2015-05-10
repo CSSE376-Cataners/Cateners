@@ -149,6 +149,10 @@ namespace Cataners
             {
                 new ChatBox().Show();
             }
+            else
+            {
+                ChatBox.INSTANCE.Show();
+            }
         }
 
     }

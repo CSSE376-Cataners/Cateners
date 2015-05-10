@@ -82,12 +82,12 @@ namespace Cataners
         {
             //add chatbutton
             Button chatButton = new Button();
-            chatButton.Text = "Trade Resources";
+            chatButton.Text = "Open Chat";
             chatButton.Width = 120;
             chatButton.Height = 40;
             Transform2D chatButton2d = chatButton.Entity.FindComponent<Transform2D>();
-            chatButton2d.X = WaveConstants.CENTERWIDTH * 2 - 120;
-            chatButton2d.Y = WaveConstants.CENTERHEIGHT;
+            chatButton2d.X = WaveConstants.CENTERWIDTH/2;
+            chatButton2d.Y = 15;
             chatButton.Entity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(chatButton_Pressed);
             lock (toAddDecor)
             {
@@ -123,7 +123,7 @@ namespace Cataners
             {
                 Button newButton = new Button();
                 newButton.Text = "Regenerate Board";
-                newButton.Width = 120;
+                newButton.Width = 150;
                 newButton.Height = 40;
                 newButton.Entity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(button_Pressed);
                 lock(toAddDecor){
@@ -340,7 +340,15 @@ namespace Cataners
 
         private static void chatButton_Pressed(object sender, GestureEventArgs e)
         {
-            ChatBox.INSTANCE.Show();
+            if (ChatBox.INSTANCE != null)
+            {
+                ChatBox.INSTANCE.invokedShow();
+
+            }
+            else
+            {
+                new ChatBox().Show();
+            }
         }
 
         private static void tradeButton_Pressed(object sender, GestureEventArgs e)
