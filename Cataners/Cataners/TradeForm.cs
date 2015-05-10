@@ -30,6 +30,7 @@ namespace Cataners
         private int wantedSheep;
         private int wantedWheat;
         private int wantedWood;
+        private int desiredResourceCount;
 
         GamePlayer target;
         public Dictionary<Resource.TYPE, int> offered;
@@ -239,6 +240,7 @@ namespace Cataners
             {
                 wantedBrick = 0;
             }
+            desiredResourceCount += wantedBrick;
             wanted.Add(Resource.TYPE.Brick, wantedBrick);
 
             txt = recvOreTextBox.Text;
@@ -250,6 +252,7 @@ namespace Cataners
             {
                 wantedOre = 0;
             }
+            desiredResourceCount += wantedOre;
             wanted.Add(Resource.TYPE.Ore, wantedOre);
 
             txt = recvSheepTextBox.Text;
@@ -261,6 +264,7 @@ namespace Cataners
             {
                 wantedSheep = 0;
             }
+            desiredResourceCount += wantedSheep;
             wanted.Add(Resource.TYPE.Sheep, wantedSheep);
 
             txt = recvWheatTextBox.Text;
@@ -272,6 +276,7 @@ namespace Cataners
             {
                 wantedWheat = 0;
             }
+            desiredResourceCount += wantedWheat;
             wanted.Add(Resource.TYPE.Wheat, wantedWheat);
 
             txt = recvWoodTextBox.Text;
@@ -283,12 +288,16 @@ namespace Cataners
             {
                 wantedWood = 0;
             }
+            desiredResourceCount += wantedWood;
             wanted.Add(Resource.TYPE.Wood, wantedWood);
 
         }
 
         private void tradeButton_Click(object sender, EventArgs e)
         {
+            if(targetOfTradeComboBox.SelectedItem.ToString().Equals("Bank")){
+                TradeWithBank();
+            }
             if (brickCheck & oreCheck & sheepCheck & wheatCheck & woodCheck)
             {
                 target = new GamePlayer(targetOfTradeComboBox.SelectedItem.ToString());
@@ -307,6 +316,10 @@ namespace Cataners
         private void targetOfTradeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             tradeButton.Enabled = true;
+            if (targetOfTradeComboBox.SelectedItem.ToString().Equals("Bank"))
+            {
+                //MessageBox.Show("Trade 4 of one resource to the bank in exchange for 1 different one");
+            }
         }
 
         private void recvBrickTextBox_TextChanged(object sender, EventArgs e)
@@ -412,6 +425,34 @@ namespace Cataners
             {
                 MessageBox.Show("Please enter a positive integer");
             }
+        }
+
+        private void TradeWithBank()
+        {
+            InitializeDictionaries();
+            if (bankCheck())
+            {
+                Trade tradeobj = new Trade(currentTrader, null, offered, wanted);
+                CommunicationClient.Instance.sendToServer(new CatanersShared.Message(tradeobj.toJson(), Translation.TYPE.OpenTradeWindow).toJson());
+                this.Hide();
+            }
+        }
+
+        public bool bankCheck(){
+            if (bankCheckBrick() || bankCheckOre() || bankCheckSheep() || bankCheckWheat() || bankCheckWood())
+            {
+                if (desiredResourceCount == 1)
+                {
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
+
+        public bool bankCheckBrick()
+        {
+            return (offeredBrick == 4 && offeredOre == 0 && offeredSheep == 0 && offeredWheat == 0 && offeredWood==0);
         }
 
     }
