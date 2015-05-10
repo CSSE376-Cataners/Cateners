@@ -739,6 +739,13 @@ namespace CatanersTest
             Assert.Null(sl.onGoingTrade);
             Assert.AreEqual(0, clientS.serverLogic.gameLobby.gamePlayers[1].resources[Resource.TYPE.Sheep]);
             Assert.AreEqual(10, clientR.serverLogic.gameLobby.gamePlayers[0].resources[Resource.TYPE.Sheep]);
+
+            String gamePlayerList = Newtonsoft.Json.JsonConvert.SerializeObject(clientR.serverLogic.gameLobby.gamePlayers);
+
+            Message correctReturn = new Message(gamePlayerList,Translation.TYPE.UpdateResources);
+
+            CollectionAssert.AreEqual(correctReturn.toJson(), clientR.lastCall);
+            CollectionAssert.AreEqual(correctReturn.toJson(), clientS.lastCall);
         }
 
         public class FakeClient : Client
