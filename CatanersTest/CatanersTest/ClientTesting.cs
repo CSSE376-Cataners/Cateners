@@ -635,7 +635,7 @@ namespace CatanersTest
             Dictionary<Resource.TYPE, int> request = new Dictionary<Resource.TYPE, int>();
 
             Trade trade = new Trade(new GamePlayer("Sender"), new GamePlayer("Reciver"), offer, request);
-            CatanersShared.Message msg = new CatanersShared.Message(trade.toJson(), Translation.TYPE.OpenTradeWindow);
+            CatanersShared.Message msg = new CatanersShared.Message(trade.toJson(), Translation.TYPE.StartTrade);
 
             FakeClient client = new FakeClient();
             client.userName = "Sender";
@@ -660,7 +660,7 @@ namespace CatanersTest
             client.gameLobby = gLobby;
             client.serverLogic = new ServerLogic(temp);
 
-            msg = new CatanersShared.Message(trade.toJson(), Translation.TYPE.OpenTradeWindow);
+            msg = new CatanersShared.Message(trade.toJson(), Translation.TYPE.StartTrade);
 
             client.processesMessage(msg.toJson());
             Assert.Null(reciver.lastCall);
@@ -682,7 +682,7 @@ namespace CatanersTest
             // Reset trade
             client.serverLogic.onGoingTrade = null;
 
-            msg = new CatanersShared.Message(trade.toJson(), Translation.TYPE.OpenTradeWindow);
+            msg = new CatanersShared.Message(trade.toJson(), Translation.TYPE.StartTrade);
             client.processesMessage(msg.toJson());
 
             Assert.AreEqual(client.serverLogic.onGoingTrade, trade);

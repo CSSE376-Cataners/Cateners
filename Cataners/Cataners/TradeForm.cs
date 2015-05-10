@@ -308,7 +308,7 @@ namespace Cataners
                 target = new GamePlayer(targetOfTradeComboBox.SelectedItem.ToString());
                 InitializeDictionaries();
                 Trade tradeobj = new Trade(currentTrader, target, offered, wanted);
-                CommunicationClient.Instance.sendToServer(new CatanersShared.Message(tradeobj.toJson(),Translation.TYPE.OpenTradeWindow).toJson());
+                CommunicationClient.Instance.sendToServer(new CatanersShared.Message(tradeobj.toJson(),Translation.TYPE.StartTrade).toJson());
                 this.Hide();
             }
             else
@@ -442,7 +442,7 @@ namespace Cataners
             if (bankCheck())
             {
                 Trade tradeobj = new Trade(currentTrader, new GamePlayer("Banker"), offered, wanted);
-                CommunicationClient.Instance.sendToServer(new CatanersShared.Message(tradeobj.toJson(), Translation.TYPE.OpenTradeWindow).toJson());
+                CommunicationClient.Instance.sendToServer(new CatanersShared.Message(tradeobj.toJson(), Translation.TYPE.StartTrade).toJson());
                 this.Hide();
             }
             else

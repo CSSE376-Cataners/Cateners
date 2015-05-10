@@ -228,7 +228,7 @@ namespace CatanersTest
             Dictionary<Resource.TYPE,int> request = new Dictionary<Resource.TYPE,int>();
 
             Trade trade = new Trade(new GamePlayer("Sender"), new GamePlayer("Reciver"), offer, request);
-            CatanersShared.Message msg = new CatanersShared.Message("trade.toJson()", Translation.TYPE.OpenTradeWindow);
+            CatanersShared.Message msg = new CatanersShared.Message("trade.toJson()", Translation.TYPE.StartTrade);
 
             FakeClient client = new FakeClient();
 
