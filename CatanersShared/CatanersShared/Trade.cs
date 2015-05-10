@@ -54,6 +54,8 @@ namespace CatanersShared
 
         private static Array vals = Enum.GetValues(typeof(Resource.TYPE));
 
+
+        // Will never have 100% Branch due to Resource Types never having zero vals in it.
         public static int getResourcesHash(Dictionary<Resource.TYPE,int> dic) 
         {
             int toReturn = 0;
