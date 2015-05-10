@@ -37,6 +37,7 @@ namespace CatanersTest
            ComboBox box = (ComboBox)info.GetValue(trade);
 
            Assert.AreEqual(p2.Username, box.Items[0]);
+           Assert.AreEqual("Bank", box.Items[1]);
 
        }
 
