@@ -784,7 +784,40 @@ namespace CatanersTest
             Assert.IsTrue(trade.bankCheck());
 
         }
- 
+        [Test]
+        public void TestTradingWoodWithBank()
+        {
+            Player p1 = new Player("Bobby Tables");
+            GameLobby lobby = new GameLobby(new Lobby("game", 100, p1, 10));
+            Data.currentLobby = lobby;
+            Data.username = p1.Username;
+            GamePlayer p2 = new GamePlayer("jimmy");
+            ((GameLobby)lobby).gamePlayers.Add(p2);
+            trade.initializeValues();
+
+            BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
+            FieldInfo info0 = (typeof(TradeForm).GetField("targetOfTradeComboBox", flags));
+            ComboBox box0 = (ComboBox)info0.GetValue(trade);
+            box0.Text = "Bank";
+
+
+            FieldInfo info = (typeof(TradeForm).GetField("recvBrickTextBox", flags));
+            TextBox box = (TextBox)info.GetValue(trade);
+            box.Text = "1";
+
+            FieldInfo info2 = (typeof(TradeForm).GetField("giveWoodTextBox", flags));
+            TextBox box2 = (TextBox)info2.GetValue(trade);
+            box2.Text = "4";
+
+            trade.InitializeDictionaries();
+            Assert.IsFalse(trade.bankCheckBrick());
+            Assert.IsFalse(trade.bankCheckOre());
+            Assert.IsFalse(trade.bankCheckSheep());
+            Assert.IsFalse(trade.bankCheckWheat());
+            Assert.IsTrue(trade.bankCheckWood());
+            Assert.IsTrue(trade.bankCheck());
+
+        }
 
 
         // Manual Test
