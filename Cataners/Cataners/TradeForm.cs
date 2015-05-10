@@ -432,7 +432,7 @@ namespace Cataners
             InitializeDictionaries();
             if (bankCheck())
             {
-                Trade tradeobj = new Trade(currentTrader, null, offered, wanted);
+                Trade tradeobj = new Trade(currentTrader, new GamePlayer("Banker"), offered, wanted);
                 CommunicationClient.Instance.sendToServer(new CatanersShared.Message(tradeobj.toJson(), Translation.TYPE.OpenTradeWindow).toJson());
                 this.Hide();
             }
