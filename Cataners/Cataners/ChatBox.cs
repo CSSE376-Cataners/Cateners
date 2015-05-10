@@ -11,6 +11,7 @@ using System.Windows.Forms;
 
 namespace Cataners
 {
+    public delegate void shower();
     public partial class ChatBox : Form
     {
         public static ChatBox INSTANCE;
@@ -23,11 +24,22 @@ namespace Cataners
             this.textEntryBox.KeyDown += OnKeyDownHandlerForEnter;
         }
 
+        public void invokedShow()
+        {
+            this.Invoke(new shower(show));
+        }
+
+        private void show()
+        {
+            this.Show();
+        }
+
         private void OnClosing(object sender, FormClosingEventArgs args)
         {
             /*if (INSTANCE == this)
                 INSTANCE = null;*/
             this.Hide();
+            args.Cancel = true;
 
         }
 
