@@ -664,7 +664,9 @@ namespace CatanersTest
 
             client.processesMessage(msg.toJson());
             Assert.Null(reciver.lastCall);
+            Assert.Null(client.serverLogic.onGoingTrade);
             // Still dont do anything as both do not have resources
+
 
             client.gameLobby.gamePlayers[0].resources[Resource.TYPE.Wheat] = 10;
 
@@ -676,6 +678,9 @@ namespace CatanersTest
 
             request[Resource.TYPE.Wheat] = 10;
             client.gameLobby.gamePlayers[1].resources[Resource.TYPE.Wheat] = 10;
+
+            // Reset trade
+            client.serverLogic.onGoingTrade = null;
 
             msg = new CatanersShared.Message(trade.toJson(), Translation.TYPE.OpenTradeWindow);
             client.processesMessage(msg.toJson());
