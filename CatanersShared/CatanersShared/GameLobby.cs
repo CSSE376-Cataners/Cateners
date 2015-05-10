@@ -19,6 +19,7 @@ namespace CatanersShared
             : base(lobby.GameName, lobby.MaxTimePerTurn, new GamePlayer(lobby.Owner.Username), lobby.lobbyID)
         {
             this.gamePlayers = new List<GamePlayer>();
+            this.Players.Clear();
             for (int i = 0; i < lobby.PlayerCount; i++)
             {
                 gamePlayers.Add(new GamePlayer(lobby.Players[i].Username));
