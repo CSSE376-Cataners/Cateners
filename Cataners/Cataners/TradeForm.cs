@@ -467,6 +467,11 @@ namespace Cataners
             return (offeredBrick == 0 && offeredOre == 0 && offeredSheep == 0 && offeredWheat == 4 && offeredWood == 0);
         }
 
+        public bool bankCheckWood()
+        {
+            return (offeredBrick == 0 && offeredOre == 0 && offeredSheep == 0 && offeredWheat == 0 && offeredWood == 4);
+        }
+
 
     }
 }
