@@ -25,8 +25,10 @@ namespace Cataners
 
         private void OnClosing(object sender, FormClosingEventArgs args)
         {
-            if (INSTANCE == this)
-                INSTANCE = null;
+            /*if (INSTANCE == this)
+                INSTANCE = null;*/
+            this.Hide();
+
         }
 
         private void OnKeyDownHandlerForEnter(object sender, KeyEventArgs args)

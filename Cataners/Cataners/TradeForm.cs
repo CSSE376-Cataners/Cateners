@@ -38,9 +38,15 @@ namespace Cataners
         int val;
         public TradeForm()
         {
+            this.FormClosing += closing;
             InitializeComponent();
             INSTANCE = this;
             currentTrader = null;
+        }
+
+        private void closing(object sender, FormClosingEventArgs e)
+        {
+            this.Hide();
         }
 
         public void initializeValues(){
@@ -279,7 +285,7 @@ namespace Cataners
                 InitializeDictionaries();
                 Trade tradeobj = new Trade(currentTrader, target, offered, wanted);
                 CommunicationClient.Instance.sendToServer(new CatanersShared.Message(tradeobj.toJson(),Translation.TYPE.OpenTradeWindow).toJson());
-                //this.Hide();
+                this.Hide();
             }
             else
             {

@@ -78,6 +78,23 @@ namespace Cataners
             CommunicationClient.Instance.setGenerated();
         }
 
+        public static void addChatButton()
+        {
+            //add chatbutton
+            Button chatButton = new Button();
+            chatButton.Text = "Trade Resources";
+            chatButton.Width = 120;
+            chatButton.Height = 40;
+            Transform2D chatButton2d = chatButton.Entity.FindComponent<Transform2D>();
+            chatButton2d.X = WaveConstants.CENTERWIDTH * 2 - 120;
+            chatButton2d.Y = WaveConstants.CENTERHEIGHT;
+            chatButton.Entity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(chatButton_Pressed);
+            lock (toAddDecor)
+            {
+                toAddDecor.Add(chatButton);
+            }
+        }
+        
         public static void addTradeButton()
         {
             //add tradebutton
@@ -319,6 +336,11 @@ namespace Cataners
         private static void button_Pressed(object sender, GestureEventArgs e)
         {
             CommunicationClient.Instance.sendToServer(new Message("", Translation.TYPE.RegenerateBoard).toJson());
+        }
+
+        private static void chatButton_Pressed(object sender, GestureEventArgs e)
+        {
+            ChatBox.INSTANCE.Show();
         }
 
         private static void tradeButton_Pressed(object sender, GestureEventArgs e)
