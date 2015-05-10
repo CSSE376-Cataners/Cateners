@@ -334,7 +334,13 @@ namespace CatenersServer
                                         sender.resources[t] += serverLogic.onGoingTrade.wantedResources[t];
                                     }
                                 }
-                                // TODO: Update resources message;
+
+                                String gamePlayerList = Newtonsoft.Json.JsonConvert.SerializeObject(this.serverLogic.gameLobby.gamePlayers);
+                                String toReturn = new Message(gamePlayerList,Translation.TYPE.UpdateResources).toJson();
+                                foreach (ServerPlayer p in this.currentLobby.Players)
+                                {
+                                    p.client.sendToClient(toReturn);
+                                }
                             }
                             serverLogic.onGoingTrade = null;
                         }
