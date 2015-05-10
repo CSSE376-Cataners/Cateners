@@ -28,6 +28,11 @@ namespace Cataners
         public static float SETTLEMENT_HEIGHT;
         public static float CENTERWIDTH;
         public static float CENTERHEIGHT;
+        public static float ANGLE;
+        public static float ROAD_SCALE_X;
+        public static float ROAD_SCALE_Y;
+        public static float ROAD_WIDTH;
+        public static float ROAD_HEIGHT;
 
 
         public static void setWaveValues()
@@ -51,6 +56,11 @@ namespace Cataners
              SETTLEMENT_HEIGHT = 684 * SETTLEMENT_SCALE_Y;
              CENTERWIDTH = PLATFORM_WIDTH/2;
              CENTERHEIGHT = PLATFORM_HEIGHT/2;
+             ROAD_SCALE_X = (SETTLEMENT_WIDTH/2) / 56;
+             ROAD_SCALE_Y = (float) ((Math.Sqrt((TRIANGLE_HEIGHT * TRIANGLE_HEIGHT) + ((HEX_WIDTH / 2) * (HEX_WIDTH / 2)))) - SETTLEMENT_WIDTH) / 558;
+             ROAD_WIDTH = 56 * ROAD_SCALE_X;
+             ROAD_HEIGHT = 558 * ROAD_SCALE_Y;
+             ANGLE = ((float)Math.PI / 2) - ((float)(Math.Atan(TRIANGLE_HEIGHT / (HEX_WIDTH / 2))));
         }
     }
 
