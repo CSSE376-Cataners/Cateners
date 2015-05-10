@@ -54,6 +54,7 @@ namespace Cataners
         public void initializeValues(){
             //initialize players in the target box
             targetOfTradeComboBox.Items.Clear();
+            tradeWithBankLabel.Visible = false;
             for (int i = 0; i < ((GameLobby)Data.currentLobby).gamePlayers.Count; i++ ) {
                 if (!((GameLobby)Data.currentLobby).gamePlayers[i].Username.Equals(Data.username))
                 {
@@ -295,10 +296,14 @@ namespace Cataners
 
         private void tradeButton_Click(object sender, EventArgs e)
         {
+            if (targetOfTradeComboBox.SelectedItem == null)
+            {
+                MessageBox.Show("Please select someone to trade with first");
+                return;
+            }
             if(targetOfTradeComboBox.SelectedItem.ToString().Equals("Bank")){
                 TradeWithBank();
-            }
-            if (brickCheck & oreCheck & sheepCheck & wheatCheck & woodCheck)
+            }else if (brickCheck & oreCheck & sheepCheck & wheatCheck & woodCheck)
             {
                 target = new GamePlayer(targetOfTradeComboBox.SelectedItem.ToString());
                 InitializeDictionaries();
@@ -318,7 +323,11 @@ namespace Cataners
             tradeButton.Enabled = true;
             if (targetOfTradeComboBox.SelectedItem.ToString().Equals("Bank"))
             {
-                //MessageBox.Show("Trade 4 of one resource to the bank in exchange for 1 different one");
+                tradeWithBankLabel.Visible = true;
+            }
+            else
+            {
+                tradeWithBankLabel.Visible = false;
             }
         }
 
@@ -436,6 +445,11 @@ namespace Cataners
                 CommunicationClient.Instance.sendToServer(new CatanersShared.Message(tradeobj.toJson(), Translation.TYPE.OpenTradeWindow).toJson());
                 this.Hide();
             }
+            else
+            {
+                MessageBox.Show("Please pick 4 of one resource to get rid of in exchange for 1 resource from the bank");
+            }
+
         }
 
         public bool bankCheck(){
