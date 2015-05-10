@@ -62,6 +62,8 @@ namespace Cataners
                 }
             }
 
+            targetOfTradeComboBox.Items.Add("Bank");
+
             giveBrickTextBox.Text = "0";
             giveOreTextBox.Text = "0";
             giveSheepTextBox.Text = "0";
