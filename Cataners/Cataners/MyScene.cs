@@ -252,9 +252,16 @@ namespace Cataners
                 for (int i = 0; i < Data.currentGameLobby.gamePlayers.Count; i++)
                 {
                     sb.Clear();
-                    foreach (var item in Data.currentGameLobby.gamePlayers[i].resources)
+                    if (Data.currentGameLobby.gamePlayers[i].Username.Equals(Data.currentGamePlayer.Username))
                     {
-                        sb.Append(item.Key + ": " + item.Value + " ");
+                        foreach (var item in Data.currentGameLobby.gamePlayers[i].resources)
+                        {
+                            sb.Append(item.Key + ": " + item.Value + " ");
+                        }
+                    }
+                    else
+                    {
+                        sb.Append("Number of Resources: " + Data.currentGameLobby.gamePlayers[i].resourceCount);
                     }
 
                         switch (i)
