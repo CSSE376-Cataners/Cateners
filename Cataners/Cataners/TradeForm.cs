@@ -47,10 +47,12 @@ namespace Cataners
         private void closing(object sender, FormClosingEventArgs e)
         {
             this.Hide();
+            e.Cancel = true;
         }
 
         public void initializeValues(){
             //initialize players in the target box
+            targetOfTradeComboBox.Items.Clear();
             for (int i = 0; i < ((GameLobby)Data.currentLobby).gamePlayers.Count; i++ ) {
                 if (!((GameLobby)Data.currentLobby).gamePlayers[i].Username.Equals(Data.username))
                 {
@@ -69,6 +71,12 @@ namespace Cataners
             giveSheepTextBox.Text = "0";
             giveWheatTextBox.Text = "0";
             giveWoodTextBox.Text = "0";
+            recvBrickTextBox.Text = "0";
+            recvOreTextBox.Text = "0";
+            recvSheepTextBox.Text = "0";
+            recvWheatTextBox.Text = "0";
+            recvWoodTextBox.Text = "0";
+
             
         }
 
