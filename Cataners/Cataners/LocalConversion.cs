@@ -25,6 +25,32 @@ namespace Cataners
         }
     }
 
+    public class RoadHolder
+    {
+        private Entity road;
+        private int placementNumber;
+        public Boolean canAddComponent;
+        public RoadHolder(Entity road, int placementNumber)
+        {
+            this.road = road;
+            this.placementNumber = placementNumber;
+            this.canAddComponent = true;
+        }
+        public virtual int getPlacementNumber()
+        {
+            return this.placementNumber;
+        }
+        public Entity getRoad()
+        {
+            return this.road;
+        }
+
+        public string getName()
+        {
+            return this.road.Name;
+        }
+    }
+
     public class SettlementHolder
     {
         private Entity settlement;
@@ -58,6 +84,7 @@ namespace Cataners
         private int rollNumber;
         private Entity rollEntity;
         private SettlementHolder[] settlementList;
+        private RoadHolder[] roadList;
         private int type;
 
         public HexHolder(Entity hex, int type)
@@ -68,6 +95,17 @@ namespace Cataners
             this.rollNumber = 0;
             this.settlementList = new SettlementHolder[6];
         }
+
+        public void setRoadList(RoadHolder[] roadList)
+        {
+            this.roadList = roadList;
+        }
+
+        public RoadHolder[] getRoadList()
+        {
+            return this.roadList;
+        }
+
         public string getName()
         {
             return this.hex.Name;
@@ -131,11 +169,13 @@ namespace Cataners
         private static int hexNumber = 19;
         private HexHolder[] hexList;
         private SettlementHolder[] settlementList;
+        private RoadHolder[] roadList;
         public LocalConversion()
         {
             instance = this;
             this.hexList = new HexHolder[hexNumber];
             this.generateSettlementList();
+            this.generateRoadList();
         }
 
         public SettlementHolder[] getSettlementList()
@@ -232,6 +272,14 @@ namespace Cataners
                     settlementNumber++;
                 }
                 this.hexList[i].setSettlementList(newArray);
+                RoadHolder[] roadArray = new RoadHolder[6];
+                int roadNumber = 0;
+                for (int k = 3; k < currHexRep.Length; k++)
+                {
+                    roadArray[roadNumber] = this.roadList[currHexRep[k]];
+                    roadNumber++;
+                }
+                this.hexList[i].setRoadList(roadArray);
             }
             this.assignRollEntities();
         }
@@ -313,6 +361,41 @@ namespace Cataners
             }
         }
 
+        public RoadHolder[] getRoadList()
+        {
+            return this.roadList;
+        }
+
+        public void roadAssignment(HexHolder current, float[] XLocArray, float[] YLocArray, float[] AngleArray, float drawOrder)
+        {
+            for (int k = 0; k < 6; k++)
+            {
+                RoadHolder currRoad = current.getRoadList()[k];
+                Entity currEnt = currRoad.getRoad();
+                int placementNumber = currRoad.getPlacementNumber();
+                if (currRoad.canAddComponent)
+                {
+                    currEnt.AddComponent(new Transform2D()
+                    {
+                        Scale = new Vector2(WaveConstants.ROAD_SCALE_X, WaveConstants.ROAD_SCALE_Y),
+                        X = XLocArray[k],
+                        Y = YLocArray[k],
+                        Rotation = AngleArray[k],
+                        DrawOrder = drawOrder
+                    });
+                    currEnt.AddComponent(new RectangleCollider());
+                    currEnt.AddComponent(new TouchGestures(true));
+                    currEnt.FindComponent<TouchGestures>().TouchPressed += (sender, GestureEventArgs) =>
+                    {
+                        Console.WriteLine("road"+placementNumber.ToString());
+                    };
+                    currRoad.canAddComponent = false;
+                    Entity e = currEnt;
+                    MyScene.toAdd.Add(e);
+                }
+            }
+        }
+
         public float[] getXLocArraySettlement(HexHolder current)
         {
             float defX = current.getHex().FindComponent<Transform2D>().X;
@@ -335,6 +418,53 @@ namespace Cataners
                                                defY + WaveConstants.HEX_HEIGHT - WaveConstants.TRIANGLE_HEIGHT - (WaveConstants.SETTLEMENT_HEIGHT / 2),
                                                defY + WaveConstants.HEX_HEIGHT - (WaveConstants.SETTLEMENT_HEIGHT / 2) };
             return YLocArray;
+        }
+
+        public void generateRoadList()
+        {
+            this.roadList = new RoadHolder[72];
+            for (int i = 0; i < 72; i++)
+            {
+                Entity newEnt = new Entity("Road"+i.ToString());
+                newEnt.AddComponent(new Sprite("Road.wpk"));
+                newEnt.AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
+                this.roadList[i] = new RoadHolder(newEnt, i);
+            }
+        }
+
+        public float[] getXLocArrayRoad(HexHolder current)
+        {
+            float defX = current.getHex().FindComponent<Transform2D>().X;
+            float[] XLocArray = new float[6] { defX + (WaveConstants.HEX_WIDTH / 2) - (WaveConstants.ROAD_WIDTH / 2),
+                                               defX + (WaveConstants.HEX_WIDTH) - (WaveConstants.ROAD_WIDTH / 2),
+                                               defX - (WaveConstants.ROAD_WIDTH/2),
+                                               defX + (WaveConstants.HEX_WIDTH) - (WaveConstants.ROAD_WIDTH / 2),
+                                               defX - (WaveConstants.ROAD_WIDTH/2),
+                                               defX + (WaveConstants.HEX_WIDTH) - (WaveConstants.ROAD_WIDTH / 2) };
+            return XLocArray;
+        }
+
+        public float[] getYLocArrayRoad(HexHolder current)
+        {
+            float defY = current.getHex().FindComponent<Transform2D>().Y;
+            float[] YLocArray = new float[6] { defY - WaveConstants.SETTLEMENT_WIDTH,
+                                               defY + (WaveConstants.TRIANGLE_HEIGHT) - (WaveConstants.SETTLEMENT_WIDTH),
+                                               defY + (WaveConstants.TRIANGLE_HEIGHT) - (WaveConstants.SETTLEMENT_WIDTH),
+                                               defY + (WaveConstants.TRIANGLE_HEIGHT) - (WaveConstants.SETTLEMENT_WIDTH),
+                                               defY + (WaveConstants.HEX_HEIGHT) - (WaveConstants.TRIANGLE_HEIGHT) - (WaveConstants.SETTLEMENT_WIDTH),
+                                               defY + (WaveConstants.HEX_HEIGHT) - (WaveConstants.TRIANGLE_HEIGHT) - (WaveConstants.SETTLEMENT_WIDTH) };
+            return YLocArray;
+        }
+
+        public float[] getAnglesRoad(HexHolder current)
+        {
+            float[] AngleArray = new float[6] { WaveConstants.ANGLE,
+                                                WaveConstants.ANGLE + (float) (270 * 180 / Math.PI),
+                                                0,
+                                                0,
+                                                WaveConstants.ANGLE + (float) (270 * 180 / Math.PI),
+                                                WaveConstants.ANGLE };
+            return AngleArray;
         }
 
         public void drawHexes()
