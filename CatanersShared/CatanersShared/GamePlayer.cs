@@ -10,6 +10,7 @@ namespace CatanersShared
     {
         private int victoryPoints;
         private bool isMyTurn;
+        public int resourceCount;
         public Dictionary<Resource.TYPE,int> resources;
 
 
@@ -22,6 +23,8 @@ namespace CatanersShared
             resources.Add(Resource.TYPE.Sheep, 10);
             resources.Add(Resource.TYPE.Wheat, 10);
             resources.Add(Resource.TYPE.Wood, 10);
+
+            resourceCount = resources[Resource.TYPE.Brick] + resources[Resource.TYPE.Ore] + resources[Resource.TYPE.Sheep] + resources[Resource.TYPE.Wheat] + resources[Resource.TYPE.Wood]; 
         }
 
     }

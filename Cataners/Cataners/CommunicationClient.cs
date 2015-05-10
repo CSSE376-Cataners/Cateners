@@ -194,6 +194,7 @@ namespace Cataners
                             if (currentLobby.gamePlayers[i].Equals(addResource.player))
                             {
                                 currentLobby.gamePlayers[i].resources[addResource.resourceType] += addResource.number;
+                                currentLobby.gamePlayers[i].resourceCount += addResource.number;
                             }
                         }
                     }
