@@ -83,6 +83,7 @@ namespace Cataners
                                     MyScene.addRegenerateBoardButton();
                                     MyScene.addTradeButton();
                                     MyScene.addPlayerNames();
+                                    MyScene.addChatButton();
                                     lock (MyScene.toAdd)
                                     {
                                         foreach (Entity e in MyScene.toAdd)
