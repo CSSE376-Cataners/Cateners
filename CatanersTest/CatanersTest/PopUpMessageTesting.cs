@@ -44,5 +44,20 @@ namespace CatanersTest
 
         }
 
+        [Test]
+        public void testEquals()
+        {
+            PopUpMessage popup1 = new PopUpMessage("Title", "Body", PopUpMessage.TYPE.Notification);
+            PopUpMessage popup2 = new PopUpMessage("Title", "Body", PopUpMessage.TYPE.Notification);
+            PopUpMessage popup3 = new PopUpMessage("Title", "Not", PopUpMessage.TYPE.Notification);
+
+
+            Assert.True(popup1.Equals(popup1));
+            Assert.True(popup1.Equals(popup2));
+            Assert.False(popup1.Equals(popup3));
+            Assert.False(popup1.Equals(null));
+            Assert.False(popup1.Equals(""));
+        }
+
     }
 }

@@ -30,6 +30,7 @@ namespace Cataners
         private int wantedSheep;
         private int wantedWheat;
         private int wantedWood;
+        private int desiredResourceCount;
 
         GamePlayer target;
         public Dictionary<Resource.TYPE, int> offered;
@@ -53,6 +54,7 @@ namespace Cataners
         public void initializeValues(){
             //initialize players in the target box
             targetOfTradeComboBox.Items.Clear();
+            tradeWithBankLabel.Visible = false;
             for (int i = 0; i < ((GameLobby)Data.currentLobby).gamePlayers.Count; i++ ) {
                 if (!((GameLobby)Data.currentLobby).gamePlayers[i].Username.Equals(Data.username))
                 {
@@ -239,6 +241,7 @@ namespace Cataners
             {
                 wantedBrick = 0;
             }
+            desiredResourceCount += wantedBrick;
             wanted.Add(Resource.TYPE.Brick, wantedBrick);
 
             txt = recvOreTextBox.Text;
@@ -250,6 +253,7 @@ namespace Cataners
             {
                 wantedOre = 0;
             }
+            desiredResourceCount += wantedOre;
             wanted.Add(Resource.TYPE.Ore, wantedOre);
 
             txt = recvSheepTextBox.Text;
@@ -261,6 +265,7 @@ namespace Cataners
             {
                 wantedSheep = 0;
             }
+            desiredResourceCount += wantedSheep;
             wanted.Add(Resource.TYPE.Sheep, wantedSheep);
 
             txt = recvWheatTextBox.Text;
@@ -272,6 +277,7 @@ namespace Cataners
             {
                 wantedWheat = 0;
             }
+            desiredResourceCount += wantedWheat;
             wanted.Add(Resource.TYPE.Wheat, wantedWheat);
 
             txt = recvWoodTextBox.Text;
@@ -283,13 +289,21 @@ namespace Cataners
             {
                 wantedWood = 0;
             }
+            desiredResourceCount += wantedWood;
             wanted.Add(Resource.TYPE.Wood, wantedWood);
 
         }
 
         private void tradeButton_Click(object sender, EventArgs e)
         {
-            if (brickCheck & oreCheck & sheepCheck & wheatCheck & woodCheck)
+            if (targetOfTradeComboBox.SelectedItem == null)
+            {
+                MessageBox.Show("Please select someone to trade with first");
+                return;
+            }
+            if(targetOfTradeComboBox.SelectedItem.ToString().Equals("Bank")){
+                TradeWithBank();
+            }else if (brickCheck & oreCheck & sheepCheck & wheatCheck & woodCheck)
             {
                 target = new GamePlayer(targetOfTradeComboBox.SelectedItem.ToString());
                 InitializeDictionaries();
@@ -307,6 +321,14 @@ namespace Cataners
         private void targetOfTradeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             tradeButton.Enabled = true;
+            if (targetOfTradeComboBox.SelectedItem.ToString().Equals("Bank"))
+            {
+                tradeWithBankLabel.Visible = true;
+            }
+            else
+            {
+                tradeWithBankLabel.Visible = false;
+            }
         }
 
         private void recvBrickTextBox_TextChanged(object sender, EventArgs e)
@@ -413,6 +435,57 @@ namespace Cataners
                 MessageBox.Show("Please enter a positive integer");
             }
         }
+
+        private void TradeWithBank()
+        {
+            InitializeDictionaries();
+            if (bankCheck())
+            {
+                Trade tradeobj = new Trade(currentTrader, new GamePlayer("Banker"), offered, wanted);
+                CommunicationClient.Instance.sendToServer(new CatanersShared.Message(tradeobj.toJson(), Translation.TYPE.OpenTradeWindow).toJson());
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Please pick 4 of one resource to get rid of in exchange for 1 resource from the bank");
+            }
+
+        }
+
+        public bool bankCheck(){
+            if (bankCheckBrick() || bankCheckOre() || bankCheckSheep() || bankCheckWheat() || bankCheckWood())
+            {
+                if (desiredResourceCount == 1)
+                {
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
+
+        public bool bankCheckBrick()
+        {
+            return (offeredBrick == 4 && offeredOre == 0 && offeredSheep == 0 && offeredWheat == 0 && offeredWood==0);
+        }
+        public bool bankCheckOre()
+        {
+            return (offeredBrick == 0 && offeredOre == 4 && offeredSheep == 0 && offeredWheat == 0 && offeredWood == 0);
+        }
+        public bool bankCheckSheep()
+        {
+            return (offeredBrick == 0 && offeredOre == 0 && offeredSheep == 4 && offeredWheat == 0 && offeredWood == 0);
+        }
+        public bool bankCheckWheat()
+        {
+            return (offeredBrick == 0 && offeredOre == 0 && offeredSheep == 0 && offeredWheat == 4 && offeredWood == 0);
+        }
+
+        public bool bankCheckWood()
+        {
+            return (offeredBrick == 0 && offeredOre == 0 && offeredSheep == 0 && offeredWheat == 0 && offeredWood == 4);
+        }
+
 
     }
 }
