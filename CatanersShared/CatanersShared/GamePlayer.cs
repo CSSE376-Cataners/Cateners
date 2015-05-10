@@ -26,6 +26,5 @@ namespace CatanersShared
 
             resourceCount = resources[Resource.TYPE.Brick] + resources[Resource.TYPE.Ore] + resources[Resource.TYPE.Sheep] + resources[Resource.TYPE.Wheat] + resources[Resource.TYPE.Wood]; 
         }
-
     }
 }

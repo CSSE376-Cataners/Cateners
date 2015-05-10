@@ -219,19 +219,33 @@ namespace CatenersServer
                     return false;
                 }
             }
-            foreach (GamePlayer player in this.gameLobby.gamePlayers)
+            for(int i = 0; i < this.gameLobby.gamePlayers.Count; i++)
             {
+                GamePlayer player = this.gameLobby.gamePlayers[i];
                 if (player.Username.Equals(username))
                 {
                     if((player.resources[Resource.TYPE.Wood] >= 1) && (player.resources[Resource.TYPE.Brick] >= 1) && (player.resources[Resource.TYPE.Sheep] >= 1) && (player.resources[Resource.TYPE.Wheat] >= 1))
                     {
+                        if (this.settlementArray[settlementID].getIsActive())
+                        {
+                            return false;
+                        }
                         this.settlementArray[settlementID].setActive();
+                        this.removeResourcesSettlement(this.gameLobby.gamePlayers[i]);
                         return true;
                     }
                     return false;
                 }
             }
             throw new NonPlayerException("Player does not exist in the current lobby.");
+        }
+
+        public void removeResourcesSettlement(GamePlayer player)
+        {
+            player.resources[Resource.TYPE.Brick] = player.resources[Resource.TYPE.Brick] - 1;
+            player.resources[Resource.TYPE.Sheep] = player.resources[Resource.TYPE.Sheep] - 1;
+            player.resources[Resource.TYPE.Wheat] = player.resources[Resource.TYPE.Wheat] - 1;
+            player.resources[Resource.TYPE.Wood] = player.resources[Resource.TYPE.Wood] - 1;
         }
 
         public void setSettlementActivity(int index)
