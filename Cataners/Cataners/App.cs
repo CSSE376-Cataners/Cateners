@@ -99,7 +99,10 @@ namespace Cataners
         {
             if (this.game != null && !this.game.HasExited)
             {
-                this.game.DrawFrame(elapsedTime);
+                lock (this.game)
+                {
+                    this.game.DrawFrame(elapsedTime);
+                }
             }
         }
 
