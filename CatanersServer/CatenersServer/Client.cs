@@ -135,9 +135,12 @@ namespace CatenersServer
                     if (test == true)
                     {
                         Message settlementPurchased = new Message(parsedInt.ToString(), Translation.TYPE.BuySettlement);
+                        String gamePlayerList = Newtonsoft.Json.JsonConvert.SerializeObject(this.serverLogic.gameLobby.gamePlayers);
+                        String toReturn = new Message(gamePlayerList, Translation.TYPE.UpdateResources).toJson();
                         foreach (ServerPlayer p in this.currentLobby.Players)
                         {
                             p.client.sendToClient(settlementPurchased.toJson());
+                            p.client.sendToClient(toReturn);
                         }
                     }
                 break;
