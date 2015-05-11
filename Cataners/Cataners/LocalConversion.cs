@@ -435,34 +435,34 @@ namespace Cataners
         public float[] getXLocArrayRoad(HexHolder current)
         {
             float defX = current.getHex().FindComponent<Transform2D>().X;
-            float[] XLocArray = new float[6] { defX + (WaveConstants.HEX_WIDTH / 2) - (WaveConstants.ROAD_WIDTH / 2),
-                                               defX + (WaveConstants.HEX_WIDTH) - (WaveConstants.ROAD_WIDTH / 2),
-                                               defX - (WaveConstants.ROAD_WIDTH/2),
-                                               defX + (WaveConstants.HEX_WIDTH) - (WaveConstants.ROAD_WIDTH / 2),
-                                               defX - (WaveConstants.ROAD_WIDTH/2),
-                                               defX + (WaveConstants.HEX_WIDTH) - (WaveConstants.ROAD_WIDTH / 2) };
+            float[] XLocArray = new float[6] { defX + (WaveConstants.HEX_WIDTH / 2) + (WaveConstants.ROAD_WIDTH / 2),
+                                               defX + (WaveConstants.HEX_WIDTH / 2) + (WaveConstants.ROAD_WIDTH / 2),
+                                               defX + (WaveConstants.ROAD_WIDTH/2),
+                                               defX + (WaveConstants.HEX_WIDTH) + (WaveConstants.ROAD_WIDTH / 2),
+                                               defX + (WaveConstants.ROAD_WIDTH/2),
+                                               defX + (WaveConstants.HEX_WIDTH) + (WaveConstants.ROAD_WIDTH / 2) };
             return XLocArray;
         }
 
         public float[] getYLocArrayRoad(HexHolder current)
         {
             float defY = current.getHex().FindComponent<Transform2D>().Y;
-            float[] YLocArray = new float[6] { defY - WaveConstants.SETTLEMENT_WIDTH,
-                                               defY + (WaveConstants.TRIANGLE_HEIGHT) - (WaveConstants.SETTLEMENT_WIDTH),
-                                               defY + (WaveConstants.TRIANGLE_HEIGHT) - (WaveConstants.SETTLEMENT_WIDTH),
-                                               defY + (WaveConstants.TRIANGLE_HEIGHT) - (WaveConstants.SETTLEMENT_WIDTH),
-                                               defY + (WaveConstants.HEX_HEIGHT) - (WaveConstants.TRIANGLE_HEIGHT) - (WaveConstants.SETTLEMENT_WIDTH),
-                                               defY + (WaveConstants.HEX_HEIGHT) - (WaveConstants.TRIANGLE_HEIGHT) - (WaveConstants.SETTLEMENT_WIDTH) };
+            float[] YLocArray = new float[6] { defY + (WaveConstants.SETTLEMENT_WIDTH / 2),
+                                               defY + (WaveConstants.SETTLEMENT_WIDTH / 2),
+                                               defY + (WaveConstants.TRIANGLE_HEIGHT) + (WaveConstants.SETTLEMENT_WIDTH / 2),
+                                               defY + (WaveConstants.TRIANGLE_HEIGHT) + (WaveConstants.SETTLEMENT_WIDTH / 2),
+                                               defY + (WaveConstants.HEX_HEIGHT) - (WaveConstants.TRIANGLE_HEIGHT) + (WaveConstants.SETTLEMENT_WIDTH / 2),
+                                               defY + (WaveConstants.HEX_HEIGHT) - (WaveConstants.TRIANGLE_HEIGHT) + (WaveConstants.SETTLEMENT_WIDTH / 2) };
             return YLocArray;
         }
 
         public float[] getAnglesRoad(HexHolder current)
         {
             float[] AngleArray = new float[6] { WaveConstants.ANGLE,
-                                                WaveConstants.ANGLE + (float) (270 * 180 / Math.PI),
+                                                WaveConstants.ANGLE - (float) (90 * 180 / Math.PI),
                                                 0,
                                                 0,
-                                                WaveConstants.ANGLE + (float) (270 * 180 / Math.PI),
+                                                WaveConstants.ANGLE - (float) (90 * 180 / Math.PI),
                                                 WaveConstants.ANGLE };
             return AngleArray;
         }
@@ -484,6 +484,7 @@ namespace Cataners
                             this.rollEntityAddTransform(current, (WaveConstants.HEX_WIDTH * posNum) + (WaveConstants.HEX_WIDTH / 2) - (WaveConstants.ROLL_NUMBER_WIDTH / 2),
                                                                     (WaveConstants.HEX_HEIGHT / 2) - (WaveConstants.ROLL_NUMBER_HEIGHT / 2), .1f);
                             this.settlementAssignment(current, getXLocArraySettlement(current), getYLocArraySettlement(current), .05f);
+                            this.roadAssignment(current, getXLocArrayRoad(current), getYLocArrayRoad(current), getAnglesRoad(current), .05f);
                         }
                         else if (posNum < 7)
                         {
@@ -491,6 +492,7 @@ namespace Cataners
                             this.rollEntityAddTransform(current, (-WaveConstants.HEX_WIDTH / 2) + (WaveConstants.HEX_WIDTH * (posNum - 3)) + (WaveConstants.HEX_WIDTH / 2) - (WaveConstants.ROLL_NUMBER_WIDTH / 2),
                                                                     (WaveConstants.HEX_HEIGHT - WaveConstants.TRIANGLE_HEIGHT) + (WaveConstants.HEX_HEIGHT / 2) - (WaveConstants.ROLL_NUMBER_HEIGHT / 2), .1f);
                             this.settlementAssignment(current, this.getXLocArraySettlement(current), this.getYLocArraySettlement(current), .05f);
+                            this.roadAssignment(current, getXLocArrayRoad(current), getYLocArrayRoad(current), getAnglesRoad(current), .05f);
                         }
                         else if (posNum < 12)
                         {
@@ -498,12 +500,14 @@ namespace Cataners
                             this.rollEntityAddTransform(current, (-WaveConstants.HEX_WIDTH) + (WaveConstants.HEX_WIDTH * (posNum - 7)) + (WaveConstants.HEX_WIDTH / 2) - (WaveConstants.ROLL_NUMBER_WIDTH / 2),
                                                                    (2 * WaveConstants.HEX_HEIGHT) - (2 * WaveConstants.TRIANGLE_HEIGHT) + (WaveConstants.HEX_HEIGHT / 2) - (WaveConstants.ROLL_NUMBER_HEIGHT / 2), .1f);
                             this.settlementAssignment(current, this.getXLocArraySettlement(current), this.getYLocArraySettlement(current), .05f);
+                            this.roadAssignment(current, getXLocArrayRoad(current), getYLocArrayRoad(current), getAnglesRoad(current), .05f);
                         }
                         else if (posNum < 16)
                         {
                             this.hexAddTransform(current, (-WaveConstants.HEX_WIDTH / 2) + (WaveConstants.HEX_WIDTH * (posNum - 12)), (3 * WaveConstants.HEX_HEIGHT) - (3 * WaveConstants.TRIANGLE_HEIGHT), .6f);
                             this.rollEntityAddTransform(current, (-WaveConstants.HEX_WIDTH / 2) + (WaveConstants.HEX_WIDTH * (posNum - 12)) + (WaveConstants.HEX_WIDTH / 2) - (WaveConstants.ROLL_NUMBER_WIDTH / 2), (3 * WaveConstants.HEX_HEIGHT) - (3 * WaveConstants.TRIANGLE_HEIGHT) + (WaveConstants.HEX_HEIGHT / 2) - (WaveConstants.ROLL_NUMBER_HEIGHT / 2), .1f);
                             this.settlementAssignment(current, this.getXLocArraySettlement(current), this.getYLocArraySettlement(current), .05f);
+                            this.roadAssignment(current, getXLocArrayRoad(current), getYLocArrayRoad(current), getAnglesRoad(current), .05f);
                         }
                         else
                         {
@@ -511,6 +515,7 @@ namespace Cataners
                             this.rollEntityAddTransform(current, (WaveConstants.HEX_WIDTH * (posNum - 16)) + (WaveConstants.HEX_WIDTH / 2) - (WaveConstants.ROLL_NUMBER_WIDTH / 2),
                                                                     (4 * WaveConstants.HEX_HEIGHT) - (4 * WaveConstants.TRIANGLE_HEIGHT) + (WaveConstants.HEX_HEIGHT / 2) - (WaveConstants.ROLL_NUMBER_HEIGHT / 2), .1f);
                             this.settlementAssignment(current, this.getXLocArraySettlement(current), this.getYLocArraySettlement(current), .05f);
+                            this.roadAssignment(current, getXLocArrayRoad(current), getYLocArrayRoad(current), getAnglesRoad(current), .05f);
                         }
                         MyScene.toAdd.Add(current.getRollEntity());
                         MyScene.toAdd.Add(current.getHex());
