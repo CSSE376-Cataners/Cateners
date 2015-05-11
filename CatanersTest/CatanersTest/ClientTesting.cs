@@ -753,6 +753,65 @@ namespace CatanersTest
             CollectionAssert.AreEqual(correctReturn.toJson(), clientS.lastCall);
         }
 
+        [Test]
+        public void TestTradeWithBank()
+        {
+            Dictionary<Resource.TYPE, int> offer = new Dictionary<Resource.TYPE, int>();
+            Dictionary<Resource.TYPE, int> request = new Dictionary<Resource.TYPE, int>();
+
+            Trade trade = new Trade(new GamePlayer("Sender"), new GamePlayer("Bank"), offer, request);
+            CatanersShared.Message msg = new CatanersShared.Message(trade.toJson(), Translation.TYPE.StartTrade);
+
+            FakeClient client = new FakeClient();
+            client.userName = "Sender";
+            FakeClient client2 = new FakeClient();
+            client2.userName = "bystander";
+
+            ServerPlayer ptemp = new ServerPlayer("Sender", client);
+            ServerPlayer ptemp2 = new ServerPlayer("bystander", client2);
+
+            Lobby temp = new Lobby("Lobby", 10, ptemp, 1);
+            temp.addPlayer(ptemp2);
+            GameLobby gLobby = new GameLobby(temp);
+
+            client.player = ptemp;
+            client.currentLobby = temp;
+            client.gameLobby = gLobby;
+            client.serverLogic = new ServerLogic(temp);
+            client2.player = ptemp2;
+            client2.currentLobby = temp;
+            client2.gameLobby = gLobby;
+            client2.serverLogic = new ServerLogic(temp);
+
+            String gamePlayerList = Newtonsoft.Json.JsonConvert.SerializeObject(client.serverLogic.gameLobby.gamePlayers);
+            String gamePlayerList2 = Newtonsoft.Json.JsonConvert.SerializeObject(client2.serverLogic.gameLobby.gamePlayers);
+            
+            // Ignore, Dont Crash;
+            client.processesMessage(msg.toJson());
+            Assert.AreEqual(new CatanersShared.Message(gamePlayerList,CatanersShared.Translation.TYPE.UpdateResources).toJson(),client.lastCall);
+            Assert.AreEqual(new CatanersShared.Message(gamePlayerList2, CatanersShared.Translation.TYPE.UpdateResources).toJson(), client2.lastCall);
+
+            offer[Resource.TYPE.Wheat] = 4;
+
+            msg = new CatanersShared.Message(trade.toJson(), Translation.TYPE.StartTrade);
+
+            client.lastCall = null;
+            client.processesMessage(msg.toJson());
+            Assert.Null(client.lastCall);
+            // Still dont do anything as both do not have resources
+
+            client.gameLobby.gamePlayers[0].resources[Resource.TYPE.Wheat] = 4;
+            request[Resource.TYPE.Brick] = 1;
+            msg = new CatanersShared.Message(trade.toJson(), Translation.TYPE.StartTrade);
+
+            client.processesMessage(msg.toJson());
+            // Good
+            Assert.AreEqual(new CatanersShared.Message(gamePlayerList, CatanersShared.Translation.TYPE.UpdateResources).toJson(), client.lastCall);
+            Assert.AreEqual(new CatanersShared.Message(gamePlayerList2, CatanersShared.Translation.TYPE.UpdateResources).toJson(), client2.lastCall);
+            
+
+        }
+
         public class FakeClient : Client
         {
 
