@@ -226,7 +226,7 @@ namespace CatenersServer
                         
                         for (int i = 0; i < currentLobby.PlayerCount; i++)
                         {
-                            ((ServerPlayer)currentLobby.Players[i]).client.sendToClient(getLobby);
+                            //((ServerPlayer)currentLobby.Players[i]).client.sendToClient(getLobby);
                             ((ServerPlayer)currentLobby.Players[i]).client.sendToClient(new Message(toPass, Translation.TYPE.StartGame).toJson());
                             //((ServerPlayer)currentLobby.Players[i]).client.sendToClient(boardString);
                             ((ServerPlayer)currentLobby.Players[i]).client.serverLogic = newLogic;

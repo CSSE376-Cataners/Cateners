@@ -24,5 +24,9 @@ namespace CatanersShared
         {
             return Newtonsoft.Json.JsonConvert.SerializeObject(array);
         }
+
+        public static List<GamePlayer> jsonToGPlayerList(String s) {
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<List<GamePlayer>>(s);
+        }
     }
 }
