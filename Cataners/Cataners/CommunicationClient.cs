@@ -14,6 +14,7 @@ using System.Threading;
 using System.Diagnostics.CodeAnalysis;
 
 
+
 namespace Cataners
 {
     public class CommunicationClient
@@ -177,6 +178,7 @@ namespace Cataners
                     TradeForm trade = new TradeForm();
                     LocalConversion.Instance.generateHexList(Translation.jsonToIntArrayTwo(msg.message));
                     LocalConversion.Instance.drawHexes();
+                    sendToServer(new CatanersShared.Message("", Translation.TYPE.GetGameLobby).toJson());
                     Program.Main();
                     break;
 
@@ -194,7 +196,7 @@ namespace Cataners
                             if (currentLobby.gamePlayers[i].Equals(addResource.player))
                             {
                                 currentLobby.gamePlayers[i].resources[addResource.resourceType] += addResource.number;
-                                currentLobby.gamePlayers[i].resourceCount += addResource.number;
+                                //currentLobby.gamePlayers[i].resourceCount += addResource.number;
                             }
                         }
                     }
@@ -262,6 +264,13 @@ namespace Cataners
                             break;
                     }
                     
+                    break;
+                case Translation.TYPE.UpdateResources:
+                    List<GamePlayer> gpList = Translation.jsonToGPlayerList(msg.message);
+                    if (Data.currentGameLobby == null)
+                        return;
+                    Data.currentGameLobby.gamePlayers = gpList;
+                    MyScene.addResources();
                     break;
             }
         }
