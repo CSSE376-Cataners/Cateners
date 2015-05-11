@@ -266,7 +266,7 @@ namespace Cataners
                 this.hexList[i].setRollNumber(currHexRep[2]);
                 SettlementHolder[] newArray = new SettlementHolder[6];
                 int settlementNumber = 0;
-                for (int k = 3; k < currHexRep.Length; k++)
+                for (int k = 3; k < 9; k++)
                 {
                     newArray[settlementNumber] = this.settlementList[currHexRep[k]];
                     settlementNumber++;
@@ -274,7 +274,7 @@ namespace Cataners
                 this.hexList[i].setSettlementList(newArray);
                 RoadHolder[] roadArray = new RoadHolder[6];
                 int roadNumber = 0;
-                for (int k = 3; k < currHexRep.Length; k++)
+                for (int k = 9; k < currHexRep.Length; k++)
                 {
                     roadArray[roadNumber] = this.roadList[currHexRep[k]];
                     roadNumber++;
@@ -294,8 +294,7 @@ namespace Cataners
             for (int k = 0; k < this.hexList.Length; k++)
             {
                 HexHolder hexFocus = this.hexList[k];
-                String name = hexFocus.getHex().Name + hexFocus.getRollNumber().ToString();
-                Entity rollEntity = new Entity(name)
+                Entity rollEntity = new Entity("RollEntity"+k.ToString())
                 .AddComponent(new Sprite("RollNum" + hexFocus.getRollNumber().ToString() + ".wpk"))
                 .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
                 hexFocus.setRollEntity(rollEntity);

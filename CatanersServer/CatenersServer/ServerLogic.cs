@@ -162,11 +162,11 @@ namespace CatenersServer
             toReturn[2] = this.rollNumber;
             for(int i = 0; i < 6; i++)
             {
-                toReturn[i+2] = this.settlementArray[i].getPlacementNumber();
+                toReturn[i+3] = this.settlementArray[i].getPlacementNumber();
             }
             for(int k = 0; k < 6; k++)
             {
-                toReturn[k+8] = this.roadArray[k].getPlacementNumber();
+                toReturn[k+9] = this.roadArray[k].getPlacementNumber();
             }
             return toReturn;
         }
@@ -343,6 +343,8 @@ namespace CatenersServer
             this.generatehexArray();
             this.generateDefaultSettlements();
             this.assignSettlements();
+            this.generateDefaultRoads();
+            this.assignRoads();
             this.lobby = lobby;
             gameLobby = new GameLobby(lobby);
         }
@@ -362,6 +364,8 @@ namespace CatenersServer
             this.generatehexArray();
             this.generateDefaultSettlements();
             this.assignSettlements();
+            this.generateDefaultRoads();
+            this.assignRoads();
             int[][] passedArray = new int[this.hexArray.Length][];
             for (int k = 0; k < this.hexArray.Length; k++)
             {
@@ -474,6 +478,8 @@ namespace CatenersServer
             this.assignRollNumbers();
             this.generateDefaultSettlements();
             this.assignSettlements();
+            this.generateDefaultRoads();
+            this.assignRoads();
         }
 
         public void generateDefaultSettlements()
@@ -501,13 +507,12 @@ namespace CatenersServer
             for (int i = 0; i < this.hexArray.Length; i++)
             {
                 RoadServer[] newArray = new RoadServer[6];
-                HexServer current = this.hexArray[i];
                 int[] fromDict = this.roadDict[i];
                 for (int k = 0; k < 6; k++)
                 {
                     newArray[k] = this.roadArray[fromDict[k]];
                 }
-                current.setRoadArray(newArray);
+                this.hexArray[i].setRoadArray(newArray);
             }
         }
 
