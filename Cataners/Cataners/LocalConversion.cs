@@ -470,7 +470,6 @@ namespace Cataners
         {
             this.hexList = LocalConversion.Instance.getHexList();
             Console.WriteLine(this.hexList.ToString());
-            if(MyScene.Instance != null){
                 lock (MyScene.toAdd)
                 {
                     for (int g = 0; g < 19; g++)
@@ -519,7 +518,6 @@ namespace Cataners
                         MyScene.toAdd.Add(current.getRollEntity());
                         MyScene.toAdd.Add(current.getHex());
                     }
-                }
             }
         }
     }
