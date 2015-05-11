@@ -236,6 +236,68 @@ namespace CatanersTest
 
 
         }
+
+        [Test]
+        public void testGetGameLobby2()
+        {
+            FakeClient client = new FakeClient();
+
+            Player p1 = new Player("Owner");
+            Player p2 = new Player("p1");
+            Player p3 = new Player("p2");
+            Player p4 = new Player("p3");
+
+            Lobby lob = new Lobby("GameName", 10, p1,1);
+            lob.addPlayer(p2);
+            lob.addPlayer(p3);
+            lob.addPlayer(p4);
+            GameLobby gLob = new GameLobby(lob);
+
+            Message setup = new Message(gLob.toJson(), Translation.TYPE.GetGameLobby);
+            client.processesMessage(setup.toJson());
+
+            Assert.AreEqual(gLob, Data.currentGameLobby);
+            foreach (GamePlayer p in gLob.gamePlayers)
+            {
+                p.resources[Resource.TYPE.Wheat] = 10;
+            }
+
+            Message after = new Message(gLob.toJson(), Translation.TYPE.GetGameLobby);
+            client.processesMessage(after.toJson());
+
+            Assert.AreEqual(gLob, Data.currentGameLobby);
+        }
+
+        [Test]
+        public void testUpdateResources()
+        {
+            FakeClient client = new FakeClient();
+
+            Player p1 = new Player("Owner");
+            Player p2 = new Player("p1");
+            Player p3 = new Player("p2");
+            Player p4 = new Player("p3");
+
+            Lobby lob = new Lobby("GameName", 10, p1, 1);
+            lob.addPlayer(p2);
+            lob.addPlayer(p3);
+            lob.addPlayer(p4);
+            GameLobby gLob = new GameLobby(lob);
+
+            Message setup = new Message(gLob.toJson(), Translation.TYPE.GetGameLobby);
+            client.processesMessage(setup.toJson());
+
+            Assert.AreEqual(gLob, Data.currentGameLobby);
+            foreach (GamePlayer p in gLob.gamePlayers)
+            {
+                p.resources[Resource.TYPE.Wheat] = 10;
+            }
+
+            Message after = new Message(Newtonsoft.Json.JsonConvert.SerializeObject(gLob.gamePlayers), Translation.TYPE.UpdateResources);
+            client.processesMessage(after.toJson());
+
+            Assert.AreEqual(gLob, Data.currentGameLobby);
+        }
             
 
         [ExcludeFromCodeCoverage]
