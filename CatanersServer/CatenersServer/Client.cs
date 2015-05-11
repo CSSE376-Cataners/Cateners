@@ -84,7 +84,9 @@ namespace CatenersServer
             Message msg = Message.fromJson(s);
             System.Diagnostics.Debug.WriteLine(String.Format("[{0}] {1}::TYPE: {2} :: Message: {3}", DateTime.Now.ToString("T"), this.userName, msg.type, msg.message));
 
-            if(this.gameLobby != null)
+
+            // TODO Pick all messages that would be considered turn based
+            if(this.gameLobby != null /* Check if its our turn */)
                 if (msg.type == (Translation.TYPE.addResource | Translation.TYPE.BuySettlement | Translation.TYPE.Game | Translation.TYPE.OpenTradeWindow))
                 {
 
