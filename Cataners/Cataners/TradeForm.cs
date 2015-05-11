@@ -30,6 +30,7 @@ namespace Cataners
         private int wantedSheep;
         private int wantedWheat;
         private int wantedWood;
+        private int offeredResourceCount;
         private int desiredResourceCount;
 
         GamePlayer target;
@@ -89,6 +90,7 @@ namespace Cataners
             {
                 val = Int32.Parse(txt);
                 offeredBrick = val;
+                offeredResourceCount += val;
             }
             catch {
                 return false;
@@ -104,6 +106,7 @@ namespace Cataners
             {
                 val = Int32.Parse(txt);
                 offeredOre = val;
+                offeredResourceCount += val;
                 
             }
             catch
@@ -121,6 +124,7 @@ namespace Cataners
             {
                 val = Int32.Parse(txt);
                 offeredSheep = val;
+                offeredResourceCount += val;
 
             }
             catch
@@ -137,6 +141,7 @@ namespace Cataners
             {
                 val = Int32.Parse(txt);
                 offeredWheat = val;
+                offeredResourceCount += val;
 
             }
             catch
@@ -153,6 +158,7 @@ namespace Cataners
             {
                 val = Int32.Parse(txt);
                 offeredWood = val;
+                offeredResourceCount += val;
 
             }
             catch
@@ -453,38 +459,35 @@ namespace Cataners
         }
 
         public bool bankCheck(){
-            if (bankCheckBrick() || bankCheckOre() || bankCheckSheep() || bankCheckWheat() || bankCheckWood())
+            foreach (Resource.TYPE t in Enum.GetValues(typeof(Resource.TYPE)))
             {
-                if (desiredResourceCount == 1)
+                if (offered.ContainsKey(t) && offered[t] >= 0)
                 {
-                    return true;
+                    if (offered[t] > currentTrader.resources[t])
+                    {
+                        return false;
+                    }
+                    if (offered[t] % 4 != 0)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        offeredResourceCount += offered[t];
+                    }
                 }
+                if (wanted.ContainsKey(t))
+                {
+                    desiredResourceCount += wanted[t];
+                }
+            }
+            if (offeredResourceCount / 4 != desiredResourceCount)
+            {
                 return false;
             }
-            return false;
+            return true;
         }
 
-        public bool bankCheckBrick()
-        {
-            return (offeredBrick == 4 && offeredOre == 0 && offeredSheep == 0 && offeredWheat == 0 && offeredWood==0);
-        }
-        public bool bankCheckOre()
-        {
-            return (offeredBrick == 0 && offeredOre == 4 && offeredSheep == 0 && offeredWheat == 0 && offeredWood == 0);
-        }
-        public bool bankCheckSheep()
-        {
-            return (offeredBrick == 0 && offeredOre == 0 && offeredSheep == 4 && offeredWheat == 0 && offeredWood == 0);
-        }
-        public bool bankCheckWheat()
-        {
-            return (offeredBrick == 0 && offeredOre == 0 && offeredSheep == 0 && offeredWheat == 4 && offeredWood == 0);
-        }
-
-        public bool bankCheckWood()
-        {
-            return (offeredBrick == 0 && offeredOre == 0 && offeredSheep == 0 && offeredWheat == 0 && offeredWood == 4);
-        }
 
 
     }

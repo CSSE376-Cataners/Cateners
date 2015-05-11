@@ -656,6 +656,7 @@ namespace CatanersTest
             GameLobby lobby = new GameLobby(new Lobby("game", 100, p1, 10));
             Data.currentLobby = lobby;
             Data.username = p1.Username;
+            lobby.gamePlayers[0].resources[Resource.TYPE.Brick] = 10;
             GamePlayer p2 = new GamePlayer("jimmy");
             ((GameLobby)lobby).gamePlayers.Add(p2);
             trade.initializeValues();
@@ -675,11 +676,7 @@ namespace CatanersTest
             box2.Text = "4";
 
             trade.InitializeDictionaries();
-            Assert.IsTrue(trade.bankCheckBrick());
-            Assert.IsFalse(trade.bankCheckOre());
-            Assert.IsFalse(trade.bankCheckSheep());
-            Assert.IsFalse(trade.bankCheckWheat());
-            Assert.IsFalse(trade.bankCheckWood());
+            Assert.IsTrue(trade.bankCheck());
 
         }
         [Test]
@@ -691,6 +688,7 @@ namespace CatanersTest
             Data.username = p1.Username;
             GamePlayer p2 = new GamePlayer("jimmy");
             ((GameLobby)lobby).gamePlayers.Add(p2);
+            lobby.gamePlayers[0].resources[Resource.TYPE.Ore] = 10;
             trade.initializeValues();
 
             BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
@@ -701,18 +699,13 @@ namespace CatanersTest
 
             FieldInfo info = (typeof(TradeForm).GetField("recvBrickTextBox", flags));
             TextBox box = (TextBox)info.GetValue(trade);
-            box.Text = "1";
+            box.Text = "2";
 
             FieldInfo info2 = (typeof(TradeForm).GetField("giveOreTextBox", flags));
             TextBox box2 = (TextBox)info2.GetValue(trade);
-            box2.Text = "4";
+            box2.Text = "8";
 
             trade.InitializeDictionaries();
-            Assert.IsFalse(trade.bankCheckBrick());
-            Assert.IsTrue(trade.bankCheckOre());
-            Assert.IsFalse(trade.bankCheckSheep());
-            Assert.IsFalse(trade.bankCheckWheat());
-            Assert.IsFalse(trade.bankCheckWood());
             Assert.IsTrue(trade.bankCheck());
 
         }
@@ -725,6 +718,7 @@ namespace CatanersTest
             Data.username = p1.Username;
             GamePlayer p2 = new GamePlayer("jimmy");
             ((GameLobby)lobby).gamePlayers.Add(p2);
+            lobby.gamePlayers[0].resources[Resource.TYPE.Sheep] = 10;
             trade.initializeValues();
 
             BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
@@ -742,11 +736,6 @@ namespace CatanersTest
             box2.Text = "4";
 
             trade.InitializeDictionaries();
-            Assert.IsFalse(trade.bankCheckBrick());
-            Assert.IsFalse(trade.bankCheckOre());
-            Assert.IsTrue(trade.bankCheckSheep());
-            Assert.IsFalse(trade.bankCheckWheat());
-            Assert.IsFalse(trade.bankCheckWood());
             Assert.IsTrue(trade.bankCheck());
 
         }
@@ -759,6 +748,7 @@ namespace CatanersTest
             Data.username = p1.Username;
             GamePlayer p2 = new GamePlayer("jimmy");
             ((GameLobby)lobby).gamePlayers.Add(p2);
+            lobby.gamePlayers[0].resources[Resource.TYPE.Wheat] = 10;
             trade.initializeValues();
 
             BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
@@ -776,11 +766,6 @@ namespace CatanersTest
             box2.Text = "4";
 
             trade.InitializeDictionaries();
-            Assert.IsFalse(trade.bankCheckBrick());
-            Assert.IsFalse(trade.bankCheckOre());
-            Assert.IsFalse(trade.bankCheckSheep());
-            Assert.IsTrue(trade.bankCheckWheat());
-            Assert.IsFalse(trade.bankCheckWood());
             Assert.IsTrue(trade.bankCheck());
 
         }
@@ -793,6 +778,7 @@ namespace CatanersTest
             Data.username = p1.Username;
             GamePlayer p2 = new GamePlayer("jimmy");
             ((GameLobby)lobby).gamePlayers.Add(p2);
+            lobby.gamePlayers[0].resources[Resource.TYPE.Wood] = 10;
             trade.initializeValues();
 
             BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
@@ -810,11 +796,6 @@ namespace CatanersTest
             box2.Text = "4";
 
             trade.InitializeDictionaries();
-            Assert.IsFalse(trade.bankCheckBrick());
-            Assert.IsFalse(trade.bankCheckOre());
-            Assert.IsFalse(trade.bankCheckSheep());
-            Assert.IsFalse(trade.bankCheckWheat());
-            Assert.IsTrue(trade.bankCheckWood());
             Assert.IsTrue(trade.bankCheck());
 
         }
@@ -827,6 +808,7 @@ namespace CatanersTest
             Data.username = p1.Username;
             GamePlayer p2 = new GamePlayer("jimmy");
             ((GameLobby)lobby).gamePlayers.Add(p2);
+            lobby.gamePlayers[0].resources[Resource.TYPE.Wood] = 3;
             trade.initializeValues();
 
             BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
@@ -844,11 +826,6 @@ namespace CatanersTest
             box2.Text = "4";
 
             trade.InitializeDictionaries();
-            Assert.IsFalse(trade.bankCheckBrick());
-            Assert.IsFalse(trade.bankCheckOre());
-            Assert.IsFalse(trade.bankCheckSheep());
-            Assert.IsFalse(trade.bankCheckWheat());
-            Assert.IsTrue(trade.bankCheckWood());
             Assert.IsFalse(trade.bankCheck());
 
         }
@@ -861,6 +838,7 @@ namespace CatanersTest
             Data.username = p1.Username;
             GamePlayer p2 = new GamePlayer("jimmy");
             ((GameLobby)lobby).gamePlayers.Add(p2);
+            lobby.gamePlayers[0].resources[Resource.TYPE.Wood] = 10;
             trade.initializeValues();
 
             BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
@@ -878,11 +856,6 @@ namespace CatanersTest
             box2.Text = "0";
 
             trade.InitializeDictionaries();
-            Assert.IsFalse(trade.bankCheckBrick());
-            Assert.IsFalse(trade.bankCheckOre());
-            Assert.IsFalse(trade.bankCheckSheep());
-            Assert.IsFalse(trade.bankCheckWheat());
-            Assert.IsFalse(trade.bankCheckWood());
             Assert.IsFalse(trade.bankCheck());
 
         }
