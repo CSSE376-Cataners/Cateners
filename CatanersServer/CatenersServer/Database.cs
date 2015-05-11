@@ -23,25 +23,35 @@ namespace CatenersServer
 
         public catanersDataSet.checkUserDataTableRow getUser(Login login)
         {
-            catanersDataSet.checkUserDataTableDataTable table = cta.GetData(login.username, login.password);
+            try
+            {
+                catanersDataSet.checkUserDataTableDataTable table = cta.GetData(login.username, login.password);
+                if (table.Rows.Count > 0)
+                    return (catanersDataSet.checkUserDataTableRow)table.Rows[0];
 
-            if (table.Rows.Count > 0)
-                return (catanersDataSet.checkUserDataTableRow)table.Rows[0];
+            }
+            catch { }
             return null;
+            
         }
 
 
         public int registerUser(Login login)
         {
-            catanersDataSet.registerUserDataTableDataTable table = rta.GetData(login.username, login.password);
-
-            String result = table.Rows[0][0].ToString();
-            int toReturn;
-
-            if (Int32.TryParse(result, out toReturn))
+            try
             {
-                return toReturn;
+                catanersDataSet.registerUserDataTableDataTable table = rta.GetData(login.username, login.password);
+
+                String result = table.Rows[0][0].ToString();
+                int toReturn;
+
+                if (Int32.TryParse(result, out toReturn))
+                {
+                    return toReturn;
+                }
+                return -1;
             }
+            catch { }
             return -1;
         }
     }
