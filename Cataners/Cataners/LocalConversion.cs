@@ -274,9 +274,9 @@ namespace Cataners
                 this.hexList[i].setSettlementList(newArray);
                 RoadHolder[] roadArray = new RoadHolder[6];
                 int roadNumber = 0;
-                for (int k = 9; k < currHexRep.Length; k++)
+                for (int j = 9; j < currHexRep.Length; j++)
                 {
-                    roadArray[roadNumber] = this.roadList[currHexRep[k]];
+                    roadArray[roadNumber] = this.roadList[currHexRep[j]];
                     roadNumber++;
                 }
                 this.hexList[i].setRoadList(roadArray);
@@ -434,35 +434,35 @@ namespace Cataners
         public float[] getXLocArrayRoad(HexHolder current)
         {
             float defX = current.getHex().FindComponent<Transform2D>().X;
-            float[] XLocArray = new float[6] { defX + (WaveConstants.HEX_WIDTH / 2) + (WaveConstants.ROAD_WIDTH / 2),
-                                               defX + (WaveConstants.HEX_WIDTH / 2) + (WaveConstants.ROAD_WIDTH / 2),
-                                               defX + (WaveConstants.ROAD_WIDTH/2),
-                                               defX + (WaveConstants.HEX_WIDTH) + (WaveConstants.ROAD_WIDTH / 2),
-                                               defX + (WaveConstants.ROAD_WIDTH/2),
-                                               defX + (WaveConstants.HEX_WIDTH) + (WaveConstants.ROAD_WIDTH / 2) };
+            float[] XLocArray = new float[6] { defX + (WaveConstants.HEX_WIDTH / 2) - (WaveConstants.SETTLEMENT_WIDTH / 2),
+                                               defX + (WaveConstants.HEX_WIDTH / 2),
+                                               defX - (WaveConstants.ROAD_WIDTH / 2),
+                                               defX + (WaveConstants.HEX_WIDTH) -  (WaveConstants.ROAD_WIDTH),
+                                               defX - (WaveConstants.ROAD_WIDTH / 2) + (WaveConstants.SETTLEMENT_WIDTH / 2),
+                                               defX + (WaveConstants.HEX_WIDTH) };
             return XLocArray;
         }
 
         public float[] getYLocArrayRoad(HexHolder current)
         {
             float defY = current.getHex().FindComponent<Transform2D>().Y;
-            float[] YLocArray = new float[6] { defY + (WaveConstants.SETTLEMENT_WIDTH / 2),
-                                               defY + (WaveConstants.SETTLEMENT_WIDTH / 2),
-                                               defY + (WaveConstants.TRIANGLE_HEIGHT) + (WaveConstants.SETTLEMENT_WIDTH / 2),
-                                               defY + (WaveConstants.TRIANGLE_HEIGHT) + (WaveConstants.SETTLEMENT_WIDTH / 2),
-                                               defY + (WaveConstants.HEX_HEIGHT) - (WaveConstants.TRIANGLE_HEIGHT) + (WaveConstants.SETTLEMENT_WIDTH / 2),
-                                               defY + (WaveConstants.HEX_HEIGHT) - (WaveConstants.TRIANGLE_HEIGHT) + (WaveConstants.SETTLEMENT_WIDTH / 2) };
+            float[] YLocArray = new float[6] { defY + (WaveConstants.SETTLEMENT_WIDTH / 6),
+                                               defY + (WaveConstants.SETTLEMENT_WIDTH / 4),
+                                               defY + (WaveConstants.TRIANGLE_HEIGHT),
+                                               defY + (WaveConstants.TRIANGLE_HEIGHT),
+                                               defY + (WaveConstants.HEX_HEIGHT) - (WaveConstants.TRIANGLE_HEIGHT) + (WaveConstants.SETTLEMENT_HEIGHT / 2),
+                                               defY + (WaveConstants.HEX_HEIGHT) - (WaveConstants.TRIANGLE_HEIGHT) };
             return YLocArray;
         }
 
         public float[] getAnglesRoad(HexHolder current)
         {
             float[] AngleArray = new float[6] { WaveConstants.ANGLE,
-                                                WaveConstants.ANGLE - (float) (90 * 180 / Math.PI),
+                                                -WaveConstants.ANGLE,
                                                 0,
                                                 0,
-                                                WaveConstants.ANGLE - (float) (90 * 180 / Math.PI),
-                                                WaveConstants.ANGLE };
+                                                -WaveConstants.ANGLE,
+                                                WaveConstants.ANGLE};
             return AngleArray;
         }
 
