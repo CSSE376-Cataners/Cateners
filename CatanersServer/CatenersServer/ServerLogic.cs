@@ -268,7 +268,7 @@ namespace CatenersServer
             #endregion
             #region
             roadNeighborDict.Add(0, new int[] { 1, 6 });
-            roadNeighborDict.Add(1, new int[] {0, 2, 7});
+            roadNeighborDict.Add(1, new int[] { 0, 2, 7});
             roadNeighborDict.Add(2, new int[] { 1, 3, 7});
             roadNeighborDict.Add(3, new int[] { 2, 4, 8});
             roadNeighborDict.Add(4, new int[] { 3, 5, 8});
@@ -507,7 +507,7 @@ namespace CatenersServer
             for (int i = 0; i < this.hexArray.Length; i++)
             {
                 RoadServer[] newArray = new RoadServer[6];
-                int[] fromDict = this.roadDict[i];
+                int[] fromDict = this.roadDict[this.hexArray[i].getPlacementNumber()];
                 for (int k = 0; k < 6; k++)
                 {
                     newArray[k] = this.roadArray[fromDict[k]];
