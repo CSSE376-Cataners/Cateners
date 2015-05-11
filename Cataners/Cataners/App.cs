@@ -59,69 +59,12 @@ namespace Cataners
                     }
                     else
                     {
-                        if (MyScene.toAdd.Count > 0 || MyScene.toAddDecor.Count > 0)
+                        if (MyScene.Instance.EntityManager != null  && (MyScene.toAdd.Count > 0 || MyScene.toAddDecor.Count > 0))
                         {
-                            #region old
-                            /*
-                            if (!ready)
-                            {
-                                MyScene newScene = new MyScene();
-                                ScreenContext screenContext = new ScreenContext(newScene)
-                                {
-                                    Name = "Next Frame"
-                                };
-                                WaveServices.ScreenContextManager.To(screenContext);
-                                ready = true;
-                            }
-                            else
-                            {
-                                if (MyScene.Instance.EntityManager == null)
-                                {
-                                    Console.WriteLine("Null EntityManager");
-                                }
-                                else
-                                {
-                                    MyScene.addResources();
-                                    MyScene.addRegenerateBoardButton();
-                                    MyScene.addTradeButton();
-                                    MyScene.addPlayerNames();
-                                    MyScene.addChatButton();
-                                    lock (MyScene.toAdd)
-                                    {
-                                        foreach (Entity e in MyScene.toAdd)
-                                        {
-                                            if (e != null)
-                                            {
-                                                try
-                                                {
-                                                    MyScene.Instance.EntityManager.Add(e);
-                                                }
-                                                catch { }
-                                            }
-                                        }
-                                        MyScene.toAdd.Clear();
-                                    }
-                                    lock (MyScene.toAddDecor)
-                                    {
-                                        foreach (BaseDecorator e in MyScene.toAddDecor)
-                                        {
-                                            MyScene.Instance.EntityManager.Add(e);
-                                        }
-                                        MyScene.toAddDecor.Clear();
-                                    }
-                                }
-                                ready = false;
-                            }*/
-                            #endregion
                             lock (MyScene.toAdd) 
                             {
                                 lock (MyScene.toAddDecor)
                                 {
-                                        //MyScene.addResources();
-                                        //MyScene.addRegenerateBoardButton();
-                                        //MyScene.addTradeButton();
-                                        //MyScene.addPlayerNames();
-                                        //MyScene.addChatButton();
                                     WaveEngine.Framework.Managers.EntityManager o = MyScene.Instance.EntityManager;
                                     foreach (Entity e in MyScene.toAdd)
                                     {
