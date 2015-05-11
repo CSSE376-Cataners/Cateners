@@ -296,7 +296,7 @@ namespace CatanersTest
             Message after = new Message(Newtonsoft.Json.JsonConvert.SerializeObject(gLob.gamePlayers), Translation.TYPE.UpdateResources);
             client.processesMessage(after.toJson());
 
-            Assert.AreEqual(gLob, Data.currentGameLobby);
+            Assert.AreEqual(gLob.gamePlayers[0].resources[Resource.TYPE.Wheat], Data.currentGameLobby.gamePlayers[0].resources[Resource.TYPE.Wheat]);
         }
             
 
