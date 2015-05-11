@@ -294,8 +294,7 @@ namespace Cataners
             for (int k = 0; k < this.hexList.Length; k++)
             {
                 HexHolder hexFocus = this.hexList[k];
-                String name = hexFocus.getHex().Name + hexFocus.getRollNumber().ToString();
-                Entity rollEntity = new Entity(name)
+                Entity rollEntity = new Entity("RollEntity"+k.ToString())
                 .AddComponent(new Sprite("RollNum" + hexFocus.getRollNumber().ToString() + ".wpk"))
                 .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
                 hexFocus.setRollEntity(rollEntity);
