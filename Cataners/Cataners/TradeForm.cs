@@ -302,6 +302,8 @@ namespace Cataners
 
         private void tradeButton_Click(object sender, EventArgs e)
         {
+            desiredResourceCount = 0;
+            offeredResourceCount = 0;
             if (targetOfTradeComboBox.SelectedItem == null)
             {
                 MessageBox.Show("Please select someone to trade with first");
@@ -447,7 +449,7 @@ namespace Cataners
             InitializeDictionaries();
             if (bankCheck())
             {
-                Trade tradeobj = new Trade(currentTrader, new GamePlayer("Banker"), offered, wanted);
+                Trade tradeobj = new Trade(currentTrader, new GamePlayer("Bank"), offered, wanted);
                 CommunicationClient.Instance.sendToServer(new CatanersShared.Message(tradeobj.toJson(), Translation.TYPE.StartTrade).toJson());
                 this.Hide();
             }
