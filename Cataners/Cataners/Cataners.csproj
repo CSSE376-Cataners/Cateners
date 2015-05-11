@@ -200,6 +200,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <EmbeddedResource Include="SplashScreen.wpk" />
+    <None Include="Road.wpk">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="RollNum0.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
