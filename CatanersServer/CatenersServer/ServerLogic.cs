@@ -394,8 +394,8 @@ namespace CatenersServer
                         this.removeResourcesSettlement(this.gameLobby.gamePlayers[i]);
                         return true;
                     }
+                    return false;
                 }
-                return false;
             }
             throw new NonPlayerException("Player does not exist in the current lobby.");
         }
