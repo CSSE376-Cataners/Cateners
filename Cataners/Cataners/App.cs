@@ -59,7 +59,7 @@ namespace Cataners
                     }
                     else
                     {
-                        if (MyScene.toAdd.Count > 0 || MyScene.toAddDecor.Count > 0 || (MyScene.Instance.EntityManager != null &&MyScene.Instance.EntityManager.Find("player2Name")==null) )
+                        if (MyScene.toAdd.Count > 0 || MyScene.toAddDecor.Count > 0)
                         {
                             #region old
                             /*
