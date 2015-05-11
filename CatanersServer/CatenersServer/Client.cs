@@ -235,11 +235,11 @@ namespace CatenersServer
                     }
                 }
                 break;
-                case Translation.TYPE.OpenTradeWindow:
+                case Translation.TYPE.StartTrade:
                     // Not in a game
+                
                 if (gameLobby == null)
                 {
-
                     return;
                 }
                     if (serverLogic == null || serverLogic.onGoingTrade != null)
@@ -249,9 +249,10 @@ namespace CatenersServer
                     // Trying to trade with self.
                     if (trade.source.Username.Equals(trade.target.Username))
                         return;
-
+                    
                     GamePlayer sender = null;
                     GamePlayer target = null;
+                    
                     foreach (GamePlayer p in gameLobby.gamePlayers)
                     {
                         if (p.Username.Equals(this.userName))
@@ -263,29 +264,92 @@ namespace CatenersServer
                             target = p;
                         }
                     }
-                    if (sender == null || target == null)
+                    if (sender == null)
                         return;
 
                     Dictionary<Resource.TYPE, int> offer = trade.offeredResources;
                     Dictionary<Resource.TYPE, int> request = trade.wantedResources;
 
-                    foreach (Resource.TYPE t in Enum.GetValues(typeof(Resource.TYPE)))
+                    if (trade.target.Username.Equals("Bank"))
                     {
-                        // if sender does not have enough
-                        if (offer.ContainsKey(t) && offer[t] > sender.resources[t] && offer[t] >= 0)
-                            return;
-                        // if target does not have enough
-                        if (request.ContainsKey(t) && request[t] > target.resources[t] && request[t] >= 0)
-                            return;
-                    }
 
-                    foreach (ServerPlayer p in currentLobby.Players)
-                    {
-                        if (p.Username.Equals(target.Username))
+                        int sumOffer = 0;
+                        int sumRequest = 0;
+                        foreach (Resource.TYPE t in Enum.GetValues(typeof(Resource.TYPE)))
                         {
-                            serverLogic.onGoingTrade = trade;
-                            p.client.sendToClient(s);
+                            if (offer.ContainsKey(t) && offer[t] >= 0)
+                            {
+                                if (offer[t] > sender.resources[t])
+                                {
+                                    return;
+                                }
+                                if (offer[t] % 4 != 0)
+                                {
+                                    // TODO write popup message
+                                    //sendToClient(new Message())
+                                    return;
+                                }
+                                else
+                                {
+                                    sumOffer += offer[t];
+                                }
+                            }
+                            if (request.ContainsKey(t))
+                                sumRequest += request[t];
+                        }
+                        if(sumOffer /4 != sumRequest)
+                        {
+                            // TODO write popup message
+                            //sendToClient(new Message())
                             return;
+                        }
+                        // Good trade resources;
+
+                        foreach (Resource.TYPE t in Enum.GetValues(typeof(Resource.TYPE)))
+                        {
+                            if (offer.ContainsKey(t))
+                            {
+                                sender.resources[t] -= offer[t];
+                            }
+                            if (request.ContainsKey(t))
+                            {
+                                sender.resources[t] += request[t];
+                            }
+                        }
+
+                        String gamePlayerList = Newtonsoft.Json.JsonConvert.SerializeObject(this.serverLogic.gameLobby.gamePlayers);
+                        String toReturn = new Message(gamePlayerList, Translation.TYPE.UpdateResources).toJson();
+                        foreach (ServerPlayer p in this.currentLobby.Players)
+                        {
+                            p.client.sendToClient(toReturn);
+                        }
+
+                    }
+                    else
+                    {
+                        if (target == null)
+                        {
+                            return;
+                        }
+
+                        foreach (Resource.TYPE t in Enum.GetValues(typeof(Resource.TYPE)))
+                        {
+                            // if sender does not have enough
+                            if (offer.ContainsKey(t) && offer[t] > sender.resources[t] && offer[t] >= 0)
+                                return;
+                            // if target does not have enough
+                            if (request.ContainsKey(t) && request[t] > target.resources[t] && request[t] >= 0)
+                                return;
+                        }
+
+                        foreach (ServerPlayer p in currentLobby.Players)
+                        {
+                            if (p.Username.Equals(target.Username))
+                            {
+                                serverLogic.onGoingTrade = trade;
+                                p.client.sendToClient(s);
+                                return;
+                            }
                         }
                     }
 
