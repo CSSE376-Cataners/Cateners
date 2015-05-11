@@ -83,6 +83,13 @@ namespace CatenersServer
         {
             Message msg = Message.fromJson(s);
             System.Diagnostics.Debug.WriteLine(String.Format("[{0}] {1}::TYPE: {2} :: Message: {3}", DateTime.Now.ToString("T"), this.userName, msg.type, msg.message));
+
+            if(this.gameLobby != null)
+                if (msg.type == (Translation.TYPE.addResource | Translation.TYPE.BuySettlement | Translation.TYPE.Game | Translation.TYPE.OpenTradeWindow))
+                {
+
+                }
+
             switch(msg.type) {
                 case Translation.TYPE.Login:
                     Login login = Login.fromJson(msg.message);

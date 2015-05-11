@@ -48,6 +48,8 @@ namespace Cataners
             instance = this;
         }
 
+        
+
         protected override void CreateScene()
         {
             //Insert your scene definition here.
@@ -76,12 +78,18 @@ namespace Cataners
             EntityManager.Add(title);
             this.hexList = LocalConversion.Instance.getHexList();
             CommunicationClient.Instance.setGenerated();
+
+            MyScene.addResources();
+            MyScene.addRegenerateBoardButton();
+            MyScene.addTradeButton();
+            MyScene.addPlayerNames();
+            MyScene.addChatButton();
         }
 
         public static void addChatButton()
         {
             //add chatbutton
-            Button chatButton = new Button();
+            Button chatButton = new Button("ChatButton");
             chatButton.Text = "Open Chat";
             chatButton.Width = 120;
             chatButton.Height = 40;
@@ -98,7 +106,7 @@ namespace Cataners
         public static void addTradeButton()
         {
             //add tradebutton
-            Button tradeButton = new Button();
+            Button tradeButton = new Button("TradeButton");
             tradeButton.Text = "Trade Resources";
             tradeButton.Width = 120;
             tradeButton.Height = 40;
@@ -121,7 +129,7 @@ namespace Cataners
             }
             if (Data.username.Equals(Data.currentGameOwner.Username))
             {
-                Button newButton = new Button();
+                Button newButton = new Button("RegenerateBoardButton");
                 newButton.Text = "Regenerate Board";
                 newButton.Width = 150;
                 newButton.Height = 40;
@@ -339,7 +347,6 @@ namespace Cataners
             }         
         }
 
-
         private static void button_Pressed(object sender, GestureEventArgs e)
         {
             CommunicationClient.Instance.sendToServer(new Message("", Translation.TYPE.RegenerateBoard).toJson());
@@ -370,7 +377,6 @@ namespace Cataners
 
             // This method is called after the CreateScene and Initialize methods and before the first Update.
         }
-
 
         public void setAsPurchasedSettle(string name)
         {

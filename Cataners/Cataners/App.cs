@@ -61,6 +61,8 @@ namespace Cataners
                     {
                         if (MyScene.toAdd.Count > 0 || MyScene.toAddDecor.Count > 0 || (MyScene.Instance.EntityManager != null &&MyScene.Instance.EntityManager.Find("player2Name")==null) )
                         {
+                            #region old
+                            /*
                             if (!ready)
                             {
                                 MyScene newScene = new MyScene();
@@ -109,8 +111,40 @@ namespace Cataners
                                     }
                                 }
                                 ready = false;
+                            }*/
+                            #endregion
+                            lock (MyScene.toAdd) 
+                            {
+                                lock (MyScene.toAddDecor)
+                                {
+                                        //MyScene.addResources();
+                                        //MyScene.addRegenerateBoardButton();
+                                        //MyScene.addTradeButton();
+                                        //MyScene.addPlayerNames();
+                                        //MyScene.addChatButton();
+                                    WaveEngine.Framework.Managers.EntityManager o = MyScene.Instance.EntityManager;
+                                    foreach (Entity e in MyScene.toAdd)
+                                    {
+                                        Entity temp = o.Find(e.Name);
+                                        if (temp != null)
+                                        {
+                                            o.Remove(temp);
+                                        }
+                                        o.Add(e);
+                                    }
+                                    MyScene.toAdd.Clear();
+                                    foreach (BaseDecorator e in MyScene.toAddDecor)
+                                    {
+                                        BaseDecorator temp = o.Find<BaseDecorator>(e.Name);
+                                        if (temp != null)
+                                        {
+                                            o.Remove(temp);
+                                        }
+                                        o.Add(e);
+                                    }
+                                    MyScene.toAddDecor.Clear();
+                                }
                             }
-                            
                         }
                         this.game.UpdateFrame(elapsedTime);
                     }

@@ -151,7 +151,7 @@ namespace Cataners
                     }
                     break;
                 case Translation.TYPE.UpdateLobby:
-                    if (LobbyForm.INSTANCE != null)
+                    if (!Data.gameStarted && LobbyForm.INSTANCE != null)
                     {
                         Data.currentLobby = Lobby.fromJson(msg.message);
                         LobbyForm.INSTANCE.invokedRefresh();
@@ -170,9 +170,9 @@ namespace Cataners
                 break;
 
                 case Translation.TYPE.StartGame:
-                    bool start = true;
+                    Data.gameStarted = true;
                     LobbyForm.INSTANCE.startButtonClose = true;
-                    LobbyForm.INSTANCE.InvokedClose(start);
+                    LobbyForm.INSTANCE.InvokedClose(true);
                     MainGui.INSTANCE.invokedHide();
                     TradeForm trade = new TradeForm();
                     LocalConversion.Instance.generateHexList(Translation.jsonToIntArrayTwo(msg.message));
@@ -200,22 +200,25 @@ namespace Cataners
                     }
                         break;
                 case Translation.TYPE.GetGameLobby:
-                    Data.currentLobby = GameLobby.fromJson(msg.message);
-                    for (int i = 0; i < ((GameLobby)Data.currentLobby).gamePlayers.Count; i++)
+                    Data.gameStarted = true;
+                    lock (Data.currentLobby)
                     {
-                        if (((GameLobby)Data.currentLobby).gamePlayers[i].Username.Equals(Data.currentLobby.Owner.Username))
+                        Data.currentLobby = GameLobby.fromJson(msg.message);
+                        for (int i = 0; i < ((GameLobby)Data.currentLobby).gamePlayers.Count; i++)
                         {
-                           Data.currentGameOwner = ((GameLobby)Data.currentLobby).gamePlayers[i];
-                        }
+                            if (((GameLobby)Data.currentLobby).gamePlayers[i].Username.Equals(Data.currentLobby.Owner.Username))
+                            {
+                                Data.currentGameOwner = ((GameLobby)Data.currentLobby).gamePlayers[i];
+                            }
 
-                         if (((GameLobby)Data.currentLobby).gamePlayers[i].Username.Equals(Data.username))
-                         {
-                             Data.currentGamePlayer = ((GameLobby)Data.currentLobby).gamePlayers[i];
-                         }
-                         
+                            if (((GameLobby)Data.currentLobby).gamePlayers[i].Username.Equals(Data.username))
+                            {
+                                Data.currentGamePlayer = ((GameLobby)Data.currentLobby).gamePlayers[i];
+                            }
+
+                        }
+                        Data.currentGameLobby = (GameLobby)Data.currentLobby;
                     }
-                    Data.currentGameLobby = (GameLobby)Data.currentLobby;
-                    
                     break;
                 case Translation.TYPE.OpenTradeWindow:
                     Trade tradeobj = Trade.fromJson(msg.message);
