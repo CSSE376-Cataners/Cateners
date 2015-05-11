@@ -87,7 +87,7 @@ namespace CatenersServer
 
             // TODO Pick all messages that would be considered turn based
             if(this.gameLobby != null /* Check if its our turn */)
-                if (msg.type == (Translation.TYPE.addResource | Translation.TYPE.BuySettlement | Translation.TYPE.Game | Translation.TYPE.OpenTradeWindow))
+                if (msg.type == (Translation.TYPE.addResource | Translation.TYPE.BuySettlement | Translation.TYPE.Game | Translation.TYPE.StartTrade))
                 {
 
                 }
