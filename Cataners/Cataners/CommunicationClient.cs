@@ -222,7 +222,7 @@ namespace Cataners
                         Data.currentGameLobby = (GameLobby)Data.currentLobby;
                     }
                     break;
-                case Translation.TYPE.OpenTradeWindow:
+                case Translation.TYPE.StartTrade:
                     Trade tradeobj = Trade.fromJson(msg.message);
                     StringBuilder sb = new StringBuilder();
                     sb.Append("Player " + tradeobj.source.Username + " would like to trade you: ");
