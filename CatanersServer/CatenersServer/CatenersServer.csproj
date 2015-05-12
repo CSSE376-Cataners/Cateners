@@ -69,6 +69,8 @@
     <Reference Include="WaveEngine.TiledMap, Version=1.4.2.0, Culture=neutral, processorArchitecture=x86" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Board.cs" />
+    <Compile Include="Building.cs" />
     <Compile Include="catanersDataSet.cs">
       <DependentUpon>catanersDataSet.xsd</DependentUpon>
       <SubType>Component</SubType>
@@ -79,6 +81,8 @@
       <DependentUpon>catanersDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="ProcessMessage.cs" />
+    <Compile Include="Hex.cs" />
+    <Compile Include="Robber.cs" />
     <Compile Include="ServerLogic.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="CommunicationServer.cs" />
