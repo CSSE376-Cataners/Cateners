@@ -94,55 +94,16 @@ namespace CatenersServer
 
             switch(msg.type) {
                 case Translation.TYPE.Login:
-                    Login login = Login.fromJson(msg.message);
-                    // TODO verification of login symbols;
-                    if (login == null)
-                    {
-                        sendToClient(new Message("-1", Translation.TYPE.Login).toJson());
-                    }
-                    catanersDataSet.checkUserDataTableRow user = Database.INSTANCE.getUser(login);
-                    if (user == null)
-                    {
-                        sendToClient(new Message("-1", Translation.TYPE.Login).toJson());
-                    }
-                    else
-                    {
-                        sendToClient(new Message(user.Username.ToString(), Translation.TYPE.Login).toJson());
-                        this.userID = user.UID;
-                        this.userName = user.Username;
-                        this.player.Username = user.Username;
-                    }
+                    PM_Login(msg);
                 break;
-
                 case Translation.TYPE.Register:
-                    login = Login.fromJson(msg.message);
-                    // TODO verification of login symbols;
-                    int id = Database.INSTANCE.registerUser(login);
-                    if(id < 0 )
-                        sendToClient(new Message("-1", Translation.TYPE.Register).toJson());
-                    else
-                        sendToClient(new Message(id.ToString(), Translation.TYPE.Register).toJson());
+                    PM_Register(msg);
                 break;
-                
                 case Translation.TYPE.RequestLobbies:
-                    Message toSend = new Message(Newtonsoft.Json.JsonConvert.SerializeObject(Data.INSTANCE.Lobbies), Translation.TYPE.RequestLobbies);
-                    sendToClient(toSend.toJson());
+                    PM_RequestLobbies(msg);
                 break;
-
                 case Translation.TYPE.BuySettlement:
-                    int parsedInt = int.Parse(msg.message);
-                    bool test = serverLogic.determineSettlementAvailability(this.userName, parsedInt);
-                    if (test == true)
-                    {
-                        Message settlementPurchased = new Message(parsedInt.ToString(), Translation.TYPE.BuySettlement);
-                        String gamePlayerList = Newtonsoft.Json.JsonConvert.SerializeObject(this.serverLogic.gameLobby.gamePlayers);
-                        String toReturn = new Message(gamePlayerList, Translation.TYPE.UpdateResources).toJson();
-                        foreach (ServerPlayer p in this.currentLobby.Players)
-                        {
-                            p.client.sendToClient(settlementPurchased.toJson());
-                            p.client.sendToClient(toReturn);
-                        }
-                    }
+                    PM_BuySettlement(msg);
                 break;
                 case  Translation.TYPE.CreateLobby:
                     PM_CreateLobby(msg);

@@ -595,7 +595,7 @@ namespace CatenersServer
             rollList.AddRange(new int[] { 2, 3, 3, 4, 4, 5, 5, 6, 6, 8, 8, 9, 9, 10, 10, 11, 11, 12 });
             for (int k = 0; k < 19; k++)
             {
-                if (hexArray[k].getHexType() != 2)
+                if (hexArray[k].getHexType() != (int)Resource.TYPE.Desert)
                 {
                     int rInt = r.Next(0, rollList.Count);
                     int nextIndex = (int)rollList[rInt];

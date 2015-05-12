@@ -323,5 +323,61 @@ namespace CatenersServer
 
             this.currentLobby = newLobby;
         }
+
+        public void PM_BuySettlement(Message msg)
+        {
+            int parsedInt = int.Parse(msg.message);
+            bool test = serverLogic.determineSettlementAvailability(this.userName, parsedInt);
+            if (test == true)
+            {
+                Message settlementPurchased = new Message(parsedInt.ToString(), Translation.TYPE.BuySettlement);
+                String gamePlayerList = Newtonsoft.Json.JsonConvert.SerializeObject(this.serverLogic.gameLobby.gamePlayers);
+                String toReturn = new Message(gamePlayerList, Translation.TYPE.UpdateResources).toJson();
+                foreach (ServerPlayer p in this.currentLobby.Players)
+                {
+                    p.client.sendToClient(settlementPurchased.toJson());
+                    p.client.sendToClient(toReturn);
+                }
+            }
+        }
+
+        public void PM_RequestLobbies(Message msg)
+        {
+            Message toSend = new Message(Newtonsoft.Json.JsonConvert.SerializeObject(Data.INSTANCE.Lobbies), Translation.TYPE.RequestLobbies);
+            sendToClient(toSend.toJson());
+        }
+
+        public void PM_Register(Message msg)
+        {
+            Login login = Login.fromJson(msg.message);
+            // TODO verification of login symbols;
+            int id = Database.INSTANCE.registerUser(login);
+            if (id < 0)
+                sendToClient(new Message("-1", Translation.TYPE.Register).toJson());
+            else
+                sendToClient(new Message(id.ToString(), Translation.TYPE.Register).toJson());
+        }
+
+        public void PM_Login(Message msg)
+        {
+            Login login = Login.fromJson(msg.message);
+            // TODO verification of login symbols;
+            if (login == null)
+            {
+                sendToClient(new Message("-1", Translation.TYPE.Login).toJson());
+            }
+            catanersDataSet.checkUserDataTableRow user = Database.INSTANCE.getUser(login);
+            if (user == null)
+            {
+                sendToClient(new Message("-1", Translation.TYPE.Login).toJson());
+            }
+            else
+            {
+                sendToClient(new Message(user.Username.ToString(), Translation.TYPE.Login).toJson());
+                this.userID = user.UID;
+                this.userName = user.Username;
+                this.player.Username = user.Username;
+            }
+        }
     }
 }
