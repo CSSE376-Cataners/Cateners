@@ -15,17 +15,20 @@ namespace Cataners
     public partial class CreateGameForm : Form
     {
         private MainGui parent;
+        private bool startGame;
         public CreateGameForm(MainGui parent)
         {
             this.parent = parent;
             InitializeComponent();
             this.FormClosing += closing;
+            startGame = false;
 
         }
         [ExcludeFromCodeCoverage]
         private void closing(object sender, FormClosingEventArgs e)
         {
             JoinGameForm.INSTANCE = null;
+            if (!startGame)
             MainGui.INSTANCE.Show();
         }
 
@@ -51,6 +54,7 @@ namespace Cataners
             }
             CommunicationClient.Instance.sendToServer(new CatanersShared.Message(newLobby.toJson(), Translation.TYPE.CreateLobby).toJson());
             LobbyForm.INSTANCE = new LobbyForm(newLobby.GameName);
+            startGame = true;
             this.Close();
             LobbyForm.INSTANCE.Show();
         }
