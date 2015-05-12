@@ -209,7 +209,7 @@ namespace Cataners
             {
                 int[] currHexRep = inputArray[i];
                 Entity tempEntity;
-                if (currHexRep[0] == 1)
+                if (currHexRep[0] == (int)Resource.TYPE.Wood)
                 {
                     String name = "Forrest" + forrestCount.ToString();
                     tempEntity = new Entity(name)
@@ -217,7 +217,7 @@ namespace Cataners
                     .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
                     forrestCount++;
                 }
-                else if (currHexRep[0] == 2)
+                else if (currHexRep[0] == (int)Resource.TYPE.Desert)
                 {
                     String name = "Desert" + desertCount.ToString();
                     tempEntity = new Entity(name)
@@ -225,7 +225,7 @@ namespace Cataners
                     .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
                     desertCount++;
                 }
-                else if (currHexRep[0] == 3)
+                else if (currHexRep[0] == (int)Resource.TYPE.Ore)
                 {
                     String name = "Ore" + oreCount.ToString();
                     tempEntity = new Entity(name)
@@ -233,7 +233,7 @@ namespace Cataners
                     .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
                     oreCount++;
                 }
-                else if (currHexRep[0] == 4)
+                else if (currHexRep[0] == (int)Resource.TYPE.Brick)
                 {
                     String name = "Brick" + brickCount.ToString();
                     tempEntity = new Entity(name)
@@ -241,7 +241,7 @@ namespace Cataners
                     .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
                     brickCount++;
                 }
-                else if (currHexRep[0] == 5)
+                else if (currHexRep[0] == (int)Resource.TYPE.Sheep)
                 {
                     String name = "Sheep" + sheepCount.ToString();
                     tempEntity = new Entity(name)
@@ -249,7 +249,7 @@ namespace Cataners
                     .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
                     sheepCount++;
                 }
-                else if (currHexRep[0] == 6)
+                else if (currHexRep[0] == (int)Resource.TYPE.Wheat)
                 {
                     String name = "Wheat" + wheatCount.ToString();
                     tempEntity = new Entity(name)

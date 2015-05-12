@@ -8,7 +8,7 @@ namespace CatanersShared
 {
     public static class Resource
     {
-            public enum TYPE { Wheat, Sheep, Brick, Ore, Wood };
+            public enum TYPE { Wheat, Sheep, Brick, Ore, Wood, Desert};
     }
 
     public class AddResource

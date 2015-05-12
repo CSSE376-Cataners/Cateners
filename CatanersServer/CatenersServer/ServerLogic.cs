@@ -175,6 +175,7 @@ namespace CatenersServer
     {
         private static int numberOfHexes = 19;
         private HexServer[] hexArray;
+        private Board board;
         private SettlementServer[] settlementArray;
         private Lobby lobby;
         public int playerTurn;
@@ -436,34 +437,40 @@ namespace CatenersServer
             int count = 0;
             for (int i = 0; i < 4; i++)
             {
-                this.hexArray[count] = new HexServer(1);
+                this.hexArray[count] = new HexServer((int)Resource.TYPE.Wood);
+                board.hexes.Add(new Hex(Resource.TYPE.Wood));
                 count++;
             }
 
-            this.hexArray[count] = new HexServer(2);
+            this.hexArray[count] = new HexServer((int)Resource.TYPE.Desert);
+            board.hexes.Add(new Hex(Resource.TYPE.Desert));
             count++;
 
             for (int k = 0; k < 3; k++)
             {
-                this.hexArray[count] = new HexServer(3);
+                this.hexArray[count] = new HexServer((int)Resource.TYPE.Ore);
+                board.hexes.Add(new Hex(Resource.TYPE.Ore));
                 count++;
             }
 
             for (int k = 0; k < 3; k++)
             {
-                this.hexArray[count] = new HexServer(4);
+                this.hexArray[count] = new HexServer((int)Resource.TYPE.Brick);
+                board.hexes.Add(new Hex(Resource.TYPE.Brick));
                 count++;
             }
 
             for (int p = 0; p < 4; p++)
             {
-                this.hexArray[count] = new HexServer(5);
+                this.hexArray[count] = new HexServer((int)Resource.TYPE.Sheep);
+                board.hexes.Add(new Hex(Resource.TYPE.Sheep));
                 count++;
             }
 
             for (int u = 0; u < 4; u++)
             {
-                this.hexArray[count] = new HexServer(6);
+                this.hexArray[count] = new HexServer((int)Resource.TYPE.Wheat);
+                board.hexes.Add(new Hex(Resource.TYPE.Wheat));
                 count++;
             }
 
@@ -606,21 +613,7 @@ namespace CatenersServer
 
         public void updateTurn()
         {
-            switch (playerTurn)
-            {
-                case 0:
-                    playerTurn = 1;
-                    break;
-                case 1:
-                    playerTurn = 2;
-                    break;
-                case 2:
-                    playerTurn = 3;
-                    break;
-                case 3:
-                    playerTurn = 0;
-                    break;
-            }
+            playerTurn = (playerTurn + 1) % 4;
         }
 
         public string getPlayerResources(GamePlayer player)
