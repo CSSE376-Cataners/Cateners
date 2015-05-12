@@ -11,8 +11,15 @@ namespace CatenersServer
         public List<Hex> hexes;
         public List<Building> buildings;
         public Robber robber;
+
+        public Board()
+        {
+            this.hexes = new List<Hex>();
+            this.buildings = new List<Building>();
+            this.robber = null;
+        }
     }
 
-
+   
 
 }

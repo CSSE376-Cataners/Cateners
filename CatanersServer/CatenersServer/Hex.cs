@@ -17,6 +17,7 @@ namespace CatenersServer
         public Hex(Resource.TYPE type)
         {
             this.type = type;
+            this.buildings = new List<Building>();
         }
     }
 }

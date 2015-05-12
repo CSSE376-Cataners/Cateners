@@ -12,5 +12,11 @@ namespace CatenersServer
         public List<Hex> hexes;
         public GamePlayer owner;
         public bool isCity = false;
+
+        public Building()
+        {
+            this.hexes = new List<Hex>();
+
+        }
     }
 }
