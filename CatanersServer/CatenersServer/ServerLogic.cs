@@ -190,6 +190,7 @@ namespace CatenersServer
         {
             this.hexArray = new HexServer[numberOfHexes];
             this.settlementArray = new SettlementServer[54];
+            this.board = new Board();
             #region
             neighborDict.Add(0, new int[] { 3, 4 });
             neighborDict.Add(1, new int[] { 4, 5 });
