@@ -247,7 +247,6 @@ namespace Cataners
             {
                 wantedBrick = 0;
             }
-            desiredResourceCount += wantedBrick;
             wanted.Add(Resource.TYPE.Brick, wantedBrick);
 
             txt = recvOreTextBox.Text;
@@ -259,7 +258,6 @@ namespace Cataners
             {
                 wantedOre = 0;
             }
-            desiredResourceCount += wantedOre;
             wanted.Add(Resource.TYPE.Ore, wantedOre);
 
             txt = recvSheepTextBox.Text;
@@ -271,7 +269,6 @@ namespace Cataners
             {
                 wantedSheep = 0;
             }
-            desiredResourceCount += wantedSheep;
             wanted.Add(Resource.TYPE.Sheep, wantedSheep);
 
             txt = recvWheatTextBox.Text;
@@ -283,7 +280,6 @@ namespace Cataners
             {
                 wantedWheat = 0;
             }
-            desiredResourceCount += wantedWheat;
             wanted.Add(Resource.TYPE.Wheat, wantedWheat);
 
             txt = recvWoodTextBox.Text;
@@ -295,7 +291,6 @@ namespace Cataners
             {
                 wantedWood = 0;
             }
-            desiredResourceCount += wantedWood;
             wanted.Add(Resource.TYPE.Wood, wantedWood);
 
         }
