@@ -78,6 +78,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>catanersDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="ProcessMessage.cs" />
     <Compile Include="ServerLogic.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="CommunicationServer.cs" />
