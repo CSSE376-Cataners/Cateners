@@ -313,12 +313,15 @@ namespace CatanersTest
 
             Assert.AreEqual(gLob, Data.currentGameLobby);
 
-            Data.currentGameLobby.gamePlayers[1].isMyTurn = true;
-
+            Data.isMyTurn = true;
+            Data.username = "p1";
             Message endTurn= new Message("2", Translation.TYPE.EndTurn);
             client.processesMessage(endTurn.toJson());
-            Assert.AreEqual(true, Data.currentGameLobby.gamePlayers[1].isMyTurn);
-            Assert.AreEqual(false,Data.currentGameLobby.gamePlayers[0].isMyTurn);
+            Assert.AreEqual(true, Data.isMyTurn);
+            Data.isMyTurn = false;
+            Data.username = "Owner";
+            client.processesMessage(endTurn.toJson());
+            Assert.AreEqual(false,Data.isMyTurn);
 
         }
 
@@ -338,11 +341,12 @@ namespace CatanersTest
             Assert.AreEqual(gLob, Data.currentGameLobby);
 
             Data.currentGameLobby.gamePlayers[0].isMyTurn = true;
-
+            Data.username = "p1";
             Message endTurn = new Message("1", Translation.TYPE.EndTurn);
             client.processesMessage(endTurn.toJson());
-            Assert.AreEqual(true, Data.currentGameLobby.gamePlayers[1].isMyTurn);
+            Assert.AreEqual(true, Data.isMyTurn);
         }
+
 
         [Test]
         public void testEndTurn3rdPlayerGetsTurn()
@@ -360,10 +364,36 @@ namespace CatanersTest
             client.processesMessage(setup.toJson());
 
             Assert.AreEqual(gLob, Data.currentGameLobby);
-
+            Data.username = "p2";
             Message endTurn = new Message("2", Translation.TYPE.EndTurn);
             client.processesMessage(endTurn.toJson());
-            Assert.AreEqual(true, Data.currentGameLobby.gamePlayers[2].isMyTurn);
+            Assert.AreEqual(true, Data.isMyTurn);
+        }
+
+        [Test]
+        public void testEndTurnMakesOtherPlayerTurnFalse()
+        {
+            FakeClient client = new FakeClient();
+            FakeClient client2 = new FakeClient();
+            Player p1 = new Player("Owner");
+            Player p2 = new Player("p1");
+            Lobby lob = new Lobby("GameName", 10, p1, 1);
+            lob.addPlayer(p2);
+            GameLobby gLob = new GameLobby(lob);
+            Message setup = new Message(gLob.toJson(), Translation.TYPE.GetGameLobby);
+            client.processesMessage(setup.toJson());
+            Assert.AreEqual(gLob, Data.currentGameLobby);
+            //process message for p1
+            Data.username = "p1";
+            Data.isMyTurn = false;
+            Message endTurn = new Message("1", Translation.TYPE.EndTurn);
+            client.processesMessage(endTurn.toJson());
+            Assert.AreEqual(true, Data.isMyTurn);
+            //process message for owner
+            Data.username = "owner";
+            Data.isMyTurn = true;
+            client.processesMessage(endTurn.toJson());
+            Assert.AreEqual(false, Data.isMyTurn);
         }
 
         [ExcludeFromCodeCoverage]
