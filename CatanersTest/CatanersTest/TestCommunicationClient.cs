@@ -317,11 +317,32 @@ namespace CatanersTest
 
             Message endTurn= new Message("2", Translation.TYPE.EndTurn);
             client.processesMessage(endTurn.toJson());
-            Assert.AreEqual(Data.currentGameLobby.gamePlayers[1].isMyTurn, true);
-            Assert.AreEqual(Data.currentGameLobby.gamePlayers[0].isMyTurn, false);
+            Assert.AreEqual(true, Data.currentGameLobby.gamePlayers[1].isMyTurn);
+            Assert.AreEqual(false,Data.currentGameLobby.gamePlayers[0].isMyTurn);
 
         }
-            
+
+        [Test]
+        public void testEndTurnNextPlayerGetsTurn()
+        {
+            FakeClient client = new FakeClient();
+            Player p1 = new Player("Owner");
+            Player p2 = new Player("p1");
+
+            Lobby lob = new Lobby("GameName", 10, p1, 1);
+            lob.addPlayer(p2);
+            GameLobby gLob = new GameLobby(lob);
+            Message setup = new Message(gLob.toJson(), Translation.TYPE.GetGameLobby);
+            client.processesMessage(setup.toJson());
+
+            Assert.AreEqual(gLob, Data.currentGameLobby);
+
+            Data.currentGameLobby.gamePlayers[0].isMyTurn = true;
+
+            Message endTurn = new Message("1", Translation.TYPE.EndTurn);
+            client.processesMessage(endTurn.toJson());
+            Assert.AreEqual(true, Data.currentGameLobby.gamePlayers[1].isMyTurn);
+        }
 
         [ExcludeFromCodeCoverage]
         public class FakeClient : CommunicationClient
