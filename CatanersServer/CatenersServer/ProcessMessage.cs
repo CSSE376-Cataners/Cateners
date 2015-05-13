@@ -327,11 +327,11 @@ namespace CatenersServer
 
         public void PM_BuySettlement(Message msg)
         {
-            int parsedInt = int.Parse(msg.message);
-            bool test = serverLogic.determineSettlementAvailability(this.userName, parsedInt);
+            string[] converted = Newtonsoft.Json.JsonConvert.DeserializeObject<string[]>(msg.message);
+            bool test = serverLogic.determineSettlementAvailability(this.userName, int.Parse(converted[0]));
             if (test == true)
             {
-                Message settlementPurchased = new Message(parsedInt.ToString(), Translation.TYPE.BuySettlement);
+                Message settlementPurchased = new Message(converted.ToString(), Translation.TYPE.BuySettlement);
                 String gamePlayerList = Newtonsoft.Json.JsonConvert.SerializeObject(this.serverLogic.gameLobby.gamePlayers);
                 String toReturn = new Message(gamePlayerList, Translation.TYPE.UpdateResources).toJson();
                 foreach (ServerPlayer p in this.currentLobby.Players)

@@ -172,7 +172,7 @@ namespace Cataners
                     break;
 
                 case Translation.TYPE.BuySettlement:
-                    LocalConversion.Instance.setAsPurchasedSettle(int.Parse(msg.message));
+                    LocalConversion.Instance.setAsPurchasedSettle(Newtonsoft.Json.JsonConvert.DeserializeObject<string[]>(msg.message));
                 break;
 
                 case Translation.TYPE.StartGame:

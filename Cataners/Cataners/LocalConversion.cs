@@ -301,11 +301,11 @@ namespace Cataners
             }
         }
 
-        public void setAsPurchasedSettle(int placement)
+        public void setAsPurchasedSettle(string[] array)
         {
-            Console.WriteLine("settle");
-            string name = this.settlementList[placement].getName();
-            MyScene.Instance.setAsPurchasedSettle(name);
+            string name = this.settlementList[int.Parse(array[0])].getName();
+            string username = array[1];
+            MyScene.Instance.setAsPurchasedSettle(name, username);
         }
 
         public void hexAddTransform(HexHolder current, float xOffset, float yOffset, float drawOrder)
@@ -350,8 +350,8 @@ namespace Cataners
                     currEnt.AddComponent(new TouchGestures(true));
                     currEnt.FindComponent<TouchGestures>().TouchPressed += (sender, GestureEventArgs) =>
                     {
-                        Console.WriteLine(placementNumber);
-                        CommunicationClient.Instance.sendToServer(new Message(placementNumber.ToString(), Translation.TYPE.BuySettlement).toJson());
+                        string[] toPass = new string[] { placementNumber.ToString(), Data.username };
+                        CommunicationClient.Instance.sendToServer(new Message(Newtonsoft.Json.JsonConvert.SerializeObject(toPass), Translation.TYPE.BuySettlement).toJson());
                     };
                     currSettle.canAddComponent = false;
                     Entity e = currEnt;

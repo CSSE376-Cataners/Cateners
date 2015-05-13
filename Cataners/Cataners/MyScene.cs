@@ -414,12 +414,12 @@ namespace Cataners
             // This method is called after the CreateScene and Initialize methods and before the first Update.
         }
 
-        public void setAsPurchasedSettle(string name)
+        public void setAsPurchasedSettle(string name, string username)
         {
             this.EntityManager.Find(name).RemoveComponent<Sprite>();
             foreach(GamePlayer player in Data.currentGameLobby.gamePlayers)
             {
-                if(player.Username.Equals(name))
+                if(player.Username.Equals(username))
                 {
                     this.EntityManager.Find(name).AddComponent(new Sprite("Settlement" + player.getColor() + ".wpk"));
                 }
