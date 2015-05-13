@@ -112,7 +112,7 @@ namespace Cataners
             tradeButton.Width = 120;
             tradeButton.Height = 40;
             Transform2D tradebutton2d = tradeButton.Entity.FindComponent<Transform2D>();
-            tradebutton2d.X = WaveConstants.CENTERWIDTH * 2 - 120;
+            tradebutton2d.X = WaveConstants.CENTERWIDTH * 2 - 320;
             tradebutton2d.Y = WaveConstants.CENTERHEIGHT * 2 - 100;
             tradeButton.Entity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(tradeButton_Pressed);
             lock (toAddDecor)
