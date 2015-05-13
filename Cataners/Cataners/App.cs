@@ -44,6 +44,10 @@ namespace Cataners
 
         public override void Update(TimeSpan elapsedTime)
         {
+            if (this.game.HasExited)
+            {
+                WaveServices.Platform.Exit();
+            }
             this.splashState = false;
             if (this.game != null && !this.game.HasExited)
             {

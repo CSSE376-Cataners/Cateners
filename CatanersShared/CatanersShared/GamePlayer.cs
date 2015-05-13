@@ -10,10 +10,14 @@ namespace CatanersShared
     public class GamePlayer : Player
     {
         private int victoryPoints;
+<<<<<<< HEAD
         private bool isMyTurn;
         private ArrayList settlementList;
         private string color;
 
+=======
+        public bool isMyTurn;
+>>>>>>> origin/master
         public int resourceCount
         {
             get

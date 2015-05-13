@@ -19,11 +19,13 @@ namespace Cataners
         public static JoinGameForm INSTANCE;
         public delegate void refresher(object sender, EventArgs e);
         private BindingSource bs;
+        private bool joinGame;
         public JoinGameForm()
         {
             InitializeComponent();
             gameTable.CellFormatting += noTimeLimit;
             INSTANCE = this;
+            joinGame = false;
             this.FormClosing += closing;
             var bs = new BindingSource();
             bs.DataSource = Data.Lobbies;
@@ -35,6 +37,7 @@ namespace Cataners
         private void closing(object sender, FormClosingEventArgs e)
         {
             JoinGameForm.INSTANCE = null;
+            if(!joinGame)
             MainGui.INSTANCE.Show();
         }
 
@@ -83,6 +86,7 @@ namespace Cataners
                 if (Data.Lobbies[gameTable.Rows.IndexOf(selectedRow[0])].PlayerCount < 4)
                 {
                     JoinGameForm.INSTANCE = null;
+                    joinGame = true;
                     CommunicationClient.Instance.sendToServer(new CatanersShared.Message(Data.Lobbies[gameTable.Rows.IndexOf(selectedRow[0])].lobbyID.ToString(), Translation.TYPE.JoinLobby).toJson());
                     this.Close();
                     new LobbyForm(Data.Lobbies[gameTable.Rows.IndexOf(selectedRow[0])].GameName).Show();
