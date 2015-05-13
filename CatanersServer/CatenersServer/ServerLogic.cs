@@ -409,33 +409,7 @@ namespace CatenersServer
 
         public Boolean determineRoadAvailability(string username, int settlementID)
         {
-            foreach (int neighbor in this.settlementArray[settlementID].getNeighbors())
-            {
-                if (this.roadArray[neighbor].getIsActive())
-                {
-                    return false;
-                }
-            }
-            for (int i = 0; i < this.gameLobby.gamePlayers.Count; i++)
-            {
-                GamePlayer player = this.gameLobby.gamePlayers[i];
-                if (player.Username.Equals(username))
-                {
-                    if ((player.resources[Resource.TYPE.Wood] >= 1) && (player.resources[Resource.TYPE.Brick] >= 1) && (player.resources[Resource.TYPE.Sheep] >= 1) && (player.resources[Resource.TYPE.Wheat] >= 1))
-                    {
-                        if (this.settlementArray[settlementID].getIsActive())
-                        {
-                            return false;
-                        }
-                        this.settlementArray[settlementID].setActive();
-                        this.removeResourcesSettlement(this.gameLobby.gamePlayers[i]);
-                        player.addSettlement(settlementID);
-                        return true;
-                    }
-                    return false;
-                }
-            }
-            throw new NonPlayerException("Player does not exist in the current lobby.");
+            return true;
         }
 
         public void removeResourcesSettlement(GamePlayer player)

@@ -416,12 +416,14 @@ namespace Cataners
 
         public void setAsPurchasedSettle(string name)
         {
-            string color = Data.currentGamePlayer.getColor();
-            Console.WriteLine(color);
             this.EntityManager.Find(name).RemoveComponent<Sprite>();
-            this.EntityManager.Find(name).RemoveComponent<SpriteRenderer>();
-            this.EntityManager.Find(name).AddComponent(new Sprite("Settlement"+color+".wpk"));
-            this.EntityManager.Find(name).AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
+            foreach(GamePlayer player in Data.currentGameLobby.gamePlayers)
+            {
+                if(player.Username.Equals(name))
+                {
+                    this.EntityManager.Find(name).AddComponent(new Sprite("Settlement" + player.getColor() + ".wpk"));
+                }
+            }
         }
     }
 }
