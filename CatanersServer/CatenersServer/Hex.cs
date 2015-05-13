@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CatenersServer
 {
-    class Hex
+    public class Hex
     {
         public List<Building> buildings;
         public int dice;

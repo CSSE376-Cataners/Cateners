@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace CatenersServer
 {
-    class Building
+    public class Building
     {
         public List<Hex> hexes;
         public GamePlayer owner;
         public bool isCity = false;
 
-        public Building()
+        public Building(Hex hex)
         {
             this.hexes = new List<Hex>();
-
+            this.hexes.Add(hex);
         }
     }
 }

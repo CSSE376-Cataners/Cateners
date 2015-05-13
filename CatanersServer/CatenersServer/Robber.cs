@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CatenersServer
 {
-    class Robber
+    public class Robber
     {
         public Hex location;
     }

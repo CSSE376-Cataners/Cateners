@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CatenersServer
 {
-    class Board
+    public class Board
     {
         public List<Hex> hexes;
         public List<Building> buildings;

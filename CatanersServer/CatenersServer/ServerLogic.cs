@@ -175,7 +175,7 @@ namespace CatenersServer
     {
         private static int numberOfHexes = 19;
         private HexServer[] hexArray;
-        private Board board;
+        public Board board;
         private SettlementServer[] settlementArray;
         private Lobby lobby;
         public int playerTurn;
