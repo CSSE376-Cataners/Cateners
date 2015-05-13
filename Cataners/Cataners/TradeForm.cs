@@ -90,7 +90,6 @@ namespace Cataners
             {
                 val = Int32.Parse(txt);
                 offeredBrick = val;
-                offeredResourceCount += val;
             }
             catch {
                 return false;
@@ -106,7 +105,6 @@ namespace Cataners
             {
                 val = Int32.Parse(txt);
                 offeredOre = val;
-                offeredResourceCount += val;
                 
             }
             catch
@@ -124,7 +122,6 @@ namespace Cataners
             {
                 val = Int32.Parse(txt);
                 offeredSheep = val;
-                offeredResourceCount += val;
 
             }
             catch
@@ -141,7 +138,6 @@ namespace Cataners
             {
                 val = Int32.Parse(txt);
                 offeredWheat = val;
-                offeredResourceCount += val;
 
             }
             catch
@@ -158,7 +154,6 @@ namespace Cataners
             {
                 val = Int32.Parse(txt);
                 offeredWood = val;
-                offeredResourceCount += val;
 
             }
             catch
