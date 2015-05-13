@@ -222,6 +222,15 @@ namespace Cataners
                         Data.currentGameLobby = (GameLobby)Data.currentLobby;
 
                        //make first player have turn
+                        if (Data.currentGameLobby.gamePlayers[0].Username.Equals(Data.username))
+                        {
+                            Data.isMyTurn = true;
+                        }
+                        else
+                        {
+                            Data.isMyTurn = false;
+                        }
+
                     }
                     break;
                 case Translation.TYPE.StartTrade:
