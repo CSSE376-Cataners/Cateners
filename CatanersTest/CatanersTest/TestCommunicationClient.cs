@@ -396,6 +396,23 @@ namespace CatanersTest
             Assert.AreEqual(false, Data.isMyTurn);
         }
 
+
+        [Test]
+        public void testThatOwnerHasFirstTurn()
+        {
+            FakeClient client = new FakeClient();
+            GameLobby lobby = new GameLobby(new Lobby("Gamename", 10, new Player("Owner"), 1));
+            lobby.addPlayer(new Player("p2"));
+            Data.username = "Owner";
+
+            Message s = new Message(lobby.toJson(), Translation.TYPE.GetGameLobby);
+            client.processesMessage(s.toJson());
+            Assert.AreEqual(true, Data.isMyTurn);
+            Data.username = "p2";
+            client.processesMessage(s.toJson());
+            Assert.AreEqual(false, Data.isMyTurn);
+        }
+
         [ExcludeFromCodeCoverage]
         public class FakeClient : CommunicationClient
         {
