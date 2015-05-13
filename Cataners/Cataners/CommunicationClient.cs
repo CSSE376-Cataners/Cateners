@@ -299,6 +299,7 @@ namespace Cataners
                     if (Data.currentGameLobby.gamePlayers[num].Username.Equals(Data.username))
                     {
                         Data.isMyTurn = true;
+                        MyScene.addEndTurnButton();
                     }
                     else
                     {
