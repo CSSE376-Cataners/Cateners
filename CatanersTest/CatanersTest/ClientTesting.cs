@@ -809,6 +809,40 @@ namespace CatanersTest
             Assert.AreEqual(new CatanersShared.Message(gamePlayerList, CatanersShared.Translation.TYPE.UpdateResources).toJson(), client.lastCall);
             Assert.AreEqual(new CatanersShared.Message(gamePlayerList2, CatanersShared.Translation.TYPE.UpdateResources).toJson(), client2.lastCall);
             
+        }
+
+        [Test]
+        public void TestEndTurnMessage()
+        {
+            FakeClient client = new FakeClient();
+            client.userName = "p1";
+            FakeClient client2 = new FakeClient();
+            client2.userName = "p2";
+
+            ServerPlayer ptemp = new ServerPlayer("p1", client);
+            ServerPlayer ptemp2 = new ServerPlayer("p2", client2);
+
+            Lobby temp = new Lobby("Lobby", 10, ptemp, 1);
+            temp.addPlayer(ptemp2);
+            GameLobby gLobby = new GameLobby(temp);
+
+            client.player = ptemp;
+            client.currentLobby = temp;
+            client.gameLobby = gLobby;
+            client.serverLogic = new ServerLogic(temp);
+            client2.player = ptemp2;
+            client2.currentLobby = temp;
+            client2.gameLobby = gLobby;
+            client2.serverLogic = new ServerLogic(temp);
+            client.serverLogic.playerTurn = 0;
+            client2.serverLogic.playerTurn = 0;
+
+            String endTurnMessage = new Message("", Translation.TYPE.EndTurn).toJson();
+
+            client.processesMessage(endTurnMessage);
+            client2.processesMessage(endTurnMessage);
+            Assert.AreEqual(new Message("1",Translation.TYPE.EndTurn).toJson(),client.lastCall);
+            Assert.AreEqual(new Message("1", Translation.TYPE.EndTurn).toJson(), client2.lastCall);
 
         }
 
