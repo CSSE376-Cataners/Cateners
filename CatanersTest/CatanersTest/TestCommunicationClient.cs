@@ -344,6 +344,28 @@ namespace CatanersTest
             Assert.AreEqual(true, Data.currentGameLobby.gamePlayers[1].isMyTurn);
         }
 
+        [Test]
+        public void testEndTurn3rdPlayerGetsTurn()
+        {
+            FakeClient client = new FakeClient();
+            Player p1 = new Player("Owner");
+            Player p2 = new Player("p1");
+            Player p3 = new Player("p2");
+
+            Lobby lob = new Lobby("GameName", 10, p1, 1);
+            lob.addPlayer(p2);
+            lob.addPlayer(p3);
+            GameLobby gLob = new GameLobby(lob);
+            Message setup = new Message(gLob.toJson(), Translation.TYPE.GetGameLobby);
+            client.processesMessage(setup.toJson());
+
+            Assert.AreEqual(gLob, Data.currentGameLobby);
+
+            Message endTurn = new Message("2", Translation.TYPE.EndTurn);
+            client.processesMessage(endTurn.toJson());
+            Assert.AreEqual(true, Data.currentGameLobby.gamePlayers[2].isMyTurn);
+        }
+
         [ExcludeFromCodeCoverage]
         public class FakeClient : CommunicationClient
         {
