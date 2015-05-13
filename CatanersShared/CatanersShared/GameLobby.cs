@@ -9,6 +9,7 @@ namespace CatanersShared
     public class GameLobby : Lobby
     {
         public List<GamePlayer> gamePlayers;
+        private Dictionary<int, string> colorDict = new Dictionary<int, string>();
 
         public GameLobby()
         {
@@ -18,15 +19,20 @@ namespace CatanersShared
         public GameLobby(Lobby lobby)
             : base(lobby.GameName, lobby.MaxTimePerTurn, new GamePlayer(lobby.Owner.Username), lobby.lobbyID)
         {
+            this.colorDict.Add(0, "Blue");
+            this.colorDict.Add(1, "Red");
+            this.colorDict.Add(2, "Green");
+            this.colorDict.Add(3, "Purple");
             this.gamePlayers = new List<GamePlayer>();
             this.Players.Clear();
             for (int i = 0; i < lobby.PlayerCount; i++)
             {
-                gamePlayers.Add(new GamePlayer(lobby.Players[i].Username));
+                GamePlayer newPlayer = new GamePlayer(lobby.Players[i].Username);
+                Console.WriteLine("Player" + i.ToString());
+                newPlayer.setColor(this.colorDict[i]);
+                gamePlayers.Add(newPlayer);
                 this.addPlayer(lobby.Players[i]);
             }
-
-            
         }
 
         public new String toJson()

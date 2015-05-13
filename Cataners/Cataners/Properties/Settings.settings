@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="ServerAddr" Type="System.String" Scope="User">
-      <Value Profile="(Default)">cj-w7-pc.reshall.rose-hulman.edu</Value>
+      <Value Profile="(Default)">127.0.0.1</Value>
     </Setting>
   </Settings>
 </SettingsFile>

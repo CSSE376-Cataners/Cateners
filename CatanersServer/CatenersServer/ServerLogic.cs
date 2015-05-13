@@ -398,6 +398,7 @@ namespace CatenersServer
                         }
                         this.settlementArray[settlementID].setActive();
                         this.removeResourcesSettlement(this.gameLobby.gamePlayers[i]);
+                        player.addSettlement(settlementID);
                         return true;
                     }
                     return false;

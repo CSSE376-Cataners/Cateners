@@ -12,10 +12,17 @@ namespace CatenersServer
     {
         [JsonIgnoreAttribute]
         public Client client;
+        private int playerNumber;
 
         public ServerPlayer(String username, Client client) : base(username)
         {
             this.client = client;
+            this.playerNumber = 0;
+        }
+
+        public void setPlayerNumber(int i)
+        {
+            this.playerNumber = i;
         }
     }
 }
