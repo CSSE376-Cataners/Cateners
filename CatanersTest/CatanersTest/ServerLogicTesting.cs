@@ -79,6 +79,13 @@ namespace CatanersTest
             
         }
 
+        [Test]
+        public void testThatboardHexesAreMade()
+        {
+            ServerLogic logic = new ServerLogic(new Lobby("Basketball", 100, new Player("Michael Jordan"), 10));
+            Assert.AreEqual(19, logic.board.hexes.Count);
+        }
+
         /*public void TestResourceConstructor()
         {
             Resource wheat = new Resource("wheat");
