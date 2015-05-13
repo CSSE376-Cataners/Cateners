@@ -18,6 +18,7 @@ namespace CatenersServer
         public Boolean canAddComponent;
         private Boolean isActive;
         private int[] neighbors;
+        private int[] settlements;
 
         public RoadServer(int placementNumber)
         {
@@ -49,6 +50,16 @@ namespace CatenersServer
         public int[] getNeighbors()
         {
             return this.neighbors;
+        }
+
+        public void setSettlements(int[] p)
+        {
+            this.settlements = p;
+        }
+
+        public int[] getSettlements()
+        {
+            return this.settlements;
         }
     }
 
@@ -186,6 +197,7 @@ namespace CatenersServer
         private Dictionary<int, int[]> neighborDict = new Dictionary<int, int[]>();
         private Dictionary<int, int[]> roadDict = new Dictionary<int, int[]>();
         private Dictionary<int, int[]> roadNeighborDict = new Dictionary<int, int[]>();
+        private Dictionary<int, int[]> roadSettlementDict = new Dictionary<int, int[]>();
         public ServerLogic(Lobby lobby)
         {
             this.hexArray = new HexServer[numberOfHexes];
@@ -341,6 +353,80 @@ namespace CatenersServer
             roadNeighborDict.Add(69, new int[] { 64, 68, 70 });
             roadNeighborDict.Add(70, new int[] { 64, 69, 71 });
             roadNeighborDict.Add(71, new int[] { 65, 70 });
+            #endregion
+            #region
+            roadSettlementDict.Add(0, new int[] { 0, 3 });
+            roadSettlementDict.Add(1, new int[] { 0, 4});
+            roadSettlementDict.Add(2, new int[] { 1, 4});
+            roadSettlementDict.Add(3, new int[] { 1, 5 });
+            roadSettlementDict.Add(4, new int[] { 2, 5 });
+            roadSettlementDict.Add(5, new int[] { 2, 6 });
+            roadSettlementDict.Add(6, new int[] { 3, 7 });
+            roadSettlementDict.Add(7, new int[] { 4, 8 });
+            roadSettlementDict.Add(8, new int[] { 5, 9 });
+            roadSettlementDict.Add(9, new int[] { 6, 10 });
+            roadSettlementDict.Add(10, new int[] { 7, 11 });
+            roadSettlementDict.Add(11, new int[] { 7, 12 });
+            roadSettlementDict.Add(12, new int[] { 8, 12 });
+            roadSettlementDict.Add(13, new int[] { 8, 13});
+            roadSettlementDict.Add(14, new int[] { 9, 13 });
+            roadSettlementDict.Add(15, new int[] { 9, 14 });
+            roadSettlementDict.Add(16, new int[] { 10, 14 });
+            roadSettlementDict.Add(17, new int[] { 10, 15 });
+            roadSettlementDict.Add(18, new int[] { 11, 16 });
+            roadSettlementDict.Add(19, new int[] { 12, 17 });
+            roadSettlementDict.Add(20, new int[] { 13, 18 });
+            roadSettlementDict.Add(21, new int[] { 14, 19 });
+            roadSettlementDict.Add(22, new int[] { 15, 20 });
+            roadSettlementDict.Add(23, new int[] { 16, 21 });
+            roadSettlementDict.Add(24, new int[] { 16, 22 });
+            roadSettlementDict.Add(25, new int[] { 17, 22 });
+            roadSettlementDict.Add(26, new int[] { 17, 23 });
+            roadSettlementDict.Add(27, new int[] { 18, 23 });
+            roadSettlementDict.Add(28, new int[] { 18, 24 });
+            roadSettlementDict.Add(29, new int[] { 19, 24 });
+            roadSettlementDict.Add(30, new int[] { 19, 25 });
+            roadSettlementDict.Add(31, new int[] { 20, 25 });
+            roadSettlementDict.Add(32, new int[] { 20, 26 });
+            roadSettlementDict.Add(33, new int[] { 21, 27 });
+            roadSettlementDict.Add(34, new int[] { 22, 28 });
+            roadSettlementDict.Add(35, new int[] { 23, 29 });
+            roadSettlementDict.Add(36, new int[] { 24, 30 });
+            roadSettlementDict.Add(37, new int[] { 25, 31 });
+            roadSettlementDict.Add(38, new int[] { 26, 32 });
+            roadSettlementDict.Add(39, new int[] { 27, 33 });
+            roadSettlementDict.Add(40, new int[] { 28, 33 });
+            roadSettlementDict.Add(41, new int[] { 28, 34 });
+            roadSettlementDict.Add(42, new int[] { 29, 34 });
+            roadSettlementDict.Add(43, new int[] { 29, 35 });
+            roadSettlementDict.Add(44, new int[] { 30, 35 });
+            roadSettlementDict.Add(45, new int[] { 30, 36 });
+            roadSettlementDict.Add(46, new int[] { 31, 36 });
+            roadSettlementDict.Add(47, new int[] { 31, 37 });
+            roadSettlementDict.Add(48, new int[] { 32, 37});
+            roadSettlementDict.Add(49, new int[] { 33, 38 });
+            roadSettlementDict.Add(50, new int[] { 34, 39 });
+            roadSettlementDict.Add(51, new int[] { 35, 40 });
+            roadSettlementDict.Add(52, new int[] { 36, 41 });
+            roadSettlementDict.Add(53, new int[] { 37, 42 });
+            roadSettlementDict.Add(54, new int[] { 38, 43 });
+            roadSettlementDict.Add(55, new int[] { 39, 43 });
+            roadSettlementDict.Add(56, new int[] { 39, 44 });
+            roadSettlementDict.Add(57, new int[] { 40, 44 });
+            roadSettlementDict.Add(58, new int[] { 40, 45});
+            roadSettlementDict.Add(59, new int[] { 41, 45 });
+            roadSettlementDict.Add(60, new int[] { 41, 46 });
+            roadSettlementDict.Add(61, new int[] { 42, 46 });
+            roadSettlementDict.Add(62, new int[] { 43, 47 });
+            roadSettlementDict.Add(63, new int[] { 44, 48 });
+            roadSettlementDict.Add(64, new int[] { 45, 49 });
+            roadSettlementDict.Add(65, new int[] { 46, 50 });
+            roadSettlementDict.Add(66, new int[] { 47, 51 });
+            roadSettlementDict.Add(67, new int[] { 48, 51 });
+            roadSettlementDict.Add(68, new int[] { 48, 52 });
+            roadSettlementDict.Add(69, new int[] { 49, 52 });
+            roadSettlementDict.Add(70, new int[] { 49, 53 });
+            roadSettlementDict.Add(71, new int[] { 50, 53 });
             #endregion
             this.generatehexArray();
             this.generateDefaultSettlements();
@@ -513,6 +599,7 @@ namespace CatenersServer
             {
                 this.roadArray[i] = new RoadServer(i);
                 this.roadArray[i].setNeighbors(roadNeighborDict[i]);
+                this.roadArray[i].setSettlements(roadSettlementDict[i]);
             }
         }
 

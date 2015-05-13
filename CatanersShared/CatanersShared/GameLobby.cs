@@ -13,6 +13,10 @@ namespace CatanersShared
 
         public GameLobby()
         {
+            this.colorDict.Add(0, "Blue");
+            this.colorDict.Add(1, "Red");
+            this.colorDict.Add(2, "Green");
+            this.colorDict.Add(3, "Purple");
             // For Json Deparsing
         }
 

@@ -26,12 +26,10 @@ namespace CatanersTest
             this.newPlayer1 = new GamePlayer("Stentopher");
             this.newPlayer2 = new GamePlayer("Hays");
             this.newPlayer3 = new GamePlayer("Mellor");
-            this.newPlayer4 = new GamePlayer("Laxer");
             this.newLobby = new Lobby("testGame1", 10, new Player("TrottaSN"), 43);
             this.newLobby.addPlayer(this.newPlayer1);
             this.newLobby.addPlayer(this.newPlayer2);
             this.newLobby.addPlayer(this.newPlayer3);
-            this.newLobby.addPlayer(this.newPlayer4);
             this.neighborArray = new int[0];
         }
 
@@ -174,6 +172,16 @@ namespace CatanersTest
             Assert.AreEqual(0, this.newPlayer1.resources[Resource.TYPE.Wheat]);
             Assert.AreEqual(0, this.newPlayer1.resources[Resource.TYPE.Wood]);
             Assert.False(testLogic.determineSettlementAvailability("Stentopher", 1));
+        }
+
+        [Test]
+        public void testRoadResourceWood()
+        {
+            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            this.newPlayer1 = testLogic.gameLobby.gamePlayers[1];
+            this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
+            this.newPlayer1.resources[Resource.TYPE.Wood] = 0;
+            Assert.False(testLogic.determineRoadAvailability("Stentopher", 1));
         }
     }
 }

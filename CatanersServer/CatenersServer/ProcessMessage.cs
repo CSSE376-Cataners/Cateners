@@ -331,7 +331,7 @@ namespace CatenersServer
             bool test = serverLogic.determineSettlementAvailability(this.userName, int.Parse(converted[0]));
             if (test == true)
             {
-                Message settlementPurchased = new Message(converted.ToString(), Translation.TYPE.BuySettlement);
+                Message settlementPurchased = new Message(Newtonsoft.Json.JsonConvert.SerializeObject(converted), Translation.TYPE.BuySettlement);
                 String gamePlayerList = Newtonsoft.Json.JsonConvert.SerializeObject(this.serverLogic.gameLobby.gamePlayers);
                 String toReturn = new Message(gamePlayerList, Translation.TYPE.UpdateResources).toJson();
                 foreach (ServerPlayer p in this.currentLobby.Players)
