@@ -379,14 +379,5 @@ namespace CatenersServer
                 this.player.Username = user.Username;
             }
         }
-
-        public void PM_EndTurn(Message msg)
-        {
-            serverLogic.updateTurn();
-            foreach (ServerPlayer player in currentLobby.Players)
-            {
-                player.client.sendToClient(new Message(serverLogic.playerTurn.ToString(),Translation.TYPE.EndTurn).toJson());
-            }
-        }
     }
 }
