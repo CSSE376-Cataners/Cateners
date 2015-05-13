@@ -84,6 +84,7 @@ namespace Cataners
             MyScene.addTradeButton();
             MyScene.addPlayerNames();
             MyScene.addChatButton();
+            MyScene.addEndTurnButton();
         }
 
         public static void addChatButton()
@@ -136,6 +137,30 @@ namespace Cataners
                 newButton.Entity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(button_Pressed);
                 lock(toAddDecor){
                     toAddDecor.Add(newButton);
+                }
+            }
+        }
+        public static void addEndTurnButton()
+        {
+            //add regenerate board if owner
+            if (Data.currentGamePlayer == null)
+            {
+                return;
+            }
+            
+            if (Data.isMyTurn)
+            {
+                Button endTurnButton = new Button("endTurnButton");
+                endTurnButton.Text = "End Turn";
+                endTurnButton.Width = 10;
+                endTurnButton.Height = 40;
+                Transform2D endTurnButton2d = endTurnButton.Entity.FindComponent<Transform2D>();
+                endTurnButton2d.X = WaveConstants.CENTERWIDTH * 2 - 120;
+                endTurnButton2d.Y = WaveConstants.CENTERHEIGHT * 2 - 100;
+                endTurnButton.Entity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(endTurnButton_Pressed);
+                lock (toAddDecor)
+                {
+                    toAddDecor.Add(endTurnButton);
                 }
             }
         }
@@ -369,6 +394,17 @@ namespace Cataners
         {
                 TradeForm.INSTANCE.Show();
                 TradeForm.INSTANCE.initializeValues();
+        }
+
+        private static void endTurnButton_Pressed(object sender, GestureEventArgs e)
+        {
+            CommunicationClient.Instance.sendToServer(new Message("", Translation.TYPE.EndTurn).toJson());
+        }
+
+        public static void hideEndTurn()
+        {
+            Entity invisiblebutton = new Entity("endTurnButton");
+            toAdd.Add(invisiblebutton);
         }
 
         protected override void Start()
