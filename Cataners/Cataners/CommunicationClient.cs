@@ -22,6 +22,7 @@ namespace Cataners
         private StreamReader reader;
         private Boolean Enabled;
         private Boolean sceneGenerated;
+        private Dictionary<int, string> colorDict = new Dictionary<int, string>();
 
         public Dictionary<Translation.TYPE, BlockingCollection<Object>> queues;
 
@@ -40,6 +41,10 @@ namespace Cataners
 
         public CommunicationClient()
         {
+            this.colorDict.Add(0, "Blue");
+            this.colorDict.Add(1, "Red");
+            this.colorDict.Add(2, "Green");
+            this.colorDict.Add(3, "Purple");
             new LocalConversion();
             this.Enabled = false;
             this.clientSocket = new System.Net.Sockets.TcpClient();
@@ -216,6 +221,7 @@ namespace Cataners
                             if (((GameLobby)Data.currentLobby).gamePlayers[i].Username.Equals(Data.username))
                             {
                                 Data.currentGamePlayer = ((GameLobby)Data.currentLobby).gamePlayers[i];
+                                Data.currentGamePlayer.setColor(this.colorDict[i]);
                             }
 
                         }
