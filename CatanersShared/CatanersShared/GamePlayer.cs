@@ -9,7 +9,7 @@ namespace CatanersShared
     public class GamePlayer : Player
     {
         private int victoryPoints;
-        private bool isMyTurn;
+        public bool isMyTurn;
         public int resourceCount
         {
             get

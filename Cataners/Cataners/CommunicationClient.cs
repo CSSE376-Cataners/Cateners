@@ -220,6 +220,8 @@ namespace Cataners
 
                         }
                         Data.currentGameLobby = (GameLobby)Data.currentLobby;
+
+                       //make first player have turn
                     }
                     break;
                 case Translation.TYPE.StartTrade:
@@ -271,6 +273,14 @@ namespace Cataners
                         return;
                     Data.currentGameLobby.gamePlayers = gpList;
                     MyScene.addResources();
+                    break;
+                case Translation.TYPE.EndTurn:
+                    int num = Int32.Parse(msg.message);
+                    if (Data.currentGameLobby.gamePlayers.Count - 1 < num)
+                    {
+                        //not 4 players in the game
+                        return;
+                    }
                     break;
             }
         }
