@@ -138,6 +138,9 @@ namespace CatenersServer
                 case Translation.TYPE.TradeResponce:
                     PM_TradeResponce(msg);
                 break;
+                case Translation.TYPE.EndTurn:
+                    PM_EndTurn(msg);
+                break;
                 default:
                     // We Are just going to ignore it.
                 break;
