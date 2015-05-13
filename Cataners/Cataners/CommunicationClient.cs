@@ -281,7 +281,14 @@ namespace Cataners
                         //not 4 players in the game
                         return;
                     }
-                    Data.currentGameLobby.gamePlayers[1].isMyTurn = true;
+                    if (num == 1)
+                    {
+                        Data.currentGameLobby.gamePlayers[1].isMyTurn = true;
+                    }
+                    else
+                    {
+                        Data.currentGameLobby.gamePlayers[2].isMyTurn = true;
+                    }
                     break;
             }
         }
