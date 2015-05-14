@@ -412,6 +412,22 @@ namespace CatanersTest
             client.processesMessage(s.toJson());
             Assert.AreEqual(false, Data.isMyTurn);
         }
+        
+        //manual test
+        public void testDiceRoll()
+        {
+            FakeClient client = new FakeClient();
+            GameLobby lobby = new GameLobby(new Lobby("Gamename", 10, new Player("Owner"), 1));
+            lobby.addPlayer(new Player("p2"));
+            Data.username = "Owner";
+
+            Message s = new Message(lobby.toJson(), Translation.TYPE.GetGameLobby);
+            client.processesMessage(s.toJson());
+            Data.username = "p2";
+            Message dice = new Message("11", Translation.TYPE.DiceRoll);
+            client.processesMessage(dice.toJson());
+            //should pop up message
+        }
 
         [ExcludeFromCodeCoverage]
         public class FakeClient : CommunicationClient
