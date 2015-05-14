@@ -245,8 +245,13 @@ namespace CatenersServer
         private Dictionary<int, int[]> roadNeighborDict = new Dictionary<int, int[]>();
         private Dictionary<int, int[]> roadSettlementDict = new Dictionary<int, int[]>();
         public Dictionary<string, PlayerKeeper> playerKeepers = new Dictionary<string, PlayerKeeper>();
+        public bool isStartPhase1;
+        public bool isStartPhase2;
+
         public ServerLogic(Lobby lobby)
         {
+            isStartPhase1 = true;
+            isStartPhase2 = false;
             this.hexArray = new HexServer[numberOfHexes];
             this.settlementArray = new SettlementServer[54];
             this.board = new Board();
@@ -826,6 +831,14 @@ namespace CatenersServer
         {
             playerTurn = (playerTurn + 1) % gameLobby.gamePlayers.Count;
         }
+
+        public void updateTurnStartPhase1()
+        {
+            playerTurn = 1;
+        }
+
+
+       
 
         public string getPlayerResources(GamePlayer player)
         {
