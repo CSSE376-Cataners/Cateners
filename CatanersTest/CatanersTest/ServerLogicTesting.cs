@@ -83,7 +83,13 @@ namespace CatanersTest
         public void testThatboardHexesAreMade()
         {
             ServerLogic logic = new ServerLogic(new Lobby("Basketball", 100, new Player("Michael Jordan"), 10));
-            Assert.AreEqual(19, logic.board.hexes.Count);
+            int[][] board = logic.gethexArray();
+            for (int i = 0; i < 19; i++)
+            {
+                //0 = type    1 = placement number        2 = die roll
+                Assert.AreEqual((int)logic.board.hexes[board[i][1]].dice,board[i][2]);
+                Assert.AreEqual((int)logic.board.hexes[board[i][1]].type, board[i][0]);
+            }
         }
 
         /*public void TestResourceConstructor()
