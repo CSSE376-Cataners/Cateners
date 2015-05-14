@@ -834,18 +834,12 @@ namespace CatenersServer
 
         public void updateTurnStartPhase1()
         {
-            if (playerTurn == 0)
+            if (playerTurn == 2)
             {
-                playerTurn = 1;
+                isStartPhase1 = false;
+                isStartPhase2 = true;
             }
-            else if(playerTurn == 1)
-            {
-                playerTurn = 2;
-            }
-            else
-            {
-                playerTurn = 3;
-            }
+            playerTurn = (playerTurn + 1) % gameLobby.gamePlayers.Count;
         }
 
 
