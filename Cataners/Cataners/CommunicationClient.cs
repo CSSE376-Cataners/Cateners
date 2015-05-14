@@ -263,7 +263,6 @@ namespace Cataners
                     int num = Int32.Parse(msg.message);
                     if (Data.currentGameLobby.gamePlayers.Count - 1 < num)
                     {
-                        //not 4 players in the game
                         return;
                     }
                     if (Data.currentGameLobby.gamePlayers[num].Username.Equals(Data.username))
