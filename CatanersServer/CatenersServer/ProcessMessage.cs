@@ -390,9 +390,18 @@ namespace CatenersServer
                 player.client.sendToClient(new Message(serverLogic.playerTurn.ToString(), Translation.TYPE.EndTurn).toJson());
             }
         }
+
         public void PM_DiceRoll(Message msg){
             serverLogic.generateRandomDiceRoll();
+            serverLogic.diceRolled();
             sendToClient(new Message(serverLogic.dice.ToString(), Translation.TYPE.DiceRoll).toJson());
+
+            String gamePlayerList = Newtonsoft.Json.JsonConvert.SerializeObject(this.serverLogic.gameLobby.gamePlayers);
+            String toReturn = new Message(gamePlayerList, Translation.TYPE.UpdateResources).toJson();
+            foreach (ServerPlayer p in this.currentLobby.Players)
+            {
+                p.client.sendToClient(toReturn);
+            }
         }
     }
 }
