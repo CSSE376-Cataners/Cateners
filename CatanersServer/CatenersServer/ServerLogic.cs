@@ -484,6 +484,7 @@ namespace CatenersServer
                         }
                         this.settlementArray[settlementID].setActive();
                         this.removeResourcesSettlement(this.gameLobby.gamePlayers[i]);
+                        this.board.buildings[settlementID].owner = this.gameLobby.gamePlayers[i];
                         player.addSettlement(settlementID);
                         return true;
                     }
