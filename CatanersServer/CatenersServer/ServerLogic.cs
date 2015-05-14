@@ -496,19 +496,32 @@ namespace CatenersServer
 
         public Boolean determineRoadAvailability(string username, int roadID)
         {
+            RoadServer current = this.roadArray[roadID];
             foreach (GamePlayer player in this.gameLobby.gamePlayers)
             {
                 if (player.Username.Equals(username))
                 {
-                    if (this.roadArray[roadID].getIsActive())
+                    if (current.getIsActive())
                     {
                         return false;
                     }
                     if((player.resources[Resource.TYPE.Brick] >= 1) && (player.resources[Resource.TYPE.Wood] >= 1))
                     {
-                        return true;
+                        foreach (int i in current.getNeighbors())
+                        {
+                            if(this.roadArray[i].getIsActive())
+                            {
+                                return true;
+                            }
+                        }
+                        foreach (int j in current.getSettlements())
+                        {
+                            if (this.settlementArray[j].getIsActive())
+                            {
+                                return true;
+                            }
+                        }
                     }
-                    return false;
                 }
             }
             return false;

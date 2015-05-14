@@ -201,6 +201,7 @@ namespace CatanersTest
             this.newPlayer1 = testLogic.gameLobby.gamePlayers[1];
             this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
             this.newPlayer1.resources[Resource.TYPE.Wood] = 1;
+            testLogic.setRoadActivity(7);
             Assert.True(testLogic.determineRoadAvailability("Stentopher", 1));
         }
 
