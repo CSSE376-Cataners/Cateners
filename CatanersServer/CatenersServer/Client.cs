@@ -44,6 +44,11 @@ namespace CatenersServer
         public Client()
         {
             // For Testing
+            Enabled = true;
+            userID = -1;
+            userName = null;
+            currentLobby = null;
+            this.player = new ServerPlayer(userName, this);
         }
 
         public async void queueMessagesAsync()
@@ -86,12 +91,13 @@ namespace CatenersServer
 
 
             // TODO Pick all messages that would be considered turn based
-            if(this.gameLobby != null /* Check if its our turn */)
-                if (msg.type == (Translation.TYPE.addResource | Translation.TYPE.BuySettlement | Translation.TYPE.Game | Translation.TYPE.StartTrade))
+            /*
+            if(this.gameLobby != null && CHECK THAT IT IS YOUR TURN)
+                if (!Data.DEBUG && msg.type == (Translation.TYPE.BuySettlement | Translation.TYPE.Game | Translation.TYPE.StartTrade | Translation.TYPE.EndTurn | Translation.TYPE.DiceRoll))
                 {
-
+                    return;
                 }
-
+            */
             switch(msg.type) {
                 case Translation.TYPE.Login:
                     PM_Login(msg);

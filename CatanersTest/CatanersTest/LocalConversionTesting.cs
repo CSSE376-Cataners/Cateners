@@ -45,7 +45,7 @@ namespace CatanersTest
         [Test]
         public void testGenerateError()
         {
-            int[][] inputArray = new int[1][] {new int[9] {0, 0, 12, 1, 4, 5, 7, 8, 12}};
+            int[][] inputArray = new int[1][] {new int[9] {12, 0, 12, 1, 4, 5, 7, 8, 12}};
             Boolean switcher = false;
             try
             {
@@ -71,7 +71,7 @@ namespace CatanersTest
             SettlementHolder[] testArray2 = (SettlementHolder[])typeof(HexHolder).GetField("settlementList", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(testArray[0]);
             Assert.AreEqual(testArray[0].getPlacementNumber(), 0);
             Assert.AreEqual(testArray[0].getRollNumber(), 12);
-            Assert.AreEqual(testArray[0].getHex().Name, "Forrest0");
+            Assert.AreEqual(testArray[0].getHex().Name, "Sheep0");
             Assert.AreEqual(testArray2[0].getPlacementNumber(), 1);
             Assert.AreEqual(testArray2[1].getPlacementNumber(), 4);
             Assert.AreEqual(testArray2[2].getPlacementNumber(), 5);

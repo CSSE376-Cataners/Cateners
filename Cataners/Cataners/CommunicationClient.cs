@@ -17,7 +17,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Cataners
 {
-    public class CommunicationClient
+    public partial class CommunicationClient
     {
         private StreamReader reader;
         private Boolean Enabled;
@@ -134,59 +134,29 @@ namespace Cataners
             switch (msg.type)
             {
                 case Translation.TYPE.Login:
-                    if (!msg.message.Equals("-1"))
-                    {
-                        Data.username = msg.message;
-                    }
-                    queues[Translation.TYPE.Login].Add(msg.message);
+                    PM_Login(msg);
                     break;
                 case Translation.TYPE.Register:
-                    queues[Translation.TYPE.Register].Add(msg.message);
+                    PM_Register(msg);
                     break;
                 case Translation.TYPE.HexMessage:
-                    int[][] array = Translation.jsonToIntArrayTwo(msg.message);
-                    LocalConversion.Instance.generateHexList(array);
-                    LocalConversion.Instance.drawHexes();
+                    PM_HexMessage(msg);
                     break;
                 case Translation.TYPE.RequestLobbies:
-                    Data.Lobbies.Clear();
-                    Data.Lobbies.AddRange(Lobby.jsonToLobbyList(msg.message));
-                    if (JoinGameForm.INSTANCE != null)
-                    {
-                        JoinGameForm.INSTANCE.invokedRefresh();
-                    }
+                    PM_RequestLobbies(msg);
                     break;
                 case Translation.TYPE.UpdateLobby:
-                    if (!Data.gameStarted && LobbyForm.INSTANCE != null)
-                    {
-                        Data.currentLobby = Lobby.fromJson(msg.message);
-                        LobbyForm.INSTANCE.invokedRefresh();
-                    }
+                    PM_UpdateLobby(msg);
                     break;
                 case Translation.TYPE.LeaveLobby:
-                    if (LobbyForm.INSTANCE != null && LobbyForm.INSTANCE.Visible)
-                    {
-                        bool notStart = false;
-                        LobbyForm.INSTANCE.InvokedClose(notStart);
-                    }
+                    PM_LeaveLobby(msg);
                     break;
-
                 case Translation.TYPE.BuySettlement:
-                    LocalConversion.Instance.setAsPurchasedSettle(Newtonsoft.Json.JsonConvert.DeserializeObject<string[]>(msg.message));
+                    PM_BuySettlement(msg);
                 break;
-
                 case Translation.TYPE.StartGame:
-                    Data.gameStarted = true;
-                    LobbyForm.INSTANCE.startButtonClose = true;
-                    LobbyForm.INSTANCE.InvokedClose(true);
-                    MainGui.INSTANCE.invokedHide();
-                    TradeForm trade = new TradeForm();
-                    LocalConversion.Instance.generateHexList(Translation.jsonToIntArrayTwo(msg.message));
-                    LocalConversion.Instance.drawHexes();
-                    sendToServer(new CatanersShared.Message("", Translation.TYPE.GetGameLobby).toJson());
-                    Program.Main();
+                    PM_StartGame(msg);
                     break;
-
                 case Translation.TYPE.addResource:
                     AddResource addResource = AddResource.fromJson(msg.message);
                     GameLobby currentLobby = (GameLobby)Data.currentLobby;

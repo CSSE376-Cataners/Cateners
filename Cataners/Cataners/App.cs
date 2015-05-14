@@ -18,8 +18,8 @@ namespace Cataners
         public static object renderLock = "";
         public static App INSTANCE;
         public Cataners.Game game;
-        SpriteBatch spriteBatch;
-        Texture2D splashScreen;
+        //SpriteBatch spriteBatch;
+        //Texture2D splashScreen;
         bool splashState = true;
         TimeSpan time;
         Vector2 position;

@@ -48,7 +48,7 @@ namespace CatanersTest
             Lobby newLobby = new Lobby("Test", 3, new Player("Gandalf"), 2);
             GameLobby gamelobby = new GameLobby(newLobby);
             Console.WriteLine(gamelobby.toJson());
-            Assert.AreEqual("{\"gamePlayers\":[{\"resourceCount\":0,\"resources\":{\"Brick\":0,\"Ore\":0,\"Sheep\":0,\"Wheat\":0,\"Wood\":0},\"Ready\":false,\"Username\":\"Gandalf\"}],\"lobbyID\":2,\"allReady\":false,\"Players\":[{\"Ready\":false,\"Username\":\"Gandalf\"}],\"GameName\":\"Test\",\"MaxTimePerTurn\":3,\"Owner\":{\"resourceCount\":0,\"resources\":{\"Brick\":0,\"Ore\":0,\"Sheep\":0,\"Wheat\":0,\"Wood\":0},\"Ready\":false,\"Username\":\"Gandalf\"},\"PlayerCount\":1}", gamelobby.toJson());
+            Assert.AreEqual("{\"gamePlayers\":[{\"resources\":{\"Brick\":0,\"Ore\":0,\"Sheep\":0,\"Wheat\":0,\"Wood\":0},\"Ready\":false,\"resourceCount\":0,\"Username\":\"Gandalf\"}],\"lobbyID\":2,\"allReady\":false,\"Players\":[{\"Ready\":false,\"Username\":\"Gandalf\"}],\"GameName\":\"Test\",\"MaxTimePerTurn\":3,\"Owner\":{\"resources\":{\"Brick\":0,\"Ore\":0,\"Sheep\":0,\"Wheat\":0,\"Wood\":0},\"Ready\":false,\"resourceCount\":0,\"Username\":\"Gandalf\"},\"PlayerCount\":1}", gamelobby.toJson());
         }
 
         [Test]

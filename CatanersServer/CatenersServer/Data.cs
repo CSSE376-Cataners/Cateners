@@ -10,6 +10,8 @@ namespace CatenersServer
 {
     public class Data
     {
+        public static Boolean DEBUG = true;
+
         private static Data instance = new Data();
 
         public Dictionary<int, int[]> neighborDict;

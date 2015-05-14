@@ -45,7 +45,18 @@ namespace CatanersShared
             }
 
             Player other = (Player)obj;
-            return (other.Username == null && this.Username == null) || other.Username.Equals(this.username);
+            if (this.username == null)
+            {
+                if (other.username == null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return this.Username.Equals(other.username);
         }
 
         // override object.GetHashCode

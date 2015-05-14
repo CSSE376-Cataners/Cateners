@@ -340,7 +340,6 @@ namespace CatanersTest
 
             Assert.AreEqual(gLob, Data.currentGameLobby);
 
-            Data.currentGameLobby.gamePlayers[0].isMyTurn = true;
             Data.username = "p1";
             Message endTurn = new Message("1", Translation.TYPE.EndTurn);
             client.processesMessage(endTurn.toJson());
