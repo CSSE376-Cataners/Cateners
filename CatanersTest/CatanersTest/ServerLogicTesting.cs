@@ -111,6 +111,26 @@ namespace CatanersTest
 
         }
 
+        [Test]
+        public void testThatDieRollGivesResources()
+        {
+            Player player = new Player("IDK Who I am");
+            ServerLogic logic = new ServerLogic(new Lobby("Basketball", 100, player, 10));
+
+            int oldBrick = logic.gameLobby.gamePlayers[0].resources[Resource.TYPE.Brick];
+            
+            logic.board.hexes[0].dice = 10;
+            logic.board.hexes[0].type = Resource.TYPE.Brick;
+
+            logic.dice = 10;
+
+            logic.board.hexes[0].buildings[0].owner = logic.gameLobby.gamePlayers[0];
+
+            logic.diceRolled();
+
+            Assert.True(oldBrick < logic.gameLobby.gamePlayers[0].resources[Resource.TYPE.Brick]);
+        }
+
 
         /*public void TestResourceConstructor()
         {
