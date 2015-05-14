@@ -300,12 +300,18 @@ namespace Cataners
                     {
                         Data.isMyTurn = true;
                         MyScene.addEndTurnButton();
+                        System.Windows.MessageBox.Show("It's your turn, please roll the dice", "Your Turn", MessageBoxButton.OK);
+                        CommunicationClient.instance.sendToServer(new CatanersShared.Message("", Translation.TYPE.DiceRoll).toJson());
                     }
                     else
                     {
                         Data.isMyTurn = false;
                         MyScene.hideEndTurn();
                     }
+                 break;
+                case Translation.TYPE.DiceRoll:
+                    int diceroll = Int32.Parse(msg.message);
+                    System.Windows.MessageBox.Show("You rolled a " + diceroll);
                  break;
             }
         }
