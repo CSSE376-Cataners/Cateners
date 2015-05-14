@@ -11,7 +11,7 @@ namespace CatanersShared
     {
         private int victoryPoints;
         private ArrayList settlementList;
-        private string color;
+        public string color;
         public int resourceCount
         {
             get
@@ -29,13 +29,13 @@ namespace CatanersShared
         public GamePlayer(String Username)
             : base(Username)
         {
-            this.color = "Blue";
+            this.color = "NA";
             resources = new Dictionary<Resource.TYPE, int>();
-            resources.Add(Resource.TYPE.Brick, 0);
-            resources.Add(Resource.TYPE.Ore, 0);
-            resources.Add(Resource.TYPE.Sheep, 0);
-            resources.Add(Resource.TYPE.Wheat, 0);
-            resources.Add(Resource.TYPE.Wood, 0);
+            resources.Add(Resource.TYPE.Brick, 10);
+            resources.Add(Resource.TYPE.Ore, 10);
+            resources.Add(Resource.TYPE.Sheep, 10);
+            resources.Add(Resource.TYPE.Wheat, 10);
+            resources.Add(Resource.TYPE.Wood, 10);
             this.settlementList = new ArrayList();
             //resourceCount = resources[Resource.TYPE.Brick] + resources[Resource.TYPE.Ore] + resources[Resource.TYPE.Sheep] + resources[Resource.TYPE.Wheat] + resources[Resource.TYPE.Wood]; 
         }
