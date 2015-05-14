@@ -842,6 +842,11 @@ namespace CatenersServer
             playerTurn = (playerTurn + 1) % gameLobby.gamePlayers.Count;
         }
 
+        public void updateTurnStartPhase2()
+        {
+            //will fix after softball
+        }
+
 
        
 
