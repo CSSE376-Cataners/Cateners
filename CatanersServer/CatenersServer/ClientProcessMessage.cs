@@ -219,6 +219,10 @@ namespace CatenersServer
                         //((ServerPlayer)currentLobby.Players[i]).client.sendToClient(boardString);
                         ((ServerPlayer)currentLobby.Players[i]).client.serverLogic = newLogic;
                         ((ServerPlayer)currentLobby.Players[i]).client.gameLobby = gameLobby;
+                        gameLobby.gamePlayers[i].resources[Resource.TYPE.Brick] = 4;
+                        gameLobby.gamePlayers[i].resources[Resource.TYPE.Sheep] = 2;
+                        gameLobby.gamePlayers[i].resources[Resource.TYPE.Wheat] = 2;
+                        gameLobby.gamePlayers[i].resources[Resource.TYPE.Wood] = 4;
                     }
                 }
             }
