@@ -83,8 +83,12 @@ namespace Cataners
                                     foreach (BaseDecorator e in MyScene.toAddDecor)
                                     {
                                         BaseDecorator temp = o.Find<BaseDecorator>(e.Name);
-                                        if (temp != null)
+                                        if (temp == null)
                                         {
+                                            Entity temp2 = o.Find(e.Name);
+                                            if (temp2 != null)
+                                                o.Remove(temp2);
+                                        }else {
                                             o.Remove(temp);
                                         }
                                         o.Add(e);
