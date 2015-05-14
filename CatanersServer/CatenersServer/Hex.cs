@@ -9,7 +9,7 @@ namespace CatenersServer
 {
     public class Hex
     {
-        public List<Building> buildings;
+        public Building[] buildings;
         public int dice;
         public Resource.TYPE type;
         public Robber robber = null;
@@ -17,7 +17,7 @@ namespace CatenersServer
         public Hex(Resource.TYPE type)
         {
             this.type = type;
-            this.buildings = new List<Building>();
+            this.buildings = new Building[6];
         }
     }
 }
