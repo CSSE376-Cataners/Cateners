@@ -86,6 +86,26 @@ namespace CatanersTest
             Assert.AreEqual(19, logic.board.hexes.Count);
         }
 
+
+        [Test]
+        public void testThatOwnerGetsAddedToObjectModel()
+        {
+            Player player = new Player("IDK Who I am");
+            ServerLogic logic = new ServerLogic(new Lobby("Basketball", 100, player, 10));
+
+            foreach (Resource.TYPE t in Enum.GetValues(typeof(Resource.TYPE)))
+            {
+                logic.gameLobby.gamePlayers[0].resources[t] = 10;
+            }
+
+            logic.determineSettlementAvailability(player.Username, 10);
+
+            Assert.AreEqual(player.Username, logic.board.buildings[10].owner.Username);
+
+
+        }
+
+
         /*public void TestResourceConstructor()
         {
             Resource wheat = new Resource("wheat");
