@@ -113,7 +113,6 @@ namespace Cataners
                     if (((GameLobby)Data.currentLobby).gamePlayers[i].Username.Equals(Data.username))
                     {
                         Data.currentGamePlayer = ((GameLobby)Data.currentLobby).gamePlayers[i];
-                        Data.currentGamePlayer.setColor(this.colorDict[i]);
                     }
 
                 }
