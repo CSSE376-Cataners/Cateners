@@ -147,6 +147,9 @@ namespace CatenersServer
                 case Translation.TYPE.EndTurn:
                     PM_EndTurn(msg);
                 break;
+                case Translation.TYPE.DiceRoll:
+                    PM_DiceRoll(msg);
+                break;
                 default:
                     // We Are just going to ignore it.
                 break;

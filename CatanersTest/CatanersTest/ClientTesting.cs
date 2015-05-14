@@ -846,6 +846,27 @@ namespace CatanersTest
 
         }
 
+        [Test]
+        public void testDiceRoll()
+        {
+            FakeClient client = new FakeClient();
+            client.userName = "p1";
+            ServerPlayer ptemp = new ServerPlayer("p1", client);
+
+            Lobby temp = new Lobby("Lobby", 10, ptemp, 1);
+            GameLobby gLobby = new GameLobby(temp);
+
+            client.player = ptemp;
+            client.currentLobby = temp;
+            client.gameLobby = gLobby;
+            client.serverLogic = new ServerLogic(temp);
+
+            String diceRollMessage = new Message("", Translation.TYPE.DiceRoll).toJson();
+            client.processesMessage(diceRollMessage);
+
+            Assert.AreEqual(Translation.TYPE.DiceRoll, Message.fromJson(client.lastCall).type);
+        }
+
         public class FakeClient : Client
         {
 
