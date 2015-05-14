@@ -389,5 +389,9 @@ namespace CatenersServer
                 player.client.sendToClient(new Message(serverLogic.playerTurn.ToString(), Translation.TYPE.EndTurn).toJson());
             }
         }
+        public void PM_DiceRoll(Message msg){
+            serverLogic.generateRandomDiceRoll();
+            sendToClient(new Message(serverLogic.dice.ToString(), Translation.TYPE.DiceRoll).toJson());
+        }
     }
 }
