@@ -531,39 +531,33 @@ namespace CatenersServer
             for (int i = 0; i < 4; i++)
             {
                 this.hexArray[count] = new HexServer((int)Resource.TYPE.Wood);
-                board.hexes.Add(new Hex(Resource.TYPE.Wood));
                 count++;
             }
 
             this.hexArray[count] = new HexServer((int)Resource.TYPE.Desert);
-            board.hexes.Add(new Hex(Resource.TYPE.Desert));
             count++;
 
             for (int k = 0; k < 3; k++)
             {
                 this.hexArray[count] = new HexServer((int)Resource.TYPE.Ore);
-                board.hexes.Add(new Hex(Resource.TYPE.Ore));
                 count++;
             }
 
             for (int k = 0; k < 3; k++)
             {
                 this.hexArray[count] = new HexServer((int)Resource.TYPE.Brick);
-                board.hexes.Add(new Hex(Resource.TYPE.Brick));
                 count++;
             }
 
             for (int p = 0; p < 4; p++)
             {
                 this.hexArray[count] = new HexServer((int)Resource.TYPE.Sheep);
-                board.hexes.Add(new Hex(Resource.TYPE.Sheep));
                 count++;
             }
 
             for (int u = 0; u < 4; u++)
             {
                 this.hexArray[count] = new HexServer((int)Resource.TYPE.Wheat);
-                board.hexes.Add(new Hex(Resource.TYPE.Wheat));
                 count++;
             }
 
@@ -574,6 +568,7 @@ namespace CatenersServer
                 int nextIndex = (int)rangeList[rInt];
                 rangeList.RemoveAt(rInt);
                 this.hexArray[g].setPlacementNumber(nextIndex);
+                board.hexes[nextIndex]=new Hex((Resource.TYPE)this.hexArray[g].getHexType());
             }
             this.assignRollNumbers();
             this.generateDefaultSettlements();
@@ -631,6 +626,7 @@ namespace CatenersServer
                     int d = c + 5;
                     SettlementServer[] newArray = new SettlementServer[6] { this.settlementArray[a], this.settlementArray[b], this.settlementArray[b + 1], this.settlementArray[c], this.settlementArray[c + 1], this.settlementArray[d] };
                     hexArray[i].setSettlementArray(newArray);
+                    board.hexes[i].buildings = new Building[] { board.buildings[a], board.buildings[b], board.buildings[b + 1], board.buildings[c], board.buildings[c + 1], board.buildings[d] };
                 }
                 else if (currNum < 7)
                 {
@@ -640,6 +636,7 @@ namespace CatenersServer
                     int d = c + 6;
                     SettlementServer[] newArray = new SettlementServer[6] { this.settlementArray[a], this.settlementArray[b], this.settlementArray[b + 1], this.settlementArray[c], this.settlementArray[c + 1], this.settlementArray[d] };
                     hexArray[i].setSettlementArray(newArray);
+                    board.hexes[i].buildings = new Building[]{ board.buildings[a], board.buildings[b], board.buildings[b + 1], board.buildings[c], board.buildings[c + 1], board.buildings[d] };
                 }
                 else if (currNum < 12)
                 {
@@ -649,6 +646,7 @@ namespace CatenersServer
                     int d = c + 6;
                     SettlementServer[] newArray = new SettlementServer[6] { this.settlementArray[a], this.settlementArray[b], this.settlementArray[b + 1], this.settlementArray[c], this.settlementArray[c + 1], this.settlementArray[d] };
                     hexArray[i].setSettlementArray(newArray);
+                    board.hexes[i].buildings = new Building[] { board.buildings[a], board.buildings[b], board.buildings[b + 1], board.buildings[c], board.buildings[c + 1], board.buildings[d] };
                 }
                 else if (currHex.getPlacementNumber() < 16)
                 {
@@ -658,6 +656,7 @@ namespace CatenersServer
                     int d = c + 5;
                     SettlementServer[] newArray = new SettlementServer[6] { this.settlementArray[a], this.settlementArray[b], this.settlementArray[b + 1], this.settlementArray[c], this.settlementArray[c + 1], this.settlementArray[d] };
                     hexArray[i].setSettlementArray(newArray);
+                    board.hexes[i].buildings = new Building[] { board.buildings[a], board.buildings[b], board.buildings[b + 1], board.buildings[c], board.buildings[c + 1], board.buildings[d] };
                 }
                 else
                 {
@@ -667,6 +666,7 @@ namespace CatenersServer
                     int d = c + 4;
                     SettlementServer[] newArray = new SettlementServer[6] { this.settlementArray[a], this.settlementArray[b], this.settlementArray[b + 1], this.settlementArray[c], this.settlementArray[c + 1], this.settlementArray[d] };
                     hexArray[i].setSettlementArray(newArray);
+                    board.hexes[i].buildings = new Building[] { board.buildings[a], board.buildings[b], board.buildings[b + 1], board.buildings[c], board.buildings[c + 1], board.buildings[d] };
                 }
             }
         }
@@ -694,6 +694,7 @@ namespace CatenersServer
                     int nextIndex = (int)rollList[rInt];
                     rollList.RemoveAt(rInt);
                     this.hexArray[k].setRollNumber(nextIndex);
+                    board.hexes[this.hexArray[k].getPlacementNumber()].dice = nextIndex;
                 }
             }
         }
