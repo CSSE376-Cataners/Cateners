@@ -160,6 +160,8 @@ namespace CatanersTest
             Assert.AreEqual(2, logic.playerTurn);
             logic.updateTurnStartPhase1();
             Assert.AreEqual(3, logic.playerTurn);
+            Assert.AreEqual(false, logic.isStartPhase1);
+            Assert.AreEqual(true, logic.isStartPhase2);
         }
 
 
