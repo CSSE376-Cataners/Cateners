@@ -13,10 +13,9 @@ namespace CatenersServer
         public GamePlayer owner;
         public bool isCity = false;
 
-        public Building(Hex hex)
+        public Building()
         {
             this.hexes = new List<Hex>();
-            this.hexes.Add(hex);
         }
     }
 }

@@ -56,7 +56,7 @@ namespace Cataners
 
             //Create a 3D camera
             
-            FixedCamera2D camera2D = new FixedCamera2D("Camera2D") { BackgroundColor = Color.Gold };
+            FixedCamera2D camera2D = new FixedCamera2D("Camera2D") { BackgroundColor = Color.DimGray};
             EntityManager.Add(camera2D);
             Entity background = new Entity("Background")
             .AddComponent(new Sprite("Background.wpk"))
@@ -85,6 +85,7 @@ namespace Cataners
             MyScene.addPlayerNames();
             MyScene.addChatButton();
             MyScene.addEndTurnButton();
+            this.addBuildingCostCard();
         }
 
         public static void addChatButton()
@@ -134,6 +135,8 @@ namespace Cataners
                 newButton.Text = "Regenerate Board";
                 newButton.Width = 150;
                 newButton.Height = 40;
+                Transform2D regenBoard2d = newButton.Entity.FindComponent<Transform2D>();
+                regenBoard2d.X = 100;
                 newButton.Entity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(button_Pressed);
                 lock(toAddDecor){
                     toAddDecor.Add(newButton);
@@ -163,6 +166,18 @@ namespace Cataners
                     toAddDecor.Add(endTurnButton);
                 }
             }
+        }
+
+        private void addBuildingCostCard()
+        {
+            Entity resourceCard = new Entity("costCard")
+                .AddComponent(new Sprite("resourceCost.wpk"))
+                .AddComponent(new Transform2D() { 
+                Y = WaveConstants.CENTERHEIGHT+100,
+                XScale = 0.25f,
+                YScale = 0.25f})
+                .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
+            EntityManager.Add(resourceCard);
         }
 
         public static void addPlayerNames()
@@ -270,7 +285,7 @@ namespace Cataners
                                 .AddComponent(new TextControl()
                                 {
                                     Text = player4Text,
-                                    Foreground = Color.Black
+                                    Foreground = Color.Purple
                                 })
                                 .AddComponent(new TextControlRenderer());
                 toAdd.Add(player4Name);
@@ -361,7 +376,7 @@ namespace Cataners
                                 .AddComponent(new TextControl()
                                 {
                                     Text = sb.ToString(),
-                                    Foreground = Color.Black
+                                    Foreground = Color.Purple
                                 })
                                 .AddComponent(new TextControlRenderer());
 
