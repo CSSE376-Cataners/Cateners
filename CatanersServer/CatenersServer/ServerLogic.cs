@@ -834,7 +834,14 @@ namespace CatenersServer
 
         public void updateTurnStartPhase1()
         {
-            playerTurn = 1;
+            if (playerTurn == 0)
+            {
+                playerTurn = 1;
+            }
+            else
+            {
+                playerTurn = 2;
+            }
         }
 
 
