@@ -707,7 +707,7 @@ namespace CatenersServer
 
         public void updateTurn()
         {
-            playerTurn = (playerTurn + 1) % 4;
+            playerTurn = (playerTurn + 1) % gameLobby.gamePlayers.Count;
         }
 
         public string getPlayerResources(GamePlayer player)
