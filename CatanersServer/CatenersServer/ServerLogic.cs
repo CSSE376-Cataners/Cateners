@@ -12,6 +12,35 @@ using CatanersShared;
 
 namespace CatenersServer
 {
+    public class PlayerKeeper
+    {
+        private string username;
+        private ArrayList ownedSettlements;
+        private ArrayList ownedRoads;
+        public PlayerKeeper(string username)
+        {
+            this.username = username;
+            this.ownedRoads = new ArrayList();
+            this.ownedSettlements = new ArrayList();
+        }
+        public void addToRoads(int x)
+        {
+            this.ownedRoads.Add(x);
+        }
+        public void addToSettlements(int x)
+        {
+            this.ownedSettlements.Add(x);
+        }
+        public ArrayList getRoads()
+        {
+            return this.ownedRoads;
+        }
+        public ArrayList getSettlements()
+        {
+            return this.ownedSettlements;
+        }
+    }
+
     public class RoadServer
     {
         private int placementNumber;
@@ -198,6 +227,7 @@ namespace CatenersServer
         private Dictionary<int, int[]> roadDict = new Dictionary<int, int[]>();
         private Dictionary<int, int[]> roadNeighborDict = new Dictionary<int, int[]>();
         private Dictionary<int, int[]> roadSettlementDict = new Dictionary<int, int[]>();
+        private Dictionary<string, PlayerKeeper> playerKeepers = new Dictionary<string, PlayerKeeper>();
         public ServerLogic(Lobby lobby)
         {
             this.hexArray = new HexServer[numberOfHexes];
@@ -435,6 +465,10 @@ namespace CatenersServer
             this.assignRoads();
             this.lobby = lobby;
             gameLobby = new GameLobby(lobby);
+            foreach (GamePlayer player in this.gameLobby.gamePlayers)
+            {
+                this.playerKeepers.Add(player.Username, new PlayerKeeper(player.Username));
+            }
         }
 
         public SettlementServer[] getSettlementList()
@@ -483,6 +517,7 @@ namespace CatenersServer
                             return false;
                         }
                         this.settlementArray[settlementID].setActive();
+                        this.playerKeepers[username].addToSettlements(settlementID);
                         this.removeResourcesSettlement(this.gameLobby.gamePlayers[i]);
                         this.board.buildings[settlementID].owner = this.gameLobby.gamePlayers[i];
                         player.addSettlement(settlementID);
