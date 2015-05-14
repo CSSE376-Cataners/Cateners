@@ -210,11 +210,12 @@ namespace CatenersServer
                     gameLobby = newLogic.gameLobby;
                     string toPass = newLogic.sendGeneration();
                     String getLobby = new CatanersShared.Message(serverLogic.gameLobby.toJson(), Translation.TYPE.GetGameLobby).toJson();
-
+                    Data.INSTANCE.Lobbies.Remove(currentLobby);
                     for (int i = 0; i < currentLobby.PlayerCount; i++)
                     {
                         //((ServerPlayer)currentLobby.Players[i]).client.sendToClient(getLobby);
                         ((ServerPlayer)currentLobby.Players[i]).client.sendToClient(new Message(toPass, Translation.TYPE.StartGame).toJson());
+                        //((ServerPlayer)currentLobby.Players[i]).client.sendToClient(new Message(toPass, Translation.TYPE.HexMessage).toJson());
                         //((ServerPlayer)currentLobby.Players[i]).client.sendToClient(boardString);
                         ((ServerPlayer)currentLobby.Players[i]).client.serverLogic = newLogic;
                         ((ServerPlayer)currentLobby.Players[i]).client.gameLobby = gameLobby;
