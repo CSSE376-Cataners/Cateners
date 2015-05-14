@@ -494,9 +494,24 @@ namespace CatenersServer
             throw new NonPlayerException("Player does not exist in the current lobby.");
         }
 
-        public Boolean determineRoadAvailability(string username, int settlementID)
+        public Boolean determineRoadAvailability(string username, int roadID)
         {
-            return true;
+            foreach (GamePlayer player in this.gameLobby.gamePlayers)
+            {
+                if (player.Username.Equals(username))
+                {
+                    if (this.roadArray[roadID].getIsActive())
+                    {
+                        return false;
+                    }
+                    if((player.resources[Resource.TYPE.Brick] >= 1) && (player.resources[Resource.TYPE.Wood] >= 1))
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            return false;
         }
 
         public void removeResourcesSettlement(GamePlayer player)
