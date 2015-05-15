@@ -218,6 +218,17 @@ namespace CatanersTest
         }
 
         [Test]
+        public void testRoadActivityTrueOnetoSix()
+        {
+            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            this.newPlayer1 = testLogic.gameLobby.gamePlayers[1];
+            this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
+            this.newPlayer1.resources[Resource.TYPE.Wood] = 1;
+            testLogic.setSettlementActivity(4, "Stentopher");
+            Assert.True(testLogic.determineRoadAvailability("Stentopher", 1));
+        }
+
+        [Test]
         public void testNeighborActiveSettlementFalse()
         {
             ServerLogic testLogic = new ServerLogic(this.newLobby);
@@ -277,7 +288,6 @@ namespace CatanersTest
             this.newPlayer1 = testLogic.gameLobby.gamePlayers[1];
             testLogic.setSettlementActivity(0, "Stentopher");
             testLogic.setSettlementActivity(53, "Stentopher");
-            this.newPlayer1 = testLogic.gameLobby.gamePlayers[1];
             this.newPlayer1.resources[Resource.TYPE.Sheep] = 1;
             this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
             this.newPlayer1.resources[Resource.TYPE.Wheat] = 1;
