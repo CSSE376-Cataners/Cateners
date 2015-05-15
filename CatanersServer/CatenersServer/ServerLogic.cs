@@ -259,11 +259,18 @@ namespace CatenersServer
         private Dictionary<int, int[]> settlementRoadDict = new Dictionary<int, int[]>();
         public bool isStartPhase1;
         public bool isStartPhase2;
+        public bool usedRoad;
+        public bool usedSettlement;
+        public bool canRegen;
+        public bool taken2;
 
         public ServerLogic(Lobby lobby)
         {
             isStartPhase1 = true;
             isStartPhase2 = false;
+            usedRoad = false;
+            usedSettlement = false;
+            canRegen = true;
             this.hexArray = new HexServer[numberOfHexes];
             this.settlementArray = new SettlementServer[54];
             this.board = new Board();
@@ -600,7 +607,7 @@ namespace CatenersServer
             {
                 if (player.Username.Equals(username))
                 {
-                    if((player.resources[Resource.TYPE.Wood] >= 1) && (player.resources[Resource.TYPE.Brick] >= 1) && (player.resources[Resource.TYPE.Sheep] >= 1) && (player.resources[Resource.TYPE.Wheat] >= 1))
+                    if(isStartPhase1 || isStartPhase2 || ((player.resources[Resource.TYPE.Wood] >= 1) && (player.resources[Resource.TYPE.Brick] >= 1) && (player.resources[Resource.TYPE.Sheep] >= 1) && (player.resources[Resource.TYPE.Wheat] >= 1)))
                     {
                         if (current.getIsActive())
                         {
@@ -609,7 +616,10 @@ namespace CatenersServer
                         if (this.playerKeepers[username].getSettlementCount() <= 1)
                         {
                             this.setSettlementActivity(settlementID, username);
-                            this.removeResourcesSettlement(player);
+                            if (!(isStartPhase1 || isStartPhase2))
+                            {
+                                this.removeResourcesSettlement(player);
+                            }
                             this.board.buildings[settlementID].owner = player;
                             player.addSettlement(settlementID);
                             return true;
@@ -909,18 +919,21 @@ namespace CatenersServer
 
         public void updateTurn()
         {
-            if (this.isStartPhase1)
+            if (canRegen)
             {
-                this.updateTurnStartPhase1();
-            }
-            else if (this.isStartPhase2)
-            {
-                this.updateTurnStartPhase2();
-            }
-            else
-            {
-                this.updateTurnGamePhase();
-            }
+                canRegen = false;
+            } else if (this.isStartPhase1)
+                {
+                    this.updateTurnStartPhase1();
+                }
+                else if (this.isStartPhase2)
+                {
+                    this.updateTurnStartPhase2();
+                }
+                else
+                {
+                    this.updateTurnGamePhase();
+                }
         }
 
         public void updateTurnGamePhase()
@@ -930,21 +943,28 @@ namespace CatenersServer
 
         public void updateTurnStartPhase1()
         {
-            playerTurn = (playerTurn + 1) % gameLobby.gamePlayers.Count;
+            
             if (playerTurn == gameLobby.gamePlayers.Count - 1)
             {
                 isStartPhase1 = false;
                 isStartPhase2 = true;
             }
+            else
+            {
+                playerTurn = (playerTurn + 1);
+            }
         }
 
         public void updateTurnStartPhase2()
         {
-            playerTurn = playerTurn - 1;
+            
             //if 0, we know we've ended.
             if (playerTurn == 0)
             {
                 isStartPhase2 = false;
+            }
+            else { 
+                playerTurn = playerTurn - 1; 
             }
         }
 
