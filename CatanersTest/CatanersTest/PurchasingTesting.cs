@@ -233,5 +233,14 @@ namespace CatanersTest
             this.newPlayer1 = testLogic.gameLobby.gamePlayers[1];
             Assert.True(testLogic.determineSettlementAvailability("Stentopher", 0));
         }
+
+        [Test]
+        public void testAlreadyActiveFalse()
+        {
+            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            this.newPlayer1 = testLogic.gameLobby.gamePlayers[1];
+            testLogic.setSettlementActivity(0, "Stentopher");
+            Assert.False(testLogic.determineSettlementAvailability("Stentopher", 0));
+        }
     }
 }
