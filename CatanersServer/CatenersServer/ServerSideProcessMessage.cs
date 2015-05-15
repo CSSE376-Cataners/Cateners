@@ -331,6 +331,20 @@ namespace CatenersServer
             }
         }
 
+        public void PM_BuyRoad(Message msg)
+        {
+            string[] converted = Newtonsoft.Json.JsonConvert.DeserializeObject<string[]>(msg.message);
+            bool test = serverLogic.determineRoadAvailability(this.userName, int.Parse(converted[0]));
+            if (test == true)
+            {
+                Message roadPurchased = new Message(Newtonsoft.Json.JsonConvert.SerializeObject(converted), Translation.TYPE.BuyRoad);
+                String gamePlayerList = Newtonsoft.Json.JsonConvert.SerializeObject(this.serverLogic.gameLobby.gamePlayers);
+                String toReturn = new Message(gamePlayerList, Translation.TYPE.UpdateResources).toJson();
+                sendToLobby(roadPurchased.toJson());
+                sendToLobby(toReturn);
+            }
+        }
+
         public void PM_RequestLobbies(Message msg)
         {
             Message toSend = new Message(Newtonsoft.Json.JsonConvert.SerializeObject(Data.INSTANCE.Lobbies), Translation.TYPE.RequestLobbies);

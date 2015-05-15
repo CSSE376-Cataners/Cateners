@@ -63,6 +63,11 @@ namespace Cataners
             LocalConversion.Instance.setAsPurchasedSettle(Newtonsoft.Json.JsonConvert.DeserializeObject<string[]>(msg.message));
         }
 
+        public void PM_BuyRoad(Message msg)
+        {
+            LocalConversion.Instance.setAsPurchasedRoad(Newtonsoft.Json.JsonConvert.DeserializeObject<string[]>(msg.message));
+        }
+
         public void PM_StartGame(Message msg)
         {
             Data.gameStarted = true;

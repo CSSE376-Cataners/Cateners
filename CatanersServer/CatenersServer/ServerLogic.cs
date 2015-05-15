@@ -653,7 +653,7 @@ namespace CatenersServer
                     {
                         return false;
                     }
-                    if((player.resources[Resource.TYPE.Brick] >= 1) && (player.resources[Resource.TYPE.Wood] >= 1))
+                    if(((player.resources[Resource.TYPE.Brick] >= 1) && (player.resources[Resource.TYPE.Wood] >= 1)) || (isStartPhase1 || isStartPhase2))
                     {
                         foreach (int i in current.getNeighbors())
                         {

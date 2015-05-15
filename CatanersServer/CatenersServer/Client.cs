@@ -113,6 +113,9 @@ namespace CatenersServer
                 case Translation.TYPE.BuySettlement:
                     PM_BuySettlement(msg);
                 break;
+                case Translation.TYPE.BuyRoad:
+                    PM_BuySettlement(msg);
+                break;
                 case  Translation.TYPE.CreateLobby:
                     PM_CreateLobby(msg);
                 break;

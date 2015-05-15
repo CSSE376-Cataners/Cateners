@@ -308,6 +308,13 @@ namespace Cataners
             MyScene.Instance.setAsPurchasedSettle(name, username);
         }
 
+        public void setAsPurchasedRoad(string[] array)
+        {
+            string name = this.roadList[int.Parse(array[0])].getName();
+            string username = array[1];
+            MyScene.Instance.setAsPurchasedRoad(name, username);
+        }
+
         public void hexAddTransform(HexHolder current, float xOffset, float yOffset, float drawOrder)
         {
             current.getHex().AddComponent(new Transform2D()
@@ -386,7 +393,8 @@ namespace Cataners
                     currEnt.AddComponent(new TouchGestures(true));
                     currEnt.FindComponent<TouchGestures>().TouchPressed += (sender, GestureEventArgs) =>
                     {
-                        Console.WriteLine("road"+placementNumber.ToString());
+                        string[] toPass = new string[] { placementNumber.ToString(), Data.username };
+                        CommunicationClient.Instance.sendToServer(new Message(Newtonsoft.Json.JsonConvert.SerializeObject(toPass), Translation.TYPE.BuyRoad).toJson());
                     };
                     currRoad.canAddComponent = false;
                     Entity e = currEnt;
@@ -481,7 +489,7 @@ namespace Cataners
                             this.hexAddTransform(current, (WaveConstants.HEX_WIDTH * posNum), 0, .6f);
                             this.rollEntityAddTransform(current, (WaveConstants.HEX_WIDTH * posNum) + (WaveConstants.HEX_WIDTH / 2) - (WaveConstants.ROLL_NUMBER_WIDTH / 2),
                                                                     (WaveConstants.HEX_HEIGHT / 2) - (WaveConstants.ROLL_NUMBER_HEIGHT / 2), .1f);
-                            this.settlementAssignment(current, getXLocArraySettlement(current), getYLocArraySettlement(current), .05f);
+                            this.settlementAssignment(current, getXLocArraySettlement(current), getYLocArraySettlement(current), .01f);
                             this.roadAssignment(current, getXLocArrayRoad(current), getYLocArrayRoad(current), getAnglesRoad(current), .05f);
                         }
                         else if (posNum < 7)
@@ -489,7 +497,7 @@ namespace Cataners
                             this.hexAddTransform(current, (-WaveConstants.HEX_WIDTH / 2) + (WaveConstants.HEX_WIDTH * (posNum - 3)), (WaveConstants.HEX_HEIGHT - WaveConstants.TRIANGLE_HEIGHT), .6f);
                             this.rollEntityAddTransform(current, (-WaveConstants.HEX_WIDTH / 2) + (WaveConstants.HEX_WIDTH * (posNum - 3)) + (WaveConstants.HEX_WIDTH / 2) - (WaveConstants.ROLL_NUMBER_WIDTH / 2),
                                                                     (WaveConstants.HEX_HEIGHT - WaveConstants.TRIANGLE_HEIGHT) + (WaveConstants.HEX_HEIGHT / 2) - (WaveConstants.ROLL_NUMBER_HEIGHT / 2), .1f);
-                            this.settlementAssignment(current, this.getXLocArraySettlement(current), this.getYLocArraySettlement(current), .05f);
+                            this.settlementAssignment(current, this.getXLocArraySettlement(current), this.getYLocArraySettlement(current), .01f);
                             this.roadAssignment(current, getXLocArrayRoad(current), getYLocArrayRoad(current), getAnglesRoad(current), .05f);
                         }
                         else if (posNum < 12)
@@ -497,14 +505,14 @@ namespace Cataners
                             this.hexAddTransform(current, (-WaveConstants.HEX_WIDTH) + (WaveConstants.HEX_WIDTH * (posNum - 7)), (2 * WaveConstants.HEX_HEIGHT) - (2 * WaveConstants.TRIANGLE_HEIGHT), .6f);
                             this.rollEntityAddTransform(current, (-WaveConstants.HEX_WIDTH) + (WaveConstants.HEX_WIDTH * (posNum - 7)) + (WaveConstants.HEX_WIDTH / 2) - (WaveConstants.ROLL_NUMBER_WIDTH / 2),
                                                                    (2 * WaveConstants.HEX_HEIGHT) - (2 * WaveConstants.TRIANGLE_HEIGHT) + (WaveConstants.HEX_HEIGHT / 2) - (WaveConstants.ROLL_NUMBER_HEIGHT / 2), .1f);
-                            this.settlementAssignment(current, this.getXLocArraySettlement(current), this.getYLocArraySettlement(current), .05f);
+                            this.settlementAssignment(current, this.getXLocArraySettlement(current), this.getYLocArraySettlement(current), .01f);
                             this.roadAssignment(current, getXLocArrayRoad(current), getYLocArrayRoad(current), getAnglesRoad(current), .05f);
                         }
                         else if (posNum < 16)
                         {
                             this.hexAddTransform(current, (-WaveConstants.HEX_WIDTH / 2) + (WaveConstants.HEX_WIDTH * (posNum - 12)), (3 * WaveConstants.HEX_HEIGHT) - (3 * WaveConstants.TRIANGLE_HEIGHT), .6f);
                             this.rollEntityAddTransform(current, (-WaveConstants.HEX_WIDTH / 2) + (WaveConstants.HEX_WIDTH * (posNum - 12)) + (WaveConstants.HEX_WIDTH / 2) - (WaveConstants.ROLL_NUMBER_WIDTH / 2), (3 * WaveConstants.HEX_HEIGHT) - (3 * WaveConstants.TRIANGLE_HEIGHT) + (WaveConstants.HEX_HEIGHT / 2) - (WaveConstants.ROLL_NUMBER_HEIGHT / 2), .1f);
-                            this.settlementAssignment(current, this.getXLocArraySettlement(current), this.getYLocArraySettlement(current), .05f);
+                            this.settlementAssignment(current, this.getXLocArraySettlement(current), this.getYLocArraySettlement(current), .01f);
                             this.roadAssignment(current, getXLocArrayRoad(current), getYLocArrayRoad(current), getAnglesRoad(current), .05f);
                         }
                         else
@@ -512,7 +520,7 @@ namespace Cataners
                             this.hexAddTransform(current, (WaveConstants.HEX_WIDTH * (posNum - 16)), (4 * WaveConstants.HEX_HEIGHT) - (4 * WaveConstants.TRIANGLE_HEIGHT), .6f);
                             this.rollEntityAddTransform(current, (WaveConstants.HEX_WIDTH * (posNum - 16)) + (WaveConstants.HEX_WIDTH / 2) - (WaveConstants.ROLL_NUMBER_WIDTH / 2),
                                                                     (4 * WaveConstants.HEX_HEIGHT) - (4 * WaveConstants.TRIANGLE_HEIGHT) + (WaveConstants.HEX_HEIGHT / 2) - (WaveConstants.ROLL_NUMBER_HEIGHT / 2), .1f);
-                            this.settlementAssignment(current, this.getXLocArraySettlement(current), this.getYLocArraySettlement(current), .05f);
+                            this.settlementAssignment(current, this.getXLocArraySettlement(current), this.getYLocArraySettlement(current), .01f);
                             this.roadAssignment(current, getXLocArrayRoad(current), getYLocArrayRoad(current), getAnglesRoad(current), .05f);
                         }
                         MyScene.toAdd.Add(current.getRollEntity());
