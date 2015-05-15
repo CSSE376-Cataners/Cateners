@@ -218,11 +218,19 @@ namespace CatanersTest
         }
 
         [Test]
-        public void testNeighborActiveSettlement()
+        public void testNeighborActiveSettlementFalse()
         {
             ServerLogic testLogic = new ServerLogic(this.newLobby);
             this.newPlayer1 = testLogic.gameLobby.gamePlayers[1];
             testLogic.setRoadActivity(6, "Stentopher");
+            Assert.False(testLogic.determineSettlementAvailability("Stentopher", 0));
+        }
+
+        [Test]
+        public void testNeighborActiveSettlementTrue()
+        {
+            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            this.newPlayer1 = testLogic.gameLobby.gamePlayers[1];
             Assert.False(testLogic.determineSettlementAvailability("Stentopher", 0));
         }
     }
