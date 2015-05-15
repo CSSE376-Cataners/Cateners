@@ -222,7 +222,7 @@ namespace CatanersTest
         {
             ServerLogic testLogic = new ServerLogic(this.newLobby);
             this.newPlayer1 = testLogic.gameLobby.gamePlayers[1];
-            testLogic.setRoadActivity(6, "Stentopher");
+            testLogic.setSettlementActivity(3, "Stentopher");
             Assert.False(testLogic.determineSettlementAvailability("Stentopher", 0));
         }
 
@@ -231,7 +231,7 @@ namespace CatanersTest
         {
             ServerLogic testLogic = new ServerLogic(this.newLobby);
             this.newPlayer1 = testLogic.gameLobby.gamePlayers[1];
-            Assert.False(testLogic.determineSettlementAvailability("Stentopher", 0));
+            Assert.True(testLogic.determineSettlementAvailability("Stentopher", 0));
         }
     }
 }
