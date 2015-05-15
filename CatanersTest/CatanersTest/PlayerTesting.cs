@@ -49,6 +49,10 @@ namespace CatanersTest
             Player p = new Player("Test");
             Assert.False(p.Equals(null));
             Assert.False(p.Equals(" "));
+
+            Player p2 = new Player(null);
+            p2.Equals(p2);
+            p2.Equals(p);
         }
 
         [Test]
