@@ -176,6 +176,8 @@ namespace CatanersTest
             logic.playerTurn = 3;
             logic.updateTurnStartPhase2();
             Assert.AreEqual(2, logic.playerTurn);
+            logic.updateTurnStartPhase2();
+            Assert.AreEqual(1, logic.playerTurn);
         }
 
 
