@@ -50,9 +50,11 @@ namespace CatanersTest
         [Test]
         public void testThatPlayerTurnSwitches()
         {
-            ServerLogic logic = new ServerLogic(new Lobby("Basketball", 100, new Player("Michael Jordan"), 10));
-            logic.gameLobby.gamePlayers.Add(new GamePlayer(""));
-            logic.gameLobby.gamePlayers.Add(new GamePlayer(""));
+            Player p0 = new Player("Michael Jordan");
+            Lobby lobby = new Lobby("Basketball", 100, p0, 10);
+            lobby.addPlayer(new Player("p1"));
+            lobby.addPlayer(new Player("p2"));
+            ServerLogic logic = new ServerLogic(lobby);
             logic.playerTurn = 1;
             logic.updateTurn();
             Assert.AreEqual(2, logic.playerTurn);
@@ -60,8 +62,12 @@ namespace CatanersTest
         [Test]
         public void testThatPlayerTurnSwitches2()
         {
-            ServerLogic logic = new ServerLogic(new Lobby("Basketball", 100, new Player("Michael Jordan"), 10));
-            logic.gameLobby.gamePlayers.Add(new GamePlayer(""));
+            Player p0 = new Player("Michael Jordan");
+            Lobby lobby = new Lobby("Basketball", 100, p0, 10);
+            lobby.addPlayer(new Player("p1"));
+            lobby.addPlayer(new Player("p2"));
+            lobby.addPlayer(new Player("p3"));
+            ServerLogic logic = new ServerLogic(lobby);
             logic.playerTurn = 0;
             logic.updateTurn();
             Assert.AreEqual(1, logic.playerTurn);
@@ -69,10 +75,12 @@ namespace CatanersTest
         [Test]
         public void testAllPlayerSwitchesWork()
         {
-            ServerLogic logic = new ServerLogic(new Lobby("Basketball", 100, new Player("Michael Jordan"), 10));
-            logic.gameLobby.gamePlayers.Add(new GamePlayer("Player"));
-            logic.gameLobby.gamePlayers.Add(new GamePlayer("Player"));
-            logic.gameLobby.gamePlayers.Add(new GamePlayer("Player"));
+            Player p0 = new Player("Michael Jordan");
+            Lobby lobby = new Lobby("Basketball", 100, p0, 10);
+            lobby.addPlayer(new Player("p1"));
+            lobby.addPlayer(new Player("p2"));
+            lobby.addPlayer(new Player("p3"));
+            ServerLogic logic = new ServerLogic(lobby);
             logic.playerTurn = 0;
             logic.updateTurn();
             Assert.AreEqual(1, logic.playerTurn);
@@ -135,6 +143,25 @@ namespace CatanersTest
             logic.diceRolled();
 
             Assert.True(oldBrick < logic.gameLobby.gamePlayers[0].resources[Resource.TYPE.Brick]);
+        }
+        [Test]
+        public void updateTurnStartPhase1()
+        {
+            Player p0 = new Player("Michael Jordan");
+            Lobby lobby = new Lobby("Basketball", 100, p0, 10);
+            lobby.addPlayer(new Player("p1"));
+            lobby.addPlayer(new Player("p2"));
+            lobby.addPlayer(new Player("p3"));
+            ServerLogic logic = new ServerLogic(lobby);
+            logic.playerTurn = 0;
+            logic.updateTurnStartPhase1();
+            Assert.AreEqual(1, logic.playerTurn);
+            logic.updateTurnStartPhase1();
+            Assert.AreEqual(2, logic.playerTurn);
+            logic.updateTurnStartPhase1();
+            Assert.AreEqual(3, logic.playerTurn);
+            Assert.AreEqual(false, logic.isStartPhase1);
+            Assert.AreEqual(true, logic.isStartPhase2);
         }
 
 

@@ -12,6 +12,52 @@ using CatanersShared;
 
 namespace CatenersServer
 {
+    public class PlayerKeeper
+    {
+        private string username;
+        private ArrayList ownedSettlements;
+        private ArrayList ownedRoads;
+        private int settleCount;
+        private int roadCount;
+        public PlayerKeeper(string username)
+        {
+            this.username = username;
+            this.ownedRoads = new ArrayList();
+            this.ownedSettlements = new ArrayList();
+            this.settleCount = 0;
+            this.roadCount = 0;
+        }
+
+        public int getRoadCount()
+        {
+            return this.roadCount;
+        }
+
+        public int getSettlementCount()
+        {
+            return this.settleCount;
+        }
+
+        public void addToRoads(int x)
+        {
+            this.ownedRoads.Add(x);
+            this.roadCount += 1;
+        }
+        public void addToSettlements(int x)
+        {
+            this.ownedSettlements.Add(x);
+            this.settleCount += 1;
+        }
+        public ArrayList getRoads()
+        {
+            return this.ownedRoads;
+        }
+        public ArrayList getSettlements()
+        {
+            return this.ownedSettlements;
+        }
+    }
+
     public class RoadServer
     {
         private int placementNumber;
@@ -198,8 +244,14 @@ namespace CatenersServer
         private Dictionary<int, int[]> roadDict = new Dictionary<int, int[]>();
         private Dictionary<int, int[]> roadNeighborDict = new Dictionary<int, int[]>();
         private Dictionary<int, int[]> roadSettlementDict = new Dictionary<int, int[]>();
+        public Dictionary<string, PlayerKeeper> playerKeepers = new Dictionary<string, PlayerKeeper>();
+        public bool isStartPhase1;
+        public bool isStartPhase2;
+
         public ServerLogic(Lobby lobby)
         {
+            isStartPhase1 = true;
+            isStartPhase2 = false;
             this.hexArray = new HexServer[numberOfHexes];
             this.settlementArray = new SettlementServer[54];
             this.board = new Board();
@@ -435,6 +487,10 @@ namespace CatenersServer
             this.assignRoads();
             this.lobby = lobby;
             gameLobby = new GameLobby(lobby);
+            foreach (GamePlayer player in this.gameLobby.gamePlayers)
+            {
+                this.playerKeepers.Add(player.Username, new PlayerKeeper(player.Username));
+            }
         }
 
         public SettlementServer[] getSettlementList()
@@ -464,29 +520,45 @@ namespace CatenersServer
 
         public Boolean determineSettlementAvailability(string username, int settlementID)
         {
-            foreach (int neighbor in this.settlementArray[settlementID].getNeighbors())
+            SettlementServer current = this.settlementArray[settlementID];
+            foreach (int neighbor in current.getNeighbors())
             {
                 if (this.settlementArray[neighbor].getIsActive())
                 {
                     return false;
                 }
             }
-            for(int i = 0; i < this.gameLobby.gamePlayers.Count; i++)
+            foreach(GamePlayer player in this.gameLobby.gamePlayers)
             {
-                GamePlayer player = this.gameLobby.gamePlayers[i];
                 if (player.Username.Equals(username))
                 {
                     if((player.resources[Resource.TYPE.Wood] >= 1) && (player.resources[Resource.TYPE.Brick] >= 1) && (player.resources[Resource.TYPE.Sheep] >= 1) && (player.resources[Resource.TYPE.Wheat] >= 1))
                     {
-                        if (this.settlementArray[settlementID].getIsActive())
+                        if (current.getIsActive())
                         {
                             return false;
                         }
-                        this.settlementArray[settlementID].setActive();
-                        this.removeResourcesSettlement(this.gameLobby.gamePlayers[i]);
-                        this.board.buildings[settlementID].owner = this.gameLobby.gamePlayers[i];
-                        player.addSettlement(settlementID);
-                        return true;
+                        if (this.playerKeepers[username].getSettlementCount() <= 1)
+                        {
+                            current.setActive();
+                            this.playerKeepers[username].addToSettlements(settlementID);
+                            this.removeResourcesSettlement(player);
+                            this.board.buildings[settlementID].owner = player;
+                            player.addSettlement(settlementID);
+                            return true;
+                        }
+                        foreach (int z in current.getNeighbors())
+                        {
+                            if (this.playerKeepers[username].getSettlements().Contains(z) && this.roadArray[z].getIsActive())
+                            {
+                                current.setActive();
+                                this.playerKeepers[username].addToSettlements(settlementID);
+                                this.removeResourcesSettlement(player);
+                                this.board.buildings[settlementID].owner = player;
+                                player.addSettlement(settlementID);
+                                return true;
+                            }
+                        }
                     }
                     return false;
                 }
@@ -494,9 +566,37 @@ namespace CatenersServer
             throw new NonPlayerException("Player does not exist in the current lobby.");
         }
 
-        public Boolean determineRoadAvailability(string username, int settlementID)
+        public Boolean determineRoadAvailability(string username, int roadID)
         {
-            return true;
+            RoadServer current = this.roadArray[roadID];
+            foreach (GamePlayer player in this.gameLobby.gamePlayers)
+            {
+                if (player.Username.Equals(username))
+                {
+                    if (current.getIsActive())
+                    {
+                        return false;
+                    }
+                    if((player.resources[Resource.TYPE.Brick] >= 1) && (player.resources[Resource.TYPE.Wood] >= 1))
+                    {
+                        foreach (int i in current.getNeighbors())
+                        {
+                            if (this.playerKeepers[username].getRoads().Contains(i) && this.roadArray[i].getIsActive())
+                            {
+                                return true;
+                            }
+                        }
+                        foreach (int j in current.getSettlements())
+                        {
+                            if (this.playerKeepers[username].getSettlements().Contains(j) && this.settlementArray[j].getIsActive())
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
         }
 
         public void removeResourcesSettlement(GamePlayer player)
@@ -731,6 +831,24 @@ namespace CatenersServer
         {
             playerTurn = (playerTurn + 1) % gameLobby.gamePlayers.Count;
         }
+
+        public void updateTurnStartPhase1()
+        {
+            if (playerTurn == 2)
+            {
+                isStartPhase1 = false;
+                isStartPhase2 = true;
+            }
+            playerTurn = (playerTurn + 1) % gameLobby.gamePlayers.Count;
+        }
+
+        public void updateTurnStartPhase2()
+        {
+            //will fix after softball
+        }
+
+
+       
 
         public string getPlayerResources(GamePlayer player)
         {

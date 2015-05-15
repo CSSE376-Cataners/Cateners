@@ -80,7 +80,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>catanersDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="ProcessMessage.cs" />
+    <Compile Include="ClientProcessMessage.cs" />
     <Compile Include="Hex.cs" />
     <Compile Include="Robber.cs" />
     <Compile Include="ServerLogic.cs" />

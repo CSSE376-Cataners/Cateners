@@ -175,12 +175,46 @@ namespace CatanersTest
         }
 
         [Test]
-        public void testRoadResourceWood()
+        public void testRoadResourceWoodFalse()
         {
             ServerLogic testLogic = new ServerLogic(this.newLobby);
             this.newPlayer1 = testLogic.gameLobby.gamePlayers[1];
             this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
             this.newPlayer1.resources[Resource.TYPE.Wood] = 0;
+            Assert.False(testLogic.determineRoadAvailability("Stentopher", 1));
+        }
+
+        [Test]
+        public void testRoadResourceBrickFalse()
+        {
+            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            this.newPlayer1 = testLogic.gameLobby.gamePlayers[1];
+            this.newPlayer1.resources[Resource.TYPE.Brick] = 0;
+            this.newPlayer1.resources[Resource.TYPE.Wood] = 1;
+            Assert.False(testLogic.determineRoadAvailability("Stentopher", 1));
+        }
+
+        [Test]
+        public void testRoadResourceTrue()
+        {
+            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            this.newPlayer1 = testLogic.gameLobby.gamePlayers[1];
+            this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
+            this.newPlayer1.resources[Resource.TYPE.Wood] = 1;
+            testLogic.playerKeepers["Stentopher"].addToSettlements(4);
+            testLogic.playerKeepers["Stentopher"].addToRoads(7);
+            testLogic.setRoadActivity(7);
+            testLogic.setSettlementActivity(4);
+            Assert.True(testLogic.determineRoadAvailability("Stentopher", 1));
+        }
+
+        [Test]
+        public void testRoadActivityFalseOnetoSix()
+        {
+            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            this.newPlayer1 = testLogic.gameLobby.gamePlayers[1];
+            this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
+            this.newPlayer1.resources[Resource.TYPE.Wood] = 1;
             Assert.False(testLogic.determineRoadAvailability("Stentopher", 1));
         }
     }
