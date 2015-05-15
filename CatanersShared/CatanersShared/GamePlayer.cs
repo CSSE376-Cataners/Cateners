@@ -12,6 +12,7 @@ namespace CatanersShared
         private int victoryPoints;
         private ArrayList settlementList;
         public string color;
+        public Dictionary<Translation.DevelopmentType,int> developmentCards;
         public int resourceCount
         {
             get
@@ -31,13 +32,15 @@ namespace CatanersShared
         {
             this.color = "NA";
             resources = new Dictionary<Resource.TYPE, int>();
-            resources.Add(Resource.TYPE.Brick, 0);
-            resources.Add(Resource.TYPE.Ore, 0);
-            resources.Add(Resource.TYPE.Sheep, 0);
-            resources.Add(Resource.TYPE.Wheat, 0);
-            resources.Add(Resource.TYPE.Wood, 0);
+            developmentCards = new Dictionary<Translation.DevelopmentType, int>();
+            foreach (Resource.TYPE type in Enum.GetValues(typeof(Resource.TYPE)))
+            {
+                resources.Add(type, 0);
+            }
             this.settlementList = new ArrayList();
-            //resourceCount = resources[Resource.TYPE.Brick] + resources[Resource.TYPE.Ore] + resources[Resource.TYPE.Sheep] + resources[Resource.TYPE.Wheat] + resources[Resource.TYPE.Wood]; 
+            foreach(Translation.DevelopmentType type in Enum.GetValues(typeof(Translation.DevelopmentType))){
+                developmentCards.Add(type, 0);
+            }
         }
 
         public void addSettlement(int settlementID)
