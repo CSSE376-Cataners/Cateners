@@ -15,6 +15,7 @@ namespace CatanersShared
                             LeaveLobby, Chat, Game, StartGame, Unknown , HexMessage, RegenerateBoard, addResource, GetGameLobby,
                             StartTrade, BuySettlement, TradeResponce, PopUpMessage, UpdateResources, EndTurn,DiceRoll};
 
+        public enum DevelopmentType { Knight, Monopoly, RoadBuilding, YearOfPlenty, VictoryPoint }
         public static int[][] jsonToIntArrayTwo(string s) 
         {
             return Newtonsoft.Json.JsonConvert.DeserializeObject<int[][]>(s);
