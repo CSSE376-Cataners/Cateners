@@ -615,6 +615,10 @@ namespace CatenersServer
                         }
                         if (this.playerKeepers[username].getSettlementCount() <= 1)
                         {
+                            if (usedSettlement)
+                            {
+                                return false;
+                            }
                             this.setSettlementActivity(settlementID, username);
                             if (!(isStartPhase1 || isStartPhase2))
                             {
@@ -622,19 +626,24 @@ namespace CatenersServer
                             }
                             this.board.buildings[settlementID].owner = player;
                             player.addSettlement(settlementID);
+                            usedSettlement = true;
                             return true;
                         }
-                        foreach (int road in current.getRoads())
+                        else
                         {
-                            if (this.playerKeepers[username].getRoads().Contains(road) && this.roadArray[road].getIsActive())
+                            foreach (int road in current.getRoads())
                             {
-                                this.setSettlementActivity(settlementID, username);
-                                this.removeResourcesSettlement(player);
-                                this.board.buildings[settlementID].owner = player;
-                                player.addSettlement(settlementID);
-                                return true;
+                                if (this.playerKeepers[username].getRoads().Contains(road) && this.roadArray[road].getIsActive())
+                                {
+                                    this.setSettlementActivity(settlementID, username);
+                                    this.removeResourcesSettlement(player);
+                                    this.board.buildings[settlementID].owner = player;
+                                    player.addSettlement(settlementID);
+                                    return true;
+                                }
                             }
                         }
+                        
                     }
                     return false;
                 }
@@ -919,6 +928,8 @@ namespace CatenersServer
 
         public void updateTurn()
         {
+            usedSettlement = false;
+            usedRoad = false;
             if (canRegen)
             {
                 canRegen = false;
