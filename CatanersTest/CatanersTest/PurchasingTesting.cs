@@ -208,7 +208,7 @@ namespace CatanersTest
         }
 
         [Test]
-        public void testRoadActivityFalseOnetoSix()
+        public void testRoadActivityFalseOnetoFour()
         {
             ServerLogic testLogic = new ServerLogic(this.newLobby);
             this.newPlayer1 = testLogic.gameLobby.gamePlayers[1];
@@ -218,7 +218,7 @@ namespace CatanersTest
         }
 
         [Test]
-        public void testRoadActivityTrueOnetoSix()
+        public void testRoadActivityTrueOnetoFour()
         {
             ServerLogic testLogic = new ServerLogic(this.newLobby);
             this.newPlayer1 = testLogic.gameLobby.gamePlayers[1];
@@ -294,6 +294,39 @@ namespace CatanersTest
             this.newPlayer1.resources[Resource.TYPE.Wood] = 1;
             testLogic.setRoadActivity(4, "Stentopher");
             Assert.True(testLogic.determineSettlementAvailability("Stentopher", 2));
+        }
+
+        [Test]
+        public void testCanPlaceIfNeighborRoadSet()
+        {
+            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            this.newPlayer1 = testLogic.gameLobby.gamePlayers[1];
+            this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
+            this.newPlayer1.resources[Resource.TYPE.Wood] = 1;
+            testLogic.setRoadActivity(0, "Stentopher");
+            Assert.True(testLogic.determineRoadAvailability("Stentopher", 1));
+        }
+
+        [Test]
+        public void testCanPlaceIfNeighborSettlementSet()
+        {
+            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            this.newPlayer1 = testLogic.gameLobby.gamePlayers[1];
+            this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
+            this.newPlayer1.resources[Resource.TYPE.Wood] = 1;
+            testLogic.setSettlementActivity(0, "Stentopher");
+            Assert.True(testLogic.determineRoadAvailability("Stentopher", 1));
+        }
+
+        [Test]
+        public void testCantPlaceIfNeighborRoadSetButNoOwnership()
+        {
+            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            this.newPlayer1 = testLogic.gameLobby.gamePlayers[1];
+            this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
+            this.newPlayer1.resources[Resource.TYPE.Wood] = 1;
+            testLogic.setRoadActivity(0, "TrottaSN");
+            Assert.False(testLogic.determineRoadAvailability("Stentopher", 1));
         }
     }
 }
