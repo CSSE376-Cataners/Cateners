@@ -315,7 +315,7 @@ namespace CatanersTest
 
             Data.isMyTurn = true;
             Data.username = "p1";
-            Message endTurn= new Message("2", Translation.TYPE.EndTurn);
+            Message endTurn= new Message(new EndTurn(2,EndTurn.Phase.StartPhase).toJson(), Translation.TYPE.EndTurn);
             client.processesMessage(endTurn.toJson());
             Assert.AreEqual(true, Data.isMyTurn);
             Data.isMyTurn = false;
@@ -341,7 +341,7 @@ namespace CatanersTest
             Assert.AreEqual(gLob, Data.currentGameLobby);
 
             Data.username = "p1";
-            Message endTurn = new Message("1", Translation.TYPE.EndTurn);
+            Message endTurn = new Message(new EndTurn(1,EndTurn.Phase.StartPhase).toJson(), Translation.TYPE.EndTurn);
             client.processesMessage(endTurn.toJson());
             Assert.AreEqual(true, Data.isMyTurn);
         }
@@ -364,12 +364,13 @@ namespace CatanersTest
 
             Assert.AreEqual(gLob, Data.currentGameLobby);
             Data.username = "p2";
-            Message endTurn = new Message("2", Translation.TYPE.EndTurn);
+            Message endTurn = new Message(new EndTurn(2,EndTurn.Phase.StartPhase).toJson(), Translation.TYPE.EndTurn);
             client.processesMessage(endTurn.toJson());
             Assert.AreEqual(true, Data.isMyTurn);
         }
 
         [Test]
+ 
         public void testEndTurnMakesOtherPlayerTurnFalse()
         {
             FakeClient client = new FakeClient();
@@ -385,7 +386,7 @@ namespace CatanersTest
             //process message for p1
             Data.username = "p1";
             Data.isMyTurn = false;
-            Message endTurn = new Message("1", Translation.TYPE.EndTurn);
+            Message endTurn = new Message(new EndTurn(1, EndTurn.Phase.StartPhase).toJson(), Translation.TYPE.EndTurn);
             client.processesMessage(endTurn.toJson());
             Assert.AreEqual(true, Data.isMyTurn);
             //process message for owner
