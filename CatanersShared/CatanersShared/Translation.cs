@@ -11,9 +11,13 @@ namespace CatanersShared
     public class Translation
     {
         [Flags]
-        public enum TYPE {  Login, Register, RequestLobbies, JoinLobby, CreateLobby, UpdateLobby, ChangeReadyStatus,
-                            LeaveLobby, Chat, Game, StartGame, Unknown , HexMessage, RegenerateBoard, addResource, GetGameLobby,
-                            StartTrade, BuySettlement, TradeResponce, PopUpMessage, UpdateResources, EndTurn,DiceRoll};
+        public enum TYPE
+        {
+            Login, Register, RequestLobbies, JoinLobby, CreateLobby, UpdateLobby, ChangeReadyStatus,
+            LeaveLobby, Chat, Game, StartGame, Unknown, HexMessage, RegenerateBoard, addResource, GetGameLobby,
+            StartTrade, BuySettlement, TradeResponce, PopUpMessage, UpdateResources, EndTurn, DiceRoll,
+            BuyRoad
+        };
 
         public enum DevelopmentType { Knight, Monopoly, RoadBuilding, YearOfPlenty, VictoryPoint }
         public static int[][] jsonToIntArrayTwo(string s) 
