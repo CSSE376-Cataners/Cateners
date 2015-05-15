@@ -862,9 +862,11 @@ namespace CatanersTest
             client.serverLogic = new ServerLogic(temp);
 
             String diceRollMessage = new Message("", Translation.TYPE.DiceRoll).toJson();
+            
             client.processesMessage(diceRollMessage);
-
-            Assert.AreEqual(Translation.TYPE.DiceRoll, Message.fromJson(client.lastCall).type);
+            // DiceRoll First
+            // Then update resouces
+            Assert.AreEqual(Translation.TYPE.UpdateResources, Message.fromJson(client.lastCall).type);
         }
 
         public class FakeClient : Client

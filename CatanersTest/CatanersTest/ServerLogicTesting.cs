@@ -51,6 +51,8 @@ namespace CatanersTest
         public void testThatPlayerTurnSwitches()
         {
             ServerLogic logic = new ServerLogic(new Lobby("Basketball", 100, new Player("Michael Jordan"), 10));
+            logic.gameLobby.gamePlayers.Add(new GamePlayer(""));
+            logic.gameLobby.gamePlayers.Add(new GamePlayer(""));
             logic.playerTurn = 1;
             logic.updateTurn();
             Assert.AreEqual(2, logic.playerTurn);
@@ -59,6 +61,7 @@ namespace CatanersTest
         public void testThatPlayerTurnSwitches2()
         {
             ServerLogic logic = new ServerLogic(new Lobby("Basketball", 100, new Player("Michael Jordan"), 10));
+            logic.gameLobby.gamePlayers.Add(new GamePlayer(""));
             logic.playerTurn = 0;
             logic.updateTurn();
             Assert.AreEqual(1, logic.playerTurn);
@@ -67,6 +70,9 @@ namespace CatanersTest
         public void testAllPlayerSwitchesWork()
         {
             ServerLogic logic = new ServerLogic(new Lobby("Basketball", 100, new Player("Michael Jordan"), 10));
+            logic.gameLobby.gamePlayers.Add(new GamePlayer("Player"));
+            logic.gameLobby.gamePlayers.Add(new GamePlayer("Player"));
+            logic.gameLobby.gamePlayers.Add(new GamePlayer("Player"));
             logic.playerTurn = 0;
             logic.updateTurn();
             Assert.AreEqual(1, logic.playerTurn);
