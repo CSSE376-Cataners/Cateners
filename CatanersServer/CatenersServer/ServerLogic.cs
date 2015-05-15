@@ -844,17 +844,11 @@ namespace CatenersServer
 
         public void updateTurnStartPhase2()
         {
-            if (playerTurn == 3)
+            playerTurn = playerTurn - 1;
+            //if 0, we know we've ended.
+            if (playerTurn == 0)
             {
-                playerTurn = 2;
-            }
-            else if(playerTurn == 2)
-            {
-                playerTurn = 1;
-            }
-            else
-            {
-                playerTurn = 0;
+                isStartPhase2 = false;
             }
         }
 
