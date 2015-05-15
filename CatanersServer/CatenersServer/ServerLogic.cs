@@ -649,6 +649,8 @@ namespace CatenersServer
                         {
                             if (this.playerKeepers[username].getRoads().Contains(i) && this.roadArray[i].getIsActive())
                             {
+                                this.setSettlementActivity(roadID, username);
+                                this.removeResourcesRoad(player);
                                 return true;
                             }
                         }
@@ -656,6 +658,8 @@ namespace CatenersServer
                         {
                             if (this.playerKeepers[username].getSettlements().Contains(j) && this.settlementArray[j].getIsActive())
                             {
+                                this.setSettlementActivity(roadID, username);
+                                this.removeResourcesRoad(player);
                                 return true;
                             }
                         }
@@ -670,6 +674,12 @@ namespace CatenersServer
             player.resources[Resource.TYPE.Brick] = player.resources[Resource.TYPE.Brick] - 1;
             player.resources[Resource.TYPE.Sheep] = player.resources[Resource.TYPE.Sheep] - 1;
             player.resources[Resource.TYPE.Wheat] = player.resources[Resource.TYPE.Wheat] - 1;
+            player.resources[Resource.TYPE.Wood] = player.resources[Resource.TYPE.Wood] - 1;
+        }
+
+        public void removeResourcesRoad(GamePlayer player)
+        {
+            player.resources[Resource.TYPE.Brick] = player.resources[Resource.TYPE.Brick] - 1;
             player.resources[Resource.TYPE.Wood] = player.resources[Resource.TYPE.Wood] - 1;
         }
 
