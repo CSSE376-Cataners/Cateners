@@ -13,7 +13,7 @@ namespace CatanersTest
     {
 
         [Test]
-        public void testToJson()
+        public void testConstructor()
         {
             EndTurn et = new EndTurn(1, EndTurn.Phase.GamePhase);
 
