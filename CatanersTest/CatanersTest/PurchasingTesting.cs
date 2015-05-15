@@ -282,7 +282,7 @@ namespace CatanersTest
             this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
             this.newPlayer1.resources[Resource.TYPE.Wheat] = 1;
             this.newPlayer1.resources[Resource.TYPE.Wood] = 1;
-            testLogic.setRoadActivity(1, "Stentopher");
+            testLogic.setRoadActivity(4, "Stentopher");
             Assert.True(testLogic.determineSettlementAvailability("Stentopher", 2));
         }
     }
