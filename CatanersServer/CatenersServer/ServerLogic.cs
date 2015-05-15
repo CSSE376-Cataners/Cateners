@@ -829,17 +829,33 @@ namespace CatenersServer
 
         public void updateTurn()
         {
+            if (this.isStartPhase1)
+            {
+                this.updateTurnStartPhase1();
+            }
+            else if (this.isStartPhase2)
+            {
+                this.updateTurnStartPhase2();
+            }
+            else
+            {
+                this.updateTurnGamePhase();
+            }
+        }
+
+        public void updateTurnGamePhase()
+        {
             playerTurn = (playerTurn + 1) % gameLobby.gamePlayers.Count;
         }
 
         public void updateTurnStartPhase1()
         {
-            if (playerTurn == 2)
+            playerTurn = (playerTurn + 1) % gameLobby.gamePlayers.Count;
+            if (playerTurn == gameLobby.gamePlayers.Count - 1)
             {
                 isStartPhase1 = false;
                 isStartPhase2 = true;
             }
-            playerTurn = (playerTurn + 1) % gameLobby.gamePlayers.Count;
         }
 
         public void updateTurnStartPhase2()

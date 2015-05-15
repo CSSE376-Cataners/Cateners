@@ -56,7 +56,7 @@ namespace CatanersTest
             lobby.addPlayer(new Player("p2"));
             ServerLogic logic = new ServerLogic(lobby);
             logic.playerTurn = 1;
-            logic.updateTurn();
+            logic.updateTurnGamePhase();
             Assert.AreEqual(2, logic.playerTurn);
         }
         [Test]
@@ -69,7 +69,7 @@ namespace CatanersTest
             lobby.addPlayer(new Player("p3"));
             ServerLogic logic = new ServerLogic(lobby);
             logic.playerTurn = 0;
-            logic.updateTurn();
+            logic.updateTurnGamePhase();
             Assert.AreEqual(1, logic.playerTurn);
         }
         [Test]
@@ -82,13 +82,13 @@ namespace CatanersTest
             lobby.addPlayer(new Player("p3"));
             ServerLogic logic = new ServerLogic(lobby);
             logic.playerTurn = 0;
-            logic.updateTurn();
+            logic.updateTurnGamePhase();
             Assert.AreEqual(1, logic.playerTurn);
-            logic.updateTurn();
+            logic.updateTurnGamePhase();
             Assert.AreEqual(2, logic.playerTurn);
-            logic.updateTurn();
+            logic.updateTurnGamePhase();
             Assert.AreEqual(3, logic.playerTurn);
-            logic.updateTurn();
+            logic.updateTurnGamePhase();
             Assert.AreEqual(0, logic.playerTurn);
             
         }
