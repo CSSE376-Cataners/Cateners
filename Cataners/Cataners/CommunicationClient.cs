@@ -155,7 +155,7 @@ namespace Cataners
                     PM_BuySettlement(msg);
                 break;
                 case Translation.TYPE.BuyRoad:
-                    PM_BuySettlement(msg);
+                    PM_BuyRoad(msg);
                 break;
                 case Translation.TYPE.StartGame:
                     PM_StartGame(msg);
