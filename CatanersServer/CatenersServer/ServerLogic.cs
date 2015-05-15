@@ -844,7 +844,7 @@ namespace CatenersServer
 
         public void updateTurnStartPhase2()
         {
-            //will fix after softball
+            playerTurn = 2;
         }
 
 
