@@ -164,6 +164,25 @@ namespace CatanersTest
             Assert.AreEqual(true, logic.isStartPhase2);
         }
 
+        [Test]
+        public void testUpdateTurnPhase2()
+        {
+            Player p0 = new Player("Michael Jordan");
+            Lobby lobby = new Lobby("Basketball", 100, p0, 10);
+            lobby.addPlayer(new Player("p1"));
+            lobby.addPlayer(new Player("p2"));
+            lobby.addPlayer(new Player("p3"));
+            ServerLogic logic = new ServerLogic(lobby);
+            logic.playerTurn = 3;
+            logic.updateTurnStartPhase2();
+            Assert.AreEqual(2, logic.playerTurn);
+            logic.updateTurnStartPhase2();
+            Assert.AreEqual(1, logic.playerTurn);
+            logic.updateTurnStartPhase2();
+            Assert.AreEqual(0, logic.playerTurn);
+            Assert.AreEqual(false, logic.isStartPhase2);
+        }
+
 
         /*public void TestResourceConstructor()
         {
