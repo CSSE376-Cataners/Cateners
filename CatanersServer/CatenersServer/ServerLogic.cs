@@ -616,7 +616,7 @@ namespace CatenersServer
                         }
                         foreach (int road in current.getRoads())
                         {
-                            if (this.playerKeepers[username].getSettlements().Contains(road) && this.roadArray[road].getIsActive())
+                            if (this.playerKeepers[username].getRoads().Contains(road) && this.roadArray[road].getIsActive())
                             {
                                 this.setSettlementActivity(settlementID, username);
                                 this.removeResourcesSettlement(player);
