@@ -108,7 +108,7 @@
       <DependentUpon>LoggingInForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MyScene.cs" />
-    <Compile Include="ProcessMessage.cs" />
+    <Compile Include="ClientSideProcessMessage.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="SignUpForm.cs">
       <SubType>Form</SubType>
