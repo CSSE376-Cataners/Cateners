@@ -190,7 +190,8 @@ namespace Cataners
 
         public void PM_EndTurn(Message msg)
         {
-            int num = Int32.Parse(msg.message);
+            EndTurn turn = EndTurn.fromJson(msg.message);
+            int num = turn.playerTurn;
             if (Data.currentGameLobby.gamePlayers.Count - 1 < num)
             {
                 return;
@@ -199,8 +200,15 @@ namespace Cataners
             {
                 Data.isMyTurn = true;
                 MyScene.addEndTurnButton();
-                System.Windows.MessageBox.Show("It's your turn, please roll the dice", "Your Turn", MessageBoxButton.OK);
-                CommunicationClient.instance.sendToServer(new CatanersShared.Message("", Translation.TYPE.DiceRoll).toJson());
+                if (turn.phase == EndTurn.Phase.GamePhase)
+                {
+                    System.Windows.MessageBox.Show("It's your turn, please roll the dice", "Your Turn", MessageBoxButton.OK);
+                    CommunicationClient.instance.sendToServer(new CatanersShared.Message("", Translation.TYPE.DiceRoll).toJson());
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show("It's your turn, please select one Settlement and one Road", "Your Turn", MessageBoxButton.OK);
+                }
             }
             else
             {

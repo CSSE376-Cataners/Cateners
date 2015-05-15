@@ -17,7 +17,6 @@ namespace CatanersTest
         private GamePlayer newPlayer1;
         private GamePlayer newPlayer2;
         private GamePlayer newPlayer3;
-        private GamePlayer newPlayer4;
         private int[] neighborArray;
         private MockRepository mocks = new MockRepository();
         [SetUp]
@@ -102,7 +101,7 @@ namespace CatanersTest
             this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
             this.newPlayer1.resources[Resource.TYPE.Wheat] = 1;
             this.newPlayer1.resources[Resource.TYPE.Wood] = 1;
-            testLogic.setSettlementActivity(4);
+            testLogic.setSettlementActivity(4, "Stentopher");
             Assert.False(testLogic.determineSettlementAvailability("Stentopher", 1));
         }
 
@@ -128,7 +127,7 @@ namespace CatanersTest
             this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
             this.newPlayer1.resources[Resource.TYPE.Wheat] = 1;
             this.newPlayer1.resources[Resource.TYPE.Wood] = 0;
-            testLogic.setSettlementActivity(4);
+            testLogic.setSettlementActivity(4, "Stentopher");
             Assert.False(testLogic.determineSettlementAvailability("Stentopher", 1));
         }
 
@@ -203,8 +202,8 @@ namespace CatanersTest
             this.newPlayer1.resources[Resource.TYPE.Wood] = 1;
             testLogic.playerKeepers["Stentopher"].addToSettlements(4);
             testLogic.playerKeepers["Stentopher"].addToRoads(7);
-            testLogic.setRoadActivity(7);
-            testLogic.setSettlementActivity(4);
+            testLogic.setRoadActivity(7, "Stentopher");
+            testLogic.setSettlementActivity(4, "Stentopher");
             Assert.True(testLogic.determineRoadAvailability("Stentopher", 1));
         }
 
@@ -216,6 +215,23 @@ namespace CatanersTest
             this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
             this.newPlayer1.resources[Resource.TYPE.Wood] = 1;
             Assert.False(testLogic.determineRoadAvailability("Stentopher", 1));
+        }
+
+        [Test]
+        public void testNeighborActiveSettlementFalse()
+        {
+            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            this.newPlayer1 = testLogic.gameLobby.gamePlayers[1];
+            testLogic.setRoadActivity(6, "Stentopher");
+            Assert.False(testLogic.determineSettlementAvailability("Stentopher", 0));
+        }
+
+        [Test]
+        public void testNeighborActiveSettlementTrue()
+        {
+            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            this.newPlayer1 = testLogic.gameLobby.gamePlayers[1];
+            Assert.False(testLogic.determineSettlementAvailability("Stentopher", 0));
         }
     }
 }

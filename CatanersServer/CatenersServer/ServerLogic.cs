@@ -116,6 +116,7 @@ namespace CatenersServer
         public Boolean canAddComponent;
         private Boolean isActive;
         private int[] neighbors;
+        private int[] roadNeighbors;
 
         public SettlementServer(int typeNum, int placementNumber)
         {
@@ -153,6 +154,16 @@ namespace CatenersServer
         public int[] getNeighbors()
         {
             return this.neighbors;
+        }
+
+        public void setRoads(int[] p)
+        {
+            this.roadNeighbors = p;
+        }
+
+        public int[] getRoads()
+        {
+            return this.roadNeighbors;
         }
     }
 
@@ -245,6 +256,7 @@ namespace CatenersServer
         private Dictionary<int, int[]> roadNeighborDict = new Dictionary<int, int[]>();
         private Dictionary<int, int[]> roadSettlementDict = new Dictionary<int, int[]>();
         public Dictionary<string, PlayerKeeper> playerKeepers = new Dictionary<string, PlayerKeeper>();
+        private Dictionary<int, int[]> settlementRoadDict = new Dictionary<int, int[]>();
         public bool isStartPhase1;
         public bool isStartPhase2;
 
@@ -480,6 +492,62 @@ namespace CatenersServer
             roadSettlementDict.Add(70, new int[] { 49, 53 });
             roadSettlementDict.Add(71, new int[] { 50, 53 });
             #endregion
+            #region
+            settlementRoadDict.Add(0, new int[] { 0, 1 });
+            settlementRoadDict.Add(1, new int[] { 2, 3 });
+            settlementRoadDict.Add(2, new int[] { 4, 5 });
+            settlementRoadDict.Add(3, new int[] { 0, 6 });
+            settlementRoadDict.Add(4, new int[] { 1, 2, 7 });
+            settlementRoadDict.Add(5, new int[] { 3, 4, 8 });
+            settlementRoadDict.Add(6, new int[] { 5, 9 });
+            settlementRoadDict.Add(7, new int[] { 6, 10, 11 });
+            settlementRoadDict.Add(8, new int[] { 7, 12, 13 });
+            settlementRoadDict.Add(9, new int[] { 8, 14, 15 });
+            settlementRoadDict.Add(10, new int[] { 9, 16, 17 });
+            settlementRoadDict.Add(11, new int[] { 10, 18 });
+            settlementRoadDict.Add(12, new int[] { 11, 12, 19 });
+            settlementRoadDict.Add(13, new int[] { 13, 14, 20 });
+            settlementRoadDict.Add(14, new int[] { 15, 16, 21 });
+            settlementRoadDict.Add(15, new int[] { 17, 22 });
+            settlementRoadDict.Add(16, new int[] { 18, 23, 24 });
+            settlementRoadDict.Add(17, new int[] { 19, 25, 26 });
+            settlementRoadDict.Add(18, new int[] { 20, 27, 28 });
+            settlementRoadDict.Add(19, new int[] { 21, 29, 30 });
+            settlementRoadDict.Add(20, new int[] { 22, 31, 32 });
+            settlementRoadDict.Add(21, new int[] { 23, 33 });
+            settlementRoadDict.Add(22, new int[] { 24, 25, 34 });
+            settlementRoadDict.Add(23, new int[] { 26, 27, 35 });
+            settlementRoadDict.Add(24, new int[] { 28, 29, 36 });
+            settlementRoadDict.Add(25, new int[] { 30, 31, 37 });
+            settlementRoadDict.Add(26, new int[] { 32, 38 });
+            settlementRoadDict.Add(27, new int[] { 33, 39 });
+            settlementRoadDict.Add(28, new int[] { 34, 40, 41 });
+            settlementRoadDict.Add(29, new int[] { 35, 42, 43 });
+            settlementRoadDict.Add(30, new int[] { 36, 44, 45 });
+            settlementRoadDict.Add(31, new int[] { 37, 46, 47 });
+            settlementRoadDict.Add(32, new int[] { 38, 48 });
+            settlementRoadDict.Add(33, new int[] { 39, 40, 49 });
+            settlementRoadDict.Add(34, new int[] { 41, 42, 50 });
+            settlementRoadDict.Add(35, new int[] { 43, 44, 51 });
+            settlementRoadDict.Add(36, new int[] { 45, 46, 52 });
+            settlementRoadDict.Add(37, new int[] { 47, 48, 53 });
+            settlementRoadDict.Add(38, new int[] { 48, 54 });
+            settlementRoadDict.Add(39, new int[] { 50, 55, 56 });
+            settlementRoadDict.Add(40, new int[] { 51, 57, 58 });
+            settlementRoadDict.Add(41, new int[] { 52, 59, 60 });
+            settlementRoadDict.Add(42, new int[] { 53, 61 });
+            settlementRoadDict.Add(43, new int[] { 54, 55, 62 });
+            settlementRoadDict.Add(44, new int[] { 56, 57, 63 });
+            settlementRoadDict.Add(45, new int[] { 58, 59, 64 });
+            settlementRoadDict.Add(46, new int[] { 60, 61, 65 });
+            settlementRoadDict.Add(47, new int[] { 62, 66 });
+            settlementRoadDict.Add(48, new int[] { 63, 67, 68 });
+            settlementRoadDict.Add(49, new int[] { 64, 69, 70 });
+            settlementRoadDict.Add(50, new int[] { 65, 71 });
+            settlementRoadDict.Add(51, new int[] { 66, 67 });
+            settlementRoadDict.Add(52, new int[] { 68, 69 });
+            settlementRoadDict.Add(53, new int[] { 70, 71 });
+            #endregion
             this.generatehexArray();
             this.generateDefaultSettlements();
             this.assignSettlements();
@@ -540,19 +608,17 @@ namespace CatenersServer
                         }
                         if (this.playerKeepers[username].getSettlementCount() <= 1)
                         {
-                            current.setActive();
-                            this.playerKeepers[username].addToSettlements(settlementID);
+                            this.setSettlementActivity(settlementID, username);
                             this.removeResourcesSettlement(player);
                             this.board.buildings[settlementID].owner = player;
                             player.addSettlement(settlementID);
                             return true;
                         }
-                        foreach (int z in current.getNeighbors())
+                        foreach (int road in current.getRoads())
                         {
-                            if (this.playerKeepers[username].getSettlements().Contains(z) && this.roadArray[z].getIsActive())
+                            if (this.playerKeepers[username].getSettlements().Contains(road) && this.roadArray[road].getIsActive())
                             {
-                                current.setActive();
-                                this.playerKeepers[username].addToSettlements(settlementID);
+                                this.setSettlementActivity(settlementID, username);
                                 this.removeResourcesSettlement(player);
                                 this.board.buildings[settlementID].owner = player;
                                 player.addSettlement(settlementID);
@@ -607,14 +673,17 @@ namespace CatenersServer
             player.resources[Resource.TYPE.Wood] = player.resources[Resource.TYPE.Wood] - 1;
         }
 
-        public void setSettlementActivity(int index)
+        public void setSettlementActivity(int index, string username)
         {
             this.settlementArray[index].setActive();
+            this.playerKeepers[username].addToSettlements(index);
         }
 
-        public void setRoadActivity(int index)
+        public void setRoadActivity(int index, string username)
         {
             this.roadArray[index].setActive();
+            this.playerKeepers[username].addToRoads(index);
+
         }
 
         public class NonPlayerException : NullReferenceException
@@ -685,6 +754,7 @@ namespace CatenersServer
             {
                 this.settlementArray[i] = new SettlementServer(1, i);
                 this.settlementArray[i].setNeighbors(neighborDict[i]);
+                this.settlementArray[i].setRoads(settlementRoadDict[i]);
             }
         }
 

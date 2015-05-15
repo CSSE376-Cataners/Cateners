@@ -373,7 +373,15 @@ namespace CatenersServer
         public void PM_EndTurn(Message msg)
         {
             serverLogic.updateTurn();
-            String tosend = new Message(serverLogic.playerTurn.ToString(), Translation.TYPE.EndTurn).toJson();
+
+            EndTurn.Phase phase = EndTurn.Phase.GamePhase;
+
+            if(serverLogic.isStartPhase1 || serverLogic.isStartPhase2) {
+                phase = EndTurn.Phase.StartPhase;
+            }
+
+            EndTurn et = new EndTurn(serverLogic.playerTurn, phase);
+            String tosend = new Message(et.toJson(), Translation.TYPE.EndTurn).toJson();
             sendToLobby(tosend);
         }
 
