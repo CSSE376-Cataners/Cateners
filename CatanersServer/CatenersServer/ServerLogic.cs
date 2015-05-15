@@ -848,9 +848,13 @@ namespace CatenersServer
             {
                 playerTurn = 2;
             }
-            else
+            else if(playerTurn == 2)
             {
                 playerTurn = 1;
+            }
+            else
+            {
+                playerTurn = 0;
             }
         }
 
