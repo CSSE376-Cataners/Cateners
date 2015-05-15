@@ -19,7 +19,6 @@ namespace CatanersTest
 
             Assert.AreEqual(1, et.playerTurn);
             Assert.AreEqual(EndTurn.Phase.GamePhase, et.phase);
-
         }
     }
 }

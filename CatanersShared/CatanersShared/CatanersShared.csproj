@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Chat.cs" />
+    <Compile Include="EndTurn.cs" />
     <Compile Include="GameLobby.cs" />
     <Compile Include="GamePlayer.cs" />
     <Compile Include="Lobby.cs" />
