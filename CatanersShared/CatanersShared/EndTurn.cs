@@ -23,5 +23,11 @@ namespace CatanersShared
         {
             return Newtonsoft.Json.JsonConvert.SerializeObject(this);
         }
+
+        public static EndTurn fromJson(String s)
+        {
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<EndTurn>(s);
+        }
+
     }
 }
