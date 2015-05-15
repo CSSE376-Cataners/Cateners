@@ -50,10 +50,7 @@ namespace CatenersServer
 
                         String gamePlayerList = Newtonsoft.Json.JsonConvert.SerializeObject(this.serverLogic.gameLobby.gamePlayers);
                         String toReturn = new Message(gamePlayerList, Translation.TYPE.UpdateResources).toJson();
-                        foreach (ServerPlayer p in this.currentLobby.Players)
-                        {
-                            p.client.sendToClient(toReturn);
-                        }
+                        this.sendToLobby(toReturn);
                     }
                     serverLogic.onGoingTrade = null;
                 }
@@ -162,11 +159,8 @@ namespace CatenersServer
 
                 String gamePlayerList = Newtonsoft.Json.JsonConvert.SerializeObject(this.serverLogic.gameLobby.gamePlayers);
                 String toReturn = new Message(gamePlayerList, Translation.TYPE.UpdateResources).toJson();
-                foreach (ServerPlayer p in this.currentLobby.Players)
-                {
-                    p.client.sendToClient(toReturn);
-                }
-
+                sendToLobby(toReturn);
+                
             }
             else
             {
@@ -240,11 +234,8 @@ namespace CatenersServer
                 this.serverLogic.generatehexArray();
                 int[][] array = this.serverLogic.gethexArray();
                 String boardString = new Message(Translation.intArraytwotoJson(array), Translation.TYPE.HexMessage).toJson();
-                foreach (ServerPlayer p in this.currentLobby.Players)
-                {
-                    p.client.sendToClient(boardString);
-                    p.client.sendToClient(getLobby);
-                }
+                sendToLobby(boardString);
+                sendToLobby(getLobby);
             }
         }
 
@@ -335,11 +326,8 @@ namespace CatenersServer
                 Message settlementPurchased = new Message(Newtonsoft.Json.JsonConvert.SerializeObject(converted), Translation.TYPE.BuySettlement);
                 String gamePlayerList = Newtonsoft.Json.JsonConvert.SerializeObject(this.serverLogic.gameLobby.gamePlayers);
                 String toReturn = new Message(gamePlayerList, Translation.TYPE.UpdateResources).toJson();
-                foreach (ServerPlayer p in this.currentLobby.Players)
-                {
-                    p.client.sendToClient(settlementPurchased.toJson());
-                    p.client.sendToClient(toReturn);
-                }
+                sendToLobby(settlementPurchased.toJson());
+                sendToLobby(toReturn);
             }
         }
 
@@ -385,10 +373,8 @@ namespace CatenersServer
         public void PM_EndTurn(Message msg)
         {
             serverLogic.updateTurn();
-            foreach (ServerPlayer player in currentLobby.Players)
-            {
-                player.client.sendToClient(new Message(serverLogic.playerTurn.ToString(), Translation.TYPE.EndTurn).toJson());
-            }
+            String tosend = new Message(serverLogic.playerTurn.ToString(), Translation.TYPE.EndTurn).toJson();
+            sendToLobby(tosend);
         }
 
         public void PM_DiceRoll(Message msg){
@@ -398,9 +384,14 @@ namespace CatenersServer
 
             String gamePlayerList = Newtonsoft.Json.JsonConvert.SerializeObject(this.serverLogic.gameLobby.gamePlayers);
             String toReturn = new Message(gamePlayerList, Translation.TYPE.UpdateResources).toJson();
+            sendToLobby(toReturn);
+        }
+
+        public void sendToLobby(String s)
+        {
             foreach (ServerPlayer p in this.currentLobby.Players)
             {
-                p.client.sendToClient(toReturn);
+                p.client.sendToClient(s);
             }
         }
     }
