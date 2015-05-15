@@ -29,5 +29,16 @@ namespace CatanersTest
 
             Assert.AreEqual("{\"playerTurn\":1,\"phase\":1}", et.toJson());
         }
+
+        [Test]
+        public void testFromjson()
+        {
+            EndTurn et = new EndTurn(1, EndTurn.Phase.GamePhase);
+
+            EndTurn newEt = EndTurn.fromJson(et.toJson());
+
+            Assert.AreEqual(et.phase, newEt.phase);
+            Assert.AreEqual(et.playerTurn, newEt.playerTurn);
+        }
     }
 }
