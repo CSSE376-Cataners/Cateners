@@ -841,9 +841,8 @@ namespace CatanersTest
 
             client.processesMessage(endTurnMessage);
             client2.processesMessage(endTurnMessage);
-            Assert.AreEqual(new Message("1",Translation.TYPE.EndTurn).toJson(),client.lastCall);
-            Assert.AreEqual(new Message("1", Translation.TYPE.EndTurn).toJson(), client2.lastCall);
-
+            Assert.AreEqual(new Message(new EndTurn(1,EndTurn.Phase.StartPhase).toJson(),Translation.TYPE.EndTurn).toJson(),client.lastCall);
+            Assert.AreEqual(new Message(new EndTurn(1, EndTurn.Phase.StartPhase).toJson(), Translation.TYPE.EndTurn).toJson(), client2.lastCall);
         }
 
         [Test]
