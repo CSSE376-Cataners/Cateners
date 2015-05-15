@@ -222,6 +222,10 @@ namespace CatanersTest
         {
             ServerLogic testLogic = new ServerLogic(this.newLobby);
             this.newPlayer1 = testLogic.gameLobby.gamePlayers[1];
+            this.newPlayer1.resources[Resource.TYPE.Sheep] = 1;
+            this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
+            this.newPlayer1.resources[Resource.TYPE.Wheat] = 1;
+            this.newPlayer1.resources[Resource.TYPE.Wood] = 1;
             testLogic.setSettlementActivity(3, "Stentopher");
             Assert.False(testLogic.determineSettlementAvailability("Stentopher", 0));
         }
@@ -231,6 +235,10 @@ namespace CatanersTest
         {
             ServerLogic testLogic = new ServerLogic(this.newLobby);
             this.newPlayer1 = testLogic.gameLobby.gamePlayers[1];
+            this.newPlayer1.resources[Resource.TYPE.Sheep] = 1;
+            this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
+            this.newPlayer1.resources[Resource.TYPE.Wheat] = 1;
+            this.newPlayer1.resources[Resource.TYPE.Wood] = 1;
             Assert.True(testLogic.determineSettlementAvailability("Stentopher", 0));
         }
 
@@ -240,7 +248,26 @@ namespace CatanersTest
             ServerLogic testLogic = new ServerLogic(this.newLobby);
             this.newPlayer1 = testLogic.gameLobby.gamePlayers[1];
             testLogic.setSettlementActivity(0, "Stentopher");
+            this.newPlayer1.resources[Resource.TYPE.Sheep] = 1;
+            this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
+            this.newPlayer1.resources[Resource.TYPE.Wheat] = 1;
+            this.newPlayer1.resources[Resource.TYPE.Wood] = 1;
             Assert.False(testLogic.determineSettlementAvailability("Stentopher", 0));
+        }
+
+        [Test]
+        public void testNoRoadsNotBelowTwo()
+        {
+            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            this.newPlayer1 = testLogic.gameLobby.gamePlayers[1];
+            testLogic.setSettlementActivity(0, "Stentopher");
+            testLogic.setSettlementActivity(53, "Stentopher");
+            this.newPlayer1 = testLogic.gameLobby.gamePlayers[1];
+            this.newPlayer1.resources[Resource.TYPE.Sheep] = 1;
+            this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
+            this.newPlayer1.resources[Resource.TYPE.Wheat] = 1;
+            this.newPlayer1.resources[Resource.TYPE.Wood] = 1;
+            Assert.False(testLogic.determineSettlementAvailability("Stentopher", 20));
         }
     }
 }
