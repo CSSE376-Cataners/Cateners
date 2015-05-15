@@ -608,8 +608,7 @@ namespace CatenersServer
                         }
                         if (this.playerKeepers[username].getSettlementCount() <= 1)
                         {
-                            current.setActive();
-                            this.playerKeepers[username].addToSettlements(settlementID);
+                            this.setSettlementActivity(settlementID, username);
                             this.removeResourcesSettlement(player);
                             this.board.buildings[settlementID].owner = player;
                             player.addSettlement(settlementID);
@@ -619,8 +618,7 @@ namespace CatenersServer
                         {
                             if (this.playerKeepers[username].getSettlements().Contains(road) && this.roadArray[road].getIsActive())
                             {
-                                current.setActive();
-                                this.playerKeepers[username].addToSettlements(settlementID);
+                                this.setSettlementActivity(settlementID, username);
                                 this.removeResourcesSettlement(player);
                                 this.board.buildings[settlementID].owner = player;
                                 player.addSettlement(settlementID);
