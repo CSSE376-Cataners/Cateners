@@ -306,12 +306,15 @@ namespace Cataners
                     {
                         foreach (var item in Data.currentGameLobby.gamePlayers[i].resources)
                         {
-                            sb.Append(item.Key + ": " + item.Value + " ");
+                            if (item.Key != Resource.TYPE.Desert)
+                            {
+                                sb.Append(item.Key + ": " + item.Value + " ");
+                            }
                         }
                         Entity myResourceEntity = new Entity("myResourceEntity")
                                 .AddComponent(new Transform2D()
                                 {
-                                    X = WaveConstants.CENTERWIDTH + 300,
+                                    X = WaveConstants.CENTERWIDTH + 400,
                                     Y = WaveConstants.CENTERHEIGHT / 2 + 30,
                                     DrawOrder = 2.0f
                                 })
