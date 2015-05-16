@@ -36,6 +36,7 @@ namespace CatanersTest
         {
             ServerLogic logic = new ServerLogic(new Lobby("Basketball", 100, new Player("Michael Jordan"), 10));
             HexServer targetHolder = new HexServer(2);
+            targetHolder.setRoadArray(new RoadServer[] { new RoadServer(0), new RoadServer(1), new RoadServer(2), new RoadServer(3), new RoadServer(4), new RoadServer(5)});
             targetHolder.setPlacementNumber(3);
             targetHolder.setRollNumber(3);
             SettlementServer[] setArray = new SettlementServer[6];
@@ -44,7 +45,7 @@ namespace CatanersTest
                 setArray[k] = new SettlementServer(1, k);
             }
             targetHolder.setSettlementArray(setArray);
-            Assert.AreEqual(targetHolder.toShadow(), new int[] { 2, 3, 3, 0, 1, 2, 3, 4, 5 });
+            Assert.AreEqual(targetHolder.toShadow(), new int[] { 2, 3, 3, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5});
         }
 
         [Test]
