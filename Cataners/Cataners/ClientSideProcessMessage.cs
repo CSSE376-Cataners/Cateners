@@ -123,6 +123,10 @@ namespace Cataners
                 }
                 Data.currentGameLobby = (GameLobby)Data.currentLobby;
 
+                MyScene.addResources();
+                MyScene.addRegenerateBoardButton();
+                MyScene.addEndTurnButton();
+
                 //make first player have turn
                 if (Data.currentGameLobby.gamePlayers[0].Username.Equals(Data.username))
                 {
