@@ -141,6 +141,7 @@ namespace Cataners
                 lock(toAddDecor){
                     toAddDecor.Add(newButton);
                 }
+                addEndTurnButton();
             }
         }
         public static void addEndTurnButton()
