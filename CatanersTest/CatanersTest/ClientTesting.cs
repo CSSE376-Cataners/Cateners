@@ -883,7 +883,7 @@ namespace CatanersTest
             Lobby lob = new Lobby("TestGame", 10, sp1, 1);
             GameLobby gLob = new GameLobby(lob);
 
-            Message msgBuy = new Message("", Translation.TYPE.DevelopmentCard);
+            Message msgBuy = new Message(Translation.DevelopmentType.Buy, Translation.TYPE.DevelopmentCard);
 
             // Dont have Resources Check
             client1.processesMessage(msgBuy.toJson());

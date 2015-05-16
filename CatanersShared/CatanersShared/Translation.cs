@@ -19,7 +19,8 @@ namespace CatanersShared
             BuyRoad, DevelopmentCard
         };
 
-        public enum DevelopmentType { Knight, Monopoly, RoadBuilding, YearOfPlenty, VictoryPoint }
+        public enum DevelopmentType { Buy, Knight, Monopoly, RoadBuilding, YearOfPlenty, VictoryPoint }
+
         public static int[][] jsonToIntArrayTwo(string s) 
         {
             return Newtonsoft.Json.JsonConvert.DeserializeObject<int[][]>(s);
