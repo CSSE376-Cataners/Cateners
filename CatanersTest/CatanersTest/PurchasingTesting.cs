@@ -53,6 +53,8 @@ namespace CatanersTest
             this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
             this.newPlayer1.resources[Resource.TYPE.Wheat] = 1;
             this.newPlayer1.resources[Resource.TYPE.Wood] = 1;
+            testLogic.isStartPhase1 = false;
+            testLogic.isStartPhase2 = false;
             Assert.False(testLogic.determineSettlementAvailability("Stentopher", 1));
         }
 
@@ -65,6 +67,8 @@ namespace CatanersTest
             this.newPlayer1.resources[Resource.TYPE.Brick] = 0;
             this.newPlayer1.resources[Resource.TYPE.Wheat] = 1;
             this.newPlayer1.resources[Resource.TYPE.Wood] = 1;
+            testLogic.isStartPhase1 = false;
+            testLogic.isStartPhase2 = false;
             Assert.False(testLogic.determineSettlementAvailability("Stentopher", 1));
         }
 
@@ -77,6 +81,8 @@ namespace CatanersTest
             this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
             this.newPlayer1.resources[Resource.TYPE.Wheat] = 0;
             this.newPlayer1.resources[Resource.TYPE.Wood] = 1;
+            testLogic.isStartPhase1 = false;
+            testLogic.isStartPhase2 = false;
             Assert.False(testLogic.determineSettlementAvailability("Stentopher", 1));
         }
 
@@ -89,6 +95,8 @@ namespace CatanersTest
             this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
             this.newPlayer1.resources[Resource.TYPE.Wheat] = 1;
             this.newPlayer1.resources[Resource.TYPE.Wood] = 0;
+            testLogic.isStartPhase1 = false;
+            testLogic.isStartPhase2 = false;
             Assert.False(testLogic.determineSettlementAvailability("Stentopher", 1));
         }
 
@@ -140,6 +148,8 @@ namespace CatanersTest
             this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
             this.newPlayer1.resources[Resource.TYPE.Wheat] = 1;
             this.newPlayer1.resources[Resource.TYPE.Wood] = 0;
+            testLogic.isStartPhase1 = false;
+            testLogic.isStartPhase2 = false;
             Assert.False(testLogic.determineSettlementAvailability("Stentopher", 1));
         }
 
@@ -165,6 +175,8 @@ namespace CatanersTest
             this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
             this.newPlayer1.resources[Resource.TYPE.Wheat] = 1;
             this.newPlayer1.resources[Resource.TYPE.Wood] = 1;
+            testLogic.isStartPhase1 = false;
+            testLogic.isStartPhase2 = false;
             Assert.True(testLogic.determineSettlementAvailability("Stentopher", 1));
             Assert.AreEqual(0, this.newPlayer1.resources[Resource.TYPE.Sheep]);
             Assert.AreEqual(0, this.newPlayer1.resources[Resource.TYPE.Brick]);
@@ -201,7 +213,7 @@ namespace CatanersTest
             this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
             this.newPlayer1.resources[Resource.TYPE.Wood] = 1;
             testLogic.playerKeepers["Stentopher"].addToSettlements(4);
-            testLogic.playerKeepers["Stentopher"].addToRoads(7);
+            testLogic.playerKeepers["Stentopher"].addToRoads(7, testLogic.getRoadList()[7].getNeighbors());
             testLogic.setRoadActivity(7, "Stentopher");
             testLogic.setSettlementActivity(4, "Stentopher");
             Assert.True(testLogic.determineRoadAvailability("Stentopher", 1));

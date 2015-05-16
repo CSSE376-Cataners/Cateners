@@ -16,6 +16,8 @@ namespace CatenersServer
 
         public Dictionary<int, int[]> neighborDict;
 
+        public int LongestRoadCount = 3;
+
         public static Data INSTANCE 
         {
             get
