@@ -185,6 +185,28 @@ namespace CatanersTest
             Assert.AreEqual(false, logic.isStartPhase2);
         }
 
+        [Test]
+        public void testDrawDevelopmentCard()
+        {
+            ServerLogic logic = new ServerLogic(new Lobby("Test",10,new Player(""),1));
+
+            /*  
+                14 knights
+                5 VPs
+                2 Year of Plenty
+                2 Road Building
+                2 Monopoly
+             */
+            Translation.DevelopmentType a = Translation.DevelopmentType.NA;
+            for (int i = 0; i < (14 + 5 + 2 + 2 + 2); i++)
+            {
+                a = logic.drawDevelopmentCard();
+                Assert.AreNotEqual(Translation.DevelopmentType.NA, a);
+            }
+
+            a = logic.drawDevelopmentCard();
+            Assert.AreEqual(Translation.DevelopmentType.NA, a);
+        }
 
         /*public void TestResourceConstructor()
         {
