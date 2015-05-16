@@ -837,6 +837,9 @@ namespace CatanersTest
             client.serverLogic.playerTurn = 0;
             client2.serverLogic.playerTurn = 0;
 
+            client.serverLogic.canRegen = false;
+            client2.serverLogic.canRegen = false;
+
             String endTurnMessage = new Message("", Translation.TYPE.EndTurn).toJson();
 
             client.processesMessage(endTurnMessage);
