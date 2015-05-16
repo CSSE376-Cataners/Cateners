@@ -74,6 +74,11 @@ namespace CatenersServer
             }
         }
 
+        public void PM_NewLongestRoad(Message msg)
+        {
+            
+        }
+
         public void PM_StartTrade(Message msg)
         {
             // Not in a game

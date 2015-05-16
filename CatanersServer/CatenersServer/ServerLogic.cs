@@ -52,8 +52,9 @@ namespace CatenersServer
         private ArrayList ownedPaths;
         private int settleCount;
         private int roadCount;
+        private ServerLogic currServerLogic;
         
-        public PlayerKeeper(string username)
+        public PlayerKeeper(string username, ServerLogic currServer)
         {
             this.username = username;
             this.ownedRoads = new ArrayList();
@@ -61,6 +62,7 @@ namespace CatenersServer
             this.settleCount = 0;
             this.roadCount = 0;
             this.ownedPaths = new ArrayList();
+            this.currServerLogic = currServer;
         }
 
         public int getRoadCount()
@@ -93,6 +95,8 @@ namespace CatenersServer
             if (cumulativeList.Count > Data.INSTANCE.LongestRoadCount)
             {
                 Data.INSTANCE.LongestRoadCount = cumulativeList.Count;
+                ServerPlayer player = (ServerPlayer) this.currServerLogic.getLobby().Players[0];
+                player.client.sendToLobby(new Message(this.username, Translation.TYPE.NewLongestRoad).toJson());
             }
             this.roadCount += 1;
         }
@@ -618,8 +622,13 @@ namespace CatenersServer
             gameLobby = new GameLobby(lobby);
             foreach (GamePlayer player in this.gameLobby.gamePlayers)
             {
-                this.playerKeepers.Add(player.Username, new PlayerKeeper(player.Username));
+                this.playerKeepers.Add(player.Username, new PlayerKeeper(player.Username, this));
             }
+        }
+
+        public Lobby getLobby()
+        {
+            return this.lobby;
         }
 
         public SettlementServer[] getSettlementList()
