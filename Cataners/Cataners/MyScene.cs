@@ -131,6 +131,7 @@ namespace Cataners
             }
             if (Data.username.Equals(Data.currentGameOwner.Username))
             {
+
                 Button newButton = new Button("RegenerateBoardButton");
                 newButton.Text = "Regenerate Board";
                 newButton.Width = 150;
@@ -312,6 +313,22 @@ namespace Cataners
                                 sb.Append(item.Key + ": " + item.Value + " ");
                             }
                         }
+                        //My Resources Label
+                        Entity myResourceLabel = new Entity("myResourceLabel")
+                                .AddComponent(new Transform2D()
+                                {
+                                    X = WaveConstants.CENTERWIDTH + 400,
+                                    Y = WaveConstants.CENTERHEIGHT / 2 - 30,
+                                    DrawOrder = 2.0f
+                                })
+                                .AddComponent(new TextControl()
+                                {
+                                    Text = "My resources",
+                                    Foreground = Color.Black
+                                })
+                                .AddComponent(new TextControlRenderer());
+                        toAdd.Add(myResourceLabel);
+                        //resources display
                         Entity myResourceEntity = new Entity("myResourceEntity")
                                 .AddComponent(new Transform2D()
                                 {
@@ -326,6 +343,7 @@ namespace Cataners
                                 })
                                 .AddComponent(new TextControlRenderer());
                         toAdd.Add(myResourceEntity);
+                        MyScene.addVictoryPoints();
                     }
                     //not my player
                     else
@@ -405,6 +423,24 @@ namespace Cataners
                     }
                 }
             }       
+        }
+
+        public static void addVictoryPoints()
+        {
+            Entity myResourceLabel = new Entity("myResourceLabel")
+                                .AddComponent(new Transform2D()
+                                {
+                                    X = WaveConstants.CENTERWIDTH + 400,
+                                    Y = WaveConstants.CENTERHEIGHT / 2,
+                                    DrawOrder = 2.0f
+                                })
+                                .AddComponent(new TextControl()
+                                {
+                                    Text = "Victory Points: " + Data.currentGamePlayer.victoryPoints,
+                                    Foreground = Color.Black
+                                })
+                                .AddComponent(new TextControlRenderer());
+            toAdd.Add(myResourceLabel);
         }
 
         private static void button_Pressed(object sender, GestureEventArgs e)

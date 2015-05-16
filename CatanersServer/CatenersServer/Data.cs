@@ -18,6 +18,8 @@ namespace CatenersServer
 
         public int LongestRoadCount = 3;
 
+        public string UserWithLongestRoad = "noone";
+
         public static Data INSTANCE 
         {
             get

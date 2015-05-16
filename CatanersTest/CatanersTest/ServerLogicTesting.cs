@@ -186,6 +186,43 @@ namespace CatanersTest
         }
 
         [Test]
+        public void testAddingSettlementGivesVPOnStartPhase()
+        {
+            Player p0 = new Player("Michael Jordan");
+            Lobby lobby = new Lobby("Basketball", 100, p0, 10);
+            lobby.addPlayer(new Player("p1"));
+            lobby.addPlayer(new Player("p2"));
+            lobby.addPlayer(new Player("p3"));
+            ServerLogic logic = new ServerLogic(lobby);
+            logic.isStartPhase1 = true;
+            logic.determineSettlementAvailability(p0.Username,1);
+            Assert.AreEqual(1, logic.gameLobby.gamePlayers[0].victoryPoints);
+        }
+
+        [Test]
+        public void testAddingSettlementGivesVPAfterStartPhase()
+        {
+            Player p0 = new Player("Michael Jordan");
+            Lobby lobby = new Lobby("Basketball", 100, p0, 10);
+            lobby.addPlayer(new Player("p1"));
+            lobby.addPlayer(new Player("p2"));
+            lobby.addPlayer(new Player("p3"));
+            ServerLogic logic = new ServerLogic(lobby);
+            logic.isStartPhase1 = false;
+            logic.isStartPhase2 = false;
+            logic.setSettlementActivity(15, p0.Username);
+            logic.setSettlementActivity(23, p0.Username);
+            logic.gameLobby.gamePlayers[0].resources[Resource.TYPE.Brick] = 1;
+            logic.gameLobby.gamePlayers[0].resources[Resource.TYPE.Wheat] = 1;
+            logic.gameLobby.gamePlayers[0].resources[Resource.TYPE.Wood] = 1;
+            logic.gameLobby.gamePlayers[0].resources[Resource.TYPE.Sheep] = 1;
+            logic.setRoadActivity(2, p0.Username);
+
+            logic.determineSettlementAvailability(p0.Username, 1);
+            Assert.AreEqual(1, logic.gameLobby.gamePlayers[0].victoryPoints);
+        }
+
+
         public void testDrawDevelopmentCard()
         {
             ServerLogic logic = new ServerLogic(new Lobby("Test",10,new Player(""),1));

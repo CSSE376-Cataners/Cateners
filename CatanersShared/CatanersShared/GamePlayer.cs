@@ -30,6 +30,7 @@ namespace CatanersShared
         public GamePlayer(String Username)
             : base(Username)
         {
+            this.victoryPoints = 0;
             this.color = "NA";
             resources = new Dictionary<Resource.TYPE, int>();
             developmentCards = new Dictionary<Translation.DevelopmentType, int>();
