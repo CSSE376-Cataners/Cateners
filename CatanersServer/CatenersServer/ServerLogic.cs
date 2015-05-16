@@ -322,6 +322,8 @@ namespace CatenersServer
         public bool canRegen;
         public bool taken2;
 
+        public List<Translation.DevelopmentType> developmentDeck;
+
         public ServerLogic(Lobby lobby)
         {
             isStartPhase1 = true;
@@ -624,6 +626,9 @@ namespace CatenersServer
             {
                 this.playerKeepers.Add(player.Username, new PlayerKeeper(player.Username, this));
             }
+
+            developmentDeck = new List<Translation.DevelopmentType>();
+            developmentDeck.AddRange(DEVELOPMENT_CARDS_BASE_DECK);
         }
 
         public Lobby getLobby()
@@ -1107,9 +1112,42 @@ namespace CatenersServer
             }
         }
 
+
+        /*  
+            14 knights
+            5 VPs
+            2 Year of Plenty
+            2 Road Building
+            2 Monopoly
+         */
+
+        public readonly static Translation.DevelopmentType[] DEVELOPMENT_CARDS_BASE_DECK = new Translation.DevelopmentType[] {
+            Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,
+            Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,
+            Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,
+            Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,
+            Translation.DevelopmentType.VictoryPoint, Translation.DevelopmentType.VictoryPoint, Translation.DevelopmentType.VictoryPoint ,
+            Translation.DevelopmentType.VictoryPoint, Translation.DevelopmentType.VictoryPoint,
+            Translation.DevelopmentType.YearOfPlenty, Translation.DevelopmentType.YearOfPlenty,
+            Translation.DevelopmentType.RoadBuilding, Translation.DevelopmentType.RoadBuilding,
+            Translation.DevelopmentType.Monopoly, Translation.DevelopmentType.Monopoly
+        };
+
         public Translation.DevelopmentType drawDevelopmentCard()
         {
-            throw new NotImplementedException();
+            if (developmentDeck.Count == 0)
+            {
+                return Translation.DevelopmentType.NA;
+            }
+
+            Random r = new Random();
+
+            int i = r.Next(developmentDeck.Count);
+
+            Translation.DevelopmentType temp = developmentDeck[i];
+            developmentDeck.RemoveAt(i);
+
+            return temp;
         }
     }
 
