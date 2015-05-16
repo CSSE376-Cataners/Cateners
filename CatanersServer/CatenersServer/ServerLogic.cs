@@ -92,13 +92,13 @@ namespace CatenersServer
             }
             this.ownedPaths.Add(cumulativeList);
             this.ownedRoads.Add(x);
+            this.roadCount += 1;
             if (cumulativeList.Count > Data.INSTANCE.LongestRoadCount)
             {
                 Data.INSTANCE.LongestRoadCount = cumulativeList.Count;
                 ServerPlayer player = (ServerPlayer) this.currServerLogic.getLobby().Players[0];
-                player.client.sendToLobby(new Message(this.username, Translation.TYPE.NewLongestRoad).toJson());
+                player.client.sendToLobby(new PopUpMessage("There's a New Longest Road!", "The player with the new Longest Road is: " + this.username, PopUpMessage.TYPE.Notification).toJson());
             }
-            this.roadCount += 1;
         }
         public void addToSettlements(int x)
         {

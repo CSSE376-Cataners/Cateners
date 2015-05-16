@@ -465,7 +465,7 @@ namespace Cataners
 
         public void popUpNewLongest(string newLongestUsername)
         {
-            PopUpMessage newPopUp = new PopUpMessage("There's a New Longest Road!", "The player with the new Longest Road is: " + newLongestUsername, PopUpMessage.TYPE.Notification);
+            PopUpMessage newPopUp = new PopUpMessage("There's a New Longest Road!", "The player with the new Longest Road is: " + newLongestUsername, PopUpMessage.TYPE.Notification);        
         }
 
         public float[] getAnglesRoad(HexHolder current)
