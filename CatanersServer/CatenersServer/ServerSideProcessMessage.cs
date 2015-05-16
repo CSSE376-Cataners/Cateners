@@ -118,11 +118,18 @@ namespace CatenersServer
             if (trade.target.Username.Equals("Bank"))
             {
 
+                if (request.ContainsValue(99))
+                {
+                    String gamePlayerList = Newtonsoft.Json.JsonConvert.SerializeObject(this.serverLogic.gameLobby.gamePlayers);
+                    String toReturn = new Message(gamePlayerList, Translation.TYPE.UpdateResources).toJson();
+                    sendToLobby(toReturn);
+                }
+
                 int sumOffer = 0;
                 int sumRequest = 0;
                 foreach (Resource.TYPE t in Enum.GetValues(typeof(Resource.TYPE)))
                 {
-                    if (offer.ContainsKey(t) && offer[t] >= 0)
+                    if ((offer.ContainsKey(t) && offer[t] >= 0))
                     {
                         if (offer[t] > sender.resources[t])
                         {

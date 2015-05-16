@@ -103,6 +103,7 @@ namespace CatenersServer
                 Data.INSTANCE.LongestRoadCount = cumulativeList.Count;
                 Data.INSTANCE.UserWithLongestRoad = this.username;
                 ServerPlayer player = (ServerPlayer) this.currServerLogic.getLobby().Players[0];
+
                 player.client.sendToLobby(new Message(new PopUpMessage("There's a New Longest Road!", "The player with the new Longest Road is: " + this.username, PopUpMessage.TYPE.Notification).toJson(),Translation.TYPE.PopUpMessage).toJson());
                 return cumulativeList;
             }
