@@ -298,9 +298,9 @@ namespace Cataners
 
             if (Data.currentGameLobby != null)
             {
-                sb.Clear();
                 for (int i = 0; i < Data.currentGameLobby.gamePlayers.Count; i++)
                 {
+                    sb.Clear();
                     //myPlayer
                     if (Data.currentGameLobby.gamePlayers[i].Username.Equals(Data.currentGamePlayer.Username))
                     {
