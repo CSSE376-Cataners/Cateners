@@ -45,7 +45,7 @@ namespace CatanersTest
 
             Console.WriteLine(json);
 
-            Assert.AreEqual("{\"source\":{\"color\":\"NA\",\"resources\":{\"Brick\":0,\"Ore\":0,\"Sheep\":0,\"Wheat\":0,\"Wood\":0},\"Ready\":false,\"resourceCount\":0,\"Username\":\"Sender\"},\"target\":{\"color\":\"NA\",\"resources\":{\"Brick\":0,\"Ore\":0,\"Sheep\":0,\"Wheat\":0,\"Wood\":0},\"Ready\":false,\"resourceCount\":0,\"Username\":\"Reciver\"},\"offeredResources\":{\"Wheat\":10,\"Sheep\":11,\"Brick\":12,\"Ore\":13,\"Wood\":14,\"Desert\":15},\"wantedResources\":{\"Wheat\":10,\"Sheep\":11,\"Brick\":12,\"Ore\":13,\"Wood\":14,\"Desert\":15}}", json);
+            Assert.AreEqual("{\"source\":{\"color\":\"NA\",\"developmentCards\":{\"Knight\":0,\"Monopoly\":0,\"RoadBuilding\":0,\"YearOfPlenty\":0,\"VictoryPoint\":0},\"resources\":{\"Wheat\":0,\"Sheep\":0,\"Brick\":0,\"Ore\":0,\"Wood\":0,\"Desert\":0},\"Ready\":false,\"resourceCount\":0,\"Username\":\"Sender\"},\"target\":{\"color\":\"NA\",\"developmentCards\":{\"Knight\":0,\"Monopoly\":0,\"RoadBuilding\":0,\"YearOfPlenty\":0,\"VictoryPoint\":0},\"resources\":{\"Wheat\":0,\"Sheep\":0,\"Brick\":0,\"Ore\":0,\"Wood\":0,\"Desert\":0},\"Ready\":false,\"resourceCount\":0,\"Username\":\"Reciver\"},\"offeredResources\":{\"Wheat\":10,\"Sheep\":11,\"Brick\":12,\"Ore\":13,\"Wood\":14,\"Desert\":15},\"wantedResources\":{\"Wheat\":10,\"Sheep\":11,\"Brick\":12,\"Ore\":13,\"Wood\":14,\"Desert\":15}}", json);
         }
 
         [Test]

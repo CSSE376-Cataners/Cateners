@@ -868,6 +868,59 @@ namespace CatanersTest
             Assert.AreEqual(Translation.TYPE.UpdateResources, Message.fromJson(client.lastCall).type);
         }
 
+        [Test]
+        public void testPurchasDevelopmentCard()
+        {
+            FakeClient client1 = new FakeClient();
+            ServerPlayer sp1 = new ServerPlayer("Client1", client1);
+            FakeClient client2 = new FakeClient();
+            ServerPlayer sp2 = new ServerPlayer("Client2", client2);
+            FakeClient client3 = new FakeClient();
+            ServerPlayer sp3 = new ServerPlayer("Client3", client3);
+            FakeClient client4 = new FakeClient();
+            ServerPlayer sp4 = new ServerPlayer("Client4", client4);
+            
+            Lobby lob = new Lobby("TestGame", 10, sp1, 1);
+            GameLobby gLob = new GameLobby(lob);
+
+            Message msgBuy = new Message("", Translation.TYPE.DevelopmentCard);
+
+            // Dont have Resources Check
+            client1.processesMessage(msgBuy.toJson());
+
+            Assert.Null(client1.lastCall);
+            Assert.Null(client2.lastCall);
+            Assert.Null(client3.lastCall);
+            Assert.Null(client4.lastCall);
+
+            gLob.gamePlayers[0].resources[Resource.TYPE.Wheat] = 1;
+            gLob.gamePlayers[0].resources[Resource.TYPE.Sheep] = 1;
+            gLob.gamePlayers[0].resources[Resource.TYPE.Ore] = 1;
+
+            // Have Resources Check
+            client1.processesMessage(msgBuy.toJson());
+
+            Assert.NotNull(client1.lastCall);
+            Assert.NotNull(client2.lastCall);
+            Assert.NotNull(client3.lastCall);
+            Assert.NotNull(client4.lastCall);
+
+
+            client1.lastCall = null;
+            client2.lastCall = null;
+            client3.lastCall = null;
+            client4.lastCall = null;
+
+            // Dont have resources check again (ie they got subtracted
+            client1.processesMessage(msgBuy.toJson());
+
+            Assert.Null(client1.lastCall);
+            Assert.Null(client2.lastCall);
+            Assert.Null(client3.lastCall);
+            Assert.Null(client4.lastCall);
+        }
+
+
         public class FakeClient : Client
         {
 
