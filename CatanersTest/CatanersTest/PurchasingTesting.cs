@@ -357,6 +357,7 @@ namespace CatanersTest
             testLogic.setRoadActivity(3, "Stentopher");
             testLogic.setRoadActivity(2, "Stentopher");
             Assert.True(testLogic.determineRoadAvailability("Stentopher", 1));
+            Assert.AreEqual("Stentopher", Data.INSTANCE.UserWithLongestRoad);
         }
     }
 }
