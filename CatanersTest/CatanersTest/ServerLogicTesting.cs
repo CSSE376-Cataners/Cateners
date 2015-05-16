@@ -186,7 +186,6 @@ namespace CatanersTest
         }
 
         [Test]
-<<<<<<< HEAD
         public void testAddingSettlementGivesVPOnStartPhase()
         {
             Player p0 = new Player("Michael Jordan");
@@ -224,7 +223,6 @@ namespace CatanersTest
         }
 
 
-=======
         public void testDrawDevelopmentCard()
         {
             ServerLogic logic = new ServerLogic(new Lobby("Test",10,new Player(""),1));
@@ -246,7 +244,6 @@ namespace CatanersTest
             a = logic.drawDevelopmentCard();
             Assert.AreEqual(Translation.DevelopmentType.NA, a);
         }
->>>>>>> origin/master
 
         /*public void TestResourceConstructor()
         {
