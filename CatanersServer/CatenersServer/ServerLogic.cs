@@ -75,7 +75,7 @@ namespace CatenersServer
             return this.settleCount;
         }
 
-        public void addToRoads(int x, int[] neighbors)
+        public string addToRoads(int x, int[] neighbors)
         {
             ArrayList cumulativeList = new ArrayList();
             for (int k = 0; k < neighbors.Length; k++)
@@ -96,10 +96,14 @@ namespace CatenersServer
             if (cumulativeList.Count > Data.INSTANCE.LongestRoadCount)
             {
                 Data.INSTANCE.LongestRoadCount = cumulativeList.Count;
+                Data.INSTANCE.UserWithLongestRoad = this.username;
                 ServerPlayer player = (ServerPlayer) this.currServerLogic.getLobby().Players[0];
                 player.client.sendToLobby(new PopUpMessage("There's a New Longest Road!", "The player with the new Longest Road is: " + this.username, PopUpMessage.TYPE.Notification).toJson());
+                return this.username;
             }
+            return Data.INSTANCE.UserWithLongestRoad;
         }
+
         public void addToSettlements(int x)
         {
             this.ownedSettlements.Add(x);
