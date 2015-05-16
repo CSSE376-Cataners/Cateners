@@ -294,6 +294,7 @@ namespace Cataners
 
         public static void addResources()
         {
+            int playNum=0;
             StringBuilder sb = new StringBuilder();
             if (Data.currentGameLobby != null)
             {
@@ -302,6 +303,7 @@ namespace Cataners
                     sb.Clear();
                     if (Data.currentGameLobby.gamePlayers[i].Username.Equals(Data.currentGamePlayer.Username))
                     {
+                        playNum = i;
                         foreach (var item in Data.currentGameLobby.gamePlayers[i].resources)
                         {
                             sb.Append(item.Key + ": " + item.Value + " ");
@@ -311,14 +313,15 @@ namespace Cataners
                     {
                         sb.Append("Number of Resources: " + Data.currentGameLobby.gamePlayers[i].resourceCount);
                     }
-
+                    if (i != playNum)
+                    {
                         switch (i)
                         {
                             case 0:
                                 Entity player0ResourceEntity = new Entity("player" + (i) + "ResourceEntity")
                                 .AddComponent(new Transform2D()
                                 {
-                                    X = WaveConstants.CENTERWIDTH +50 - WORDOFFSET,
+                                    X = WaveConstants.CENTERWIDTH + 50 - WORDOFFSET,
                                     Y = 130,
                                     DrawOrder = 2.0f
                                 })
@@ -352,7 +355,7 @@ namespace Cataners
                                 Entity player2ResourceEntity = new Entity("player" + (i) + "ResourceEntity")
                                 .AddComponent(new Transform2D()
                                 {
-                                    X = WaveConstants.CENTERWIDTH +50 - WORDOFFSET,
+                                    X = WaveConstants.CENTERWIDTH + 50 - WORDOFFSET,
                                     Y = (WaveConstants.CENTERHEIGHT * 2) - 80,
                                     DrawOrder = 2.0f
                                 })
@@ -370,7 +373,7 @@ namespace Cataners
                                 .AddComponent(new Transform2D()
                                 {
                                     X = WaveConstants.CENTERWIDTH - 450 - WORDOFFSET,
-                                    Y = WaveConstants.CENTERHEIGHT+30,
+                                    Y = WaveConstants.CENTERHEIGHT + 30,
                                     DrawOrder = 2.0f
                                 })
                                 .AddComponent(new TextControl()
@@ -382,7 +385,26 @@ namespace Cataners
 
                                 toAdd.Add(player3ResourceEntity);
                                 break;
-                        }                        
+                        }
+                    }
+                    else
+                    {
+                        Entity myResourceEntity = new Entity("myResourceEntity")
+                                .AddComponent(new Transform2D()
+                                {
+                                    X = WaveConstants.CENTERWIDTH + 200,
+                                    Y = WaveConstants.CENTERHEIGHT / 2 + 30,
+                                    DrawOrder = 2.0f
+                                })
+                                .AddComponent(new TextControl()
+                                {
+                                    Text = sb.ToString(),
+                                    Foreground = Color.Black
+                                })
+                                .AddComponent(new TextControlRenderer());
+
+                        toAdd.Add(myResourceEntity);
+                    }
                 }
             }         
         }
