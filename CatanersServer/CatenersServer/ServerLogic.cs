@@ -1097,9 +1097,10 @@ namespace CatenersServer
             GamePlayer player = null;
             foreach (GamePlayer p in gameLobby.gamePlayers)
             {
-                if (user.Username.Equals(player.Username))
+                if (user.Username.Equals(p.Username))
                 {
                     player = p;
+                    break;
                 }
             }
 
@@ -1108,8 +1109,23 @@ namespace CatenersServer
                 // Add card
                 Translation.DevelopmentType type = drawDevelopmentCard();
 
-                player.developmentCards[type] += 1;
+                if (type != Translation.DevelopmentType.NA)
+                {
+                    removeDevelopmentCardCost(player);
+                    player.developmentCards[type] += 1;
+
+                    String gamePlayerList = Newtonsoft.Json.JsonConvert.SerializeObject(gameLobby.gamePlayers);
+                    String toReturn = new Message(gamePlayerList, Translation.TYPE.UpdateResources).toJson();
+                    user.client.sendToLobby(toReturn);
+                }
             }
+        }
+
+        private void removeDevelopmentCardCost(GamePlayer player)
+        {
+            player.resources[Resource.TYPE.Wheat]   -= 1;
+            player.resources[Resource.TYPE.Sheep]   -= 1;
+            player.resources[Resource.TYPE.Ore]     -= 1;
         }
 
 
