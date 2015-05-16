@@ -416,7 +416,7 @@ namespace CatenersServer
 
         public void PM_DevelopmentCard(Message msg)
         {
-            if (gameLobby == null) return;
+            if (serverLogic == null) return;
 
             Translation.DevelopmentType type = (Translation.DevelopmentType)Enum.Parse(typeof(Translation.DevelopmentType), msg.message, true);
 

@@ -304,7 +304,7 @@ namespace Cataners
                 {
                     sb.Clear();
                     //myPlayer
-                    if (Data.currentGameLobby.gamePlayers[i].Username.Equals(Data.currentGamePlayer.Username))
+                    if (Data.currentGamePlayer != null && Data.currentGameLobby.gamePlayers[i].Username.Equals(Data.currentGamePlayer.Username))
                     {
                         foreach (var item in Data.currentGameLobby.gamePlayers[i].resources)
                         {

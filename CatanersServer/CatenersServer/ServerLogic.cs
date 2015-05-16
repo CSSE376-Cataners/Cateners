@@ -103,8 +103,13 @@ namespace CatenersServer
                 Data.INSTANCE.LongestRoadCount = cumulativeList.Count;
                 Data.INSTANCE.UserWithLongestRoad = this.username;
                 ServerPlayer player = (ServerPlayer) this.currServerLogic.getLobby().Players[0];
+<<<<<<< HEAD
                 player.client.sendToLobby(new PopUpMessage("There's a New Longest Road!", "The player with the new Longest Road is: " + this.username, PopUpMessage.TYPE.Notification).toJson());
                 return cumulativeList;
+=======
+                player.client.sendToLobby(new Message(new PopUpMessage("There's a New Longest Road!", "The player with the new Longest Road is: " + this.username, PopUpMessage.TYPE.Notification).toJson(),Translation.TYPE.PopUpMessage).toJson());
+                return this.username;
+>>>>>>> origin/master
             }
             return cumulativeList;
         }
@@ -332,6 +337,26 @@ namespace CatenersServer
         public bool taken2;
 
         public List<Translation.DevelopmentType> developmentDeck;
+
+        /*  
+            14 knights
+            5 VPs
+            2 Year of Plenty
+            2 Road Building
+            2 Monopoly
+         */
+
+        public readonly static Translation.DevelopmentType[] DEVELOPMENT_CARDS_BASE_DECK = new Translation.DevelopmentType[] {
+            Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,
+            Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,
+            Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,
+            Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,
+            Translation.DevelopmentType.VictoryPoint, Translation.DevelopmentType.VictoryPoint, Translation.DevelopmentType.VictoryPoint ,
+            Translation.DevelopmentType.VictoryPoint, Translation.DevelopmentType.VictoryPoint,
+            Translation.DevelopmentType.YearOfPlenty, Translation.DevelopmentType.YearOfPlenty,
+            Translation.DevelopmentType.RoadBuilding, Translation.DevelopmentType.RoadBuilding,
+            Translation.DevelopmentType.Monopoly, Translation.DevelopmentType.Monopoly
+        };
 
         public ServerLogic(Lobby lobby)
         {
@@ -684,12 +709,14 @@ namespace CatenersServer
             {
                 if (player.Username.Equals(username))
                 {
+                    if (current.getIsActive())
+                    {
+                        BuyCity(player, settlementID);
+                        return false;
+                    }
                     if(isStartPhase1 || isStartPhase2 || ((player.resources[Resource.TYPE.Wood] >= 1) && (player.resources[Resource.TYPE.Brick] >= 1) && (player.resources[Resource.TYPE.Sheep] >= 1) && (player.resources[Resource.TYPE.Wheat] >= 1)))
                     {
-                        if (current.getIsActive())
-                        {
-                            return false;
-                        }
+                        
                         if (this.playerKeepers[username].getSettlementCount() <= 1)
                         {
                             if (usedSettlement)
@@ -728,6 +755,18 @@ namespace CatenersServer
                 }
             }
             throw new NonPlayerException("Player does not exist in the current lobby.");
+        }
+
+        public void BuyCity(GamePlayer player, int settlementID)
+        {
+            SettlementServer current = this.settlementArray[settlementID];
+            if (board.buildings[settlementID].owner.Username.Equals(player.Username) && (player.resources[Resource.TYPE.Ore] >=3 && player.resources[Resource.TYPE.Wheat] >=2 ))
+            {
+                board.buildings[settlementID].isCity = true;
+                player.victoryPoints += 1;
+                player.resources[Resource.TYPE.Ore] -= 3;
+                player.resources[Resource.TYPE.Wheat] -= 2;
+            }
         }
 
         public Boolean determineRoadAvailability(string username, int roadID)
@@ -1108,9 +1147,10 @@ namespace CatenersServer
             GamePlayer player = null;
             foreach (GamePlayer p in gameLobby.gamePlayers)
             {
-                if (user.Username.Equals(player.Username))
+                if (user.Username.Equals(p.Username))
                 {
                     player = p;
+                    break;
                 }
             }
 
@@ -1119,30 +1159,34 @@ namespace CatenersServer
                 // Add card
                 Translation.DevelopmentType type = drawDevelopmentCard();
 
-                player.developmentCards[type] += 1;
+                if (type != Translation.DevelopmentType.NA)
+                {
+                    removeDevelopmentCardCost(player);
+                    player.developmentCards[type] += 1;
+
+                    if (type == Translation.DevelopmentType.VictoryPoint)
+                    {
+                        player.victoryPoints++;
+                    }
+
+                    String gamePlayerList = Newtonsoft.Json.JsonConvert.SerializeObject(gameLobby.gamePlayers);
+                    String toReturn = new Message(gamePlayerList, Translation.TYPE.UpdateResources).toJson();
+                    user.client.sendToLobby(toReturn);
+                }
+                else
+                {
+                    PopUpMessage popup = new PopUpMessage("Empty Deck","There are no Development Cards left in the deck.", PopUpMessage.TYPE.Notification);
+                    user.client.sendToClient(new Message(popup.toJson(),Translation.TYPE.PopUpMessage).toJson());
+                }
             }
         }
 
-
-        /*  
-            14 knights
-            5 VPs
-            2 Year of Plenty
-            2 Road Building
-            2 Monopoly
-         */
-
-        public readonly static Translation.DevelopmentType[] DEVELOPMENT_CARDS_BASE_DECK = new Translation.DevelopmentType[] {
-            Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,
-            Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,
-            Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,
-            Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,
-            Translation.DevelopmentType.VictoryPoint, Translation.DevelopmentType.VictoryPoint, Translation.DevelopmentType.VictoryPoint ,
-            Translation.DevelopmentType.VictoryPoint, Translation.DevelopmentType.VictoryPoint,
-            Translation.DevelopmentType.YearOfPlenty, Translation.DevelopmentType.YearOfPlenty,
-            Translation.DevelopmentType.RoadBuilding, Translation.DevelopmentType.RoadBuilding,
-            Translation.DevelopmentType.Monopoly, Translation.DevelopmentType.Monopoly
-        };
+        private void removeDevelopmentCardCost(GamePlayer player)
+        {
+            player.resources[Resource.TYPE.Wheat]   -= 1;
+            player.resources[Resource.TYPE.Sheep]   -= 1;
+            player.resources[Resource.TYPE.Ore]     -= 1;
+        }
 
         public Translation.DevelopmentType drawDevelopmentCard()
         {

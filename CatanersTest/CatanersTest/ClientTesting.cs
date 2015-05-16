@@ -545,7 +545,7 @@ namespace CatanersTest
             client.gameLobby = game;
             client.processesMessage(getGameLobbyMessage);
 
-            Assert.AreEqual(new Message(game.toJson(), Translation.TYPE.GetGameLobby).toJson(), client.lastCall);
+            Assert.AreEqual(Translation.TYPE.GetGameLobby, Message.fromJson(client.lastCall).type);
         }
 
         [Test]
@@ -837,6 +837,9 @@ namespace CatanersTest
             client.serverLogic.playerTurn = 0;
             client2.serverLogic.playerTurn = 0;
 
+            client.serverLogic.canRegen = false;
+            client2.serverLogic.canRegen = false;
+
             String endTurnMessage = new Message("", Translation.TYPE.EndTurn).toJson();
 
             client.processesMessage(endTurnMessage);
@@ -872,16 +875,42 @@ namespace CatanersTest
         public void testPurchasDevelopmentCard()
         {
             FakeClient client1 = new FakeClient();
-            ServerPlayer sp1 = new ServerPlayer("Client1", client1);
-            FakeClient client2 = new FakeClient();
-            ServerPlayer sp2 = new ServerPlayer("Client2", client2);
-            FakeClient client3 = new FakeClient();
-            ServerPlayer sp3 = new ServerPlayer("Client3", client3);
-            FakeClient client4 = new FakeClient();
-            ServerPlayer sp4 = new ServerPlayer("Client4", client4);
+            client1.userName = "Client1";
+            ServerPlayer sp1 = new ServerPlayer(client1.userName, client1);
+            client1.player = sp1;
             
+            FakeClient client2 = new FakeClient();
+            client2.userName = "Client2";
+            ServerPlayer sp2 = new ServerPlayer(client2.userName, client2);
+            client2.player = sp2;
+
+            FakeClient client3 = new FakeClient();
+            client3.userName = "Client3";
+            ServerPlayer sp3 = new ServerPlayer(client3.userName, client3);
+            client3.player = sp3;
+
+            FakeClient client4 = new FakeClient();
+            client4.userName = "Client4";
+            ServerPlayer sp4 = new ServerPlayer(client4.userName, client4);
+            client4.player = sp4;
+
             Lobby lob = new Lobby("TestGame", 10, sp1, 1);
-            GameLobby gLob = new GameLobby(lob);
+            lob.Players.Add(sp2);
+            lob.Players.Add(sp3);
+            lob.Players.Add(sp4);
+
+            ServerLogic logic = new ServerLogic(lob);
+            GameLobby gLob = logic.gameLobby;
+
+            client1.serverLogic = logic;
+            client2.serverLogic = logic;
+            client3.serverLogic = logic;
+            client4.serverLogic = logic;
+
+            client1.currentLobby = lob;
+            client2.currentLobby = lob;
+            client3.currentLobby = lob;
+            client4.currentLobby = lob;
 
             Message msgBuy = new Message(Translation.DevelopmentType.Buy.ToString(), Translation.TYPE.DevelopmentCard);
 
@@ -900,24 +929,64 @@ namespace CatanersTest
             // Have Resources Check
             client1.processesMessage(msgBuy.toJson());
 
+            // Removed Resources
+            Assert.AreEqual(0, gLob.gamePlayers[0].resourceCount);
+
+
+            // Sent Updates
             Assert.NotNull(client1.lastCall);
             Assert.NotNull(client2.lastCall);
             Assert.NotNull(client3.lastCall);
             Assert.NotNull(client4.lastCall);
 
+            int sum = 0;
+            foreach(Translation.DevelopmentType card in gLob.gamePlayers[0].developmentCards.Keys) {
+                sum += gLob.gamePlayers[0].developmentCards[card];
+            }
+
+            Assert.AreEqual(1, sum);
 
             client1.lastCall = null;
             client2.lastCall = null;
             client3.lastCall = null;
             client4.lastCall = null;
 
-            // Dont have resources check again (ie they got subtracted
+            // Dont have resources check again (ie they got subtracted)
             client1.processesMessage(msgBuy.toJson());
 
             Assert.Null(client1.lastCall);
             Assert.Null(client2.lastCall);
             Assert.Null(client3.lastCall);
             Assert.Null(client4.lastCall);
+
+            sum = 0;
+            foreach (Translation.DevelopmentType card in gLob.gamePlayers[0].developmentCards.Keys)
+            {
+                sum += gLob.gamePlayers[0].developmentCards[card];
+            }
+
+            Assert.AreEqual(1, sum);
+
+
+
+            // Simulate that all cards have been bought, then you try to buy one more.
+
+            gLob.gamePlayers[0].resources[Resource.TYPE.Wheat] = 1;
+            gLob.gamePlayers[0].resources[Resource.TYPE.Sheep] = 1;
+            gLob.gamePlayers[0].resources[Resource.TYPE.Ore] = 1;
+
+            logic.developmentDeck.Clear();
+
+            client1.processesMessage(msgBuy.toJson());
+
+            sum = 0;
+            foreach (Translation.DevelopmentType card in gLob.gamePlayers[0].developmentCards.Keys)
+            {
+                sum += gLob.gamePlayers[0].developmentCards[card];
+            }
+
+            Assert.AreEqual(3, gLob.gamePlayers[0].resourceCount);
+            Assert.NotNull(client1.lastCall);
         }
 
 

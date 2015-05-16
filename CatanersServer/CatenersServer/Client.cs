@@ -84,7 +84,7 @@ namespace CatenersServer
             writer.Flush();
         }
 
-        public static List<Translation.TYPE> turnRequired = new List<Translation.TYPE>() { Translation.TYPE.BuySettlement , Translation.TYPE.Game , Translation.TYPE.StartTrade, Translation.TYPE.EndTurn, Translation.TYPE.DiceRoll };
+        public static List<Translation.TYPE> turnRequired = new List<Translation.TYPE>() { Translation.TYPE.BuyRoad , Translation.TYPE.BuySettlement , Translation.TYPE.Game , Translation.TYPE.StartTrade, Translation.TYPE.EndTurn, Translation.TYPE.DiceRoll };
 
         public void processesMessage(String s)
         {
@@ -94,7 +94,7 @@ namespace CatenersServer
 
             // TODO Pick all messages that would be considered turn based
             
-            if(this.gameLobby != null && !this.gameLobby.gamePlayers[serverLogic.playerTurn].Username.Equals(this.userName))
+            if(this.gameLobby != null && this.serverLogic != null && !this.gameLobby.gamePlayers[serverLogic.playerTurn].Username.Equals(this.userName))
                 if (!Data.DEBUG && turnRequired.Contains(msg.type))
                 {
                     return;
