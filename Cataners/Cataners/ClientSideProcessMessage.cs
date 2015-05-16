@@ -125,6 +125,7 @@ namespace Cataners
 
                 MyScene.addResources();
                 MyScene.addRegenerateBoardButton();
+                MyScene.addPlayerNames();
                 MyScene.addEndTurnButton();
 
                 //make first player have turn
