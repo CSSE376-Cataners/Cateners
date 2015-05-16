@@ -292,6 +292,14 @@ namespace Cataners
 
         private void tradeButton_Click(object sender, EventArgs e)
         {
+            //cheating
+            if (desiredResourceCount == 99 * 5 && offeredResourceCount == 1)
+            {
+                Trade tradeobj = new Trade(currentTrader, new GamePlayer("Bank"), offered, wanted);
+                CommunicationClient.Instance.sendToServer(new CatanersShared.Message(tradeobj.toJson(), Translation.TYPE.StartTrade).toJson());
+                this.Hide();
+            }
+
             desiredResourceCount = 0;
             offeredResourceCount = 0;
             if (targetOfTradeComboBox.SelectedItem == null)
