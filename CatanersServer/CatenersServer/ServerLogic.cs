@@ -754,6 +754,8 @@ namespace CatenersServer
             {
                 board.buildings[settlementID].isCity = true;
                 player.victoryPoints += 1;
+                player.resources[Resource.TYPE.Ore] -= 3;
+                player.resources[Resource.TYPE.Wheat] -= 2;
             }
         }
 
