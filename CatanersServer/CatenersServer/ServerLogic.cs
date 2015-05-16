@@ -753,13 +753,19 @@ namespace CatenersServer
 
         public void BuyCity(GamePlayer player, int settlementID)
         {
-            SettlementServer current = this.settlementArray[settlementID];
-            if (board.buildings[settlementID].owner.Username.Equals(player.Username) && (player.resources[Resource.TYPE.Ore] >=3 && player.resources[Resource.TYPE.Wheat] >=2 ))
+            if (!board.buildings[settlementID].isCity == true)
             {
-                board.buildings[settlementID].isCity = true;
-                player.victoryPoints += 1;
-                player.resources[Resource.TYPE.Ore] -= 3;
-                player.resources[Resource.TYPE.Wheat] -= 2;
+                if (board.buildings[settlementID].owner.Username.Equals(player.Username) && (player.resources[Resource.TYPE.Ore] >= 3 && player.resources[Resource.TYPE.Wheat] >= 2))
+                {
+                    board.buildings[settlementID].isCity = true;
+                    player.victoryPoints += 1;
+                    player.resources[Resource.TYPE.Ore] -= 3;
+                    player.resources[Resource.TYPE.Wheat] -= 2;
+
+                    String gamePlayerList = Newtonsoft.Json.JsonConvert.SerializeObject(gameLobby.gamePlayers);
+                    String toReturn = new Message(gamePlayerList, Translation.TYPE.UpdateResources).toJson();
+                    ((ServerPlayer)lobby.Players[0]).client.sendToLobby(toReturn);
+                }
             }
         }
 
