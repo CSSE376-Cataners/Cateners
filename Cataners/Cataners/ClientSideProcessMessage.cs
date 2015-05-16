@@ -68,6 +68,11 @@ namespace Cataners
             LocalConversion.Instance.setAsPurchasedRoad(Newtonsoft.Json.JsonConvert.DeserializeObject<string[]>(msg.message));
         }
 
+        public void PM_NewLongestRoad(Message msg)
+        {
+            LocalConversion.Instance.popUpNewLongest(msg.message);
+        }
+
         public void PM_StartGame(Message msg)
         {
             Data.gameStarted = true;
