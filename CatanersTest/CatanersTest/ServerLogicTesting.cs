@@ -185,6 +185,20 @@ namespace CatanersTest
             Assert.AreEqual(false, logic.isStartPhase2);
         }
 
+        [Test]
+        public void testAddingSettlementGivesVP()
+        {
+            Player p0 = new Player("Michael Jordan");
+            Lobby lobby = new Lobby("Basketball", 100, p0, 10);
+            lobby.addPlayer(new Player("p1"));
+            lobby.addPlayer(new Player("p2"));
+            lobby.addPlayer(new Player("p3"));
+            ServerLogic logic = new ServerLogic(lobby);
+            logic.isStartPhase1 = true;
+            logic.determineSettlementAvailability(p0.Username,1);
+            Assert.AreEqual(1, logic.gameLobby.gamePlayers[0].victoryPoints);
+        }
+
 
         /*public void TestResourceConstructor()
         {
