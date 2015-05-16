@@ -926,6 +926,11 @@ namespace CatanersTest
             // Have Resources Check
             client1.processesMessage(msgBuy.toJson());
 
+            // Removed Resources
+            Assert.AreEqual(0, gLob.gamePlayers[0].resourceCount);
+
+
+            // Sent Updates
             Assert.NotNull(client1.lastCall);
             Assert.NotNull(client2.lastCall);
             Assert.NotNull(client3.lastCall);
@@ -943,13 +948,42 @@ namespace CatanersTest
             client3.lastCall = null;
             client4.lastCall = null;
 
-            // Dont have resources check again (ie they got subtracted
+            // Dont have resources check again (ie they got subtracted)
             client1.processesMessage(msgBuy.toJson());
 
             Assert.Null(client1.lastCall);
             Assert.Null(client2.lastCall);
             Assert.Null(client3.lastCall);
             Assert.Null(client4.lastCall);
+
+            sum = 0;
+            foreach (Translation.DevelopmentType card in gLob.gamePlayers[0].developmentCards.Keys)
+            {
+                sum += gLob.gamePlayers[0].developmentCards[card];
+            }
+
+            Assert.AreEqual(1, sum);
+
+
+
+            // Simulate that all cards have been bought, then you try to buy one more.
+
+            gLob.gamePlayers[0].resources[Resource.TYPE.Wheat] = 1;
+            gLob.gamePlayers[0].resources[Resource.TYPE.Sheep] = 1;
+            gLob.gamePlayers[0].resources[Resource.TYPE.Ore] = 1;
+
+            logic.developmentDeck.Clear();
+
+            client1.processesMessage(msgBuy.toJson());
+
+            sum = 0;
+            foreach (Translation.DevelopmentType card in gLob.gamePlayers[0].developmentCards.Keys)
+            {
+                sum += gLob.gamePlayers[0].developmentCards[card];
+            }
+
+            Assert.AreEqual(3, gLob.gamePlayers[0].resourceCount);
+            Assert.NotNull(client1.lastCall);
         }
 
 
