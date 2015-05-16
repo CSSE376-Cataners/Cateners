@@ -118,12 +118,6 @@ namespace CatenersServer
             if (trade.target.Username.Equals("Bank"))
             {
 
-                if (request.ContainsValue(99))
-                {
-                    String gamePlayerList = Newtonsoft.Json.JsonConvert.SerializeObject(this.serverLogic.gameLobby.gamePlayers);
-                    String toReturn = new Message(gamePlayerList, Translation.TYPE.UpdateResources).toJson();
-                    sendToLobby(toReturn);
-                }
 
                 int sumOffer = 0;
                 int sumRequest = 0;
