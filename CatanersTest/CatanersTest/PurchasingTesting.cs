@@ -340,5 +340,19 @@ namespace CatanersTest
             testLogic.setRoadActivity(0, "TrottaSN");
             Assert.False(testLogic.determineRoadAvailability("Stentopher", 1));
         }
+
+        [Test]
+        public void testLongestRoadAfterFourthRoadPurchased()
+        {
+            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            this.newPlayer1 = testLogic.gameLobby.gamePlayers[1];
+            this.newPlayer1.resources[Resource.TYPE.Brick] = 1;
+            this.newPlayer1.resources[Resource.TYPE.Wood] = 1;
+            testLogic.setRoadActivity(4, "Stentopher");
+            testLogic.setRoadActivity(3, "Stentopher");
+            testLogic.setRoadActivity(2, "Stentopher");
+            Assert.True(testLogic.determineSettlementAvailability("Stentopher", 2));
+            Assert.AreEqual(Data.INSTANCE.UserWithLongestRoad, "Stentopher");
+        }
     }
 }
