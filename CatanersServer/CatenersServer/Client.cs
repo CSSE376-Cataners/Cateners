@@ -94,7 +94,7 @@ namespace CatenersServer
 
             // TODO Pick all messages that would be considered turn based
             
-            if(this.gameLobby != null && !this.gameLobby.gamePlayers[serverLogic.playerTurn].Username.Equals(this.userName))
+            if(this.gameLobby != null && this.serverLogic != null && !this.gameLobby.gamePlayers[serverLogic.playerTurn].Username.Equals(this.userName))
                 if (!Data.DEBUG && turnRequired.Contains(msg.type))
                 {
                     return;
