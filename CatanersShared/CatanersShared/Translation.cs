@@ -20,7 +20,7 @@ namespace CatanersShared
             NewLongestRoad
         };
 
-        public enum DevelopmentType { Buy, Knight, Monopoly, RoadBuilding, YearOfPlenty, VictoryPoint }
+        public enum DevelopmentType { Buy, NA, Knight, Monopoly, RoadBuilding, YearOfPlenty, VictoryPoint }
 
         public static int[][] jsonToIntArrayTwo(string s) 
         {
