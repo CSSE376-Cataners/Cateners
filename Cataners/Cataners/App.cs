@@ -111,7 +111,11 @@ namespace Cataners
             {
                 lock (this.game)
                 {
-                    this.game.DrawFrame(elapsedTime);
+                    try
+                    {
+                        this.game.DrawFrame(elapsedTime);
+                    }
+                    catch (NullReferenceException) { }
                 }
             }
         }
