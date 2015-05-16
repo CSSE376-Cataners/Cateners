@@ -545,7 +545,7 @@ namespace CatanersTest
             client.gameLobby = game;
             client.processesMessage(getGameLobbyMessage);
 
-            Assert.AreEqual(new Message(game.toJson(), Translation.TYPE.GetGameLobby).toJson(), client.lastCall);
+            Assert.AreEqual(Translation.TYPE.GetGameLobby, Message.fromJson(client.lastCall).type);
         }
 
         [Test]
