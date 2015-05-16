@@ -689,6 +689,7 @@ namespace CatenersServer
                             }
                             this.board.buildings[settlementID].owner = player;
                             player.addSettlement(settlementID);
+                            player.victoryPoints += 1;
                             usedSettlement = true;
                             return true;
                         }
