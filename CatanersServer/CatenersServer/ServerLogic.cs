@@ -679,12 +679,14 @@ namespace CatenersServer
             {
                 if (player.Username.Equals(username))
                 {
+                    if (current.getIsActive())
+                    {
+                        BuyCity(player, settlementID);
+                        return false;
+                    }
                     if(isStartPhase1 || isStartPhase2 || ((player.resources[Resource.TYPE.Wood] >= 1) && (player.resources[Resource.TYPE.Brick] >= 1) && (player.resources[Resource.TYPE.Sheep] >= 1) && (player.resources[Resource.TYPE.Wheat] >= 1)))
                     {
-                        if (current.getIsActive())
-                        {
-                            return false;
-                        }
+                        
                         if (this.playerKeepers[username].getSettlementCount() <= 1)
                         {
                             if (usedSettlement)
@@ -723,6 +725,16 @@ namespace CatenersServer
                 }
             }
             throw new NonPlayerException("Player does not exist in the current lobby.");
+        }
+
+        public void BuyCity(GamePlayer player, int settlementID)
+        {
+            SettlementServer current = this.settlementArray[settlementID];
+            if (board.buildings[settlementID].owner.Username.Equals(player.Username) && (player.resources[Resource.TYPE.Ore] >=3 && player.resources[Resource.TYPE.Wheat] >=2 ))
+            {
+                board.buildings[settlementID].isCity = true;
+                player.victoryPoints += 1;
+            }
         }
 
         public Boolean determineRoadAvailability(string username, int roadID)
