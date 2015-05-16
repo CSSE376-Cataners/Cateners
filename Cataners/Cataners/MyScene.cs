@@ -321,6 +321,7 @@ namespace Cataners
                                     Foreground = Color.Black
                                 })
                                 .AddComponent(new TextControlRenderer());
+                        toAdd.Add(myResourceEntity);
                     }
                     //not my player
                     else
