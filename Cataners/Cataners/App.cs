@@ -70,28 +70,30 @@ namespace Cataners
                                 lock (MyScene.toAddDecor)
                                 {
                                     WaveEngine.Framework.Managers.EntityManager o = MyScene.Instance.EntityManager;
-                                    foreach (Entity e in MyScene.toAdd)
+                                    for (int i = 0; i < MyScene.toAdd.Count; i++)
                                     {
-                                        Entity temp = o.Find(e.Name);
+                                        Entity temp = o.Find(MyScene.toAdd[i].Name);
                                         if (temp != null)
                                         {
                                             o.Remove(temp);
                                         }
-                                        o.Add(e);
+                                        o.Add(MyScene.toAdd[i]);
                                     }
                                     MyScene.toAdd.Clear();
-                                    foreach (BaseDecorator e in MyScene.toAddDecor)
+                                    for (int l = 0; l < MyScene.toAddDecor.Count; l++)
                                     {
-                                        BaseDecorator temp = o.Find<BaseDecorator>(e.Name);
+                                        BaseDecorator temp = o.Find<BaseDecorator>(MyScene.toAddDecor[l].Name);
                                         if (temp == null)
                                         {
-                                            Entity temp2 = o.Find(e.Name);
+                                            Entity temp2 = o.Find(MyScene.toAddDecor[l].Name);
                                             if (temp2 != null)
                                                 o.Remove(temp2);
-                                        }else {
+                                        }
+                                        else
+                                        {
                                             o.Remove(temp);
                                         }
-                                        o.Add(e);
+                                        o.Add(MyScene.toAddDecor[l]);
                                     }
                                     MyScene.toAddDecor.Clear();
                                 }
