@@ -1124,6 +1124,11 @@ namespace CatenersServer
                     String toReturn = new Message(gamePlayerList, Translation.TYPE.UpdateResources).toJson();
                     user.client.sendToLobby(toReturn);
                 }
+                else
+                {
+                    PopUpMessage popup = new PopUpMessage("Empty Deck","There are no Development Cards left in the deck.", PopUpMessage.TYPE.Notification);
+                    user.client.sendToClient(new Message(popup.toJson(),Translation.TYPE.PopUpMessage).toJson());
+                }
             }
         }
 
