@@ -9,7 +9,7 @@ namespace CatanersShared
 {
     public class GamePlayer : Player
     {
-        private int victoryPoints;
+        public int victoryPoints;
         private ArrayList settlementList;
         public string color;
         public Dictionary<Translation.DevelopmentType,int> developmentCards;
