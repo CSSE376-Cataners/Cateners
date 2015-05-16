@@ -328,6 +328,26 @@ namespace CatenersServer
 
         public List<Translation.DevelopmentType> developmentDeck;
 
+        /*  
+            14 knights
+            5 VPs
+            2 Year of Plenty
+            2 Road Building
+            2 Monopoly
+         */
+
+        public readonly static Translation.DevelopmentType[] DEVELOPMENT_CARDS_BASE_DECK = new Translation.DevelopmentType[] {
+            Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,
+            Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,
+            Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,
+            Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,
+            Translation.DevelopmentType.VictoryPoint, Translation.DevelopmentType.VictoryPoint, Translation.DevelopmentType.VictoryPoint ,
+            Translation.DevelopmentType.VictoryPoint, Translation.DevelopmentType.VictoryPoint,
+            Translation.DevelopmentType.YearOfPlenty, Translation.DevelopmentType.YearOfPlenty,
+            Translation.DevelopmentType.RoadBuilding, Translation.DevelopmentType.RoadBuilding,
+            Translation.DevelopmentType.Monopoly, Translation.DevelopmentType.Monopoly
+        };
+
         public ServerLogic(Lobby lobby)
         {
             isStartPhase1 = true;
@@ -1120,6 +1140,11 @@ namespace CatenersServer
                     removeDevelopmentCardCost(player);
                     player.developmentCards[type] += 1;
 
+                    if (type == Translation.DevelopmentType.VictoryPoint)
+                    {
+                        player.victoryPoints++;
+                    }
+
                     String gamePlayerList = Newtonsoft.Json.JsonConvert.SerializeObject(gameLobby.gamePlayers);
                     String toReturn = new Message(gamePlayerList, Translation.TYPE.UpdateResources).toJson();
                     user.client.sendToLobby(toReturn);
@@ -1138,27 +1163,6 @@ namespace CatenersServer
             player.resources[Resource.TYPE.Sheep]   -= 1;
             player.resources[Resource.TYPE.Ore]     -= 1;
         }
-
-
-        /*  
-            14 knights
-            5 VPs
-            2 Year of Plenty
-            2 Road Building
-            2 Monopoly
-         */
-
-        public readonly static Translation.DevelopmentType[] DEVELOPMENT_CARDS_BASE_DECK = new Translation.DevelopmentType[] {
-            Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,
-            Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,
-            Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,
-            Translation.DevelopmentType.Knight,Translation.DevelopmentType.Knight,
-            Translation.DevelopmentType.VictoryPoint, Translation.DevelopmentType.VictoryPoint, Translation.DevelopmentType.VictoryPoint ,
-            Translation.DevelopmentType.VictoryPoint, Translation.DevelopmentType.VictoryPoint,
-            Translation.DevelopmentType.YearOfPlenty, Translation.DevelopmentType.YearOfPlenty,
-            Translation.DevelopmentType.RoadBuilding, Translation.DevelopmentType.RoadBuilding,
-            Translation.DevelopmentType.Monopoly, Translation.DevelopmentType.Monopoly
-        };
 
         public Translation.DevelopmentType drawDevelopmentCard()
         {
