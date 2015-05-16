@@ -409,6 +409,22 @@ namespace CatenersServer
             sendToLobby(toReturn);
         }
 
+        public void PM_DevelopmentCard(Message msg)
+        {
+            if (gameLobby == null) return;
+
+            Translation.DevelopmentType type = (Translation.DevelopmentType)Enum.Parse(typeof(Translation.DevelopmentType), msg.message, true);
+
+            if (type == Translation.DevelopmentType.Buy)
+            {
+                this.serverLogic.tryBuyDevelopmentCard(this.player);
+            } /* For using cards
+            else
+            {
+                this.serverLogic.tryUseDevelopmentCard(type, this.userName);
+            }*/
+        }
+
         public void sendToLobby(String s)
         {
             foreach (ServerPlayer p in this.currentLobby.Players)

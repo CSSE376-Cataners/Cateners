@@ -1077,6 +1077,31 @@ namespace CatenersServer
 
             }
         }
+
+        public void tryBuyDevelopmentCard(ServerPlayer user)
+        {
+            GamePlayer player = null;
+            foreach (GamePlayer p in gameLobby.gamePlayers)
+            {
+                if (user.Username.Equals(player.Username))
+                {
+                    player = p;
+                }
+            }
+
+            if (player.resources[Resource.TYPE.Wheat] >= 1 && player.resources[Resource.TYPE.Sheep] >= 1 && player.resources[Resource.TYPE.Ore] >= 1)
+            {
+                // Add card
+                Translation.DevelopmentType type = drawDevelopmentCard();
+
+                player.developmentCards[type] += 1;
+            }
+        }
+
+        public Translation.DevelopmentType drawDevelopmentCard()
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }
