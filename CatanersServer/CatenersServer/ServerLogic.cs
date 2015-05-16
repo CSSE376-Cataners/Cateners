@@ -12,13 +12,47 @@ using CatanersShared;
 
 namespace CatenersServer
 {
+    public class RoadPath
+    {
+        private ArrayList roadIDs;
+        private int size;
+        public RoadPath(int starter)
+        {
+            this.roadIDs.Add(starter);
+            this.size = 1;
+        }
+
+        public int getSize()
+        {
+            return this.size;
+        }
+
+        public ArrayList getRoadIDs()
+        {
+            return this.roadIDs;
+        }
+
+        public void addRoadID(int toAdd)
+        {
+            this.roadIDs[size] = toAdd;
+            this.size++;
+        }
+
+        public void setRoadIDs(ArrayList extendedIDs)
+        {
+            this.roadIDs = extendedIDs;
+        }
+    }
+
     public class PlayerKeeper
     {
         private string username;
         private ArrayList ownedSettlements;
         private ArrayList ownedRoads;
+        private ArrayList ownedPaths;
         private int settleCount;
         private int roadCount;
+        
         public PlayerKeeper(string username)
         {
             this.username = username;
@@ -26,6 +60,7 @@ namespace CatenersServer
             this.ownedSettlements = new ArrayList();
             this.settleCount = 0;
             this.roadCount = 0;
+            this.ownedPaths = new ArrayList();
         }
 
         public int getRoadCount()
@@ -38,9 +73,27 @@ namespace CatenersServer
             return this.settleCount;
         }
 
-        public void addToRoads(int x)
+        public void addToRoads(int x, int[] neighbors)
         {
+            ArrayList cumulativeList = new ArrayList();
+            for (int k = 0; k < neighbors.Length; k++)
+            {
+                foreach (ArrayList path in this.ownedPaths)
+                {
+                    if (path.Contains(neighbors[k]))
+                    {
+                        path.Add(neighbors[k]);
+                        cumulativeList.AddRange(path);
+                        this.ownedPaths.Remove(path);
+                    }
+                }
+            }
+            this.ownedPaths.Add(cumulativeList);
             this.ownedRoads.Add(x);
+            if (cumulativeList.Count > Data.INSTANCE.LongestRoadCount)
+            {
+                Data.INSTANCE.LongestRoadCount = cumulativeList.Count;
+            }
             this.roadCount += 1;
         }
         public void addToSettlements(int x)
@@ -222,6 +275,7 @@ namespace CatenersServer
         {
             this.settlementArray = newArray;
         }
+
         public int[] toShadow()
         {
             int[] toReturn = new int[15];
@@ -717,7 +771,7 @@ namespace CatenersServer
         public void setRoadActivity(int index, string username)
         {
             this.roadArray[index].setActive();
-            this.playerKeepers[username].addToRoads(index);
+            this.playerKeepers[username].addToRoads(index, this.roadArray[index].getNeighbors());
 
         }
 
