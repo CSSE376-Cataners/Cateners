@@ -703,6 +703,7 @@ namespace CatenersServer
                                     this.removeResourcesSettlement(player);
                                     this.board.buildings[settlementID].owner = player;
                                     player.addSettlement(settlementID);
+                                    player.victoryPoints += 1;
                                     return true;
                                 }
                             }
