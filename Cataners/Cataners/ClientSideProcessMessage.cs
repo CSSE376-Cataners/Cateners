@@ -129,6 +129,7 @@ namespace Cataners
                 Data.currentGameLobby = (GameLobby)Data.currentLobby;
 
                 MyScene.addResources();
+                MyScene.addDevelopmentCards();
                 MyScene.addRegenerateBoardButton();
                 MyScene.addPlayerNames();
                 MyScene.addEndTurnButton();
@@ -200,7 +201,16 @@ namespace Cataners
             if (Data.currentGameLobby == null)
                 return;
             Data.currentGameLobby.gamePlayers = gpList;
+            for (int i = 0; i < Data.currentGameLobby.PlayerCount; i++)
+            {
+                if (Data.currentGameLobby.gamePlayers[i].Username.Equals(Data.currentGamePlayer.Username))
+                {
+                    Data.currentGamePlayer = Data.currentGameLobby.gamePlayers[i];
+                }
+            }
+                MyScene.addDevelopmentCards();
             MyScene.addResources();
+            MyScene.addVictoryPoints();
         }
 
         public void PM_EndTurn(Message msg)
