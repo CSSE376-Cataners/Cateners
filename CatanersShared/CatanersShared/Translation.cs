@@ -16,8 +16,7 @@ namespace CatanersShared
             Login, Register, RequestLobbies, JoinLobby, CreateLobby, UpdateLobby, ChangeReadyStatus,
             LeaveLobby, Chat, Game, StartGame, Unknown, HexMessage, RegenerateBoard, addResource, GetGameLobby,
             StartTrade, BuySettlement, TradeResponce, PopUpMessage, UpdateResources, EndTurn, DiceRoll,
-            BuyRoad, DevelopmentCard,
-            NewLongestRoad
+            BuyRoad, DevelopmentCard
         };
 
         public enum DevelopmentType { Buy, Knight, Monopoly, RoadBuilding, YearOfPlenty, VictoryPoint, NA }

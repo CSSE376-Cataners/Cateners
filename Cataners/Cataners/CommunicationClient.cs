@@ -148,9 +148,6 @@ namespace Cataners
                 case Translation.TYPE.UpdateLobby:
                     PM_UpdateLobby(msg);
                     break;
-                case Translation.TYPE.NewLongestRoad:
-                    PM_NewLongestRoad(msg);
-                    break;
                 case Translation.TYPE.LeaveLobby:
                     PM_LeaveLobby(msg);
                     break;

@@ -122,9 +122,6 @@ namespace CatenersServer
                 case Translation.TYPE.ChangeReadyStatus:
                     PM_ChangeReadyStatus(msg);
                 break;
-                case Translation.TYPE.NewLongestRoad:
-                    PM_NewLongestRoad(msg);
-                break;
                 case Translation.TYPE.JoinLobby:
                     PM_JoinLobby(msg);
                 break;
