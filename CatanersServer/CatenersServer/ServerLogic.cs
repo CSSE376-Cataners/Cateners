@@ -690,65 +690,70 @@ namespace CatenersServer
             return Translation.intArraytwotoJson(passedArray);
         }
 
+
+        private object determineSettlementAvalabilityLock = false;
         public Boolean determineSettlementAvailability(string username, int settlementID)
         {
-            SettlementServer current = this.settlementArray[settlementID];
-            foreach (int neighbor in current.getNeighbors())
+            lock (determineSettlementAvalabilityLock)
             {
-                if (this.settlementArray[neighbor].getIsActive())
+                SettlementServer current = this.settlementArray[settlementID];
+                foreach (int neighbor in current.getNeighbors())
                 {
-                    return false;
-                }
-            }
-            foreach(GamePlayer player in this.gameLobby.gamePlayers)
-            {
-                if (player.Username.Equals(username))
-                {
-                    if (current.getIsActive())
+                    if (this.settlementArray[neighbor].getIsActive())
                     {
-                        BuyCity(player, settlementID);
                         return false;
                     }
-                    if(isStartPhase1 || isStartPhase2 || ((player.resources[Resource.TYPE.Wood] >= 1) && (player.resources[Resource.TYPE.Brick] >= 1) && (player.resources[Resource.TYPE.Sheep] >= 1) && (player.resources[Resource.TYPE.Wheat] >= 1)))
-                    {              
-                        if (this.playerKeepers[username].getSettlementCount() <= 1)
+                }
+                foreach (GamePlayer player in this.gameLobby.gamePlayers)
+                {
+                    if (player.Username.Equals(username))
+                    {
+                        if (current.getIsActive())
                         {
-                            if (usedSettlement)
-                            {
-                                return false;
-                            }
-                            this.setSettlementActivity(settlementID, username);
-                            if (!(isStartPhase1 || isStartPhase2))
-                            {
-                                this.removeResourcesSettlement(player);
-                            }
-                            this.board.buildings[settlementID].owner = player;
-                            player.addSettlement(settlementID);
-                            player.victoryPoints += 1;
-                            usedSettlement = true;
-                            return true;
+                            BuyCity(player, settlementID);
+                            return false;
                         }
-                        else
+                        if (isStartPhase1 || isStartPhase2 || ((player.resources[Resource.TYPE.Wood] >= 1) && (player.resources[Resource.TYPE.Brick] >= 1) && (player.resources[Resource.TYPE.Sheep] >= 1) && (player.resources[Resource.TYPE.Wheat] >= 1)))
                         {
-                            foreach (int road in current.getRoads())
+                            if (this.playerKeepers[username].getSettlementCount() <= 1)
                             {
-                                if (this.playerKeepers[username].getRoads().Contains(road) && this.roadArray[road].getIsActive())
+                                if (usedSettlement)
                                 {
-                                    this.setSettlementActivity(settlementID, username);
+                                    return false;
+                                }
+                                this.setSettlementActivity(settlementID, username);
+                                if (!(isStartPhase1 || isStartPhase2))
+                                {
                                     this.removeResourcesSettlement(player);
-                                    this.board.buildings[settlementID].owner = player;
-                                    player.addSettlement(settlementID);
-                                    player.victoryPoints += 1;
-                                    return true;
+                                }
+                                this.board.buildings[settlementID].owner = player;
+                                player.addSettlement(settlementID);
+                                player.victoryPoints += 1;
+                                usedSettlement = true;
+                                return true;
+                            }
+                            else
+                            {
+                                foreach (int road in current.getRoads())
+                                {
+                                    if (this.playerKeepers[username].getRoads().Contains(road) && this.roadArray[road].getIsActive())
+                                    {
+                                        this.setSettlementActivity(settlementID, username);
+                                        this.removeResourcesSettlement(player);
+                                        this.board.buildings[settlementID].owner = player;
+                                        player.addSettlement(settlementID);
+                                        player.victoryPoints += 1;
+                                        return true;
+                                    }
                                 }
                             }
+
                         }
-                        
+                        return false;
                     }
-                    return false;
                 }
+                throw new NonPlayerException("Player does not exist in the current lobby.");
             }
-            throw new NonPlayerException("Player does not exist in the current lobby.");
         }
 
         public void BuyCity(GamePlayer player, int settlementID)

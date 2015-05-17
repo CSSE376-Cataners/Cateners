@@ -234,7 +234,7 @@ namespace CatenersServer
 
         public void PM_RegenerateBoard(Message msg)
         {
-            if (this.serverLogic != null)
+            if (this.serverLogic != null && this.serverLogic.canRegen)
             {
                 String getLobby = new CatanersShared.Message(serverLogic.gameLobby.toJson(), Translation.TYPE.GetGameLobby).toJson();
                 this.serverLogic.generatehexArray();
