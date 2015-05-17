@@ -80,6 +80,7 @@ namespace Cataners
             CommunicationClient.Instance.setGenerated();
 
             MyScene.addResources();
+            MyScene.addDevelopmentCards();
             MyScene.addRegenerateBoardButton();
             MyScene.addTradeButton();
             MyScene.addPlayerNames();
@@ -98,7 +99,8 @@ namespace Cataners
             Transform2D chatButton2d = chatButton.Entity.FindComponent<Transform2D>();
             chatButton2d.X = WaveConstants.CENTERWIDTH/2;
             chatButton2d.Y = 15;
-            chatButton.Entity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(chatButton_Pressed);
+            chatButton.Click += (s, e) => chatButton_Pressed(s, e);
+                //.Entity.FindComponent<TouchGestures>().TouchTap += new EventHandler<GestureEventArgs>(chatButton_Pressed);
             lock (toAddDecor)
             {
                 toAddDecor.Add(chatButton);
@@ -115,7 +117,7 @@ namespace Cataners
             Transform2D tradebutton2d = tradeButton.Entity.FindComponent<Transform2D>();
             tradebutton2d.X = WaveConstants.CENTERWIDTH * 2 - 320;
             tradebutton2d.Y = WaveConstants.CENTERHEIGHT * 2 - 100;
-            tradeButton.Entity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(tradeButton_Pressed);
+            tradeButton.Click += (s, e) => tradeButton_Pressed(s,e);
             lock (toAddDecor)
             {
                 toAddDecor.Add(tradeButton);
@@ -138,7 +140,7 @@ namespace Cataners
                 newButton.Height = 40;
                 Transform2D regenBoard2d = newButton.Entity.FindComponent<Transform2D>();
                 regenBoard2d.X = 100;
-                newButton.Entity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(button_Pressed);
+                newButton.Click += (s, e) => button_Pressed(s, e);
                 lock(toAddDecor){
                     toAddDecor.Add(newButton);
                 }
@@ -162,7 +164,7 @@ namespace Cataners
                 Transform2D endTurnButton2d = endTurnButton.Entity.FindComponent<Transform2D>();
                 endTurnButton2d.X = WaveConstants.CENTERWIDTH * 2 - 120;
                 endTurnButton2d.Y = WaveConstants.CENTERHEIGHT * 2 - 100;
-                endTurnButton.Entity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(endTurnButton_Pressed);
+                endTurnButton.Click += (s, e) => endTurnButton_Pressed(s,e);
                 lock (toAddDecor)
                 {
                     toAddDecor.Add(endTurnButton);
@@ -188,9 +190,6 @@ namespace Cataners
             String player1Text;
             if (Data.currentGameLobby != null)
             {
-
-                
-
                 if (Data.currentGameLobby.gamePlayers.Count > 0)
                 {
                     player1Text = Data.currentGameLobby.gamePlayers[0].ToString();
@@ -427,7 +426,7 @@ namespace Cataners
 
         public static void addVictoryPoints()
         {
-            Entity myResourceLabel = new Entity("myResourceLabel")
+            Entity myVPLabel = new Entity("myVPLabel")
                                 .AddComponent(new Transform2D()
                                 {
                                     X = WaveConstants.CENTERWIDTH + 400,
@@ -440,15 +439,43 @@ namespace Cataners
                                     Foreground = Color.Black
                                 })
                                 .AddComponent(new TextControlRenderer());
-            toAdd.Add(myResourceLabel);
+            toAdd.Add(myVPLabel);
         }
 
-        private static void button_Pressed(object sender, GestureEventArgs e)
+        public static void addDevelopmentCards()
+        {
+
+            StringBuilder sb = new StringBuilder();
+            foreach (Translation.DevelopmentType t in Enum.GetValues(typeof(Translation.DevelopmentType)))
+            {
+                if (!(t == Translation.DevelopmentType.Buy || t == Translation.DevelopmentType.NA))
+                {
+                    sb.Append(t + ": " + Data.currentGamePlayer.developmentCards[t] + "  ");
+                }
+            }
+
+            Entity DevCardLabel = new Entity("DevCardLabel")
+                                .AddComponent(new Transform2D()
+                                {
+                                    X = WaveConstants.CENTERWIDTH + 380,
+                                    Y = WaveConstants.CENTERHEIGHT / 2 + 50,
+                                    DrawOrder = 2.0f
+                                })
+                                .AddComponent(new TextControl()
+                                {
+                                    Text = "Development Cards: " + sb,
+                                    Foreground = Color.Black
+                                })
+                                .AddComponent(new TextControlRenderer());
+            toAdd.Add(DevCardLabel);
+        }
+
+        private static void button_Pressed(object sender, EventArgs e)
         {
             CommunicationClient.Instance.sendToServer(new Message("", Translation.TYPE.RegenerateBoard).toJson());
         }
 
-        private static void chatButton_Pressed(object sender, GestureEventArgs e)
+        private static void chatButton_Pressed(object sender, EventArgs e)
         {
             if (ChatBox.INSTANCE != null)
             {
@@ -461,13 +488,13 @@ namespace Cataners
             }
         }
 
-        private static void tradeButton_Pressed(object sender, GestureEventArgs e)
+        private static void tradeButton_Pressed(object sender, EventArgs e)
         {
                 TradeForm.INSTANCE.Show();
                 TradeForm.INSTANCE.initializeValues();
         }
 
-        private static void endTurnButton_Pressed(object sender, GestureEventArgs e)
+        private static void endTurnButton_Pressed(object sender, EventArgs e)
         {
             CommunicationClient.Instance.sendToServer(new Message("", Translation.TYPE.EndTurn).toJson());
         }
