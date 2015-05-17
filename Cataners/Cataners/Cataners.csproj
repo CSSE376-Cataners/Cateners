@@ -280,6 +280,9 @@
     <None Include="TheSettlersofCatan.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="WarnockPro-Regular.wpk">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="WheatHex.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

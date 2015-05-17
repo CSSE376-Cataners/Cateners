@@ -71,9 +71,10 @@ namespace Cataners
             this.EntityManager.Add(background);
             TextBlock title = new TextBlock()
             {
+                FontPath = "WarnockPro-Regular.wpk",
                 Text = "Settlers of Catan",
                 Foreground = Color.Blue,
-                Margin = new Thickness(WaveConstants.CENTERWIDTH - (80), 0, 0, 0)
+                Margin = new Thickness(WaveConstants.CENTERWIDTH - (140), 10, 0, 0)
             };
             EntityManager.Add(title);
             this.hexList = LocalConversion.Instance.getHexList();
@@ -86,6 +87,7 @@ namespace Cataners
             MyScene.addPlayerNames();
             MyScene.addChatButton();
             MyScene.addEndTurnButton();
+            MyScene.addBuyDevCardButton();
             this.addBuildingCostCard();
         }
 
@@ -109,18 +111,21 @@ namespace Cataners
         
         public static void addTradeButton()
         {
-            //add tradebutton
-            Button tradeButton = new Button("TradeButton");
-            tradeButton.Text = "Trade Resources";
-            tradeButton.Width = 120;
-            tradeButton.Height = 40;
-            Transform2D tradebutton2d = tradeButton.Entity.FindComponent<Transform2D>();
-            tradebutton2d.X = WaveConstants.CENTERWIDTH * 2 - 320;
-            tradebutton2d.Y = WaveConstants.CENTERHEIGHT * 2 - 100;
-            tradeButton.Click += (s, e) => tradeButton_Pressed(s,e);
-            lock (toAddDecor)
+            if (Data.isMyTurn)
             {
-                toAddDecor.Add(tradeButton);
+                //add tradebutton
+                Button tradeButton = new Button("TradeButton");
+                tradeButton.Text = "Trade Resources";
+                tradeButton.Width = 120;
+                tradeButton.Height = 40;
+                Transform2D tradebutton2d = tradeButton.Entity.FindComponent<Transform2D>();
+                tradebutton2d.X = WaveConstants.CENTERWIDTH * 2 - 320;
+                tradebutton2d.Y = WaveConstants.CENTERHEIGHT * 2 - 100;
+                tradeButton.Click += (s, e) => tradeButton_Pressed(s, e);
+                lock (toAddDecor)
+                {
+                    toAddDecor.Add(tradeButton);
+                }
             }
         }
 
@@ -159,7 +164,7 @@ namespace Cataners
             {
                 Button endTurnButton = new Button("endTurnButton");
                 endTurnButton.Text = "End Turn";
-                endTurnButton.Width = 10;
+                endTurnButton.Width = 50;
                 endTurnButton.Height = 40;
                 Transform2D endTurnButton2d = endTurnButton.Entity.FindComponent<Transform2D>();
                 endTurnButton2d.X = WaveConstants.CENTERWIDTH * 2 - 120;
@@ -168,6 +173,30 @@ namespace Cataners
                 lock (toAddDecor)
                 {
                     toAddDecor.Add(endTurnButton);
+                }
+            }
+        }
+        public static void addBuyDevCardButton()
+        {
+            //add buyDevCard if my turn
+            if (Data.currentGamePlayer == null)
+            {
+                return;
+            }
+
+            if (Data.isMyTurn)
+            {
+                Button buyDevCardButton = new Button("buyDevCardButton");
+                buyDevCardButton.Text = "Buy Development Card";
+                buyDevCardButton.Width = 50;
+                buyDevCardButton.Height = 40;
+                Transform2D buyDevCardButton2d = buyDevCardButton.Entity.FindComponent<Transform2D>();
+                buyDevCardButton2d.X = WaveConstants.CENTERWIDTH * 2 - 550;
+                buyDevCardButton2d.Y = WaveConstants.CENTERHEIGHT * 2 - 100;
+                buyDevCardButton.Click += (s, e) => buyDevCardButton_Pressed(s, e);
+                lock (toAddDecor)
+                {
+                    toAddDecor.Add(buyDevCardButton);
                 }
             }
         }
@@ -279,7 +308,7 @@ namespace Cataners
                 Entity player4Name = new Entity("player4Name")
                                 .AddComponent(new Transform2D()
                                 {
-                                    X = WaveConstants.CENTERWIDTH - 400 - WORDOFFSET,
+                                    X = WaveConstants.CENTERWIDTH - 450 - WORDOFFSET,
                                     Y = WaveConstants.CENTERHEIGHT,
                                     DrawOrder = 2.0f
                                 })
@@ -316,14 +345,14 @@ namespace Cataners
                         Entity myResourceLabel = new Entity("myResourceLabel")
                                 .AddComponent(new Transform2D()
                                 {
-                                    X = WaveConstants.CENTERWIDTH + 400,
-                                    Y = WaveConstants.CENTERHEIGHT / 2 - 30,
+                                    X = WaveConstants.CENTERWIDTH + 350,
+                                    Y = WaveConstants.CENTERHEIGHT / 2 - 130,
                                     DrawOrder = 2.0f
                                 })
                                 .AddComponent(new TextControl()
                                 {
-                                    Text = "My resources",
-                                    Foreground = Color.Black
+                                    Text = "My Resources, Victory Points, and Development Cards:",
+                                    Foreground = Color.White
                                 })
                                 .AddComponent(new TextControlRenderer());
                         toAdd.Add(myResourceLabel);
@@ -332,13 +361,13 @@ namespace Cataners
                                 .AddComponent(new Transform2D()
                                 {
                                     X = WaveConstants.CENTERWIDTH + 400,
-                                    Y = WaveConstants.CENTERHEIGHT / 2 + 30,
+                                    Y = WaveConstants.CENTERHEIGHT / 2 -100 ,
                                     DrawOrder = 2.0f
                                 })
                                 .AddComponent(new TextControl()
                                 {
                                     Text = sb.ToString(),
-                                    Foreground = Color.Black
+                                    Foreground = Color.White
                                 })
                                 .AddComponent(new TextControlRenderer());
                         toAdd.Add(myResourceEntity);
@@ -430,13 +459,13 @@ namespace Cataners
                                 .AddComponent(new Transform2D()
                                 {
                                     X = WaveConstants.CENTERWIDTH + 400,
-                                    Y = WaveConstants.CENTERHEIGHT / 2,
+                                    Y = WaveConstants.CENTERHEIGHT / 2 - 70,
                                     DrawOrder = 2.0f
                                 })
                                 .AddComponent(new TextControl()
                                 {
                                     Text = "Victory Points: " + Data.currentGamePlayer.victoryPoints,
-                                    Foreground = Color.Black
+                                    Foreground = Color.White
                                 })
                                 .AddComponent(new TextControlRenderer());
             toAdd.Add(myVPLabel);
@@ -444,30 +473,82 @@ namespace Cataners
 
         public static void addDevelopmentCards()
         {
-
-            StringBuilder sb = new StringBuilder();
-            foreach (Translation.DevelopmentType t in Enum.GetValues(typeof(Translation.DevelopmentType)))
-            {
-                if (!(t == Translation.DevelopmentType.Buy || t == Translation.DevelopmentType.NA))
+            if (Data.currentGamePlayer != null)
+            {                  
+                Button useMonopolyButton = new Button("useMonopolyButton");
+                useMonopolyButton.Text = "Use Monopoly Dev Card: " + Data.currentGamePlayer.developmentCards[Translation.DevelopmentType.Monopoly];
+                useMonopolyButton.Width = 50;
+                useMonopolyButton.Height = 10;
+                Transform2D useMonopolyButton2d = useMonopolyButton.Entity.FindComponent<Transform2D>();
+                useMonopolyButton2d.X = WaveConstants.CENTERWIDTH +400;
+                useMonopolyButton2d.Y = WaveConstants.CENTERHEIGHT /2 - 45;
+                useMonopolyButton.Click += (s, e) => useMonopolyButton_Pressed(s, e);
+                lock (toAddDecor)
                 {
-                    sb.Append(t + ": " + Data.currentGamePlayer.developmentCards[t] + "  ");
+                    toAddDecor.Add(useMonopolyButton);
                 }
-            }
 
-            Entity DevCardLabel = new Entity("DevCardLabel")
+                Button useRoadBuildingButton = new Button("useRoadBuildingButton");
+                useRoadBuildingButton.Text = "Use Road Building Dev Card: " + Data.currentGamePlayer.developmentCards[Translation.DevelopmentType.RoadBuilding];
+                useRoadBuildingButton.Width = 50;
+                useRoadBuildingButton.Height = 10;
+                Transform2D useRoadBuildingButton2d = useRoadBuildingButton.Entity.FindComponent<Transform2D>();
+                useRoadBuildingButton2d.X = WaveConstants.CENTERWIDTH + 400;
+                useRoadBuildingButton2d.Y = WaveConstants.CENTERHEIGHT / 2 - 15;
+                useRoadBuildingButton.Click += (s, e) => useRoadBuildingButton_Pressed(s, e);
+                lock (toAddDecor)
+                {
+                    toAddDecor.Add(useRoadBuildingButton);
+                }
+
+                Button useYearOfPlentyButton = new Button("useYearOfPlentyButton");
+                useYearOfPlentyButton.Text = "Use Year Of Plenty Dev Card: " + Data.currentGamePlayer.developmentCards[Translation.DevelopmentType.YearOfPlenty];
+                useYearOfPlentyButton.Width = 50;
+                useYearOfPlentyButton.Height = 10;
+                Transform2D useYearOfPlentyButton2d = useYearOfPlentyButton.Entity.FindComponent<Transform2D>();
+                useYearOfPlentyButton2d.X = WaveConstants.CENTERWIDTH + 400;
+                useYearOfPlentyButton2d.Y = WaveConstants.CENTERHEIGHT / 2 + 15;
+                useYearOfPlentyButton.Click += (s, e) => useYearOfPlentyButton_Pressed(s, e);
+                lock (toAddDecor)
+                {
+                    toAddDecor.Add(useYearOfPlentyButton);
+                }
+
+                Entity myKnightLabel = new Entity("myKnightLabel")
                                 .AddComponent(new Transform2D()
                                 {
-                                    X = WaveConstants.CENTERWIDTH + 380,
-                                    Y = WaveConstants.CENTERHEIGHT / 2 + 50,
+                                    X = WaveConstants.CENTERWIDTH + 400,
+                                    Y = WaveConstants.CENTERHEIGHT / 2 + 45,
                                     DrawOrder = 2.0f
                                 })
                                 .AddComponent(new TextControl()
                                 {
-                                    Text = "Development Cards: " + sb,
-                                    Foreground = Color.Black
+                                    Text = "Knight Dev Cards: " + Data.currentGamePlayer.developmentCards[Translation.DevelopmentType.Knight],
+                                    Foreground = Color.White
                                 })
                                 .AddComponent(new TextControlRenderer());
-            toAdd.Add(DevCardLabel);
+                lock (toAdd)
+                {
+                    toAdd.Add(myKnightLabel);
+                }
+                Entity myVPDevLabel = new Entity("myVPDevLabel")
+                                .AddComponent(new Transform2D()
+                                {
+                                    X = WaveConstants.CENTERWIDTH + 400,
+                                    Y = WaveConstants.CENTERHEIGHT / 2 + 75,
+                                    DrawOrder = 2.0f
+                                })
+                                .AddComponent(new TextControl()
+                                {
+                                    Text = "Victory Point Dev Cards: " + Data.currentGamePlayer.developmentCards[Translation.DevelopmentType.VictoryPoint],
+                                    Foreground = Color.White
+                                })
+                                .AddComponent(new TextControlRenderer());
+                lock (toAdd)
+                {
+                    toAdd.Add(myVPDevLabel);
+                }  
+            }
         }
 
         private static void button_Pressed(object sender, EventArgs e)
@@ -497,6 +578,25 @@ namespace Cataners
         private static void endTurnButton_Pressed(object sender, EventArgs e)
         {
             CommunicationClient.Instance.sendToServer(new Message("", Translation.TYPE.EndTurn).toJson());
+        }
+        private static void buyDevCardButton_Pressed(object sender, EventArgs e)
+        {
+            CommunicationClient.Instance.sendToServer(new Message("", Translation.TYPE.DevelopmentCard).toJson());
+        }
+
+        private static void useYearOfPlentyButton_Pressed(object sender, EventArgs e)
+        {
+            CommunicationClient.Instance.sendToServer(new Message("", Translation.TYPE.DevelopmentCard).toJson());
+        }
+
+        private static void useRoadBuildingButton_Pressed(object sender, EventArgs e)
+        {
+            CommunicationClient.Instance.sendToServer(new Message("", Translation.TYPE.DevelopmentCard).toJson());
+        }
+
+        private static void useMonopolyButton_Pressed(object sender, EventArgs e)
+        {
+            CommunicationClient.Instance.sendToServer(new Message("", Translation.TYPE.DevelopmentCard).toJson());
         }
 
         public static void hideEndTurn()
