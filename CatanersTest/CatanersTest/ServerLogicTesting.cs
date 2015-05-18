@@ -118,6 +118,7 @@ namespace CatanersTest
             {
                 logic.gameLobby.gamePlayers[0].resources[t] = 10;
             }
+            logic.canRegen = false;
 
             logic.determineSettlementAvailability(player.Username, 10);
 
@@ -196,6 +197,7 @@ namespace CatanersTest
             lobby.addPlayer(new Player("p2"));
             lobby.addPlayer(new Player("p3"));
             ServerLogic logic = new ServerLogic(lobby);
+            logic.canRegen = false;
             logic.isStartPhase1 = true;
             logic.determineSettlementAvailability(p0.Username,1);
             Assert.AreEqual(1, logic.gameLobby.gamePlayers[0].victoryPoints);
@@ -212,6 +214,7 @@ namespace CatanersTest
             ServerLogic logic = new ServerLogic(lobby);
             logic.isStartPhase1 = false;
             logic.isStartPhase2 = false;
+            logic.canRegen = false;
             logic.setSettlementActivity(15, p0.Username);
             logic.setSettlementActivity(23, p0.Username);
             logic.gameLobby.gamePlayers[0].resources[Resource.TYPE.Brick] = 1;
@@ -257,6 +260,7 @@ namespace CatanersTest
 
             Lobby lobby = new Lobby("Basketball", 100, sp0, 10);
             ServerLogic logic = new ServerLogic(lobby);
+            logic.canRegen = false;
             GameLobby glob = logic.gameLobby;
             client0.currentLobby = glob;
 
@@ -297,6 +301,7 @@ namespace CatanersTest
 
             client0.serverLogic = logic;
 
+            logic.canRegen = false;
             logic.isStartPhase1 = false;
             logic.isStartPhase2 = false;
             logic.setSettlementActivity(15, sp0.Username);
@@ -428,8 +433,12 @@ namespace CatanersTest
             Message msgUseRoad = new Message(Translation.DevelopmentType.RoadBuilding.ToString(), Translation.TYPE.DevelopmentCard);
             gLob.gamePlayers[0].developmentCards[Translation.DevelopmentType.RoadBuilding] = 1;
             client1.processesMessage(msgUseRoad.toJson());
-            Message testRoad1 = new Message(Newtonsoft.Json.JsonConvert.SerializeObject(new string[] { 9+"", client1.userName}),Translation.TYPE.BuyRoad);
-            Message testRoad2 = new Message(Newtonsoft.Json.JsonConvert.SerializeObject(new string[] { 10+"", client1.userName}),Translation.TYPE.BuyRoad);
+            string[] toPass = new string[] { 0.ToString(), client1.userName };
+            logic.canRegen = false;
+            client1.processesMessage(new Message(Newtonsoft.Json.JsonConvert.SerializeObject(toPass), Translation.TYPE.BuySettlement).toJson());
+            logic.isStartPhase1 = false;
+            Message testRoad1 = new Message(Newtonsoft.Json.JsonConvert.SerializeObject(new string[] { 0+"", client1.userName}),Translation.TYPE.BuyRoad);
+            Message testRoad2 = new Message(Newtonsoft.Json.JsonConvert.SerializeObject(new string[] { 1+"", client1.userName}),Translation.TYPE.BuyRoad);
             client1.processesMessage(testRoad1.toJson());
             client1.processesMessage(testRoad2.toJson());
 
@@ -483,6 +492,8 @@ namespace CatanersTest
             client4.currentLobby = lob;
             #endregion
             // Should Run
+            logic.canRegen = false;
+
             logic.determineSettlementAvailability(client1.userName, 10);
             int temp = logic.gameLobby.gamePlayers[0].resourceCount;
             Assert.True(0 < temp);
@@ -582,10 +593,74 @@ namespace CatanersTest
 
             Assert.IsNotNull(logic.lastLargestArmyPlayer);
             Assert.AreEqual(sp1, logic.lastLargestArmyPlayer);
+
         }
 
+        [Test]
+        public void TestLargestArmyThreeKnightsAndOtherPlayerHasThree()
+        {
+            CatanersTest.ClientTesting.FakeClient client1 = new CatanersTest.ClientTesting.FakeClient();
+            client1.userName = "Thrall";
+            ServerPlayer sp1 = new ServerPlayer(client1.userName, client1);
+            client1.player = sp1;
 
+            CatanersTest.ClientTesting.FakeClient client2 = new CatanersTest.ClientTesting.FakeClient();
+            client2.userName = "Arthus";
+            ServerPlayer sp2 = new ServerPlayer(client2.userName, client2);
+            client2.player = sp2;
 
+            Lobby lob = new Lobby("ThunderBluff", 10, sp1, 1);
+            lob.addPlayer(sp2);
+            ServerLogic logic = new ServerLogic(lob);
+            GameLobby gLob = logic.gameLobby;
+            client1.serverLogic = logic;
+            client2.serverLogic = logic;
+            client1.currentLobby = gLob;
+            client2.currentLobby = gLob;
+            gLob.gamePlayers[1].developmentCards[Translation.DevelopmentType.Knight] = 3;
+            logic.lastLargestArmyPlayer = sp2;
+
+            gLob.gamePlayers[0].developmentCards[Translation.DevelopmentType.Knight] = 3;
+
+            logic.LargestArmyCheck(gLob.gamePlayers[0], sp1);
+
+            Assert.IsNotNull(logic.lastLargestArmyPlayer);
+            Assert.AreEqual(sp2, logic.lastLargestArmyPlayer);
+        }
+
+        [Test]
+        public void TestLargestArmyFourKnightsAndOtherPlayerHasThree()
+        {
+            CatanersTest.ClientTesting.FakeClient client1 = new CatanersTest.ClientTesting.FakeClient();
+            client1.userName = "Thrall";
+            ServerPlayer sp1 = new ServerPlayer(client1.userName, client1);
+            client1.player = sp1;
+
+            CatanersTest.ClientTesting.FakeClient client2 = new CatanersTest.ClientTesting.FakeClient();
+            client2.userName = "Arthus";
+            ServerPlayer sp2 = new ServerPlayer(client2.userName, client2);
+            client2.player = sp2;
+
+            Lobby lob = new Lobby("ThunderBluff", 10, sp1, 1);
+            lob.addPlayer(sp2);
+            ServerLogic logic = new ServerLogic(lob);
+            GameLobby gLob = logic.gameLobby;
+            client1.serverLogic = logic;
+            client2.serverLogic = logic;
+            client1.currentLobby = gLob;
+            client2.currentLobby = gLob;
+            gLob.gamePlayers[1].developmentCards[Translation.DevelopmentType.Knight] = 3;
+            logic.lastLargestArmyPlayer = sp2;
+
+            gLob.gamePlayers[0].developmentCards[Translation.DevelopmentType.Knight] = 4;
+
+            logic.LargestArmyCheck(gLob.gamePlayers[0], sp1);
+
+            Assert.IsNotNull(logic.lastLargestArmyPlayer);
+            Assert.AreEqual(sp1, logic.lastLargestArmyPlayer);
+            Assert.IsNotNull(client1.lastCall);
+            Assert.IsNotNull(client2.lastCall);
+        }
 
     }
 }

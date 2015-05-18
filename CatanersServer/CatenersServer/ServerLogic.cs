@@ -36,6 +36,7 @@ namespace CatenersServer
         public bool usedSettlement;
         public bool canRegen;
         public bool taken2;
+        public int freeRoads;
         public ServerPlayer lastLargestArmyPlayer;
 
         public List<Translation.DevelopmentType> developmentDeck;
@@ -404,73 +405,78 @@ namespace CatenersServer
         {
             lock (determineSettlementAvalabilityLock)
             {
-                SettlementServer current = this.settlementArray[settlementID];
-                foreach (int neighbor in current.getNeighbors())
+                if (!canRegen)
                 {
-                    if (this.settlementArray[neighbor].getIsActive())
+                    SettlementServer current = this.settlementArray[settlementID];
+                    foreach (int neighbor in current.getNeighbors())
                     {
-                        return false;
-                    }
-                }
-                foreach (GamePlayer player in this.gameLobby.gamePlayers)
-                {
-                    if (player.Username.Equals(username))
-                    {
-                        if (current.getIsActive())
+                        if (this.settlementArray[neighbor].getIsActive())
                         {
-                            BuyCity(player, settlementID);
                             return false;
                         }
-                        if (isStartPhase1 || isStartPhase2 || ((player.resources[Resource.TYPE.Wood] >= 1) && (player.resources[Resource.TYPE.Brick] >= 1) && (player.resources[Resource.TYPE.Sheep] >= 1) && (player.resources[Resource.TYPE.Wheat] >= 1)))
+                    }
+                    foreach (GamePlayer player in this.gameLobby.gamePlayers)
+                    {
+                        if (player.Username.Equals(username))
                         {
-                            if (this.playerKeepers[username].getSettlementCount() <= 1)
+                            if (current.getIsActive())
                             {
-                                if (usedSettlement)
+                                BuyCity(player, settlementID);
+                                return false;
+                            }
+                            if (isStartPhase1 || isStartPhase2 || ((player.resources[Resource.TYPE.Wood] >= 1) && (player.resources[Resource.TYPE.Brick] >= 1) && (player.resources[Resource.TYPE.Sheep] >= 1) && (player.resources[Resource.TYPE.Wheat] >= 1)))
+                            {
+                                if (this.playerKeepers[username].getSettlementCount() <= 1)
                                 {
-                                    return false;
-                                }
-                                this.setSettlementActivity(settlementID, username);
-                                if (!(isStartPhase1 || isStartPhase2))
-                                {
-                                    this.removeResourcesSettlement(player);
+                                    if (usedSettlement)
+                                    {
+                                        return false;
+                                    }
+                                    this.setSettlementActivity(settlementID, username);
+                                    if (!(isStartPhase1 || isStartPhase2))
+                                    {
+                                        this.removeResourcesSettlement(player);
+                                    }
+                                    else
+                                    {
+                                        foreach (Hex hex in this.board.buildings[settlementID].hexes)
+                                        {
+                                            if (hex.type != Resource.TYPE.Desert)
+                                            {
+                                                player.resources[hex.type]++;
+                                            }
+                                        }
+                                    }
+                                    this.board.buildings[settlementID].owner = player;
+                                    player.addSettlement(settlementID);
+                                    player.victoryPoints += 1;
+                                    usedSettlement = true;
+                                    return true;
                                 }
                                 else
                                 {
-                                    foreach (Hex hex in this.board.buildings[settlementID].hexes)
+                                    foreach (int road in current.getRoads())
                                     {
-                                        if (hex.type != Resource.TYPE.Desert)
+                                        if (this.playerKeepers[username].getRoads().Contains(road) && this.roadArray[road].getIsActive())
                                         {
-                                            player.resources[hex.type]++;
+                                            this.setSettlementActivity(settlementID, username);
+                                            this.removeResourcesSettlement(player);
+                                            this.board.buildings[settlementID].owner = player;
+                                            player.addSettlement(settlementID);
+                                            player.victoryPoints += 1;
+                                            return true;
                                         }
                                     }
                                 }
-                                this.board.buildings[settlementID].owner = player;
-                                player.addSettlement(settlementID);
-                                player.victoryPoints += 1;
-                                usedSettlement = true;
-                                return true;
-                            }
-                            else
-                            {
-                                foreach (int road in current.getRoads())
-                                {
-                                    if (this.playerKeepers[username].getRoads().Contains(road) && this.roadArray[road].getIsActive())
-                                    {
-                                        this.setSettlementActivity(settlementID, username);
-                                        this.removeResourcesSettlement(player);
-                                        this.board.buildings[settlementID].owner = player;
-                                        player.addSettlement(settlementID);
-                                        player.victoryPoints += 1;
-                                        return true;
-                                    }
-                                }
-                            }
 
+                            }
+                            return false;
                         }
-                        return false;
+                        
                     }
+                    throw new NonPlayerException("Player does not exist in the current lobby.");
                 }
-                throw new NonPlayerException("Player does not exist in the current lobby.");
+                return false;
             }
         }
 
@@ -491,54 +497,69 @@ namespace CatenersServer
                 }
             }
         }
-
+        private object determineRoadAvailabilityLock = false;
         public Boolean determineRoadAvailability(string username, int roadID)
         {
-            RoadServer current = this.roadArray[roadID];
-            foreach (GamePlayer player in this.gameLobby.gamePlayers)
+            lock (determineRoadAvailabilityLock)
             {
-                if (player.Username.Equals(username))
+                RoadServer current = this.roadArray[roadID];
+                foreach (GamePlayer player in this.gameLobby.gamePlayers)
                 {
-                    if (current.getIsActive())
+                    if (player.Username.Equals(username))
                     {
-                        return false;
-                    }
-                    if(((player.resources[Resource.TYPE.Brick] >= 1) && (player.resources[Resource.TYPE.Wood] >= 1)) || (isStartPhase1 || isStartPhase2))
-                    {
-                        foreach (int i in current.getNeighbors())
+                        if (current.getIsActive())
                         {
-                            if (this.playerKeepers[username].getRoads().Contains(i) && this.roadArray[i].getIsActive())
-                            {
-                                if (usedRoad && (isStartPhase1 || isStartPhase2))
-                                    return false;
-                                this.setRoadActivity(roadID, username);
-                                usedRoad = true;
-                                if (!isStartPhase1 && !isStartPhase2)
-                                {
-                                    this.removeResourcesRoad(player);
-                                }
-                                return true;
-                            }
+                            return false;
                         }
-                        foreach (int j in current.getSettlements())
+                        if (((player.resources[Resource.TYPE.Brick] >= 1) && (player.resources[Resource.TYPE.Wood] >= 1)) || (isStartPhase1 || isStartPhase2) || freeRoads > 0 )
                         {
-                            if (this.playerKeepers[username].getSettlements().Contains(j) && this.settlementArray[j].getIsActive())
+                            if (usedRoad && (isStartPhase1 || isStartPhase2))
+                                return false;
+                            foreach (int i in current.getNeighbors())
                             {
-                                if (usedRoad && (isStartPhase1 || isStartPhase2))
-                                    return false;
-                                this.setRoadActivity(roadID, username);
-                                usedRoad = true;
-                                if (!isStartPhase1 && !isStartPhase2)
+                                if (this.playerKeepers[username].getRoads().Contains(i) && this.roadArray[i].getIsActive())
                                 {
-                                    this.removeResourcesRoad(player);
+                                    this.setRoadActivity(roadID, username);
+                                    usedRoad = true;
+                                    if (!isStartPhase1 && !isStartPhase2)
+                                    {
+                                        if (freeRoads < 1)
+                                        {
+                                            this.removeResourcesRoad(player);
+                                        }
+                                        else
+                                        {
+                                            freeRoads--;
+                                        }
+                                    }
+                                    return true;
                                 }
-                                return true;
+                            }
+                            foreach (int j in current.getSettlements())
+                            {
+                                if (this.playerKeepers[username].getSettlements().Contains(j) && this.settlementArray[j].getIsActive())
+                                {
+                                    this.setRoadActivity(roadID, username);
+                                    usedRoad = true;
+                                    if (!isStartPhase1 && !isStartPhase2)
+                                    {
+                                        if (freeRoads < 1)
+                                        {
+                                            this.removeResourcesRoad(player);
+                                        }
+                                        else
+                                        {
+                                            freeRoads--;
+                                        }
+                                    }
+                                    return true;
+                                }
                             }
                         }
                     }
                 }
+                return false;
             }
-            return false;
         }
 
         public void removeResourcesSettlement(GamePlayer player)
@@ -781,6 +802,7 @@ namespace CatenersServer
         {
             usedSettlement = false;
             usedRoad = false;
+            freeRoads = 0;
             if (canRegen)
             {
                 canRegen = false;
@@ -842,14 +864,34 @@ namespace CatenersServer
         {
             GamePlayer largestArmyMan = null;
 
-            if (player.developmentCards[Translation.DevelopmentType.Knight] > 2 && lastLargestArmyPlayer == null)
+            if (player.developmentCards[Translation.DevelopmentType.Knight] > 2 )
             {
-                lastLargestArmyPlayer = user;
+                if (lastLargestArmyPlayer == null)
+                {
+                    PopUpMessage popup = new PopUpMessage("Largest Army", user.Username + " has the largest army with " +player.developmentCards[Translation.DevelopmentType.Knight] + " knights" , PopUpMessage.TYPE.Notification);
+                    user.client.sendToLobby(new Message(popup.toJson(), Translation.TYPE.PopUpMessage).toJson());
+                    lastLargestArmyPlayer = user;
+                }
+                else
+                {
+                    foreach (GamePlayer p in gameLobby.gamePlayers)
+                    {
+                        if (lastLargestArmyPlayer.Username.Equals(p.Username))
+                        {
+                            largestArmyMan = p;
+                            break;
+                        }
+                    }
+
+                    if (player.developmentCards[Translation.DevelopmentType.Knight] > largestArmyMan.developmentCards[Translation.DevelopmentType.Knight])
+                    {
+                        PopUpMessage popup = new PopUpMessage("Largest Army", user.Username + " has the largest army with " + player.developmentCards[Translation.DevelopmentType.Knight] + " knights", PopUpMessage.TYPE.Notification);
+                        user.client.sendToLobby(new Message(popup.toJson(), Translation.TYPE.PopUpMessage).toJson());
+                        lastLargestArmyPlayer = user;
+                    }
+                }
             }
-            else if (lastLargestArmyPlayer != null)
-            {
-                
-            }
+            
         }
 
         public void tryBuyDevelopmentCard(ServerPlayer user)
@@ -957,7 +999,7 @@ namespace CatenersServer
                     player.developmentCards[type] -= 1;
                     break;
                 case Translation.DevelopmentType.RoadBuilding:
-                    // Road Building Need to decide how. Will integrate with how startphase does it.
+                    this.freeRoads += 2;
                     player.developmentCards[type] -= 1;
                     break;
                 case Translation.DevelopmentType.YearOfPlenty:
