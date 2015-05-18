@@ -965,6 +965,9 @@ namespace CatenersServer
             }    
 
             // Update Lobby Resources
+            String gamePlayerList = Newtonsoft.Json.JsonConvert.SerializeObject(gameLobby.gamePlayers);
+            String toReturn = new Message(gamePlayerList, Translation.TYPE.UpdateResources).toJson();
+            sp.client.sendToLobby(toReturn);
         }
     }
 }
