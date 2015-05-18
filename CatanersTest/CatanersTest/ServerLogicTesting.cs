@@ -428,8 +428,11 @@ namespace CatanersTest
             Message msgUseRoad = new Message(Translation.DevelopmentType.RoadBuilding.ToString(), Translation.TYPE.DevelopmentCard);
             gLob.gamePlayers[0].developmentCards[Translation.DevelopmentType.RoadBuilding] = 1;
             client1.processesMessage(msgUseRoad.toJson());
-            Message testRoad1 = new Message(Newtonsoft.Json.JsonConvert.SerializeObject(new string[] { 9+"", client1.userName}),Translation.TYPE.BuyRoad);
-            Message testRoad2 = new Message(Newtonsoft.Json.JsonConvert.SerializeObject(new string[] { 10+"", client1.userName}),Translation.TYPE.BuyRoad);
+            string[] toPass = new string[] { 0.ToString(), client1.userName };
+            client1.processesMessage(new Message(Newtonsoft.Json.JsonConvert.SerializeObject(toPass), Translation.TYPE.BuySettlement).toJson());
+            logic.isStartPhase1 = false;
+            Message testRoad1 = new Message(Newtonsoft.Json.JsonConvert.SerializeObject(new string[] { 0+"", client1.userName}),Translation.TYPE.BuyRoad);
+            Message testRoad2 = new Message(Newtonsoft.Json.JsonConvert.SerializeObject(new string[] { 1+"", client1.userName}),Translation.TYPE.BuyRoad);
             client1.processesMessage(testRoad1.toJson());
             client1.processesMessage(testRoad2.toJson());
 

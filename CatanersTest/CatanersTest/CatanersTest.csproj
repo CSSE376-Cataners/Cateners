@@ -78,6 +78,7 @@
     <Compile Include="GameLobbyTesting.cs" />
     <Compile Include="GamePlayerTesting.cs" />
     <Compile Include="JoinGameFormTesting.cs" />
+    <Compile Include="RandomCode.cs" />
     <Compile Include="ResourceTesting.cs" />
     <Compile Include="ServerLogicTesting.cs" />
     <Compile Include="ClientTesting.cs" />
