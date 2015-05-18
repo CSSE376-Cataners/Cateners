@@ -839,10 +839,8 @@ namespace CatenersServer
 
         public bool LargestArmyCheck(GamePlayer player)
         {
-            if (player.Username == "Sandy Cheeks")
-            {
+            if(player.developmentCards[Translation.DevelopmentType.Knight] > 2)
                 return true;
-            } 
             return false;
         }
 
