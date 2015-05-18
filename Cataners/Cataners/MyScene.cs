@@ -581,22 +581,22 @@ namespace Cataners
         }
         private static void buyDevCardButton_Pressed(object sender, EventArgs e)
         {
-            CommunicationClient.Instance.sendToServer(new Message("", Translation.TYPE.DevelopmentCard).toJson());
+            CommunicationClient.Instance.sendToServer(new Message(Translation.DevelopmentType.Buy.ToString(), Translation.TYPE.DevelopmentCard).toJson());
         }
 
         private static void useYearOfPlentyButton_Pressed(object sender, EventArgs e)
         {
-            CommunicationClient.Instance.sendToServer(new Message("", Translation.TYPE.DevelopmentCard).toJson());
+            CommunicationClient.Instance.sendToServer(new Message(Translation.DevelopmentType.YearOfPlenty.ToString(), Translation.TYPE.DevelopmentCard).toJson());
         }
 
         private static void useRoadBuildingButton_Pressed(object sender, EventArgs e)
         {
-            CommunicationClient.Instance.sendToServer(new Message("", Translation.TYPE.DevelopmentCard).toJson());
+            CommunicationClient.Instance.sendToServer(new Message(Translation.DevelopmentType.RoadBuilding.ToString(), Translation.TYPE.DevelopmentCard).toJson());
         }
 
         private static void useMonopolyButton_Pressed(object sender, EventArgs e)
         {
-            CommunicationClient.Instance.sendToServer(new Message("", Translation.TYPE.DevelopmentCard).toJson());
+            CommunicationClient.Instance.sendToServer(new Message(Translation.DevelopmentType.Monopoly.ToString(), Translation.TYPE.DevelopmentCard).toJson());
         }
 
         public static void hideEndTurn()
