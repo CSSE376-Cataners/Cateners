@@ -373,8 +373,26 @@ namespace CatanersTest
 
 
             Message msgBuyRoad = new Message(Translation.DevelopmentType.RoadBuilding.ToString(), Translation.TYPE.DevelopmentCard);
+            client1.processesMessage(msgBuyRoad.toJson());
+
+
 
             Message msgBuyYoP = new Message(Translation.DevelopmentType.YearOfPlenty.ToString(), Translation.TYPE.DevelopmentCard);
+
+            foreach (GamePlayer p in logic.gameLobby.gamePlayers)
+            {
+                p.resources[Resource.TYPE.Brick] = 1;
+                p.resources[Resource.TYPE.Ore] = 1;
+                p.resources[Resource.TYPE.Sheep] = 1;
+                p.resources[Resource.TYPE.Wheat] = 1;
+                p.resources[Resource.TYPE.Wood] = 1;
+            }
+
+            client1.processesMessage(msgBuyYoP.toJson());
+            Assert.AreEqual(7, logic.gameLobby.gamePlayers[0].resourceCount);
+            Assert.AreEqual(5, logic.gameLobby.gamePlayers[1].resourceCount);
+            Assert.AreEqual(5, logic.gameLobby.gamePlayers[2].resourceCount);
+            Assert.AreEqual(5, logic.gameLobby.gamePlayers[3].resourceCount);
         }
 
     }
