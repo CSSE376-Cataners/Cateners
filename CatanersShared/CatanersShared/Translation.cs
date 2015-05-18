@@ -19,7 +19,7 @@ namespace CatanersShared
             BuyRoad, DevelopmentCard
         };
 
-        public enum DevelopmentType { Buy, Knight, Monopoly, RoadBuilding, YearOfPlenty, VictoryPoint, NA }
+        public enum DevelopmentType { Buy, NA, Knight, Monopoly, RoadBuilding, YearOfPlenty, VictoryPoint };
 
         public static int[][] jsonToIntArrayTwo(string s) 
         {

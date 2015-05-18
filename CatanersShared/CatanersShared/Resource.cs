@@ -9,6 +9,8 @@ namespace CatanersShared
     public static class Resource
     {
             public enum TYPE { Wheat, Sheep, Brick, Ore, Wood, Desert};
+
+            public static TYPE[] real = new TYPE[] {TYPE.Wheat, TYPE.Sheep, TYPE.Brick, TYPE.Ore, TYPE.Wood};
     }
 
     public class AddResource
