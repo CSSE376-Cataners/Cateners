@@ -438,5 +438,59 @@ namespace CatanersTest
             
         }
 
+        [Test]
+        public void getResourcesOnSettlementPlacement()
+        {
+            CatanersTest.ClientTesting.FakeClient client1 = new CatanersTest.ClientTesting.FakeClient();
+            client1.userName = "Client1";
+            ServerPlayer sp1 = new ServerPlayer(client1.userName, client1);
+            client1.player = sp1;
+
+            CatanersTest.ClientTesting.FakeClient client2 = new CatanersTest.ClientTesting.FakeClient();
+            client2.userName = "Client2";
+            ServerPlayer sp2 = new ServerPlayer(client2.userName, client2);
+            client2.player = sp2;
+
+            CatanersTest.ClientTesting.FakeClient client3 = new CatanersTest.ClientTesting.FakeClient();
+            client3.userName = "Client3";
+            ServerPlayer sp3 = new ServerPlayer(client3.userName, client3);
+            client3.player = sp3;
+
+            CatanersTest.ClientTesting.FakeClient client4 = new CatanersTest.ClientTesting.FakeClient();
+            client4.userName = "Client4";
+            ServerPlayer sp4 = new ServerPlayer(client4.userName, client4);
+            client4.player = sp4;
+
+            Lobby lob = new Lobby("TestGame", 10, sp1, 1);
+            lob.Players.Add(sp2);
+            lob.Players.Add(sp3);
+            lob.Players.Add(sp4);
+
+            ServerLogic logic = new ServerLogic(lob);
+            GameLobby gLob = logic.gameLobby;
+
+            client1.serverLogic = logic;
+            client2.serverLogic = logic;
+            client3.serverLogic = logic;
+            client4.serverLogic = logic;
+
+            client1.currentLobby = lob;
+            client2.currentLobby = lob;
+            client3.currentLobby = lob;
+            client4.currentLobby = lob;
+
+            // Should Run
+            logic.determineSettlementAvailability(client1.userName, 10);
+            int temp = logic.gameLobby.gamePlayers[0].resourceCount;
+            Assert.True(0 < temp);
+
+            logic.isStartPhase1 = false;
+            logic.isStartPhase2 = false;
+
+
+            // 11 is other side of hex
+            logic.determineSettlementAvailability(client1.userName, 11);
+            Assert.AreEqual(temp, logic.gameLobby.gamePlayers[0].resourceCount);
+        }
     }
 }
