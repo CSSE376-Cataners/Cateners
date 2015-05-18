@@ -432,6 +432,16 @@ namespace CatenersServer
                                 {
                                     this.removeResourcesSettlement(player);
                                 }
+                                else
+                                {
+                                    foreach (Hex hex in this.board.buildings[settlementID].hexes)
+                                    {
+                                        if (hex.type != Resource.TYPE.Desert)
+                                        {
+                                            player.resources[hex.type]++;
+                                        }
+                                    }
+                                }
                                 this.board.buildings[settlementID].owner = player;
                                 player.addSettlement(settlementID);
                                 player.victoryPoints += 1;
@@ -659,55 +669,52 @@ namespace CatenersServer
             {
                 HexServer currHex = this.hexArray[i];
                 int currNum = currHex.getPlacementNumber();
+
+                int a, b, c, d;
                 if (currNum < 3)
                 {
-                    int a = currNum;
-                    int b = a + 3;
-                    int c = b + 4;
-                    int d = c + 5;
-                    SettlementServer[] newArray = new SettlementServer[6] { this.settlementArray[a], this.settlementArray[b], this.settlementArray[b + 1], this.settlementArray[c], this.settlementArray[c + 1], this.settlementArray[d] };
-                    hexArray[i].setSettlementArray(newArray);
-                    board.hexes[hexArray[i].getPlacementNumber()].buildings = new Building[] { board.buildings[a], board.buildings[b], board.buildings[b + 1], board.buildings[c], board.buildings[c + 1], board.buildings[d] };
+                    a = currNum;
+                    b = a + 3;
+                    c = b + 4;
+                    d = c + 5;
                 }
                 else if (currNum < 7)
                 {
-                    int a = currNum + 4;
-                    int b = a + 4;
-                    int c = b + 5;
-                    int d = c + 6;
-                    SettlementServer[] newArray = new SettlementServer[6] { this.settlementArray[a], this.settlementArray[b], this.settlementArray[b + 1], this.settlementArray[c], this.settlementArray[c + 1], this.settlementArray[d] };
-                    hexArray[i].setSettlementArray(newArray);
-                    board.hexes[hexArray[i].getPlacementNumber()].buildings = new Building[] { board.buildings[a], board.buildings[b], board.buildings[b + 1], board.buildings[c], board.buildings[c + 1], board.buildings[d] };
+                    a = currNum + 4;
+                    b = a + 4;
+                    c = b + 5;
+                    d = c + 6;
                 }
                 else if (currNum < 12)
                 {
-                    int a = currNum + 9;
-                    int b = a + 5;
-                    int c = b + 6;
-                    int d = c + 6;
-                    SettlementServer[] newArray = new SettlementServer[6] { this.settlementArray[a], this.settlementArray[b], this.settlementArray[b + 1], this.settlementArray[c], this.settlementArray[c + 1], this.settlementArray[d] };
-                    hexArray[i].setSettlementArray(newArray);
-                    board.hexes[hexArray[i].getPlacementNumber()].buildings = new Building[] { board.buildings[a], board.buildings[b], board.buildings[b + 1], board.buildings[c], board.buildings[c + 1], board.buildings[d] };
+                    a = currNum + 9;
+                    b = a + 5;
+                    c = b + 6;
+                    d = c + 6;
                 }
                 else if (currHex.getPlacementNumber() < 16)
                 {
-                    int a = currNum + 16;
-                    int b = a + 5;
-                    int c = b + 5;
-                    int d = c + 5;
-                    SettlementServer[] newArray = new SettlementServer[6] { this.settlementArray[a], this.settlementArray[b], this.settlementArray[b + 1], this.settlementArray[c], this.settlementArray[c + 1], this.settlementArray[d] };
-                    hexArray[i].setSettlementArray(newArray);
-                    board.hexes[hexArray[i].getPlacementNumber()].buildings = new Building[] { board.buildings[a], board.buildings[b], board.buildings[b + 1], board.buildings[c], board.buildings[c + 1], board.buildings[d] };
+                    a = currNum + 16;
+                    b = a + 5;
+                    c = b + 5;
+                    d = c + 5;
                 }
                 else
                 {
-                    int a = currNum + 23;
-                    int b = a + 4;
-                    int c = b + 4;
-                    int d = c + 4;
-                    SettlementServer[] newArray = new SettlementServer[6] { this.settlementArray[a], this.settlementArray[b], this.settlementArray[b + 1], this.settlementArray[c], this.settlementArray[c + 1], this.settlementArray[d] };
-                    hexArray[i].setSettlementArray(newArray);
-                    board.hexes[hexArray[i].getPlacementNumber()].buildings = new Building[] { board.buildings[a], board.buildings[b], board.buildings[b + 1], board.buildings[c], board.buildings[c + 1], board.buildings[d] };
+                    a = currNum + 23;
+                    b = a + 4;
+                    c = b + 4;
+                    d = c + 4;
+                }
+                SettlementServer[] newArray = new SettlementServer[6] { this.settlementArray[a], this.settlementArray[b], this.settlementArray[b + 1], this.settlementArray[c], this.settlementArray[c + 1], this.settlementArray[d] };
+                hexArray[i].setSettlementArray(newArray);
+                board.hexes[hexArray[i].getPlacementNumber()].buildings = new Building[] { board.buildings[a], board.buildings[b], board.buildings[b + 1], board.buildings[c], board.buildings[c + 1], board.buildings[d] };
+
+                int[] setArray = new int[] {a, b, b+1,c,c+1,d};
+
+                foreach (int k in setArray)
+                {
+                    board.buildings[k].hexes.Add(board.hexes[hexArray[i].getPlacementNumber()]);
                 }
             }
         }
