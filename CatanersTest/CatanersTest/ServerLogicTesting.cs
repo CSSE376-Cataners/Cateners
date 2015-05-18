@@ -384,24 +384,6 @@ namespace CatanersTest
             Assert.AreEqual(4, logic.gameLobby.gamePlayers[2].resourceCount);
             Assert.AreEqual(4, logic.gameLobby.gamePlayers[3].resourceCount);
 
-            foreach (GamePlayer p in logic.gameLobby.gamePlayers)
-            {
-                p.resources[Resource.TYPE.Brick] = 0;
-                p.resources[Resource.TYPE.Ore] = 0;
-                p.resources[Resource.TYPE.Sheep] = 0;
-                p.resources[Resource.TYPE.Wheat] = 0;
-                p.resources[Resource.TYPE.Wood] = 0;
-            }
-
-            Message msgUseRoad = new Message(Translation.DevelopmentType.RoadBuilding.ToString(), Translation.TYPE.DevelopmentCard);
-            client1.processesMessage(msgUseRoad.toJson());
-            Message testRoad1 = new Message(Newtonsoft.Json.JsonConvert.SerializeObject(new string[] { 9+"", client1.userName}),Translation.TYPE.BuyRoad);
-            Message testRoad2 = new Message(Newtonsoft.Json.JsonConvert.SerializeObject(new string[] { 10+"", client1.userName}),Translation.TYPE.BuyRoad);
-            client1.processesMessage(testRoad1.toJson());
-            client1.processesMessage(testRoad2.toJson());
-
-            Assert.AreEqual(2,logic.playerKeepers[client1.userName].getRoads().Count);
-
             Message msgUseYoP = new Message(Translation.DevelopmentType.YearOfPlenty.ToString(), Translation.TYPE.DevelopmentCard);
 
             foreach (GamePlayer p in logic.gameLobby.gamePlayers)
@@ -413,11 +395,34 @@ namespace CatanersTest
                 p.resources[Resource.TYPE.Wood] = 1;
             }
 
+            gLob.gamePlayers[0].developmentCards[Translation.DevelopmentType.YearOfPlenty] = 1;
+
             client1.processesMessage(msgUseYoP.toJson());
+            Assert.AreEqual(0, gLob.gamePlayers[0].developmentCards[Translation.DevelopmentType.YearOfPlenty]);
             Assert.AreEqual(7, logic.gameLobby.gamePlayers[0].resourceCount);
             Assert.AreEqual(5, logic.gameLobby.gamePlayers[1].resourceCount);
             Assert.AreEqual(5, logic.gameLobby.gamePlayers[2].resourceCount);
             Assert.AreEqual(5, logic.gameLobby.gamePlayers[3].resourceCount);
+
+            foreach (GamePlayer p in logic.gameLobby.gamePlayers)
+            {
+                p.resources[Resource.TYPE.Brick] = 0;
+                p.resources[Resource.TYPE.Ore] = 0;
+                p.resources[Resource.TYPE.Sheep] = 0;
+                p.resources[Resource.TYPE.Wheat] = 0;
+                p.resources[Resource.TYPE.Wood] = 0;
+            }
+
+            Message msgUseRoad = new Message(Translation.DevelopmentType.RoadBuilding.ToString(), Translation.TYPE.DevelopmentCard);
+            gLob.gamePlayers[0].developmentCards[Translation.DevelopmentType.RoadBuilding] = 1;
+            client1.processesMessage(msgUseRoad.toJson());
+            Message testRoad1 = new Message(Newtonsoft.Json.JsonConvert.SerializeObject(new string[] { 9+"", client1.userName}),Translation.TYPE.BuyRoad);
+            Message testRoad2 = new Message(Newtonsoft.Json.JsonConvert.SerializeObject(new string[] { 10+"", client1.userName}),Translation.TYPE.BuyRoad);
+            client1.processesMessage(testRoad1.toJson());
+            client1.processesMessage(testRoad2.toJson());
+
+            Assert.AreEqual(0, gLob.gamePlayers[0].developmentCards[Translation.DevelopmentType.RoadBuilding]);
+            Assert.AreEqual(2,logic.playerKeepers[client1.userName].getRoads().Count);
         }
 
     }
