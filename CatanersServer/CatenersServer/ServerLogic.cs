@@ -872,7 +872,7 @@ namespace CatenersServer
                             break;
 
                         case Translation.DevelopmentType.Knight:
-                            if(LargestArmyCheck(player){
+                            if(LargestArmyCheck(player)){
 
                             };
                             break;                    
