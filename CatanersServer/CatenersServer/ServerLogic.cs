@@ -844,6 +844,8 @@ namespace CatenersServer
             {
                 if (lastLargestArmyPlayer == null)
                 {
+                    PopUpMessage popup = new PopUpMessage("Largest Army", user.Username + " has the largest army with " +player.developmentCards[Translation.DevelopmentType.Knight] + " knights" , PopUpMessage.TYPE.Notification);
+                    user.client.sendToLobby(new Message(popup.toJson(), Translation.TYPE.PopUpMessage).toJson());
                     lastLargestArmyPlayer = user;
                 }
                 else
@@ -859,6 +861,8 @@ namespace CatenersServer
 
                     if (player.developmentCards[Translation.DevelopmentType.Knight] > largestArmyMan.developmentCards[Translation.DevelopmentType.Knight])
                     {
+                        PopUpMessage popup = new PopUpMessage("Largest Army", user.Username + " has the largest army with " + player.developmentCards[Translation.DevelopmentType.Knight] + " knights", PopUpMessage.TYPE.Notification);
+                        user.client.sendToLobby(new Message(popup.toJson(), Translation.TYPE.PopUpMessage).toJson());
                         lastLargestArmyPlayer = user;
                     }
                 }
