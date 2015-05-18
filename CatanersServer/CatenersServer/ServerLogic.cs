@@ -505,12 +505,12 @@ namespace CatenersServer
                     }
                     if(((player.resources[Resource.TYPE.Brick] >= 1) && (player.resources[Resource.TYPE.Wood] >= 1)) || (isStartPhase1 || isStartPhase2))
                     {
+                        if (usedRoad && (isStartPhase1 || isStartPhase2))
+                            return false;
                         foreach (int i in current.getNeighbors())
                         {
                             if (this.playerKeepers[username].getRoads().Contains(i) && this.roadArray[i].getIsActive())
                             {
-                                if (usedRoad && (isStartPhase1 || isStartPhase2))
-                                    return false;
                                 this.setRoadActivity(roadID, username);
                                 usedRoad = true;
                                 if (!isStartPhase1 && !isStartPhase2)
@@ -524,8 +524,6 @@ namespace CatenersServer
                         {
                             if (this.playerKeepers[username].getSettlements().Contains(j) && this.settlementArray[j].getIsActive())
                             {
-                                if (usedRoad && (isStartPhase1 || isStartPhase2))
-                                    return false;
                                 this.setRoadActivity(roadID, username);
                                 usedRoad = true;
                                 if (!isStartPhase1 && !isStartPhase2)
