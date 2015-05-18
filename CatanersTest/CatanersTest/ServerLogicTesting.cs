@@ -582,6 +582,7 @@ namespace CatanersTest
 
             Assert.IsNotNull(logic.lastLargestArmyPlayer);
             Assert.AreEqual(sp1, logic.lastLargestArmyPlayer);
+
         }
 
         [Test]
@@ -646,6 +647,8 @@ namespace CatanersTest
 
             Assert.IsNotNull(logic.lastLargestArmyPlayer);
             Assert.AreEqual(sp1, logic.lastLargestArmyPlayer);
+            Assert.IsNotNull(client1.lastCall);
+            Assert.IsNotNull(client2.lastCall);
         }
 
     }
