@@ -43,6 +43,7 @@ namespace CatenersServer
         {
             this.ownedRoads.Add(x);
             this.roadCount += 1;
+            Data.INSTANCE.UserWithLongestRoad = this.username;
             return new RoadPath(x);
         }
 
