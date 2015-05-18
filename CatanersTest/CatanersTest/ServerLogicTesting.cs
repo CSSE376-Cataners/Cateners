@@ -368,6 +368,7 @@ namespace CatanersTest
             // Dont have card yet so should not be able to use it.
             client1.processesMessage(msgUseMono.toJson());
             Assert.AreEqual(0, logic.gameLobby.gamePlayers[0].resourceCount);
+            Assert.Null(client1.lastCall);
 
             foreach (GamePlayer p in logic.gameLobby.gamePlayers)
             {
@@ -386,6 +387,12 @@ namespace CatanersTest
             Assert.AreEqual(4, logic.gameLobby.gamePlayers[1].resourceCount);
             Assert.AreEqual(4, logic.gameLobby.gamePlayers[2].resourceCount);
             Assert.AreEqual(4, logic.gameLobby.gamePlayers[3].resourceCount);
+
+            Assert.NotNull(client1.lastCall);
+            Assert.NotNull(client2.lastCall);
+            Assert.NotNull(client3.lastCall);
+            Assert.NotNull(client4.lastCall);
+
 
             Message msgUseYoP = new Message(Translation.DevelopmentType.YearOfPlenty.ToString(), Translation.TYPE.DevelopmentCard);
 
