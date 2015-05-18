@@ -313,6 +313,8 @@ namespace CatanersTest
             player.resources[Resource.TYPE.Brick] = 1;
             player.resources[Resource.TYPE.Wheat] = 1;
             player.resources[Resource.TYPE.Wood] = 1;
+            testLogic.isStartPhase1 = false;
+            testLogic.isStartPhase2 = false;
             testLogic.setRoadActivity(4, "Stentopher");
             Assert.True(testLogic.determineSettlementAvailability("Stentopher", 2));
         }
@@ -324,6 +326,8 @@ namespace CatanersTest
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Brick] = 1;
             player.resources[Resource.TYPE.Wood] = 1;
+            testLogic.isStartPhase1 = false;
+            testLogic.isStartPhase2 = false;
             testLogic.setRoadActivity(0, "Stentopher");
             Assert.True(testLogic.determineRoadAvailability("Stentopher", 1));
         }
@@ -362,6 +366,23 @@ namespace CatanersTest
             testLogic.setRoadActivity(2, "Stentopher");
             Assert.True(testLogic.determineRoadAvailability("Stentopher", 1));
             Assert.AreEqual("Stentopher", Data.INSTANCE.UserWithLongestRoad);
+        }
+
+        [Test]
+        public void testLongestRoadAfterFourthRoadPurchasedFalse()
+        {
+            Data data = new Data();
+            Data.INSTANCE.UserWithLongestRoad = "TrottaSN";
+            Data.INSTANCE.LongestRoadCount = 5;
+            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            GamePlayer player = testLogic.gameLobby.gamePlayers[1];
+            player.resources[Resource.TYPE.Brick] = 1;
+            player.resources[Resource.TYPE.Wood] = 1;
+            testLogic.setRoadActivity(4, "Stentopher");
+            testLogic.setRoadActivity(3, "Stentopher");
+            testLogic.setRoadActivity(2, "Stentopher");
+            Assert.False(testLogic.determineRoadAvailability("Stentopher", 1));
+            Assert.AreEqual("TrottaSN", Data.INSTANCE.UserWithLongestRoad);
         }
     }
 }
