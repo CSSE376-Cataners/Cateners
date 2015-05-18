@@ -842,14 +842,30 @@ namespace CatenersServer
         {
             GamePlayer largestArmyMan = null;
 
-            if (player.developmentCards[Translation.DevelopmentType.Knight] > 2 && lastLargestArmyPlayer == null)
+            if (player.developmentCards[Translation.DevelopmentType.Knight] > 2 )
             {
-                lastLargestArmyPlayer = user;
+                if (lastLargestArmyPlayer == null)
+                {
+                    lastLargestArmyPlayer = user;
+                }
+                else
+                {
+                    foreach (GamePlayer p in gameLobby.gamePlayers)
+                    {
+                        if (lastLargestArmyPlayer.Username.Equals(p.Username))
+                        {
+                            largestArmyMan = p;
+                            break;
+                        }
+                    }
+
+                    if (player.developmentCards[Translation.DevelopmentType.Knight] > largestArmyMan.developmentCards[Translation.DevelopmentType.Knight])
+                    {
+                        lastLargestArmyPlayer = user;
+                    }
+                }
             }
-            else if (lastLargestArmyPlayer != null)
-            {
-                
-            }
+            
         }
 
         public void tryBuyDevelopmentCard(ServerPlayer user)

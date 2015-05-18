@@ -584,6 +584,70 @@ namespace CatanersTest
             Assert.AreEqual(sp1, logic.lastLargestArmyPlayer);
         }
 
+        [Test]
+        public void TestLargestArmyThreeKnightsAndOtherPlayerHasThree()
+        {
+            CatanersTest.ClientTesting.FakeClient client1 = new CatanersTest.ClientTesting.FakeClient();
+            client1.userName = "Thrall";
+            ServerPlayer sp1 = new ServerPlayer(client1.userName, client1);
+            client1.player = sp1;
+
+            CatanersTest.ClientTesting.FakeClient client2 = new CatanersTest.ClientTesting.FakeClient();
+            client2.userName = "Arthus";
+            ServerPlayer sp2 = new ServerPlayer(client2.userName, client2);
+            client2.player = sp2;
+
+            Lobby lob = new Lobby("ThunderBluff", 10, sp1, 1);
+            lob.addPlayer(sp2);
+            ServerLogic logic = new ServerLogic(lob);
+            GameLobby gLob = logic.gameLobby;
+            client1.serverLogic = logic;
+            client2.serverLogic = logic;
+            client1.currentLobby = gLob;
+            client2.currentLobby = gLob;
+            gLob.gamePlayers[1].developmentCards[Translation.DevelopmentType.Knight] = 3;
+            logic.lastLargestArmyPlayer = sp2;
+
+            gLob.gamePlayers[0].developmentCards[Translation.DevelopmentType.Knight] = 3;
+
+            logic.LargestArmyCheck(gLob.gamePlayers[0], sp1);
+
+            Assert.IsNotNull(logic.lastLargestArmyPlayer);
+            Assert.AreEqual(sp2, logic.lastLargestArmyPlayer);
+        }
+
+        [Test]
+        public void TestLargestArmyFourKnightsAndOtherPlayerHasThree()
+        {
+            CatanersTest.ClientTesting.FakeClient client1 = new CatanersTest.ClientTesting.FakeClient();
+            client1.userName = "Thrall";
+            ServerPlayer sp1 = new ServerPlayer(client1.userName, client1);
+            client1.player = sp1;
+
+            CatanersTest.ClientTesting.FakeClient client2 = new CatanersTest.ClientTesting.FakeClient();
+            client2.userName = "Arthus";
+            ServerPlayer sp2 = new ServerPlayer(client2.userName, client2);
+            client2.player = sp2;
+
+            Lobby lob = new Lobby("ThunderBluff", 10, sp1, 1);
+            lob.addPlayer(sp2);
+            ServerLogic logic = new ServerLogic(lob);
+            GameLobby gLob = logic.gameLobby;
+            client1.serverLogic = logic;
+            client2.serverLogic = logic;
+            client1.currentLobby = gLob;
+            client2.currentLobby = gLob;
+            gLob.gamePlayers[1].developmentCards[Translation.DevelopmentType.Knight] = 3;
+            logic.lastLargestArmyPlayer = sp2;
+
+            gLob.gamePlayers[0].developmentCards[Translation.DevelopmentType.Knight] = 4;
+
+            logic.LargestArmyCheck(gLob.gamePlayers[0], sp1);
+
+            Assert.IsNotNull(logic.lastLargestArmyPlayer);
+            Assert.AreEqual(sp1, logic.lastLargestArmyPlayer);
+        }
+
 
 
 
