@@ -365,6 +365,9 @@ namespace CatanersTest
 
 
             Message msgUseMono = new Message(Translation.DevelopmentType.Monopoly.ToString(), Translation.TYPE.DevelopmentCard);
+            // Dont have card yet so should not be able to use it.
+            client1.processesMessage(msgUseMono.toJson());
+            Assert.AreEqual(0, logic.gameLobby.gamePlayers[0].resourceCount);
 
             foreach (GamePlayer p in logic.gameLobby.gamePlayers)
             {
@@ -423,6 +426,9 @@ namespace CatanersTest
 
             Assert.AreEqual(0, gLob.gamePlayers[0].developmentCards[Translation.DevelopmentType.RoadBuilding]);
             Assert.AreEqual(2,logic.playerKeepers[client1.userName].getRoads().Count);
+
+            // Try using card when you don't hav eone
+            
         }
 
     }
