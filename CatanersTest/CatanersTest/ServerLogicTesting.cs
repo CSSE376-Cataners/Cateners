@@ -513,7 +513,7 @@ namespace CatanersTest
 
             gLob.gamePlayers[0].developmentCards[Translation.DevelopmentType.Knight] = 2;
 
-            bool check = logic.LargestArmyCheck(gLob.gamePlayers[0]);
+            bool check = logic.LargestArmyCheck(gLob.gamePlayers[0],sp1);
 
             Assert.AreEqual(false, check);
         }
@@ -534,7 +534,7 @@ namespace CatanersTest
 
             gLob.gamePlayers[0].developmentCards[Translation.DevelopmentType.Knight] = 3;
 
-            bool check = logic.LargestArmyCheck(gLob.gamePlayers[0]);
+            bool check = logic.LargestArmyCheck(gLob.gamePlayers[0],sp1);
 
             Assert.AreEqual(true, check);
         }
@@ -556,7 +556,7 @@ namespace CatanersTest
 
             gLob.gamePlayers[0].developmentCards[Translation.DevelopmentType.Knight] = 3;
 
-            bool check = logic.LargestArmyCheck(gLob.gamePlayers[0]);
+            bool check = logic.LargestArmyCheck(gLob.gamePlayers[0],sp1);
 
             Assert.AreEqual(true, check);
         }
@@ -578,7 +578,7 @@ namespace CatanersTest
 
             gLob.gamePlayers[0].developmentCards[Translation.DevelopmentType.Knight] = 3;
 
-            bool check = logic.LargestArmyCheck(gLob.gamePlayers[0]);
+            bool check = logic.LargestArmyCheck(gLob.gamePlayers[0],sp1);
             
             Assert.AreEqual(true, check);
             Assert.AreEqual(sp1, logic.lastLargestArmyPlayer);
