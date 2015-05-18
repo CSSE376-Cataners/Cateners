@@ -577,6 +577,7 @@ namespace CatenersServer
 
         public void generatehexArray()
         {
+            this.board = new Board();
             System.Random r = new System.Random();
             ArrayList rangeList = new ArrayList();
             int count = 0;
