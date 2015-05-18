@@ -22,9 +22,49 @@ namespace CatenersServer
             this.size = 1;
         }
 
+        public RoadPath(int[] inRID)
+        {
+            this.front = inRID[inRID.Length];
+            this.back = inRID[0];
+            this.roadIDs = inRID;
+            this.size = inRID.Length;
+        }
+
         public int getFront()
         {
             return this.front;
+        }
+
+        public RoadPath generateNewPath(int x, int[] xNeighbors)
+        {
+            for (int i = 0; i < this.size; i++)
+            {
+                if (xNeighbors.Contains(this.roadIDs[i]))
+                {
+                    if (i != 0 && xNeighbors.Contains(this.roadIDs[i - 1]))
+                    {
+                        int[] newArray = new int[i + 1];
+                        for (int k = 0; k < i - 1; k++)
+                        {
+                          newArray[k] = this.roadIDs[k];
+                        }
+                        newArray[i] = x;
+                        return new RoadPath(newArray);
+                    }
+                    else if (this.roadIDs[i] == this.getFront())
+                    {
+                        this.addToFront(x);
+                        return this;
+                    }
+                    else
+                    {
+                        this.addToBack(x);
+                        return this;
+                    }
+                }
+            }
+            this.addToFront(x);
+            return this;
         }
 
         public void addToFront(int x)
@@ -65,12 +105,6 @@ namespace CatenersServer
         public int[] getRoadIDs()
         {
             return this.roadIDs;
-        }
-
-        public void addRoadID(int toAdd)
-        {
-            this.roadIDs[size] = toAdd;
-            this.size++;
         }
 
         public void setRoadIDs(int[] extendedIDs)
