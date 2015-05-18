@@ -27,14 +27,17 @@ namespace CatanersTest
         public void PurchasingTestingSetup()
         {
             ClientTesting.FakeClient fakeClient = new ClientTesting.FakeClient();
+            ServerPlayer player0 = new ServerPlayer("TrottaSN", fakeClient);
             this.newPlayer1 = new ServerPlayer("Stentopher", fakeClient);
             this.newPlayer2 = new ServerPlayer("Hays", fakeClient);
             this.newPlayer3 = new ServerPlayer("Mellor", fakeClient);
-            this.newLobby = new Lobby("testGame1", 10, new ServerPlayer("TrottaSN", fakeClient), 43);
+            this.newLobby = new Lobby("testGame1", 10, player0, 43);
             this.newLobby.addPlayer(this.newPlayer1);
             this.newLobby.addPlayer(this.newPlayer2);
             this.newLobby.addPlayer(this.newPlayer3);
             this.neighborArray = new int[0];
+
+            this.newPlayer1.client.currentLobby = newLobby;
         }
 
         [Test]
