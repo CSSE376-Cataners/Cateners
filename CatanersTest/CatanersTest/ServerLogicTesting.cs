@@ -145,6 +145,8 @@ namespace CatanersTest
 
             Assert.True(oldBrick < logic.gameLobby.gamePlayers[0].resources[Resource.TYPE.Brick]);
         }
+
+
         [Test]
         public void updateTurnStartPhase1()
         {
@@ -441,6 +443,7 @@ namespace CatanersTest
         [Test]
         public void getResourcesOnSettlementPlacement()
         {
+            #region gameSetup
             CatanersTest.ClientTesting.FakeClient client1 = new CatanersTest.ClientTesting.FakeClient();
             client1.userName = "Client1";
             ServerPlayer sp1 = new ServerPlayer(client1.userName, client1);
@@ -478,7 +481,7 @@ namespace CatanersTest
             client2.currentLobby = lob;
             client3.currentLobby = lob;
             client4.currentLobby = lob;
-
+            #endregion
             // Should Run
             logic.determineSettlementAvailability(client1.userName, 10);
             int temp = logic.gameLobby.gamePlayers[0].resourceCount;
