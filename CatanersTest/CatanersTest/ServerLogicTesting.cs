@@ -515,7 +515,7 @@ namespace CatanersTest
             Assert.AreEqual(false, check);
         }
         [Test]
-        public void TestLargestArmyFalseIfYouHaveThreeKnights()
+        public void TestLargestArmyTrueIfYouHaveThreeKnights()
         {
             CatanersTest.ClientTesting.FakeClient client1 = new CatanersTest.ClientTesting.FakeClient();
             client1.userName = "Sandy Cheeks";
@@ -535,5 +535,7 @@ namespace CatanersTest
 
             Assert.AreEqual(true, check);
         }
+
+        
     }
 }
