@@ -36,6 +36,7 @@ namespace CatenersServer
         public bool usedSettlement;
         public bool canRegen;
         public bool taken2;
+        private ServerPlayer lastLargestArmyPlayer;
 
         public List<Translation.DevelopmentType> developmentDeck;
 
@@ -61,6 +62,7 @@ namespace CatenersServer
 
         public ServerLogic(Lobby lobby)
         {
+            lastLargestArmyPlayer = null;
             isStartPhase1 = true;
             isStartPhase2 = false;
             usedRoad = false;
@@ -828,35 +830,9 @@ namespace CatenersServer
             return player.resources.ToString();
         }
 
-        public void ResourceAllocationAfterDiceRoll()
+        public bool LargestArmyCheck(GamePlayer player)
         {
-            switch (dice)
-            {
-                case 2:
-                    //give players who own spot with 2 resources
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    break;
-                case 6:
-                    break;
-                case 7:
-                    break;
-                case 8:
-                    break;
-                case 9:
-                    break;
-                case 10:
-                    break;
-                case 11:
-                    break;
-                case 12:
-                    break;
-
-            }
+            return false;
         }
 
         public void tryBuyDevelopmentCard(ServerPlayer user)
@@ -881,10 +857,20 @@ namespace CatenersServer
                     removeDevelopmentCardCost(player);
                     player.developmentCards[type] += 1;
 
-                    if (type == Translation.DevelopmentType.VictoryPoint)
+
+                    switch (type)
                     {
-                        player.victoryPoints++;
+                        case Translation.DevelopmentType.VictoryPoint:
+                            player.victoryPoints++;
+                            break;
+
+                        case Translation.DevelopmentType.Knight:
+                            if(LargestArmyCheck(player){
+
+                            };
+                            break;                    
                     }
+                    
 
                     String gamePlayerList = Newtonsoft.Json.JsonConvert.SerializeObject(gameLobby.gamePlayers);
                     String toReturn = new Message(gamePlayerList, Translation.TYPE.UpdateResources).toJson();
