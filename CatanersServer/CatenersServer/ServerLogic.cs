@@ -949,6 +949,19 @@ namespace CatenersServer
                     }
                     player.developmentCards[type] -= 1;
                     break;
+                case Translation.DevelopmentType.RoadBuilding:
+                    // Road Building Need to decide how. Will integrate with how startphase does it.
+                    player.developmentCards[type] -= 1;
+                    break;
+                case Translation.DevelopmentType.YearOfPlenty:
+                    Random r = new Random();
+                    Resource.TYPE take1 = Resource.real[r.Next(Resource.real.Length)];
+                    Resource.TYPE take2 = Resource.real[r.Next(Resource.real.Length)];
+
+                    player.resources[take1]++;
+                    player.resources[take2]++;
+                    player.developmentCards[type] -= 1;
+                    break;
             }    
 
             // Update Lobby Resources
