@@ -24,7 +24,7 @@ namespace CatenersServer
 
         public RoadPath(int[] inRID)
         {
-            this.front = inRID[inRID.Length];
+            this.front = inRID[inRID.Length-1];
             this.back = inRID[0];
             this.roadIDs = inRID;
             this.size = inRID.Length;
@@ -44,7 +44,7 @@ namespace CatenersServer
                     if (i != 0 && xNeighbors.Contains(this.roadIDs[i - 1]))
                     {
                         int[] newArray = new int[i + 1];
-                        for (int k = 0; k < i - 1; k++)
+                        for (int k = 0; k < i; k++)
                         {
                           newArray[k] = this.roadIDs[k];
                         }
@@ -54,11 +54,6 @@ namespace CatenersServer
                     else if (this.roadIDs[i] == this.getFront())
                     {
                         this.addToFront(x);
-                        return this;
-                    }
-                    else
-                    {
-                        this.addToBack(x);
                         return this;
                     }
                 }

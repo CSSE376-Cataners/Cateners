@@ -399,5 +399,20 @@ namespace CatanersTest
             Assert.AreEqual("TrottaSN", Data.INSTANCE.UserWithLongestRoad);
             Assert.AreEqual(5, Data.INSTANCE.LongestRoadCount);
         }
+
+        [Test]
+        public void testLongestRoadSplit()
+        {
+            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            GamePlayer player = testLogic.gameLobby.gamePlayers[1];
+            testLogic.setRoadActivity(0, "Stentopher");
+            testLogic.setRoadActivity(1, "Stentopher");
+            testLogic.setRoadActivity(7, "Stentopher");
+            testLogic.setRoadActivity(12, "Stentopher");
+            RoadPath testedPath = testLogic.setRoadActivity(13, "Stentopher");
+            Console.WriteLine(String.Join(",",testedPath.getRoadIDs()));
+            Assert.AreEqual("Stentopher", Data.INSTANCE.UserWithLongestRoad);
+            Assert.AreEqual(4, Data.INSTANCE.LongestRoadCount);
+        }
     }
 }

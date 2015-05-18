@@ -44,6 +44,7 @@ namespace CatenersServer
             this.ownedRoads.Add(x);
             this.roadCount += 1;
             RoadPath currPath = new RoadPath(x);
+            ArrayList toAdd = new ArrayList();
             if (this.ownedPaths.Count > 0)
             {
                 foreach (RoadPath path in this.ownedPaths)
@@ -56,6 +57,7 @@ namespace CatenersServer
                     else
                     {
                         currPath = gennedPath;
+                        toAdd.Add(currPath);
                     }
                 }
                 if (Data.INSTANCE.LongestRoadCount < currPath.getSize())
@@ -63,6 +65,7 @@ namespace CatenersServer
                     Data.INSTANCE.UserWithLongestRoad = this.username;
                     Data.INSTANCE.LongestRoadCount = currPath.getSize();
                 }
+                this.ownedPaths.AddRange(toAdd);
             }
             else
             {
