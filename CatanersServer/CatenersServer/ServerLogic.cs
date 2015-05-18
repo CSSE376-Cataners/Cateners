@@ -497,7 +497,10 @@ namespace CatenersServer
                         {
                             if (this.playerKeepers[username].getRoads().Contains(i) && this.roadArray[i].getIsActive())
                             {
+                                if (usedRoad && (isStartPhase1 || isStartPhase2))
+                                    return false;
                                 this.setRoadActivity(roadID, username);
+                                usedRoad = true;
                                 if (!isStartPhase1 && !isStartPhase2)
                                 {
                                     this.removeResourcesRoad(player);
@@ -509,7 +512,10 @@ namespace CatenersServer
                         {
                             if (this.playerKeepers[username].getSettlements().Contains(j) && this.settlementArray[j].getIsActive())
                             {
+                                if (usedRoad && (isStartPhase1 || isStartPhase2))
+                                    return false;
                                 this.setRoadActivity(roadID, username);
+                                usedRoad = true;
                                 if (!isStartPhase1 && !isStartPhase2)
                                 {
                                     this.removeResourcesRoad(player);
