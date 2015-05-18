@@ -27,6 +27,32 @@ namespace CatenersServer
             return this.front;
         }
 
+        public void addToFront(int x)
+        {
+            this.size += 1;
+            int[] newRIDs = new int[this.size];
+            for (int k = 0; k < this.size - 1; k++)
+            {
+                newRIDs[k] = this.roadIDs[k];
+            }
+            newRIDs[this.size - 1] = x;
+            this.front = x;
+            this.roadIDs = newRIDs;
+        }
+
+        public void addToBack(int x)
+        {
+            this.size += 1;
+            int[] newRIDs = new int[this.size];
+            for (int k = 1; k < this.size; k++)
+            {
+                newRIDs[k] = this.roadIDs[k - 1];
+            }
+            newRIDs[0] = x;
+            this.back = x;
+            this.roadIDs = newRIDs;
+        }
+
         public int getBack()
         {
             return this.back;

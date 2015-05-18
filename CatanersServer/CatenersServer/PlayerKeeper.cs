@@ -43,7 +43,32 @@ namespace CatenersServer
         {
             this.ownedRoads.Add(x);
             this.roadCount += 1;
-            Data.INSTANCE.UserWithLongestRoad = this.username;
+            RoadPath currPath = new RoadPath(x);
+            foreach (RoadPath path in this.ownedPaths)
+            {
+                foreach (int neighbor in neighbors)
+                {
+                    if (path.getFront() == neighbor)
+                    {
+                        path.addToFront(x);
+                        currPath = path;
+                    }
+                    else if (path.getBack() == neighbor)
+                    {
+                        path.addToBack(x);
+                        currPath = path;
+                    }
+                }
+            }
+            if (currPath.getSize().Equals(1))
+            {
+                this.ownedPaths.Add(currPath);
+            }
+            if (Data.INSTANCE.LongestRoadCount < currPath.getSize())
+            {
+                Data.INSTANCE.UserWithLongestRoad = this.username;
+                Data.INSTANCE.LongestRoadCount = currPath.getSize();
+            }
             return new RoadPath(x);
         }
 

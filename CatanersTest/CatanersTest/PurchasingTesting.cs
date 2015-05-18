@@ -371,17 +371,16 @@ namespace CatanersTest
         [Test]
         public void testLongestRoadAfterFourthRoadPurchasedFalse()
         {
-            Data data = new Data();
-            Data.INSTANCE.UserWithLongestRoad = "TrottaSN";
-            Data.INSTANCE.LongestRoadCount = 5;
             ServerLogic testLogic = new ServerLogic(this.newLobby);
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Brick] = 1;
             player.resources[Resource.TYPE.Wood] = 1;
+            Data.INSTANCE.LongestRoadCount = 5;
+            Data.INSTANCE.UserWithLongestRoad = "TrottaSN";
             testLogic.setRoadActivity(4, "Stentopher");
             testLogic.setRoadActivity(3, "Stentopher");
             testLogic.setRoadActivity(2, "Stentopher");
-            Assert.False(testLogic.determineRoadAvailability("Stentopher", 1));
+            Assert.True(testLogic.determineRoadAvailability("Stentopher", 1));
             Assert.AreEqual("TrottaSN", Data.INSTANCE.UserWithLongestRoad);
         }
     }
