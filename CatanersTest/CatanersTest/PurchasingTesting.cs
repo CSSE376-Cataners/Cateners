@@ -385,7 +385,7 @@ namespace CatanersTest
         }
 
         [Test]
-        public void testLongestRoadSplitTest()
+        public void testLongestRoadTwo()
         {
             ServerLogic testLogic = new ServerLogic(this.newLobby);
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
@@ -394,12 +394,9 @@ namespace CatanersTest
             Data.INSTANCE.LongestRoadCount = 5;
             Data.INSTANCE.UserWithLongestRoad = "TrottaSN";
             testLogic.setRoadActivity(0, "Stentopher");
-            testLogic.setRoadActivity(1, "Stentopher");
-            testLogic.setRoadActivity(7, "Stentopher");
-            testLogic.setRoadActivity(12, "Stentopher");
-            testLogic.setRoadActivity(13, "Stentopher");
-            Assert.True(testLogic.determineRoadAvailability("Stentopher", 20));
-            Assert.AreEqual("Stentopher", Data.INSTANCE.UserWithLongestRoad);
+            RoadPath testedPath = testLogic.setRoadActivity(1, "Stentopher");
+            int size = testedPath.getSize();
+            Assert.AreEqual("TrottaSN", Data.INSTANCE.UserWithLongestRoad);
             Assert.AreEqual(5, Data.INSTANCE.LongestRoadCount);
         }
     }
