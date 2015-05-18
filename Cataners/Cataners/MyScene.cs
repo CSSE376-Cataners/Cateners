@@ -96,8 +96,6 @@ namespace Cataners
             //add chatbutton
             Button chatButton = new Button("ChatButton");
             chatButton.Text = "Open Chat";
-            chatButton.Width = 120;
-            chatButton.Height = 40;
             Transform2D chatButton2d = chatButton.Entity.FindComponent<Transform2D>();
             chatButton2d.X = WaveConstants.CENTERWIDTH/2;
             chatButton2d.Y = 15;
@@ -116,8 +114,6 @@ namespace Cataners
                 //add tradebutton
                 Button tradeButton = new Button("TradeButton");
                 tradeButton.Text = "Trade Resources";
-                tradeButton.Width = 120;
-                tradeButton.Height = 40;
                 Transform2D tradebutton2d = tradeButton.Entity.FindComponent<Transform2D>();
                 tradebutton2d.X = WaveConstants.CENTERWIDTH * 2 - 320;
                 tradebutton2d.Y = WaveConstants.CENTERHEIGHT * 2 - 100;
@@ -141,8 +137,6 @@ namespace Cataners
 
                 Button newButton = new Button("RegenerateBoardButton");
                 newButton.Text = "Regenerate Board";
-                newButton.Width = 150;
-                newButton.Height = 40;
                 Transform2D regenBoard2d = newButton.Entity.FindComponent<Transform2D>();
                 regenBoard2d.X = 100;
                 newButton.Click += (s, e) => button_Pressed(s, e);
@@ -164,8 +158,6 @@ namespace Cataners
             {
                 Button endTurnButton = new Button("endTurnButton");
                 endTurnButton.Text = "End Turn";
-                endTurnButton.Width = 50;
-                endTurnButton.Height = 40;
                 Transform2D endTurnButton2d = endTurnButton.Entity.FindComponent<Transform2D>();
                 endTurnButton2d.X = WaveConstants.CENTERWIDTH * 2 - 120;
                 endTurnButton2d.Y = WaveConstants.CENTERHEIGHT * 2 - 100;
@@ -188,8 +180,6 @@ namespace Cataners
             {
                 Button buyDevCardButton = new Button("buyDevCardButton");
                 buyDevCardButton.Text = "Buy Development Card";
-                buyDevCardButton.Width = 50;
-                buyDevCardButton.Height = 40;
                 Transform2D buyDevCardButton2d = buyDevCardButton.Entity.FindComponent<Transform2D>();
                 buyDevCardButton2d.X = WaveConstants.CENTERWIDTH * 2 - 550;
                 buyDevCardButton2d.Y = WaveConstants.CENTERHEIGHT * 2 - 100;
@@ -477,8 +467,6 @@ namespace Cataners
             {                  
                 Button useMonopolyButton = new Button("useMonopolyButton");
                 useMonopolyButton.Text = "Use Monopoly Dev Card: " + Data.currentGamePlayer.developmentCards[Translation.DevelopmentType.Monopoly];
-                useMonopolyButton.Width = 50;
-                useMonopolyButton.Height = 10;
                 Transform2D useMonopolyButton2d = useMonopolyButton.Entity.FindComponent<Transform2D>();
                 useMonopolyButton2d.X = WaveConstants.CENTERWIDTH +400;
                 useMonopolyButton2d.Y = WaveConstants.CENTERHEIGHT /2 - 45;
@@ -490,8 +478,6 @@ namespace Cataners
 
                 Button useRoadBuildingButton = new Button("useRoadBuildingButton");
                 useRoadBuildingButton.Text = "Use Road Building Dev Card: " + Data.currentGamePlayer.developmentCards[Translation.DevelopmentType.RoadBuilding];
-                useRoadBuildingButton.Width = 50;
-                useRoadBuildingButton.Height = 10;
                 Transform2D useRoadBuildingButton2d = useRoadBuildingButton.Entity.FindComponent<Transform2D>();
                 useRoadBuildingButton2d.X = WaveConstants.CENTERWIDTH + 400;
                 useRoadBuildingButton2d.Y = WaveConstants.CENTERHEIGHT / 2 - 15;
@@ -503,8 +489,6 @@ namespace Cataners
 
                 Button useYearOfPlentyButton = new Button("useYearOfPlentyButton");
                 useYearOfPlentyButton.Text = "Use Year Of Plenty Dev Card: " + Data.currentGamePlayer.developmentCards[Translation.DevelopmentType.YearOfPlenty];
-                useYearOfPlentyButton.Width = 50;
-                useYearOfPlentyButton.Height = 10;
                 Transform2D useYearOfPlentyButton2d = useYearOfPlentyButton.Entity.FindComponent<Transform2D>();
                 useYearOfPlentyButton2d.X = WaveConstants.CENTERWIDTH + 400;
                 useYearOfPlentyButton2d.Y = WaveConstants.CENTERHEIGHT / 2 + 15;
