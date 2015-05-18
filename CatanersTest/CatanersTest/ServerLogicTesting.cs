@@ -434,6 +434,7 @@ namespace CatanersTest
             gLob.gamePlayers[0].developmentCards[Translation.DevelopmentType.RoadBuilding] = 1;
             client1.processesMessage(msgUseRoad.toJson());
             string[] toPass = new string[] { 0.ToString(), client1.userName };
+            logic.canRegen = false;
             client1.processesMessage(new Message(Newtonsoft.Json.JsonConvert.SerializeObject(toPass), Translation.TYPE.BuySettlement).toJson());
             logic.isStartPhase1 = false;
             Message testRoad1 = new Message(Newtonsoft.Json.JsonConvert.SerializeObject(new string[] { 0+"", client1.userName}),Translation.TYPE.BuyRoad);

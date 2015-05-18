@@ -472,9 +472,11 @@ namespace CatenersServer
                             }
                             return false;
                         }
+                        
                     }
+                    throw new NonPlayerException("Player does not exist in the current lobby.");
                 }
-                throw new NonPlayerException("Player does not exist in the current lobby.");
+                return false;
             }
         }
 
