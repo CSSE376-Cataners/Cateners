@@ -36,7 +36,7 @@ namespace CatenersServer
         public bool usedSettlement;
         public bool canRegen;
         public bool taken2;
-        private ServerPlayer lastLargestArmyPlayer;
+        public ServerPlayer lastLargestArmyPlayer;
 
         public List<Translation.DevelopmentType> developmentDeck;
 
@@ -838,11 +838,18 @@ namespace CatenersServer
             return player.resources.ToString();
         }
 
-        public bool LargestArmyCheck(GamePlayer player)
+        public void LargestArmyCheck(GamePlayer player,ServerPlayer user)
         {
-            if(player.developmentCards[Translation.DevelopmentType.Knight] > 2)
-                return true;
-            return false;
+            GamePlayer largestArmyMan = null;
+
+            if (player.developmentCards[Translation.DevelopmentType.Knight] > 2 && lastLargestArmyPlayer == null)
+            {
+                lastLargestArmyPlayer = user;
+            }
+            else if (lastLargestArmyPlayer != null)
+            {
+                
+            }
         }
 
         public void tryBuyDevelopmentCard(ServerPlayer user)
@@ -875,9 +882,7 @@ namespace CatenersServer
                             break;
 
                         case Translation.DevelopmentType.Knight:
-                            if(LargestArmyCheck(player)){
-
-                            };
+                            LargestArmyCheck(player,user);
                             break;                    
                     }
                     
