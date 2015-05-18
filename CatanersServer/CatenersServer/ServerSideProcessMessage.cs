@@ -408,7 +408,10 @@ namespace CatenersServer
         public void PM_DiceRoll(Message msg){
             serverLogic.generateRandomDiceRoll();
             serverLogic.diceRolled();
-            sendToClient(new Message(serverLogic.dice.ToString(), Translation.TYPE.DiceRoll).toJson());
+            Message toSend = new Message(new PopUpMessage("Die Rolled", this.userName + " rolled a " + serverLogic.dice.ToString(), PopUpMessage.TYPE.Notification).toJson(), Translation.TYPE.PopUpMessage);
+            sendToLobby(toSend.toJson());
+            
+            //sendToClient(new Message(serverLogic.dice.ToString(), Translation.TYPE.DiceRoll).toJson());
 
             String gamePlayerList = Newtonsoft.Json.JsonConvert.SerializeObject(this.serverLogic.gameLobby.gamePlayers);
             String toReturn = new Message(gamePlayerList, Translation.TYPE.UpdateResources).toJson();
