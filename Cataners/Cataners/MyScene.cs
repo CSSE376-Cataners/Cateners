@@ -611,6 +611,21 @@ namespace Cataners
             current.AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
         }
 
+        public void setAsPurchasedCity(string name, string username)
+        {
+            Entity current = this.EntityManager.Find(name);
+            current.RemoveComponent<Sprite>();
+            current.RemoveComponent<SpriteRenderer>();
+            foreach (GamePlayer player in Data.currentGameLobby.gamePlayers)
+            {
+                if (player.Username.Equals(username))
+                {
+                    this.EntityManager.Find(name).AddComponent(new Sprite("City" + player.getColor() + ".wpk"));
+                }
+            }
+            current.AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
+        }
+
         public void setAsPurchasedRoad(string name, string username)
         {
             Entity current = this.EntityManager.Find(name);
