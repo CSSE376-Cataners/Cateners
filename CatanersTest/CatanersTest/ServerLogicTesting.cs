@@ -309,5 +309,73 @@ namespace CatanersTest
             Resource wheat = new Resource("wheat");
             Assert.NotNull(wheat);
         }*/
+
+
+        [Test]
+        public void testTryUseDevelopmentCard()
+        {
+            CatanersTest.ClientTesting.FakeClient client1 = new CatanersTest.ClientTesting.FakeClient();
+            client1.userName = "Client1";
+            ServerPlayer sp1 = new ServerPlayer(client1.userName, client1);
+            client1.player = sp1;
+
+            CatanersTest.ClientTesting.FakeClient client2 = new CatanersTest.ClientTesting.FakeClient();
+            client2.userName = "Client2";
+            ServerPlayer sp2 = new ServerPlayer(client2.userName, client2);
+            client2.player = sp2;
+
+            CatanersTest.ClientTesting.FakeClient client3 = new CatanersTest.ClientTesting.FakeClient();
+            client3.userName = "Client3";
+            ServerPlayer sp3 = new ServerPlayer(client3.userName, client3);
+            client3.player = sp3;
+
+            CatanersTest.ClientTesting.FakeClient client4 = new CatanersTest.ClientTesting.FakeClient();
+            client4.userName = "Client4";
+            ServerPlayer sp4 = new ServerPlayer(client4.userName, client4);
+            client4.player = sp4;
+
+            Lobby lob = new Lobby("TestGame", 10, sp1, 1);
+            lob.Players.Add(sp2);
+            lob.Players.Add(sp3);
+            lob.Players.Add(sp4);
+
+            ServerLogic logic = new ServerLogic(lob);
+            GameLobby gLob = logic.gameLobby;
+
+            client1.serverLogic = logic;
+            client2.serverLogic = logic;
+            client3.serverLogic = logic;
+            client4.serverLogic = logic;
+
+            client1.currentLobby = lob;
+            client2.currentLobby = lob;
+            client3.currentLobby = lob;
+            client4.currentLobby = lob;
+
+
+            Message msgBuyMono = new Message(Translation.DevelopmentType.Monopoly.ToString(), Translation.TYPE.DevelopmentCard);
+
+            foreach (GamePlayer p in logic.gameLobby.gamePlayers)
+            {
+                p.resources[Resource.TYPE.Brick] = 1;
+                p.resources[Resource.TYPE.Ore] = 1;
+                p.resources[Resource.TYPE.Sheep] = 1;
+                p.resources[Resource.TYPE.Wheat] = 1;
+                p.resources[Resource.TYPE.Wood] = 1;
+            }
+
+            client1.processesMessage(msgBuyMono.toJson());
+
+            Assert.AreEqual(8, logic.gameLobby.gamePlayers[0].resourceCount);
+            Assert.AreEqual(4, logic.gameLobby.gamePlayers[1].resourceCount);
+            Assert.AreEqual(4, logic.gameLobby.gamePlayers[2].resourceCount);
+            Assert.AreEqual(4, logic.gameLobby.gamePlayers[3].resourceCount);
+
+
+            Message msgBuyRoad = new Message(Translation.DevelopmentType.RoadBuilding.ToString(), Translation.TYPE.DevelopmentCard);
+
+            Message msgBuyYoP = new Message(Translation.DevelopmentType.YearOfPlenty.ToString(), Translation.TYPE.DevelopmentCard);
+        }
+
     }
 }
