@@ -36,7 +36,7 @@ namespace CatenersServer
         public bool usedSettlement;
         public bool canRegen;
         public bool taken2;
-        private ServerPlayer lastLargestArmyPlayer;
+        public ServerPlayer lastLargestArmyPlayer;
 
         public List<Translation.DevelopmentType> developmentDeck;
 
