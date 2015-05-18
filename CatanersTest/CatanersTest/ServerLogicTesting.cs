@@ -648,8 +648,5 @@ namespace CatanersTest
             Assert.AreEqual(sp1, logic.lastLargestArmyPlayer);
         }
 
-
-
-
     }
 }
