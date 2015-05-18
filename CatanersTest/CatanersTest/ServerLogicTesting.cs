@@ -513,9 +513,9 @@ namespace CatanersTest
 
             gLob.gamePlayers[0].developmentCards[Translation.DevelopmentType.Knight] = 2;
 
-            bool check = logic.LargestArmyCheck(gLob.gamePlayers[0],sp1);
+            logic.LargestArmyCheck(gLob.gamePlayers[0],sp1);
 
-            Assert.AreEqual(false, check);
+            Assert.IsNull(logic.lastLargestArmyPlayer);
         }
         [Test]
         public void TestLargestArmyTrueIfYouHaveThreeKnights()
@@ -534,9 +534,9 @@ namespace CatanersTest
 
             gLob.gamePlayers[0].developmentCards[Translation.DevelopmentType.Knight] = 3;
 
-            bool check = logic.LargestArmyCheck(gLob.gamePlayers[0],sp1);
+            logic.LargestArmyCheck(gLob.gamePlayers[0],sp1);
 
-            Assert.AreEqual(true, check);
+            Assert.IsNotNull(logic.lastLargestArmyPlayer);
         }
 
         [Test]
@@ -556,9 +556,9 @@ namespace CatanersTest
 
             gLob.gamePlayers[0].developmentCards[Translation.DevelopmentType.Knight] = 3;
 
-            bool check = logic.LargestArmyCheck(gLob.gamePlayers[0],sp1);
+            logic.LargestArmyCheck(gLob.gamePlayers[0],sp1);
 
-            Assert.AreEqual(true, check);
+            Assert.IsNotNull(logic.lastLargestArmyPlayer);
         }
 
         [Test]
@@ -578,11 +578,13 @@ namespace CatanersTest
 
             gLob.gamePlayers[0].developmentCards[Translation.DevelopmentType.Knight] = 3;
 
-            bool check = logic.LargestArmyCheck(gLob.gamePlayers[0],sp1);
-            
-            Assert.AreEqual(true, check);
+            logic.LargestArmyCheck(gLob.gamePlayers[0], sp1);
+
+            Assert.IsNotNull(logic.lastLargestArmyPlayer);
             Assert.AreEqual(sp1, logic.lastLargestArmyPlayer);
         }
+
+
 
 
     }
