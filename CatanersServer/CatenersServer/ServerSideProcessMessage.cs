@@ -424,11 +424,11 @@ namespace CatenersServer
             if (type == Translation.DevelopmentType.Buy)
             {
                 this.serverLogic.tryBuyDevelopmentCard(this.player);
-            } /* For using cards
+            } 
             else
             {
-                this.serverLogic.tryUseDevelopmentCard(type, this.userName);
-            }*/
+                this.serverLogic.tryUseDevelopmentCard(type, this.player);
+            }
         }
 
         public void sendToLobby(String s)

@@ -915,5 +915,43 @@ namespace CatenersServer
 
             return temp;
         }
+
+
+        internal void tryUseDevelopmentCard(Translation.DevelopmentType type, ServerPlayer sp)
+        {
+            GamePlayer player = null;
+            List<GamePlayer> toChange = new List<GamePlayer>();
+            foreach (GamePlayer p in this.gameLobby.gamePlayers)
+            {
+                if (sp.Username.Equals(p.Username))
+                {
+                    player = p;
+                }
+                else
+                {
+                    toChange.Add(p);
+                }
+            }
+
+            if (player.developmentCards[type] < 1)
+                return;
+
+            switch (type)
+            {
+                case Translation.DevelopmentType.Monopoly:
+                    Resource.TYPE toSteal = Resource.real[new Random().Next(Resource.real.Length)];
+
+                    foreach (GamePlayer p in toChange)
+                    {
+                            int temp = p.resources[toSteal];
+                            p.resources[toSteal] = 0;
+                            player.resources[toSteal] += temp;
+                    }
+                    player.developmentCards[type] -= 1;
+                    break;
+            }    
+
+            // Update Lobby Resources
+        }
     }
 }
