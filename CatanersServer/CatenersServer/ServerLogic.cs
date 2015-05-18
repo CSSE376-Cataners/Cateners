@@ -837,10 +837,13 @@ namespace CatenersServer
             return player.resources.ToString();
         }
 
-        public bool LargestArmyCheck(GamePlayer player)
+        public bool LargestArmyCheck(GamePlayer player,ServerPlayer user)
         {
-            if(player.developmentCards[Translation.DevelopmentType.Knight] > 2)
+            if (player.developmentCards[Translation.DevelopmentType.Knight] > 2)
+            {
+                lastLargestArmyPlayer = user;
                 return true;
+            }
             return false;
         }
 
@@ -874,8 +877,8 @@ namespace CatenersServer
                             break;
 
                         case Translation.DevelopmentType.Knight:
-                            if(LargestArmyCheck(player)){
-
+                            if(LargestArmyCheck(player,user)){
+                                lastLargestArmyPlayer = user;
                             };
                             break;                    
                     }
