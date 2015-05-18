@@ -492,5 +492,27 @@ namespace CatanersTest
             logic.determineSettlementAvailability(client1.userName, 11);
             Assert.AreEqual(temp, logic.gameLobby.gamePlayers[0].resourceCount);
         }
+
+        [Test]
+        public void TestLargestArmyFalseIfYouHaveLessThanThreeKnights()
+        {
+            CatanersTest.ClientTesting.FakeClient client1 = new CatanersTest.ClientTesting.FakeClient();
+            client1.userName = "SPONGEBOB SQUAREPANTS";
+            ServerPlayer sp1 = new ServerPlayer(client1.userName, client1);
+            client1.player = sp1;
+
+            Lobby lob = new Lobby("Bikini Bottom", 10, sp1, 1);
+            ServerLogic logic = new ServerLogic(lob);
+            GameLobby gLob = logic.gameLobby;
+            client1.serverLogic = logic;
+
+            client1.currentLobby = gLob;
+
+            gLob.gamePlayers[0].developmentCards[Translation.DevelopmentType.Knight] = 2;
+
+            bool check = logic.LargestArmyCheck(gLob.gamePlayers[0]);
+
+            Assert.AreEqual(false, check);
+        }
     }
 }
