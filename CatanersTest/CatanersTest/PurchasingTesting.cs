@@ -279,6 +279,7 @@ namespace CatanersTest
             ServerLogic testLogic = new ServerLogic(this.newLobby);
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             testLogic.setSettlementActivity(0, "Stentopher");
+            testLogic.board.buildings[0].owner = player;
             player.resources[Resource.TYPE.Sheep] = 1;
             player.resources[Resource.TYPE.Brick] = 1;
             player.resources[Resource.TYPE.Wheat] = 1;
