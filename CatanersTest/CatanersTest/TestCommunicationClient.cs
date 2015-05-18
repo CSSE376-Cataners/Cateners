@@ -356,6 +356,8 @@ namespace CatanersTest
             Player p3 = new Player("p2");
 
             Lobby lob = new Lobby("GameName", 10, p1, 1);
+
+            Data.username = "Owner";
             lob.addPlayer(p2);
             lob.addPlayer(p3);
             GameLobby gLob = new GameLobby(lob);
