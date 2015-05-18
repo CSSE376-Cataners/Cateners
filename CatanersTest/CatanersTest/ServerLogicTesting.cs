@@ -118,6 +118,7 @@ namespace CatanersTest
             {
                 logic.gameLobby.gamePlayers[0].resources[t] = 10;
             }
+            logic.canRegen = false;
 
             logic.determineSettlementAvailability(player.Username, 10);
 
@@ -196,6 +197,7 @@ namespace CatanersTest
             lobby.addPlayer(new Player("p2"));
             lobby.addPlayer(new Player("p3"));
             ServerLogic logic = new ServerLogic(lobby);
+            logic.canRegen = false;
             logic.isStartPhase1 = true;
             logic.determineSettlementAvailability(p0.Username,1);
             Assert.AreEqual(1, logic.gameLobby.gamePlayers[0].victoryPoints);
@@ -212,6 +214,7 @@ namespace CatanersTest
             ServerLogic logic = new ServerLogic(lobby);
             logic.isStartPhase1 = false;
             logic.isStartPhase2 = false;
+            logic.canRegen = false;
             logic.setSettlementActivity(15, p0.Username);
             logic.setSettlementActivity(23, p0.Username);
             logic.gameLobby.gamePlayers[0].resources[Resource.TYPE.Brick] = 1;
@@ -257,6 +260,7 @@ namespace CatanersTest
 
             Lobby lobby = new Lobby("Basketball", 100, sp0, 10);
             ServerLogic logic = new ServerLogic(lobby);
+            logic.canRegen = false;
             GameLobby glob = logic.gameLobby;
             client0.currentLobby = glob;
 
@@ -297,6 +301,7 @@ namespace CatanersTest
 
             client0.serverLogic = logic;
 
+            logic.canRegen = false;
             logic.isStartPhase1 = false;
             logic.isStartPhase2 = false;
             logic.setSettlementActivity(15, sp0.Username);
@@ -486,6 +491,8 @@ namespace CatanersTest
             client4.currentLobby = lob;
             #endregion
             // Should Run
+            logic.canRegen = false;
+
             logic.determineSettlementAvailability(client1.userName, 10);
             int temp = logic.gameLobby.gamePlayers[0].resourceCount;
             Assert.True(0 < temp);
@@ -585,6 +592,7 @@ namespace CatanersTest
 
             Assert.IsNotNull(logic.lastLargestArmyPlayer);
             Assert.AreEqual(sp1, logic.lastLargestArmyPlayer);
+
         }
 
         [Test]
@@ -649,6 +657,8 @@ namespace CatanersTest
 
             Assert.IsNotNull(logic.lastLargestArmyPlayer);
             Assert.AreEqual(sp1, logic.lastLargestArmyPlayer);
+            Assert.IsNotNull(client1.lastCall);
+            Assert.IsNotNull(client2.lastCall);
         }
 
     }
