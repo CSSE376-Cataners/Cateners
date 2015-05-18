@@ -313,6 +313,8 @@ namespace CatanersTest
             player.resources[Resource.TYPE.Brick] = 1;
             player.resources[Resource.TYPE.Wheat] = 1;
             player.resources[Resource.TYPE.Wood] = 1;
+            testLogic.isStartPhase1 = false;
+            testLogic.isStartPhase2 = false;
             testLogic.setRoadActivity(4, "Stentopher");
             Assert.True(testLogic.determineSettlementAvailability("Stentopher", 2));
         }
@@ -324,6 +326,8 @@ namespace CatanersTest
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Brick] = 1;
             player.resources[Resource.TYPE.Wood] = 1;
+            testLogic.isStartPhase1 = false;
+            testLogic.isStartPhase2 = false;
             testLogic.setRoadActivity(0, "Stentopher");
             Assert.True(testLogic.determineRoadAvailability("Stentopher", 1));
         }

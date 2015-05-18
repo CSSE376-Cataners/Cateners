@@ -9,20 +9,34 @@ namespace CatenersServer
 {
     public class RoadPath
     {
-        private ArrayList roadIDs;
+        private int[] roadIDs;
+        private int front;
+        private int back;
         private int size;
         public RoadPath(int starter)
         {
-            this.roadIDs.Add(starter);
+            this.front = starter;
+            this.back = starter;
+            this.roadIDs = new int[1];
+            this.roadIDs[0] = starter;
             this.size = 1;
         }
 
+        public int getFront()
+        {
+            return this.front;
+        }
+
+        public int getBack()
+        {
+            return this.back;
+        }
         public int getSize()
         {
             return this.size;
         }
 
-        public ArrayList getRoadIDs()
+        public int[] getRoadIDs()
         {
             return this.roadIDs;
         }
@@ -33,7 +47,7 @@ namespace CatenersServer
             this.size++;
         }
 
-        public void setRoadIDs(ArrayList extendedIDs)
+        public void setRoadIDs(int[] extendedIDs)
         {
             this.roadIDs = extendedIDs;
         }
