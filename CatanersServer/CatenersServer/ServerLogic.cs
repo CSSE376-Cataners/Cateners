@@ -36,6 +36,7 @@ namespace CatenersServer
         public bool usedSettlement;
         public bool canRegen;
         public bool taken2;
+        public int freeRoads;
         public ServerPlayer lastLargestArmyPlayer;
 
         public List<Translation.DevelopmentType> developmentDeck;
@@ -491,52 +492,69 @@ namespace CatenersServer
                 }
             }
         }
-
+        private object determineRoadAvailabilityLock = false;
         public Boolean determineRoadAvailability(string username, int roadID)
         {
-            RoadServer current = this.roadArray[roadID];
-            foreach (GamePlayer player in this.gameLobby.gamePlayers)
+            lock (determineRoadAvailabilityLock)
             {
-                if (player.Username.Equals(username))
+                RoadServer current = this.roadArray[roadID];
+                foreach (GamePlayer player in this.gameLobby.gamePlayers)
                 {
-                    if (current.getIsActive())
+                    if (player.Username.Equals(username))
                     {
-                        return false;
-                    }
-                    if(((player.resources[Resource.TYPE.Brick] >= 1) && (player.resources[Resource.TYPE.Wood] >= 1)) || (isStartPhase1 || isStartPhase2))
-                    {
-                        if (usedRoad && (isStartPhase1 || isStartPhase2))
+                        if (current.getIsActive())
+                        {
                             return false;
-                        foreach (int i in current.getNeighbors())
-                        {
-                            if (this.playerKeepers[username].getRoads().Contains(i) && this.roadArray[i].getIsActive())
-                            {
-                                this.setRoadActivity(roadID, username);
-                                usedRoad = true;
-                                if (!isStartPhase1 && !isStartPhase2)
-                                {
-                                    this.removeResourcesRoad(player);
-                                }
-                                return true;
-                            }
                         }
-                        foreach (int j in current.getSettlements())
+                        if (((player.resources[Resource.TYPE.Brick] >= 1) && (player.resources[Resource.TYPE.Wood] >= 1)) || (isStartPhase1 || isStartPhase2) || freeRoads > 0 )
                         {
-                            if (this.playerKeepers[username].getSettlements().Contains(j) && this.settlementArray[j].getIsActive())
+                            if (usedRoad && (isStartPhase1 || isStartPhase2))
+                                return false;
+                            foreach (int i in current.getNeighbors())
                             {
-                                this.setRoadActivity(roadID, username);
-                                usedRoad = true;
-                                if (!isStartPhase1 && !isStartPhase2)
+                                if (this.playerKeepers[username].getRoads().Contains(i) && this.roadArray[i].getIsActive())
                                 {
-                                    this.removeResourcesRoad(player);
+                                    this.setRoadActivity(roadID, username);
+                                    usedRoad = true;
+                                    if (!isStartPhase1 && !isStartPhase2)
+                                    {
+                                        if (freeRoads < 1)
+                                        {
+                                            this.removeResourcesRoad(player);
+                                        }
+                                        else
+                                        {
+                                            freeRoads--;
+                                        }
+                                    }
+                                    return true;
                                 }
-                                return true;
+                            }
+                            foreach (int j in current.getSettlements())
+                            {
+                                if (this.playerKeepers[username].getSettlements().Contains(j) && this.settlementArray[j].getIsActive())
+                                {
+                                    this.setRoadActivity(roadID, username);
+                                    usedRoad = true;
+                                    if (!isStartPhase1 && !isStartPhase2)
+                                    {
+                                        if (freeRoads < 1)
+                                        {
+                                            this.removeResourcesRoad(player);
+                                        }
+                                        else
+                                        {
+                                            freeRoads--;
+                                        }
+                                    }
+                                    return true;
+                                }
                             }
                         }
                     }
                 }
+                return false;
             }
-            return false;
         }
 
         public void removeResourcesSettlement(GamePlayer player)
@@ -779,6 +797,7 @@ namespace CatenersServer
         {
             usedSettlement = false;
             usedRoad = false;
+            freeRoads = 0;
             if (canRegen)
             {
                 canRegen = false;
@@ -971,7 +990,7 @@ namespace CatenersServer
                     player.developmentCards[type] -= 1;
                     break;
                 case Translation.DevelopmentType.RoadBuilding:
-                    // Road Building Need to decide how. Will integrate with how startphase does it.
+                    this.freeRoads += 2;
                     player.developmentCards[type] -= 1;
                     break;
                 case Translation.DevelopmentType.YearOfPlenty:
