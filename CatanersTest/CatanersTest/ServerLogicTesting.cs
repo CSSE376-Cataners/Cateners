@@ -353,7 +353,7 @@ namespace CatanersTest
             client4.currentLobby = lob;
 
 
-            Message msgBuyMono = new Message(Translation.DevelopmentType.Monopoly.ToString(), Translation.TYPE.DevelopmentCard);
+            Message msgUseMono = new Message(Translation.DevelopmentType.Monopoly.ToString(), Translation.TYPE.DevelopmentCard);
 
             foreach (GamePlayer p in logic.gameLobby.gamePlayers)
             {
@@ -363,9 +363,11 @@ namespace CatanersTest
                 p.resources[Resource.TYPE.Wheat] = 1;
                 p.resources[Resource.TYPE.Wood] = 1;
             }
+            gLob.gamePlayers[0].developmentCards[Translation.DevelopmentType.Monopoly] = 1;
 
-            client1.processesMessage(msgBuyMono.toJson());
+            client1.processesMessage(msgUseMono.toJson());
 
+            Assert.AreEqual(0, gLob.gamePlayers[0].developmentCards[Translation.DevelopmentType.Monopoly]);
             Assert.AreEqual(8, logic.gameLobby.gamePlayers[0].resourceCount);
             Assert.AreEqual(4, logic.gameLobby.gamePlayers[1].resourceCount);
             Assert.AreEqual(4, logic.gameLobby.gamePlayers[2].resourceCount);
@@ -380,8 +382,8 @@ namespace CatanersTest
                 p.resources[Resource.TYPE.Wood] = 0;
             }
 
-            Message msgBuyRoad = new Message(Translation.DevelopmentType.RoadBuilding.ToString(), Translation.TYPE.DevelopmentCard);
-            client1.processesMessage(msgBuyRoad.toJson());
+            Message msgUseRoad = new Message(Translation.DevelopmentType.RoadBuilding.ToString(), Translation.TYPE.DevelopmentCard);
+            client1.processesMessage(msgUseRoad.toJson());
             Message testRoad1 = new Message(Newtonsoft.Json.JsonConvert.SerializeObject(new string[] { 9+"", client1.userName}),Translation.TYPE.BuyRoad);
             Message testRoad2 = new Message(Newtonsoft.Json.JsonConvert.SerializeObject(new string[] { 10+"", client1.userName}),Translation.TYPE.BuyRoad);
             client1.processesMessage(testRoad1.toJson());
@@ -389,7 +391,7 @@ namespace CatanersTest
 
             Assert.AreEqual(2,logic.playerKeepers[client1.userName].getRoads().Count);
 
-            Message msgBuyYoP = new Message(Translation.DevelopmentType.YearOfPlenty.ToString(), Translation.TYPE.DevelopmentCard);
+            Message msgUseYoP = new Message(Translation.DevelopmentType.YearOfPlenty.ToString(), Translation.TYPE.DevelopmentCard);
 
             foreach (GamePlayer p in logic.gameLobby.gamePlayers)
             {
@@ -400,7 +402,7 @@ namespace CatanersTest
                 p.resources[Resource.TYPE.Wood] = 1;
             }
 
-            client1.processesMessage(msgBuyYoP.toJson());
+            client1.processesMessage(msgUseYoP.toJson());
             Assert.AreEqual(7, logic.gameLobby.gamePlayers[0].resourceCount);
             Assert.AreEqual(5, logic.gameLobby.gamePlayers[1].resourceCount);
             Assert.AreEqual(5, logic.gameLobby.gamePlayers[2].resourceCount);
