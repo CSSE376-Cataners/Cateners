@@ -44,6 +44,7 @@ namespace CatanersTest
         public void testAvailabilityTrueResources()
         {
             ServerLogic testLogic = new ServerLogic(this.newLobby);
+            testLogic.canRegen = false;
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Sheep] = 1;
             player.resources[Resource.TYPE.Brick] = 1;
@@ -125,6 +126,7 @@ namespace CatanersTest
         public void testAvailabilityTrueBoth()
         {
             ServerLogic testLogic = new ServerLogic(this.newLobby);
+            testLogic.canRegen = false;
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Sheep] = 1;
             player.resources[Resource.TYPE.Brick] = 1;
@@ -170,6 +172,7 @@ namespace CatanersTest
             player.resources[Resource.TYPE.Brick] = 1;
             player.resources[Resource.TYPE.Wheat] = 1;
             player.resources[Resource.TYPE.Wood] = 1;
+            testLogic.canRegen = false;
             Assert.True(testLogic.determineSettlementAvailability("Stentopher", 1));
             Assert.False(testLogic.determineSettlementAvailability("Stentopher", 1));
         }
@@ -185,6 +188,7 @@ namespace CatanersTest
             player.resources[Resource.TYPE.Wood] = 1;
             testLogic.isStartPhase1 = false;
             testLogic.isStartPhase2 = false;
+            testLogic.canRegen = false;
             Assert.True(testLogic.determineSettlementAvailability("Stentopher", 1));
             Assert.AreEqual(0, player.resources[Resource.TYPE.Sheep]);
             Assert.AreEqual(0, player.resources[Resource.TYPE.Brick]);
@@ -197,6 +201,7 @@ namespace CatanersTest
         public void testRoadResourceWoodFalse()
         {
             ServerLogic testLogic = new ServerLogic(this.newLobby);
+            testLogic.canRegen = false;
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Brick] = 1;
             player.resources[Resource.TYPE.Wood] = 0;
@@ -207,6 +212,7 @@ namespace CatanersTest
         public void testRoadResourceBrickFalse()
         {
             ServerLogic testLogic = new ServerLogic(this.newLobby);
+            testLogic.canRegen = false;
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Brick] = 0;
             player.resources[Resource.TYPE.Wood] = 1;
@@ -265,6 +271,7 @@ namespace CatanersTest
         public void testNeighborActiveSettlementTrue()
         {
             ServerLogic testLogic = new ServerLogic(this.newLobby);
+            testLogic.canRegen = false;
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Sheep] = 1;
             player.resources[Resource.TYPE.Brick] = 1;
@@ -315,6 +322,7 @@ namespace CatanersTest
             player.resources[Resource.TYPE.Wood] = 1;
             testLogic.isStartPhase1 = false;
             testLogic.isStartPhase2 = false;
+            testLogic.canRegen = false;
             testLogic.setRoadActivity(4, "Stentopher");
             Assert.True(testLogic.determineSettlementAvailability("Stentopher", 2));
         }
@@ -404,6 +412,7 @@ namespace CatanersTest
         public void testLongestRoadSplit()
         {
             ServerLogic testLogic = new ServerLogic(this.newLobby);
+            testLogic.canRegen = false;
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             testLogic.setRoadActivity(0, "Stentopher");
             testLogic.setRoadActivity(1, "Stentopher");
