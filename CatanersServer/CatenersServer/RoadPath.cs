@@ -62,6 +62,110 @@ namespace CatenersServer
             return this;
         }
 
+        public RoadPath joinFrontFront(int[] toJoinWith)
+        {
+            int[] newArray = new int[toJoinWith.Length];
+            int count = 0;
+            for (int i = 0; i < toJoinWith.Length; i++)
+            {
+                if(this.roadIDs.Contains(toJoinWith[toJoinWith.Length - 1 - i]))
+                {
+                    break;
+                }
+                newArray[i] = toJoinWith[toJoinWith.Length - 1 - i];
+                count++;
+            }
+            int[] finalArray = new int[count + this.size];
+            for (int j = 0; j < this.size; j++)
+            {
+                finalArray[j] = this.roadIDs[j];
+            }
+            for (int k = this.size; k < this.size + count; k++)
+            {
+                finalArray[k] = newArray[k - this.size];
+            }
+            this.roadIDs = finalArray;
+            return this;
+        }
+
+        public RoadPath joinFrontBack(int[] toJoinWith)
+        {
+            int[] newArray = new int[toJoinWith.Length];
+            int count = 0;
+            for (int i = 0; i < toJoinWith.Length; i++)
+            {
+                if (this.roadIDs.Contains(toJoinWith[i]))
+                {
+                    break;
+                }
+                newArray[i] = toJoinWith[i];
+                count++;
+            }
+            int[] finalArray = new int[count + this.size];
+            for (int j = 0; j < this.size; j++)
+            {
+                finalArray[j] = this.roadIDs[j];
+            }
+            for (int k = this.size; k < this.size + count; k++)
+            {
+                finalArray[k] = newArray[k - this.size];
+            }
+            this.roadIDs = finalArray;
+            return this;
+        }
+
+        public RoadPath joinBackFront(int[] toJoinWith)
+        {
+            int[] newArray = new int[toJoinWith.Length];
+            int count = 0;
+            for (int i = 0; i < toJoinWith.Length; i++)
+            {
+                if (this.roadIDs.Contains(toJoinWith[i]))
+                {
+                    break;
+                }
+                newArray[i] = toJoinWith[i];
+                count++;
+            }
+            int[] finalArray = new int[count + this.size];
+            for (int j = 0; j < count; j++)
+            {
+                finalArray[j] = newArray[j];
+            }
+            for (int k = count; k < this.size + count; k++)
+            {
+                finalArray[k] = this.roadIDs[k - this.size];
+            }
+            this.roadIDs = finalArray;
+            return this;
+        }
+
+        public RoadPath joinBackBack(int[] toJoinWith)
+        {
+            int[] newArray = new int[toJoinWith.Length];
+            int count = 0;
+            for (int i = 0; i < toJoinWith.Length; i++)
+            {
+                if (this.roadIDs.Contains(toJoinWith[toJoinWith.Length - 1 - i]))
+                {
+                    break;
+                }
+                newArray[i] = toJoinWith[toJoinWith.Length - 1 - i];
+                count++;
+            }
+            int[] finalArray = new int[count + this.size];
+            for (int j = 0; j < count; j++)
+            {
+                finalArray[j] = newArray[j];
+            }
+            for (int k = count; k < this.size + count; k++)
+            {
+                finalArray[k] = this.roadIDs[k - count];
+            }
+            this.roadIDs = finalArray;
+            return this;
+        }
+
         public void addToFront(int x)
         {
             this.size += 1;

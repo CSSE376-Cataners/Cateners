@@ -418,10 +418,43 @@ namespace CatanersTest
             testLogic.setRoadActivity(1, "Stentopher");
             testLogic.setRoadActivity(7, "Stentopher");
             testLogic.setRoadActivity(12, "Stentopher");
-            RoadPath testedPath = testLogic.setRoadActivity(13, "Stentopher");
-            Console.WriteLine(String.Join(",",testedPath.getRoadIDs()));
+            testLogic.setRoadActivity(13, "Stentopher");
+            RoadPath testedPath = testLogic.setRoadActivity(20, "Stentopher");
             Assert.AreEqual("Stentopher", testLogic.UserWithLongestRoad);
-            Assert.AreEqual(4, testLogic.LongestRoadCount);
+            Assert.AreEqual(5, testLogic.LongestRoadCount);
+        }
+
+        [Test]
+        public void testLongestRoadRejoint()
+        {
+            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            testLogic.canRegen = false;
+            GamePlayer player = testLogic.gameLobby.gamePlayers[1];
+            testLogic.setRoadActivity(0, "Stentopher");
+            testLogic.setRoadActivity(1, "Stentopher");
+            testLogic.setRoadActivity(7, "Stentopher");
+            testLogic.setRoadActivity(12, "Stentopher");
+            testLogic.setRoadActivity(13, "Stentopher");
+            testLogic.setRoadActivity(20, "Stentopher");
+            testLogic.setRoadActivity(27, "Stentopher");
+            testLogic.setRoadActivity(26, "Stentopher");
+            RoadPath testedPath = testLogic.setRoadActivity(19, "Stentopher");
+            Console.WriteLine(String.Join(",", testedPath.getRoadIDs()));
+            Assert.AreEqual(9, testLogic.LongestRoadCount);
+        }
+
+        [Test]
+        public void testJoiningFrontFront()
+        {
+            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            testLogic.canRegen = false;
+            GamePlayer player = testLogic.gameLobby.gamePlayers[1];
+            RoadPath newPath = new RoadPath(3);
+            newPath.generateNewPath(4, new int[] { 3 });
+            newPath.generateNewPath(5, new int[] { 4 });
+            newPath.generateNewPath(6, new int[] { 5 });
+            RoadPath result = newPath.joinFrontFront(new int[] { 9, 10 });
+            Assert.AreEqual(new int[] { 3, 4, 5, 6, 10, 9 }, result.getRoadIDs());
         }
     }
 }

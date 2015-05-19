@@ -60,16 +60,61 @@ namespace CatenersServer
                         toAdd.Add(currPath);
                     }
                 }
-                if (this.currServerLogic.LongestRoadCount < currPath.getSize())
-                {
-                    this.currServerLogic.UserWithLongestRoad = this.username;
-                    this.currServerLogic.LongestRoadCount = currPath.getSize();
-                }
                 this.ownedPaths.AddRange(toAdd);
             }
             else
             {
                 this.ownedPaths.Add(currPath);
+            }
+            foreach(RoadPath path1 in this.ownedPaths)
+            {
+                RoadPath tempPath = path1;
+                foreach (RoadPath path2 in this.ownedPaths)
+                {
+                    if (!path1.Equals(path2))
+                    {
+                        if (this.currServerLogic.getRoadList()[(tempPath.getFront())].getNeighbors().Contains(path2.getFront()))
+                        {
+                            tempPath = tempPath.joinFrontFront(path2.getRoadIDs());
+                            if (this.currServerLogic.LongestRoadCount < tempPath.getSize())
+                            {
+                                this.currServerLogic.UserWithLongestRoad = this.username;
+                                this.currServerLogic.LongestRoadCount = tempPath.getSize();
+                            }
+                            return tempPath;
+                        }
+                        else if (this.currServerLogic.getRoadList()[(tempPath.getFront())].getNeighbors().Contains(path2.getBack()))
+                        {
+                            tempPath = tempPath.joinFrontBack(path2.getRoadIDs());
+                            if (this.currServerLogic.LongestRoadCount < tempPath.getSize())
+                            {
+                                this.currServerLogic.UserWithLongestRoad = this.username;
+                                this.currServerLogic.LongestRoadCount = tempPath.getSize();
+                            }
+                            return tempPath;
+                        }
+                        else if (this.currServerLogic.getRoadList()[(tempPath.getBack())].getNeighbors().Contains(path2.getFront()))
+                        {
+                            tempPath = tempPath.joinBackFront(path2.getRoadIDs());
+                            if (this.currServerLogic.LongestRoadCount < tempPath.getSize())
+                            {
+                                this.currServerLogic.UserWithLongestRoad = this.username;
+                                this.currServerLogic.LongestRoadCount = tempPath.getSize();
+                            }
+                            return tempPath;
+                        }
+                        else if (this.currServerLogic.getRoadList()[(tempPath.getBack())].getNeighbors().Contains(path2.getBack()))
+                        {
+                            tempPath = tempPath.joinBackBack(path2.getRoadIDs());
+                            if (this.currServerLogic.LongestRoadCount < tempPath.getSize())
+                            {
+                                this.currServerLogic.UserWithLongestRoad = this.username;
+                                this.currServerLogic.LongestRoadCount = tempPath.getSize();
+                            }
+                            return tempPath;
+                        }
+                    }
+                }
             }
             return currPath;
         }
