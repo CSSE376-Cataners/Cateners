@@ -475,5 +475,20 @@ namespace CatanersTest
             Console.WriteLine(String.Join(",", result.getRoadIDs()));
             Assert.AreEqual(new int[] { 3, 4, 5, 6, 9, 10 }, result.getRoadIDs());
         }
+
+        [Test]
+        public void testJoiningBackFront()
+        {
+            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            testLogic.canRegen = false;
+            GamePlayer player = testLogic.gameLobby.gamePlayers[1];
+            RoadPath newPath = new RoadPath(3);
+            newPath.generateNewPath(4, new int[] { 3 });
+            newPath.generateNewPath(5, new int[] { 4 });
+            newPath.generateNewPath(6, new int[] { 5 });
+            RoadPath result = newPath.joinBackFront(new RoadPath(new int[] { 9, 10, 3 }));
+            Console.WriteLine(String.Join(",", result.getRoadIDs()));
+            Assert.AreEqual(new int[] { 9, 10, 3, 4, 5, 6 }, result.getRoadIDs());
+        }
     }
 }
