@@ -125,10 +125,6 @@ namespace CatenersServer
         public RoadPath joinBackFront(RoadPath inputPath)
         {
             int[] toJoinWith = inputPath.getRoadIDs();
-            if (toJoinWith[toJoinWith.Length - 2] == this.roadIDs[this.size - 2])
-            {
-                return inputPath;
-            }
             int[] newArray = new int[toJoinWith.Length];
             int count = 0;
             for (int i = 0; i < toJoinWith.Length; i++)
@@ -157,19 +153,15 @@ namespace CatenersServer
         public RoadPath joinBackBack(RoadPath inputPath)
         {
             int[] toJoinWith = inputPath.getRoadIDs();
-            if (toJoinWith[toJoinWith.Length - 2] == this.roadIDs[this.size - 2])
-            {
-                return inputPath;
-            }
             int[] newArray = new int[toJoinWith.Length];
             int count = 0;
-            for (int i = 0; i < toJoinWith.Length; i++)
+            for (int i = toJoinWith.Length - 1; i >= 0; i--)
             {
-                if (this.roadIDs.Contains(toJoinWith[toJoinWith.Length - 1 - i]))
+                if (this.roadIDs.Contains(toJoinWith[i]))
                 {
                     break;
                 }
-                newArray[i] = toJoinWith[toJoinWith.Length - 1 - i];
+                newArray[count] = toJoinWith[i];
                 count++;
             }
             int[] finalArray = new int[count + this.size];

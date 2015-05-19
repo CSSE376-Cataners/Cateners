@@ -501,7 +501,7 @@ namespace CatanersTest
             newPath.generateNewPath(4, new int[] { 3 });
             newPath.generateNewPath(5, new int[] { 4 });
             newPath.generateNewPath(6, new int[] { 5 });
-            RoadPath result = newPath.joinBackFront(new RoadPath(new int[] { 3, 9, 10 }));
+            RoadPath result = newPath.joinBackBack(new RoadPath(new int[] { 3, 9, 10 }));
             Console.WriteLine(String.Join(",", result.getRoadIDs()));
             Assert.AreEqual(new int[] { 10, 9, 3, 4, 5, 6 }, result.getRoadIDs());
         }
