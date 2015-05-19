@@ -99,13 +99,13 @@ namespace CatenersServer
             int[] toJoinWith = inputPath.getRoadIDs();
             int[] newArray = new int[toJoinWith.Length];
             int count = 0;
-            for (int i = 0; i < toJoinWith.Length; i++)
+            for (int i = 1; i < toJoinWith.Length; i++)
             {
                 if (this.roadIDs.Contains(toJoinWith[i]))
                 {
                     break;
                 }
-                newArray[i] = toJoinWith[i];
+                newArray[count] = toJoinWith[i];
                 count++;
             }
             int[] finalArray = new int[count + this.size];
@@ -117,8 +117,8 @@ namespace CatenersServer
             {
                 finalArray[k] = newArray[k - this.size];
             }
-            this.roadIDs = finalArray;
             this.size = this.size + count;
+            this.roadIDs = finalArray;
             return this;
         }
 
