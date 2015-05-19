@@ -97,10 +97,6 @@ namespace CatenersServer
         public RoadPath joinFrontBack(RoadPath inputPath)
         {
             int[] toJoinWith = inputPath.getRoadIDs();
-            if (toJoinWith[toJoinWith.Length - 2] == this.roadIDs[this.size - 2])
-            {
-                return inputPath;
-            }
             int[] newArray = new int[toJoinWith.Length];
             int count = 0;
             for (int i = 0; i < toJoinWith.Length; i++)
