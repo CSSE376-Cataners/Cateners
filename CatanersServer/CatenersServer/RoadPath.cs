@@ -56,23 +56,28 @@ namespace CatenersServer
                         this.addToFront(x);
                         return this;
                     }
+                    else if (this.roadIDs[i] == this.getBack())
+                    {
+                        this.addToBack(x);
+                        return this;
+                    }
                 }
             }
-            this.addToFront(x);
             return this;
         }
 
-        public RoadPath joinFrontFront(int[] toJoinWith)
+        public RoadPath joinFrontFront(RoadPath inputPath)
         {
+            int[] toJoinWith = inputPath.getRoadIDs();
             int[] newArray = new int[toJoinWith.Length];
             int count = 0;
-            for (int i = 0; i < toJoinWith.Length; i++)
+            for (int i = toJoinWith.Length - 2; i >= 0; i--)
             {
-                if(this.roadIDs.Contains(toJoinWith[toJoinWith.Length - 1 - i]))
+                if(this.roadIDs.Contains(toJoinWith[i]))
                 {
                     break;
                 }
-                newArray[i] = toJoinWith[toJoinWith.Length - 1 - i];
+                newArray[count] = toJoinWith[i];
                 count++;
             }
             int[] finalArray = new int[count + this.size];
@@ -84,12 +89,18 @@ namespace CatenersServer
             {
                 finalArray[k] = newArray[k - this.size];
             }
+            this.size = this.size + count;
             this.roadIDs = finalArray;
             return this;
         }
 
-        public RoadPath joinFrontBack(int[] toJoinWith)
+        public RoadPath joinFrontBack(RoadPath inputPath)
         {
+            int[] toJoinWith = inputPath.getRoadIDs();
+            if (toJoinWith[toJoinWith.Length - 2] == this.roadIDs[this.size - 2])
+            {
+                return inputPath;
+            }
             int[] newArray = new int[toJoinWith.Length];
             int count = 0;
             for (int i = 0; i < toJoinWith.Length; i++)
@@ -111,11 +122,17 @@ namespace CatenersServer
                 finalArray[k] = newArray[k - this.size];
             }
             this.roadIDs = finalArray;
+            this.size = this.size + count;
             return this;
         }
 
-        public RoadPath joinBackFront(int[] toJoinWith)
+        public RoadPath joinBackFront(RoadPath inputPath)
         {
+            int[] toJoinWith = inputPath.getRoadIDs();
+            if (toJoinWith[toJoinWith.Length - 2] == this.roadIDs[this.size - 2])
+            {
+                return inputPath;
+            }
             int[] newArray = new int[toJoinWith.Length];
             int count = 0;
             for (int i = 0; i < toJoinWith.Length; i++)
@@ -134,14 +151,20 @@ namespace CatenersServer
             }
             for (int k = count; k < this.size + count; k++)
             {
-                finalArray[k] = this.roadIDs[k - this.size];
+                finalArray[k] = this.roadIDs[k - count];
             }
             this.roadIDs = finalArray;
+            this.size = this.size + count;
             return this;
         }
 
-        public RoadPath joinBackBack(int[] toJoinWith)
+        public RoadPath joinBackBack(RoadPath inputPath)
         {
+            int[] toJoinWith = inputPath.getRoadIDs();
+            if (toJoinWith[toJoinWith.Length - 2] == this.roadIDs[this.size - 2])
+            {
+                return inputPath;
+            }
             int[] newArray = new int[toJoinWith.Length];
             int count = 0;
             for (int i = 0; i < toJoinWith.Length; i++)
@@ -163,6 +186,7 @@ namespace CatenersServer
                 finalArray[k] = this.roadIDs[k - count];
             }
             this.roadIDs = finalArray;
+            this.size = this.size + count;
             return this;
         }
 

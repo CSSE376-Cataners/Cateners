@@ -420,6 +420,8 @@ namespace CatanersTest
             testLogic.setRoadActivity(12, "Stentopher");
             testLogic.setRoadActivity(13, "Stentopher");
             RoadPath testedPath = testLogic.setRoadActivity(20, "Stentopher");
+            Console.WriteLine(String.Join(",", testedPath.getRoadIDs()));
+            Assert.AreEqual(new int[] {0, 1, 7, 13, 20}, testedPath.getRoadIDs());
             Assert.AreEqual("Stentopher", testLogic.UserWithLongestRoad);
             Assert.AreEqual(5, testLogic.LongestRoadCount);
         }
@@ -440,6 +442,7 @@ namespace CatanersTest
             testLogic.setRoadActivity(26, "Stentopher");
             RoadPath testedPath = testLogic.setRoadActivity(19, "Stentopher");
             Console.WriteLine(String.Join(",", testedPath.getRoadIDs()));
+            Assert.AreEqual(new int[] { 0, 1, 7, 13, 20, 27, 26, 19, 12}, testedPath.getRoadIDs());
             Assert.AreEqual(9, testLogic.LongestRoadCount);
         }
 
@@ -453,7 +456,8 @@ namespace CatanersTest
             newPath.generateNewPath(4, new int[] { 3 });
             newPath.generateNewPath(5, new int[] { 4 });
             newPath.generateNewPath(6, new int[] { 5 });
-            RoadPath result = newPath.joinFrontFront(new int[] { 9, 10 });
+            RoadPath result = newPath.joinFrontFront(new RoadPath (new int[] { 9, 10, 6 }));
+            Console.WriteLine(String.Join(",", result.getRoadIDs()));
             Assert.AreEqual(new int[] { 3, 4, 5, 6, 10, 9 }, result.getRoadIDs());
         }
     }

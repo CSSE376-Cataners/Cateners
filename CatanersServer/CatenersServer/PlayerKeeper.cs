@@ -57,64 +57,65 @@ namespace CatenersServer
                     else
                     {
                         currPath = gennedPath;
-                        toAdd.Add(currPath);
+                        this.ownedPaths.Add(currPath);
+                        break;
                     }
                 }
-                this.ownedPaths.AddRange(toAdd);
             }
             else
             {
                 this.ownedPaths.Add(currPath);
             }
-            foreach(RoadPath path1 in this.ownedPaths)
+            foreach (RoadPath path2 in this.ownedPaths)
             {
-                RoadPath tempPath = path1;
-                foreach (RoadPath path2 in this.ownedPaths)
+                if (!currPath.Equals(path2))
                 {
-                    if (!path1.Equals(path2))
+                    if (currPath.getFront() == path2.getFront())
                     {
-                        if (this.currServerLogic.getRoadList()[(tempPath.getFront())].getNeighbors().Contains(path2.getFront()))
+                        currPath = currPath.joinFrontFront(path2);
+                        if (this.currServerLogic.LongestRoadCount < currPath.getSize())
                         {
-                            tempPath = tempPath.joinFrontFront(path2.getRoadIDs());
-                            if (this.currServerLogic.LongestRoadCount < tempPath.getSize())
-                            {
-                                this.currServerLogic.UserWithLongestRoad = this.username;
-                                this.currServerLogic.LongestRoadCount = tempPath.getSize();
-                            }
-                            return tempPath;
+                            this.currServerLogic.UserWithLongestRoad = this.username;
+                            this.currServerLogic.LongestRoadCount = currPath.getSize();
                         }
-                        else if (this.currServerLogic.getRoadList()[(tempPath.getFront())].getNeighbors().Contains(path2.getBack()))
+                        return currPath;
+                    }
+                    else if (currPath.getFront() == path2.getBack())
+                    {
+                        currPath = currPath.joinFrontBack(path2);
+                        if (this.currServerLogic.LongestRoadCount < currPath.getSize())
                         {
-                            tempPath = tempPath.joinFrontBack(path2.getRoadIDs());
-                            if (this.currServerLogic.LongestRoadCount < tempPath.getSize())
-                            {
-                                this.currServerLogic.UserWithLongestRoad = this.username;
-                                this.currServerLogic.LongestRoadCount = tempPath.getSize();
-                            }
-                            return tempPath;
+                            this.currServerLogic.UserWithLongestRoad = this.username;
+                            this.currServerLogic.LongestRoadCount = currPath.getSize();
                         }
-                        else if (this.currServerLogic.getRoadList()[(tempPath.getBack())].getNeighbors().Contains(path2.getFront()))
+                        return currPath;
+                    }
+                    else if (currPath.getBack() == path2.getFront())
+                    {
+                        currPath = currPath.joinBackFront(path2);
+                        if (this.currServerLogic.LongestRoadCount < currPath.getSize())
                         {
-                            tempPath = tempPath.joinBackFront(path2.getRoadIDs());
-                            if (this.currServerLogic.LongestRoadCount < tempPath.getSize())
-                            {
-                                this.currServerLogic.UserWithLongestRoad = this.username;
-                                this.currServerLogic.LongestRoadCount = tempPath.getSize();
-                            }
-                            return tempPath;
+                            this.currServerLogic.UserWithLongestRoad = this.username;
+                            this.currServerLogic.LongestRoadCount = currPath.getSize();
                         }
-                        else if (this.currServerLogic.getRoadList()[(tempPath.getBack())].getNeighbors().Contains(path2.getBack()))
+                        return currPath;
+                    }
+                    else if (currPath.getBack() == path2.getBack() && currPath.getRoadIDs()[1] != path2.getRoadIDs()[1])
+                    {
+                        currPath = currPath.joinBackBack(path2);
+                        if (this.currServerLogic.LongestRoadCount < currPath.getSize())
                         {
-                            tempPath = tempPath.joinBackBack(path2.getRoadIDs());
-                            if (this.currServerLogic.LongestRoadCount < tempPath.getSize())
-                            {
-                                this.currServerLogic.UserWithLongestRoad = this.username;
-                                this.currServerLogic.LongestRoadCount = tempPath.getSize();
-                            }
-                            return tempPath;
+                            this.currServerLogic.UserWithLongestRoad = this.username;
+                            this.currServerLogic.LongestRoadCount = currPath.getSize();
                         }
+                        return currPath;
                     }
                 }
+            }
+            if (this.currServerLogic.LongestRoadCount < currPath.getSize())
+            {
+                this.currServerLogic.UserWithLongestRoad = this.username;
+                this.currServerLogic.LongestRoadCount = currPath.getSize();
             }
             return currPath;
         }
