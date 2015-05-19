@@ -60,10 +60,10 @@ namespace CatenersServer
                         toAdd.Add(currPath);
                     }
                 }
-                if (Data.INSTANCE.LongestRoadCount < currPath.getSize())
+                if (this.currServerLogic.LongestRoadCount < currPath.getSize())
                 {
-                    Data.INSTANCE.UserWithLongestRoad = this.username;
-                    Data.INSTANCE.LongestRoadCount = currPath.getSize();
+                    this.currServerLogic.UserWithLongestRoad = this.username;
+                    this.currServerLogic.LongestRoadCount = currPath.getSize();
                 }
                 this.ownedPaths.AddRange(toAdd);
             }

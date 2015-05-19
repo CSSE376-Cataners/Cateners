@@ -373,7 +373,7 @@ namespace CatanersTest
             testLogic.setRoadActivity(3, "Stentopher");
             testLogic.setRoadActivity(2, "Stentopher");
             Assert.True(testLogic.determineRoadAvailability("Stentopher", 1));
-            Assert.AreEqual("Stentopher", Data.INSTANCE.UserWithLongestRoad);
+            Assert.AreEqual("Stentopher", testLogic.UserWithLongestRoad);
         }
 
         [Test]
@@ -383,13 +383,13 @@ namespace CatanersTest
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Brick] = 1;
             player.resources[Resource.TYPE.Wood] = 1;
-            Data.INSTANCE.LongestRoadCount = 5;
-            Data.INSTANCE.UserWithLongestRoad = "TrottaSN";
+            testLogic.LongestRoadCount = 5;
+            testLogic.UserWithLongestRoad = "TrottaSN";
             testLogic.setRoadActivity(4, "Stentopher");
             testLogic.setRoadActivity(3, "Stentopher");
             testLogic.setRoadActivity(2, "Stentopher");
             Assert.True(testLogic.determineRoadAvailability("Stentopher", 1));
-            Assert.AreEqual("TrottaSN", Data.INSTANCE.UserWithLongestRoad);
+            Assert.AreEqual("TrottaSN", testLogic.UserWithLongestRoad);
         }
 
         [Test]
@@ -399,13 +399,13 @@ namespace CatanersTest
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Brick] = 1;
             player.resources[Resource.TYPE.Wood] = 1;
-            Data.INSTANCE.LongestRoadCount = 5;
-            Data.INSTANCE.UserWithLongestRoad = "TrottaSN";
+            testLogic.LongestRoadCount = 5;
+            testLogic.UserWithLongestRoad = "TrottaSN";
             testLogic.setRoadActivity(0, "Stentopher");
             RoadPath testedPath = testLogic.setRoadActivity(1, "Stentopher");
             int size = testedPath.getSize();
-            Assert.AreEqual("TrottaSN", Data.INSTANCE.UserWithLongestRoad);
-            Assert.AreEqual(5, Data.INSTANCE.LongestRoadCount);
+            Assert.AreEqual("TrottaSN", testLogic.UserWithLongestRoad);
+            Assert.AreEqual(5, testLogic.LongestRoadCount);
         }
 
         [Test]
@@ -420,8 +420,8 @@ namespace CatanersTest
             testLogic.setRoadActivity(12, "Stentopher");
             RoadPath testedPath = testLogic.setRoadActivity(13, "Stentopher");
             Console.WriteLine(String.Join(",",testedPath.getRoadIDs()));
-            Assert.AreEqual("Stentopher", Data.INSTANCE.UserWithLongestRoad);
-            Assert.AreEqual(4, Data.INSTANCE.LongestRoadCount);
+            Assert.AreEqual("Stentopher", testLogic.UserWithLongestRoad);
+            Assert.AreEqual(4, testLogic.LongestRoadCount);
         }
     }
 }

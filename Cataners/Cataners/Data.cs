@@ -18,7 +18,7 @@ namespace Cataners
         public static GameLobby currentGameLobby;
         public static GamePlayer currentGameOwner;
         public static bool isMyTurn;
-
+        public static bool wasSettled;
         public static bool gameStarted = false;
     }
 }

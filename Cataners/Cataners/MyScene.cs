@@ -598,32 +598,36 @@ namespace Cataners
 
         public void setAsPurchasedSettle(string name, string username)
         {
-            Entity current = this.EntityManager.Find(name);
-            current.RemoveComponent<Sprite>();
-            current.RemoveComponent<SpriteRenderer>();
-            foreach(GamePlayer player in Data.currentGameLobby.gamePlayers)
+            if (!Data.wasSettled)
             {
-                if(player.Username.Equals(username))
+                Entity current = this.EntityManager.Find(name);
+                current.RemoveComponent<Sprite>();
+                current.RemoveComponent<SpriteRenderer>();
+                foreach (GamePlayer player in Data.currentGameLobby.gamePlayers)
                 {
-                    this.EntityManager.Find(name).AddComponent(new Sprite("Settlement" + player.getColor() + ".wpk"));
+                    if (player.Username.Equals(username))
+                    {
+                        this.EntityManager.Find(name).AddComponent(new Sprite("Settlement" + player.getColor() + ".wpk"));
+                    }
                 }
+                current.AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
+                Data.wasSettled = true;
             }
-            current.AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
-        }
-
-        public void setAsPurchasedCity(string name, string username)
-        {
-            Entity current = this.EntityManager.Find(name);
-            current.RemoveComponent<Sprite>();
-            current.RemoveComponent<SpriteRenderer>();
-            foreach (GamePlayer player in Data.currentGameLobby.gamePlayers)
+            else
             {
-                if (player.Username.Equals(username))
+                Entity current = this.EntityManager.Find(name);
+                current.RemoveComponent<Sprite>();
+                current.RemoveComponent<SpriteRenderer>();
+                foreach (GamePlayer player in Data.currentGameLobby.gamePlayers)
                 {
-                    this.EntityManager.Find(name).AddComponent(new Sprite("City" + player.getColor() + ".wpk"));
+                    if (player.Username.Equals(username))
+                    {
+                        this.EntityManager.Find(name).AddComponent(new Sprite("City" + player.getColor() + ".wpk"));
+                    }
                 }
+                current.AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
+                Data.wasSettled = true;
             }
-            current.AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
         }
 
         public void setAsPurchasedRoad(string name, string username)
