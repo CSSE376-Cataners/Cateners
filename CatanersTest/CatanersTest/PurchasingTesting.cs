@@ -505,5 +505,26 @@ namespace CatanersTest
             Console.WriteLine(String.Join(",", result.getRoadIDs()));
             Assert.AreEqual(new int[] { 10, 9, 3, 4, 5, 6 }, result.getRoadIDs());
         }
+
+        [Test]
+        public void moreRareDifficultCase12or7()
+        {
+            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            testLogic.canRegen = false;
+            GamePlayer player = testLogic.gameLobby.gamePlayers[1];
+            RoadPath newPath = new RoadPath(3);
+            testLogic.setRoadActivity(0, "Stentopher");
+            testLogic.setRoadActivity(1, "Stentopher");
+            testLogic.setRoadActivity(7, "Stentopher");
+            testLogic.setRoadActivity(12, "Stentopher");
+            testLogic.setRoadActivity(2, "Stentopher");
+            testLogic.setRoadActivity(3, "Stentopher");
+            testLogic.setRoadActivity(8, "Stentopher");
+            testLogic.setRoadActivity(14, "Stentopher");
+            RoadPath testedPath = testLogic.setRoadActivity(13, "Stentopher");
+            Console.WriteLine(String.Join(",", testedPath.getRoadIDs()));
+            Assert.AreEqual(new int[] { 0, 1, 2, 3, 8, 14, 13, 12}, testedPath.getRoadIDs());
+            Assert.AreEqual(8, testLogic.LongestRoadCount);
+        }
     }
 }
