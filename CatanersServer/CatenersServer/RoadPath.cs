@@ -13,6 +13,7 @@ namespace CatenersServer
         private int front;
         private int back;
         private int size;
+        public bool wasChanged;
         public RoadPath(int starter)
         {
             this.front = starter;
@@ -20,6 +21,7 @@ namespace CatenersServer
             this.roadIDs = new int[1];
             this.roadIDs[0] = starter;
             this.size = 1;
+            this.wasChanged = false;
         }
 
         public RoadPath(int[] inRID)
@@ -28,6 +30,7 @@ namespace CatenersServer
             this.back = inRID[0];
             this.roadIDs = inRID;
             this.size = inRID.Length;
+            this.wasChanged = false;
         }
 
         public int getFront()
@@ -54,11 +57,13 @@ namespace CatenersServer
                     else if (this.roadIDs[i] == this.getFront())
                     {
                         this.addToFront(x);
+                        this.wasChanged = true;
                         return this;
                     }
                     else if (this.roadIDs[i] == this.getBack())
                     {
                         this.addToBack(x);
+                        this.wasChanged = true;
                         return this;
                     }
                 }
@@ -66,12 +71,12 @@ namespace CatenersServer
             return this;
         }
 
-        public RoadPath joinFrontFront(RoadPath inputPath)
+        public int[] joinFrontFront(RoadPath inputPath)
         {
             int[] toJoinWith = inputPath.getRoadIDs();
             int[] newArray = new int[toJoinWith.Length];
             int count = 0;
-            for (int i = toJoinWith.Length - 2; i >= 0; i--)
+            for (int i = toJoinWith.Length - 1; i >= 0; i--)
             {
                 if(this.roadIDs.Contains(toJoinWith[i]))
                 {
@@ -81,7 +86,7 @@ namespace CatenersServer
                 count++;
             }
             int[] finalArray = new int[count + this.size];
-            for (int j = 0; j < this.size; j++)
+            for (int j = 0; j < this.getRoadIDs().Length; j++)
             {
                 finalArray[j] = this.roadIDs[j];
             }
@@ -89,17 +94,15 @@ namespace CatenersServer
             {
                 finalArray[k] = newArray[k - this.size];
             }
-            this.size = this.size + count;
-            this.roadIDs = finalArray;
-            return this;
+            return finalArray;
         }
 
-        public RoadPath joinFrontBack(RoadPath inputPath)
+        public int[] joinFrontBack(RoadPath inputPath)
         {
             int[] toJoinWith = inputPath.getRoadIDs();
             int[] newArray = new int[toJoinWith.Length];
             int count = 0;
-            for (int i = 1; i < toJoinWith.Length; i++)
+            for (int i = 0; i < toJoinWith.Length; i++)
             {
                 if (this.roadIDs.Contains(toJoinWith[i]))
                 {
@@ -117,12 +120,10 @@ namespace CatenersServer
             {
                 finalArray[k] = newArray[k - this.size];
             }
-            this.size = this.size + count;
-            this.roadIDs = finalArray;
-            return this;
+            return finalArray;
         }
 
-        public RoadPath joinBackFront(RoadPath inputPath)
+        public int[] joinBackFront(RoadPath inputPath)
         {
             int[] toJoinWith = inputPath.getRoadIDs();
             int[] newArray = new int[toJoinWith.Length];
@@ -145,12 +146,10 @@ namespace CatenersServer
             {
                 finalArray[k] = this.roadIDs[k - count];
             }
-            this.roadIDs = finalArray;
-            this.size = this.size + count;
-            return this;
+            return finalArray;
         }
 
-        public RoadPath joinBackBack(RoadPath inputPath)
+        public int[] joinBackBack(RoadPath inputPath)
         {
             int[] toJoinWith = inputPath.getRoadIDs();
             int[] newArray = new int[toJoinWith.Length];
@@ -173,9 +172,7 @@ namespace CatenersServer
             {
                 finalArray[k] = this.roadIDs[k - count];
             }
-            this.roadIDs = finalArray;
-            this.size = this.size + count;
-            return this;
+            return finalArray;
         }
 
         public void addToFront(int x)
