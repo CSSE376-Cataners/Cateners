@@ -205,9 +205,6 @@ namespace CatenersServer
                 if (checkReady())
                 {
                     ServerLogic newLogic = new ServerLogic(this.currentLobby);
-                    this.serverLogic = newLogic;
-                    this.serverLogic.generatehexArray();
-                    gameLobby = newLogic.gameLobby;
                     string toPass = newLogic.sendGeneration();
                     String getLobby = new CatanersShared.Message(serverLogic.gameLobby.toJson(), Translation.TYPE.GetGameLobby).toJson();
                     Data.INSTANCE.Lobbies.Remove(currentLobby);
@@ -237,9 +234,7 @@ namespace CatenersServer
             if (this.serverLogic != null && this.serverLogic.canRegen)
             {
                 String getLobby = new CatanersShared.Message(serverLogic.gameLobby.toJson(), Translation.TYPE.GetGameLobby).toJson();
-                this.serverLogic.generatehexArray();
-                int[][] array = this.serverLogic.gethexArray();
-                String boardString = new Message(Translation.intArraytwotoJson(array), Translation.TYPE.HexMessage).toJson();
+                String boardString = new Message(serverLogic.sendGeneration(), Translation.TYPE.HexMessage).toJson();
                 sendToLobby(boardString);
                 sendToLobby(getLobby);
             }
