@@ -147,7 +147,7 @@ namespace CatenersServer
                     PM_Chat(msg);
                 break;
                 case Translation.TYPE.TradeResponce:
-                    PM_TradeResponce(msg);
+                    PM_TradeResponse(msg);
                 break;
                 case Translation.TYPE.EndTurn:
                     PM_EndTurn(msg);

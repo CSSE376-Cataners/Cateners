@@ -38,7 +38,7 @@ namespace CatenersServer
         public bool taken2;
         public int freeRoads;
         public ServerPlayer lastLargestArmyPlayer;
-        public int LongestRoadCount = 3;
+        public int LongestRoadCount = 4;
         public string UserWithLongestRoad = "noone";
 
         public List<Translation.DevelopmentType> developmentDeck;

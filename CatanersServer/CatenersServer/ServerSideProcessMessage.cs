@@ -9,14 +9,14 @@ namespace CatenersServer
 {
     public partial class Client
     {
-        public void PM_TradeResponce(Message msg)
+        public void PM_TradeResponse(Message msg)
         {
             if (serverLogic != null && serverLogic.onGoingTrade != null)
             {
                 if (serverLogic.onGoingTrade.target.Username.Equals(this.userName))
                 {
-                    bool responce = Boolean.Parse(msg.message);
-                    if (responce)
+                    bool response = Boolean.Parse(msg.message);
+                    if (response)
                     {
                         GamePlayer sender = null;
                         GamePlayer target = null;
@@ -47,7 +47,15 @@ namespace CatenersServer
                                 sender.resources[t] += serverLogic.onGoingTrade.wantedResources[t];
                             }
                         }
-
+                        PopUpMessage popup = new PopUpMessage("Trade Request Accepted", target.Username + " has accepted your trade request!", PopUpMessage.TYPE.Notification);
+                        foreach (ServerPlayer p in currentLobby.Players)
+                        {
+                            if (p.Username.Equals(target.Username))
+                            {
+                                p.client.sendToClient(new Message(popup.toJson(), Translation.TYPE.PopUpMessage).toJson());
+                                return;
+                            }
+                        }
                         String gamePlayerList = Newtonsoft.Json.JsonConvert.SerializeObject(this.serverLogic.gameLobby.gamePlayers);
                         String toReturn = new Message(gamePlayerList, Translation.TYPE.UpdateResources).toJson();
                         this.sendToLobby(toReturn);
@@ -72,11 +80,6 @@ namespace CatenersServer
                     }
                 }
             }
-        }
-
-        public void PM_NewLongestRoad(Message msg)
-        {
-            
         }
 
         public void PM_StartTrade(Message msg)
