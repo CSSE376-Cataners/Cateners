@@ -1032,7 +1032,7 @@ namespace CatenersServer
 
         public bool checkWinCondition(GamePlayer player)
         {
-            return false;
+            return player.victoryPoints >=10;
         }
     }
 }
