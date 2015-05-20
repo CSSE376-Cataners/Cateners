@@ -525,7 +525,7 @@ namespace CatanersTest
         }
 
         [Test]
-        public void moreRareDifficultCase12or7Part2()
+        public void testLongestRoadRareCase12or7Part2()
         {
             ServerLogic testLogic = new ServerLogic(this.newLobby);
             testLogic.canRegen = false;
@@ -543,6 +543,31 @@ namespace CatanersTest
             RoadPath testedPath = testLogic.setRoadActivity(11, "Stentopher");
             Console.WriteLine(String.Join(",", testedPath.getRoadIDs()));
             Assert.AreEqual(8, testLogic.LongestRoadCount);
+        }
+
+        [Test]
+        public void testEvenRarerCase()
+        {
+            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            testLogic.canRegen = false;
+            GamePlayer player = testLogic.gameLobby.gamePlayers[1];
+            RoadPath newPath = new RoadPath(3);
+            testLogic.setRoadActivity(0, "Stentopher");
+            testLogic.setRoadActivity(1, "Stentopher");
+            testLogic.setRoadActivity(7, "Stentopher");
+            testLogic.setRoadActivity(6, "Stentopher");
+            testLogic.setRoadActivity(11, "Stentopher");
+            testLogic.setRoadActivity(10, "Stentopher");
+            testLogic.setRoadActivity(18, "Stentopher");
+            testLogic.setRoadActivity(24, "Stentopher");
+            testLogic.setRoadActivity(25, "Stentopher");
+            testLogic.setRoadActivity(19, "Stentopher");
+            testLogic.setRoadActivity(26, "Stentopher");
+            testLogic.setRoadActivity(27, "Stentopher");
+            testLogic.setRoadActivity(20, "Stentopher");
+            RoadPath testedPath = testLogic.setRoadActivity(13, "Stentopher");
+            Console.WriteLine(String.Join(",", testedPath.getRoadIDs()));
+            Assert.AreEqual(14, testLogic.LongestRoadCount);
         }
     }
 }
