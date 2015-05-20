@@ -129,6 +129,8 @@ namespace Cataners
                 MyScene.addRegenerateBoardButton();
                 MyScene.addPlayerNames();
                 MyScene.addEndTurnButton();
+                MyScene.addTradeButton();
+                MyScene.addBuyDevCardButton();
 
                 //make first player have turn
                 if (Data.currentGameLobby.gamePlayers[0].Username.Equals(Data.username))
@@ -221,6 +223,8 @@ namespace Cataners
             {
                 Data.isMyTurn = true;
                 MyScene.addEndTurnButton();
+                MyScene.addBuyDevCardButton();
+                MyScene.addTradeButton();
                 if (turn.phase == EndTurn.Phase.GamePhase)
                 {
                     System.Windows.MessageBox.Show("It's your turn, please roll the dice", "Your Turn", MessageBoxButton.OK);
@@ -234,7 +238,7 @@ namespace Cataners
             else
             {
                 Data.isMyTurn = false;
-                MyScene.hideEndTurn();
+                MyScene.hideButtonsOnEndTurn();
             }
         }
 
