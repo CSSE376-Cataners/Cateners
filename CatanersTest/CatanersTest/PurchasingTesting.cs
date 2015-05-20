@@ -363,7 +363,7 @@ namespace CatanersTest
         }
 
         [Test]
-        public void testLongestRoadAfterFourthRoadPurchased()
+        public void testLongestRoadAfterFifthRoadPurchased()
         {
             ServerLogic testLogic = new ServerLogic(this.newLobby);
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
@@ -372,6 +372,7 @@ namespace CatanersTest
             testLogic.setRoadActivity(4, "Stentopher");
             testLogic.setRoadActivity(3, "Stentopher");
             testLogic.setRoadActivity(2, "Stentopher");
+            testLogic.setRoadActivity(0, "Stentopher");
             Assert.True(testLogic.determineRoadAvailability("Stentopher", 1));
             Assert.AreEqual("Stentopher", testLogic.UserWithLongestRoad);
         }
