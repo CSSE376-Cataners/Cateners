@@ -41,6 +41,7 @@ namespace CatenersServer
 
         public RoadPath addToRoads(int x, int[] neighbors)
         {
+            bool longestRoadChanged = false;
             this.ownedRoads.Add(x);
             this.roadCount += 1;
             RoadPath currPath = new RoadPath(x);
@@ -87,6 +88,7 @@ namespace CatenersServer
                                 this.currServerLogic.UserWithLongestRoad = this.username;
                                 this.currServerLogic.LongestRoadCount = newPath.getSize();
                                 toAdd2.Add(newPath);
+                                longestRoadChanged = true;
                             }
                         }
                         else if (this.currServerLogic.getRoadList()[tempPath.getFront()].getNeighbors().Contains(path2.getBack()))
@@ -97,6 +99,7 @@ namespace CatenersServer
                                 this.currServerLogic.UserWithLongestRoad = this.username;
                                 this.currServerLogic.LongestRoadCount = newPath.getSize();
                                 toAdd2.Add(newPath);
+                                longestRoadChanged = true;
                             }
                         }
                         else if (this.currServerLogic.getRoadList()[tempPath.getBack()].getNeighbors().Contains(path2.getFront()))
@@ -107,6 +110,7 @@ namespace CatenersServer
                                 this.currServerLogic.UserWithLongestRoad = this.username;
                                 this.currServerLogic.LongestRoadCount = newPath.getSize();
                                 toAdd2.Add(newPath);
+                                longestRoadChanged = true;
                             }
                         }
                         else if (this.currServerLogic.getRoadList()[tempPath.getBack()].getNeighbors().Contains(path2.getBack()) && tempPath.getRoadIDs()[1] != path2.getRoadIDs()[1])
@@ -117,6 +121,7 @@ namespace CatenersServer
                                 this.currServerLogic.UserWithLongestRoad = this.username;
                                 this.currServerLogic.LongestRoadCount = newPath.getSize();
                                 toAdd2.Add(newPath);
+                                longestRoadChanged = true;
                             }
                         }
                     }
@@ -126,8 +131,14 @@ namespace CatenersServer
             {
                 this.currServerLogic.UserWithLongestRoad = this.username;
                 this.currServerLogic.LongestRoadCount = currPath.getSize();
+                longestRoadChanged = true;
             }
             this.ownedPaths.AddRange(toAdd2);
+            if (longestRoadChanged)
+            {
+                ServerPlayer player = (ServerPlayer)this.currServerLogic.getLobby().Players[0];
+                player.client.sendToLobby(new Message(new PopUpMessage("There's a New Longest Road!", "The player with the new Longest Road is: " + this.username, PopUpMessage.TYPE.Notification).toJson(), Translation.TYPE.PopUpMessage).toJson());
+            }
             return currPath;
         }
 
