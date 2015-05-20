@@ -84,7 +84,7 @@ namespace CatenersServer
             writer.Flush();
         }
 
-        public static List<Translation.TYPE> turnRequired = new List<Translation.TYPE>() { Translation.TYPE.BuyRoad , Translation.TYPE.BuySettlement , Translation.TYPE.Game , Translation.TYPE.StartTrade, Translation.TYPE.EndTurn, Translation.TYPE.DiceRoll };
+        public static List<Translation.TYPE> turnRequired = new List<Translation.TYPE>() { Translation.TYPE.DevelopmentCard ,Translation.TYPE.BuyRoad , Translation.TYPE.BuySettlement , Translation.TYPE.Game , Translation.TYPE.StartTrade, Translation.TYPE.EndTurn, Translation.TYPE.DiceRoll };
 
         public void processesMessage(String s)
         {
