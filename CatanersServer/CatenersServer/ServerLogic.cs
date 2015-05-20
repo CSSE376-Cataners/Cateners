@@ -466,6 +466,9 @@ namespace CatenersServer
                                             this.board.buildings[settlementID].owner = player;
                                             player.addSettlement(settlementID);
                                             player.victoryPoints += 1;
+                                            if (checkWinCondition(player))
+                                            {
+                                                 }
                                             return true;
                                         }
                                     }
@@ -490,6 +493,9 @@ namespace CatenersServer
                 {
                     board.buildings[settlementID].isCity = true;
                     player.victoryPoints += 1;
+                    if (checkWinCondition(player))
+                    {
+                        }
                     player.resources[Resource.TYPE.Ore] -= 3;
                     player.resources[Resource.TYPE.Wheat] -= 2;
 
@@ -923,6 +929,9 @@ namespace CatenersServer
                     {
                         case Translation.DevelopmentType.VictoryPoint:
                             player.victoryPoints++;
+                            if (checkWinCondition(player))
+                            {
+                               }
                             break;
 
                         case Translation.DevelopmentType.Knight:
@@ -1019,6 +1028,11 @@ namespace CatenersServer
             String gamePlayerList = Newtonsoft.Json.JsonConvert.SerializeObject(gameLobby.gamePlayers);
             String toReturn = new Message(gamePlayerList, Translation.TYPE.UpdateResources).toJson();
             sp.client.sendToLobby(toReturn);
+        }
+
+        public bool checkWinCondition(GamePlayer player)
+        {
+            return false;
         }
     }
 }
