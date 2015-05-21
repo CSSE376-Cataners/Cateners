@@ -43,7 +43,7 @@ namespace CatanersTest
         [Test]
         public void testAvailabilityTrueResources()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             testLogic.canRegen = false;
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Sheep] = 1;
@@ -56,7 +56,7 @@ namespace CatanersTest
         [Test]
         public void testAvailabilityFalseResourcesSheep()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Sheep] = 0;
             player.resources[Resource.TYPE.Brick] = 1;
@@ -70,7 +70,7 @@ namespace CatanersTest
         [Test]
         public void testAvailabilityFalseResourcesBrick()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Sheep] = 1;
             player.resources[Resource.TYPE.Brick] = 0;
@@ -84,7 +84,7 @@ namespace CatanersTest
         [Test]
         public void testAvailabilityFalseResourcesWheat()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Sheep] = 1;
             player.resources[Resource.TYPE.Brick] = 1;
@@ -98,7 +98,7 @@ namespace CatanersTest
         [Test]
         public void testAvailabilityFalseResourcesWood()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Sheep] = 1;
             player.resources[Resource.TYPE.Brick] = 1;
@@ -112,7 +112,7 @@ namespace CatanersTest
         [Test]
         public void testAvailabilityFalseActivityNeighbor()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Sheep] = 1;
             player.resources[Resource.TYPE.Brick] = 1;
@@ -125,7 +125,7 @@ namespace CatanersTest
         [Test]
         public void testAvailabilityTrueBoth()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             testLogic.canRegen = false;
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Sheep] = 1;
@@ -139,7 +139,7 @@ namespace CatanersTest
         [Test]
         public void testAvailabilityFalseBoth()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Sheep] = 1;
             player.resources[Resource.TYPE.Brick] = 1;
@@ -152,7 +152,7 @@ namespace CatanersTest
         [Test]
         public void testAvailabilityTrueActivityFalseResource()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Sheep] = 1;
             player.resources[Resource.TYPE.Brick] = 1;
@@ -166,7 +166,7 @@ namespace CatanersTest
         [Test]
         public void testAvailabilitySubtraction()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Sheep] = 1;
             player.resources[Resource.TYPE.Brick] = 1;
@@ -180,7 +180,7 @@ namespace CatanersTest
         [Test]
         public void testResourceSubtraction()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Sheep] = 1;
             player.resources[Resource.TYPE.Brick] = 1;
@@ -200,7 +200,7 @@ namespace CatanersTest
         [Test]
         public void testRoadResourceWoodFalse()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             testLogic.canRegen = false;
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Brick] = 1;
@@ -211,7 +211,7 @@ namespace CatanersTest
         [Test]
         public void testRoadResourceBrickFalse()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             testLogic.canRegen = false;
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Brick] = 0;
@@ -222,7 +222,7 @@ namespace CatanersTest
         [Test]
         public void testRoadResourceTrue()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Brick] = 1;
             player.resources[Resource.TYPE.Wood] = 1;
@@ -236,7 +236,7 @@ namespace CatanersTest
         [Test]
         public void testRoadActivityFalseOnetoFour()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Brick] = 1;
             player.resources[Resource.TYPE.Wood] = 1;
@@ -246,7 +246,7 @@ namespace CatanersTest
         [Test]
         public void testRoadActivityTrueOnetoFour()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Brick] = 1;
             player.resources[Resource.TYPE.Wood] = 1;
@@ -257,7 +257,7 @@ namespace CatanersTest
         [Test]
         public void testNeighborActiveSettlementFalse()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Sheep] = 1;
             player.resources[Resource.TYPE.Brick] = 1;
@@ -270,7 +270,7 @@ namespace CatanersTest
         [Test]
         public void testNeighborActiveSettlementTrue()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             testLogic.canRegen = false;
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Sheep] = 1;
@@ -283,7 +283,7 @@ namespace CatanersTest
         [Test]
         public void testAlreadyActiveFalse()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             testLogic.setSettlementActivity(0, "Stentopher");
             testLogic.board.buildings[0].owner = player;
@@ -297,7 +297,7 @@ namespace CatanersTest
         [Test]
         public void testNoRoadsNotBelowTwo()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             testLogic.setSettlementActivity(0, "Stentopher");
             testLogic.setSettlementActivity(53, "Stentopher");
@@ -312,7 +312,7 @@ namespace CatanersTest
         [Test]
         public void testCanPlacePastTwoIfRoads()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             testLogic.setSettlementActivity(0, "Stentopher");
             testLogic.setSettlementActivity(53, "Stentopher");
@@ -330,7 +330,7 @@ namespace CatanersTest
         [Test]
         public void testCanPlaceIfNeighborRoadSet()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Brick] = 1;
             player.resources[Resource.TYPE.Wood] = 1;
@@ -343,7 +343,7 @@ namespace CatanersTest
         [Test]
         public void testCanPlaceIfNeighborSettlementSet()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Brick] = 1;
             player.resources[Resource.TYPE.Wood] = 1;
@@ -354,7 +354,7 @@ namespace CatanersTest
         [Test]
         public void testCantPlaceIfNeighborRoadSetButNoOwnership()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Brick] = 1;
             player.resources[Resource.TYPE.Wood] = 1;
@@ -365,7 +365,7 @@ namespace CatanersTest
         [Test]
         public void testLongestRoadAfterFifthRoadPurchased()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Brick] = 1;
             player.resources[Resource.TYPE.Wood] = 1;
@@ -380,7 +380,7 @@ namespace CatanersTest
         [Test]
         public void testLongestRoadAfterFourthRoadPurchasedFalse()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Brick] = 1;
             player.resources[Resource.TYPE.Wood] = 1;
@@ -396,7 +396,7 @@ namespace CatanersTest
         [Test]
         public void testLongestRoadTwo()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             player.resources[Resource.TYPE.Brick] = 1;
             player.resources[Resource.TYPE.Wood] = 1;
@@ -412,7 +412,7 @@ namespace CatanersTest
         [Test]
         public void testLongestRoadSplit()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             testLogic.canRegen = false;
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             testLogic.setRoadActivity(0, "Stentopher");
@@ -429,7 +429,7 @@ namespace CatanersTest
         [Test]
         public void testLongestRoadRejoint()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             testLogic.canRegen = false;
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             testLogic.setRoadActivity(0, "Stentopher");
@@ -448,7 +448,7 @@ namespace CatanersTest
         [Test]
         public void testJoiningFrontFront()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             testLogic.canRegen = false;
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             RoadPath newPath = new RoadPath(3);
@@ -463,7 +463,7 @@ namespace CatanersTest
         [Test]
         public void testJoiningFrontBack()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             testLogic.canRegen = false;
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             RoadPath newPath = new RoadPath(3);
@@ -478,7 +478,7 @@ namespace CatanersTest
         [Test]
         public void testJoiningBackFront()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             testLogic.canRegen = false;
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             RoadPath newPath = new RoadPath(3);
@@ -493,7 +493,7 @@ namespace CatanersTest
         [Test]
         public void testJoiningBackBack()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             testLogic.canRegen = false;
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             RoadPath newPath = new RoadPath(3);
@@ -508,7 +508,8 @@ namespace CatanersTest
         [Test]
         public void moreRareDifficultCase12or7()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
+            testLogic.regenerateBoardAndGetStringRepresentation();
             testLogic.canRegen = false;
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             RoadPath newPath = new RoadPath(3);
@@ -528,7 +529,7 @@ namespace CatanersTest
         [Test]
         public void testLongestRoadRareCase12or7Part2()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             testLogic.canRegen = false;
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             RoadPath newPath = new RoadPath(3);
@@ -549,7 +550,7 @@ namespace CatanersTest
         [Test]
         public void testEvenRarerCase()
         {
-            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            ServerLogic testLogic = new ServerLogic(this.newLobby); testLogic.regenerateBoardAndGetStringRepresentation();
             testLogic.canRegen = false;
             GamePlayer player = testLogic.gameLobby.gamePlayers[1];
             RoadPath newPath = new RoadPath(3);
