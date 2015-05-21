@@ -451,8 +451,7 @@ namespace CatenersServer
                         {
                             if (current.getIsActive())
                             {
-                                BuyCity(player, settlementID);
-                                return false;
+                                return  BuyCity(player, settlementID);
                             }
                             if (isStartPhase1 || isStartPhase2 || ((player.resources[Resource.TYPE.Wood] >= 1) && (player.resources[Resource.TYPE.Brick] >= 1) && (player.resources[Resource.TYPE.Sheep] >= 1) && (player.resources[Resource.TYPE.Wheat] >= 1)))
                             {
@@ -515,7 +514,7 @@ namespace CatenersServer
             }
         }
 
-        public void BuyCity(GamePlayer player, int settlementID)
+        public bool BuyCity(GamePlayer player, int settlementID)
         {
             if (!board.buildings[settlementID].isCity == true)
             {
@@ -534,8 +533,10 @@ namespace CatenersServer
                     String gamePlayerList = Newtonsoft.Json.JsonConvert.SerializeObject(gameLobby.gamePlayers);
                     String toReturn = new Message(gamePlayerList, Translation.TYPE.UpdateResources).toJson();
                     ((ServerPlayer)lobby.Players[0]).client.sendToLobby(toReturn);
+                    return true;
                 }
             }
+            return false;
         }
         private object determineRoadAvailabilityLock = false;
         public Boolean determineRoadAvailability(string username, int roadID)
