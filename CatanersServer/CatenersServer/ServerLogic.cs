@@ -38,7 +38,7 @@ namespace CatenersServer
         public bool taken2;
         public int freeRoads;
         public ServerPlayer lastLargestArmyPlayer;
-        public int LongestRoadCount = 3;
+        public int LongestRoadCount = 4;
         public string UserWithLongestRoad = "noone";
 
         public List<Translation.DevelopmentType> developmentDeck;
@@ -469,6 +469,11 @@ namespace CatenersServer
                                             this.board.buildings[settlementID].owner = player;
                                             player.addSettlement(settlementID);
                                             player.victoryPoints += 1;
+                                            if (checkWinCondition(player))
+                                            {
+                                                PopUpMessage popup = new PopUpMessage("WIN!", player.Username + " has won the game with " + player.victoryPoints + " Victory Points", PopUpMessage.TYPE.Notification);
+                                                ((ServerPlayer)lobby.Players[0]).client.sendToLobby(new Message(popup.toJson(),Translation.TYPE.PopUpMessage).toJson());
+                                            }
                                             return true;
                                         }
                                     }
@@ -493,6 +498,11 @@ namespace CatenersServer
                 {
                     board.buildings[settlementID].isCity = true;
                     player.victoryPoints += 1;
+                    if (checkWinCondition(player))
+                    {
+                        PopUpMessage popup = new PopUpMessage("WIN!", player.Username + " has won the game with " + player.victoryPoints + " Victory Points", PopUpMessage.TYPE.Notification);
+                        ((ServerPlayer)lobby.Players[0]).client.sendToLobby(new Message(popup.toJson(), Translation.TYPE.PopUpMessage).toJson());
+                    }
                     player.resources[Resource.TYPE.Ore] -= 3;
                     player.resources[Resource.TYPE.Wheat] -= 2;
 
@@ -926,6 +936,11 @@ namespace CatenersServer
                     {
                         case Translation.DevelopmentType.VictoryPoint:
                             player.victoryPoints++;
+                            if (checkWinCondition(player))
+                            {
+                                PopUpMessage popup = new PopUpMessage("WIN!", player.Username + " has won the game with " + player.victoryPoints + " Victory Points", PopUpMessage.TYPE.Notification);
+                                ((ServerPlayer)lobby.Players[0]).client.sendToLobby(new Message(popup.toJson(), Translation.TYPE.PopUpMessage).toJson());
+                            }
                             break;
 
                         case Translation.DevelopmentType.Knight:
@@ -1022,6 +1037,11 @@ namespace CatenersServer
             String gamePlayerList = Newtonsoft.Json.JsonConvert.SerializeObject(gameLobby.gamePlayers);
             String toReturn = new Message(gamePlayerList, Translation.TYPE.UpdateResources).toJson();
             sp.client.sendToLobby(toReturn);
+        }
+
+        public bool checkWinCondition(GamePlayer player)
+        {
+            return player.victoryPoints >= 10;
         }
     }
 }

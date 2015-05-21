@@ -68,10 +68,7 @@ namespace CatenersServer
                     }
                 }
             }
-            else
-            {
-                this.ownedPaths.Add(currPath);
-            }
+            this.ownedPaths.Add(currPath);
             this.ownedPaths.AddRange(toAdd);
             ArrayList toAdd2 = new ArrayList();
             foreach (RoadPath tempPath in this.ownedPaths)

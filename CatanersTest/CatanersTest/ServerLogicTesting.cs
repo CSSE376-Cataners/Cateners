@@ -662,5 +662,41 @@ namespace CatanersTest
             Assert.IsNotNull(client2.lastCall);
         }
 
+        [Test]
+        public void WinConditionCheckLessThan10VP()
+        {
+            CatanersTest.ClientTesting.FakeClient client1 = new CatanersTest.ClientTesting.FakeClient();
+            client1.userName = "Benny The Jet Rodriguez";
+            ServerPlayer sp1 = new ServerPlayer(client1.userName, client1);
+            client1.player = sp1;
+
+            Lobby lob = new Lobby("The Sandlot", 10, sp1, 1);
+            ServerLogic logic = new ServerLogic(lob);
+            GameLobby gLob = logic.gameLobby;
+            client1.serverLogic = logic;
+            client1.currentLobby = gLob;
+
+            gLob.gamePlayers[0].victoryPoints = 8;
+            Assert.IsFalse(logic.checkWinCondition(gLob.gamePlayers[0]));
+        }
+
+        [Test]
+        public void WinConditionCheckGreaterThan10VP()
+        {
+            CatanersTest.ClientTesting.FakeClient client1 = new CatanersTest.ClientTesting.FakeClient();
+            client1.userName = "DiddyKong";
+            ServerPlayer sp1 = new ServerPlayer(client1.userName, client1);
+            client1.player = sp1;
+
+            Lobby lob = new Lobby("DiddyKongRacing", 10, sp1, 1);
+            ServerLogic logic = new ServerLogic(lob);
+            GameLobby gLob = logic.gameLobby;
+            client1.serverLogic = logic;
+            client1.currentLobby = gLob;
+
+            gLob.gamePlayers[0].victoryPoints = 10;
+            Assert.IsTrue(logic.checkWinCondition(gLob.gamePlayers[0]));
+        }
+
     }
 }

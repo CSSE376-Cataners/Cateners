@@ -156,7 +156,7 @@ namespace Cataners
             if (Data.isMyTurn)
             {
                 //add tradebutton
-                Button tradeButton = new Button("TradeButton");
+                Button tradeButton = new Button("tradeButton");
                 tradeButton.Text = "Trade Resources";
                 Transform2D tradebutton2d = tradeButton.Entity.FindComponent<Transform2D>();
                 tradebutton2d.X = WaveConstants.CENTERWIDTH * 2 - 320;
@@ -627,11 +627,18 @@ namespace Cataners
             CommunicationClient.Instance.sendToServer(new Message(Translation.DevelopmentType.Monopoly.ToString(), Translation.TYPE.DevelopmentCard).toJson());
         }
 
-        public static void hideEndTurn()
+        public static void hideButtonsOnEndTurn()
         {
-            Entity invisiblebutton = new Entity("endTurnButton");
-            toAdd.Add(invisiblebutton);
+            Entity invisibleEndbutton = new Entity("endTurnButton");
+            toAdd.Add(invisibleEndbutton);
+
+            Entity invisibleDevButton = new Entity("buyDevCardButton");
+            toAdd.Add(invisibleDevButton);
+
+            Entity invisbleTradeButton = new Entity("tradeButton");
+            toAdd.Add(invisbleTradeButton);
         }
+
 
         protected override void Start()
         {
