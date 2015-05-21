@@ -65,8 +65,18 @@ namespace CatenersServer
                 this.currServerLogic.UserWithLongestRoad = this.player;
                 this.player.victoryPoints += 2;
                 ServerPlayer player = (ServerPlayer)this.currServerLogic.getLobby().Players[0];
+<<<<<<< HEAD
                 player.client.sendToLobby(new Message(new PopUpMessage("There's a New Longest Road!", "The player with the new Longest Road is: " + this.player.Username, PopUpMessage.TYPE.Notification).toJson(), Translation.TYPE.PopUpMessage).toJson());
                 this.currServerLogic.checkWinCondition(this.player);
+=======
+                player.client.sendToLobby(new Message(new PopUpMessage("There's a New Longest Road!", "The player with the new Longest Road is: " + this.username, PopUpMessage.TYPE.Notification).toJson(), Translation.TYPE.PopUpMessage).toJson());
+                if (this.currServerLogic.checkWinCondition(this.player))
+                {
+                    PopUpMessage popup = new PopUpMessage("WIN!", player.Username + " has won the game with " + this.player.victoryPoints + " Victory Points", PopUpMessage.TYPE.Notification);
+                    player.client.sendToLobby(new Message(popup.toJson(), Translation.TYPE.PopUpMessage).toJson());
+                    player.client.leaveLobby();
+                };
+>>>>>>> origin/master
             }
             this.maxList = max;
         }
