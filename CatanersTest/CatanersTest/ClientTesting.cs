@@ -1041,6 +1041,60 @@ namespace CatanersTest
             Assert.AreEqual(2, client4.messageCount);
         }
 
+        [Test]
+        public void testThatForcedRegenOrEndTurnBeforeGameStarts()
+        {
+            #region gameSetup
+            CatanersTest.ClientTesting.FakeClient client1 = new CatanersTest.ClientTesting.FakeClient();
+            client1.userName = "Client1";
+            ServerPlayer sp1 = new ServerPlayer(client1.userName, client1);
+            client1.player = sp1;
+
+            CatanersTest.ClientTesting.FakeClient client2 = new CatanersTest.ClientTesting.FakeClient();
+            client2.userName = "Client2";
+            ServerPlayer sp2 = new ServerPlayer(client2.userName, client2);
+            client2.player = sp2;
+
+            CatanersTest.ClientTesting.FakeClient client3 = new CatanersTest.ClientTesting.FakeClient();
+            client3.userName = "Client3";
+            ServerPlayer sp3 = new ServerPlayer(client3.userName, client3);
+            client3.player = sp3;
+
+            CatanersTest.ClientTesting.FakeClient client4 = new CatanersTest.ClientTesting.FakeClient();
+            client4.userName = "Client4";
+            ServerPlayer sp4 = new ServerPlayer(client4.userName, client4);
+            client4.player = sp4;
+
+            Lobby lob = new Lobby("TestGame", 10, sp1, 1);
+            lob.Players.Add(sp2);
+            lob.Players.Add(sp3);
+            lob.Players.Add(sp4);
+
+            ServerLogic logic = new ServerLogic(lob);
+            GameLobby gLob = logic.gameLobby;
+
+            client1.serverLogic = logic;
+            client2.serverLogic = logic;
+            client3.serverLogic = logic;
+            client4.serverLogic = logic;
+
+            client1.currentLobby = lob;
+            client2.currentLobby = lob;
+            client3.currentLobby = lob;
+            client4.currentLobby = lob;
+            #endregion
+
+            // Some tests would need major rework. Or just can make it so this feature would only be active in a real game
+            Data.DEBUG = false;
+
+            // This Message.message is invalid. Should never get processed because of the Message.Type
+            Message msg = new Message("",Translation.TYPE.StartTrade);
+            client1.processesMessage(msg.toJson());
+
+
+            
+        }
+
         public class FakeClient : Client
         {
 
