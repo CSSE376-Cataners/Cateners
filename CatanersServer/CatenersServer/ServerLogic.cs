@@ -497,6 +497,7 @@ namespace CatenersServer
                                             {
                                                 PopUpMessage popup = new PopUpMessage("WIN!", player.Username + " has won the game with " + player.victoryPoints + " Victory Points", PopUpMessage.TYPE.Notification);
                                                 ((ServerPlayer)lobby.Players[0]).client.sendToLobby(new Message(popup.toJson(), Translation.TYPE.PopUpMessage).toJson());
+                                                ((ServerPlayer)lobby.Players[0]).client.leaveLobby();
                                             }
                                             return true;
                                         }
@@ -1073,7 +1074,7 @@ namespace CatenersServer
 
         public bool checkWinCondition(GamePlayer player)
         {
-            return player.victoryPoints >= 10;
+            return player.victoryPoints >= 5;
         }
     }
 }
