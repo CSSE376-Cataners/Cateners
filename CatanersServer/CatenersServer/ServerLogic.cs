@@ -370,7 +370,7 @@ namespace CatenersServer
             gameLobby = new GameLobby(lobby);
             foreach (GamePlayer player in this.gameLobby.gamePlayers)
             {
-                this.playerKeepers.Add(player, new PlayerKeeper(player.Username, this));
+                this.playerKeepers.Add(player.Username, new PlayerKeeper(player, this));
             }
 
             developmentDeck = new List<Translation.DevelopmentType>();

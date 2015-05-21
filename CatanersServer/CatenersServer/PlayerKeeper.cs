@@ -10,7 +10,6 @@ namespace CatenersServer
 {
     public class PlayerKeeper
     {
-        private string username;
         private ArrayList ownedSettlements;
         private ArrayList ownedRoads;
         private ArrayList ownedPaths;
@@ -66,7 +65,7 @@ namespace CatenersServer
                 this.currServerLogic.UserWithLongestRoad = this.player;
                 this.player.victoryPoints += 2;
                 ServerPlayer player = (ServerPlayer)this.currServerLogic.getLobby().Players[0];
-                player.client.sendToLobby(new Message(new PopUpMessage("There's a New Longest Road!", "The player with the new Longest Road is: " + this.username, PopUpMessage.TYPE.Notification).toJson(), Translation.TYPE.PopUpMessage).toJson());
+                player.client.sendToLobby(new Message(new PopUpMessage("There's a New Longest Road!", "The player with the new Longest Road is: " + this.player.Username, PopUpMessage.TYPE.Notification).toJson(), Translation.TYPE.PopUpMessage).toJson());
                 this.currServerLogic.checkWinCondition(this.player);
             }
             this.maxList = max;
