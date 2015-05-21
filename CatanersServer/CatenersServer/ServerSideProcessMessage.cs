@@ -421,7 +421,13 @@ namespace CatenersServer
 
         public void PM_EndTurn(Message msg)
         {
-            serverLogic.updateTurn();
+            if (!serverLogic.dieRolled && !(serverLogic.isStartPhase1 || serverLogic.isStartPhase2))
+            {
+                PopUpMessage pop = new PopUpMessage("You must roll", "You must roll the dice before the end of your turn", PopUpMessage.TYPE.Notification);
+                player.client.sendToClient(new Message(pop.toJson(), Translation.TYPE.PopUpMessage).toJson());
+                return;
+            }
+            serverLogic.updateTurn(this.player);
 
             EndTurn.Phase phase = EndTurn.Phase.GamePhase;
 
@@ -439,6 +445,7 @@ namespace CatenersServer
             serverLogic.diceRolled();
             Message toSend = new Message(new PopUpMessage("Die Rolled", this.userName + " rolled a " + serverLogic.dice.ToString(), PopUpMessage.TYPE.Notification).toJson(), Translation.TYPE.PopUpMessage);
             sendToLobby(toSend.toJson());
+            serverLogic.dieRolled = true;
             
             //sendToClient(new Message(serverLogic.dice.ToString(), Translation.TYPE.DiceRoll).toJson());
 

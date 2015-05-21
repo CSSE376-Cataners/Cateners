@@ -40,6 +40,7 @@ namespace CatenersServer
         public ServerPlayer lastLargestArmyPlayer;
         public int LongestRoadCount = 4;
         public string UserWithLongestRoad = "noone";
+        public bool dieRolled;
 
         public List<Translation.DevelopmentType> developmentDeck;
 
@@ -371,6 +372,7 @@ namespace CatenersServer
 
             developmentDeck = new List<Translation.DevelopmentType>();
             developmentDeck.AddRange(DEVELOPMENT_CARDS_BASE_DECK);
+            dieRolled = false;
         }
 
         public Lobby getLobby()
@@ -813,7 +815,7 @@ namespace CatenersServer
             }
         }
 
-        public void updateTurn()
+        public void updateTurn(ServerPlayer player)
         {
             usedSettlement = false;
             usedRoad = false;
@@ -831,13 +833,14 @@ namespace CatenersServer
                 }
                 else
                 {
-                    this.updateTurnGamePhase();
+                    this.updateTurnGamePhase(player);
                 }
         }
 
-        public void updateTurnGamePhase()
+        public void updateTurnGamePhase(ServerPlayer player)
         {
             playerTurn = (playerTurn + 1) % gameLobby.gamePlayers.Count;
+            dieRolled = false;
         }
 
         public void updateTurnStartPhase1()
