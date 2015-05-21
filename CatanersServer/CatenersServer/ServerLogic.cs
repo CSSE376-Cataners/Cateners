@@ -43,7 +43,7 @@ namespace CatenersServer
         public string UserWithLongestRoad = "noone";
         public bool dieRolled;
 
-        Timer turnTimer;
+        public Timer turnTimer;
 
         public List<Translation.DevelopmentType> developmentDeck;
 

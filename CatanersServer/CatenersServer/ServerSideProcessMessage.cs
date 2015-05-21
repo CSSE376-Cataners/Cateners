@@ -289,6 +289,16 @@ namespace CatenersServer
                 //if person that leaves is owner
                 if (this.currentLobby.Owner.Equals(this.player))
                 {
+                    if (this.serverLogic != null)
+                    {
+                        this.serverLogic.turnTimer.Dispose();
+                        foreach (ServerPlayer p in this.currentLobby.Players)
+                        {
+                            p.client.serverLogic = null;
+                            p.client.gameLobby = null;
+                        }
+                    }
+                    
                     currentLobby.removePlayer(this.player);
 
                     String ret = new Message("", Translation.TYPE.LeaveLobby).toJson();
@@ -297,6 +307,7 @@ namespace CatenersServer
 
                     currentLobby.removeAll();
                     Data.INSTANCE.Lobbies.Remove(currentLobby);
+                    
                 }
                 else
                 {
