@@ -56,11 +56,13 @@ namespace Cataners
         private Entity settlement;
         private int placementNumber;
         public Boolean canAddComponent;
+        public bool isSettlement;
         public SettlementHolder(Entity settlement, int placementNumber)
         {
             this.settlement = settlement;
             this.placementNumber = placementNumber;
             this.canAddComponent = true;
+            this.isSettlement = false;
         }
         public virtual int getPlacementNumber()
         {
@@ -305,7 +307,17 @@ namespace Cataners
         {
             string name = this.settlementList[int.Parse(array[0])].getName();
             string username = array[1];
-            MyScene.Instance.setAsPurchasedSettle(name, username);
+            int settlementNum = int.Parse(array[0]);
+            if (this.settlementList[int.Parse(array[0])].isSettlement)
+            {
+                MyScene.Instance.setAsPurchasedCity(name, username);
+            }
+            else
+            {
+                MyScene.Instance.setAsPurchasedSettle(name, username);
+                this.settlementList[int.Parse(array[0])].isSettlement = true;
+            }
+
         }
 
         public void setAsPurchasedRoad(string[] array)

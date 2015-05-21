@@ -647,10 +647,8 @@ namespace Cataners
             // This method is called after the CreateScene and Initialize methods and before the first Update.
         }
 
-        public void setAsPurchasedSettle(string name, string username)
+        public void setAsPurchasedSettle(string name,string username)
         {
-            if (!Data.wasSettled)
-            {
                 Entity current = this.EntityManager.Find(name);
                 current.RemoveComponent<Sprite>();
                 current.RemoveComponent<SpriteRenderer>();
@@ -663,10 +661,11 @@ namespace Cataners
                 }
                 current.AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
                 Data.wasSettled = true;
-            }
-            else
-            {
-                Entity current = this.EntityManager.Find(name);
+        }
+
+        public void setAsPurchasedCity(String name, String username)
+        {
+            Entity current = this.EntityManager.Find(name);
                 current.RemoveComponent<Sprite>();
                 current.RemoveComponent<SpriteRenderer>();
                 foreach (GamePlayer player in Data.currentGameLobby.gamePlayers)
@@ -678,7 +677,6 @@ namespace Cataners
                 }
                 current.AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
                 Data.wasSettled = true;
-            }
         }
 
         public void setAsPurchasedRoad(string name, string username)
