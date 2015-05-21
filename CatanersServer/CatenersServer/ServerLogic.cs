@@ -392,10 +392,10 @@ namespace CatenersServer
         {
             if (!dieRolled)
             {
-                ((ServerPlayer)lobby.Players[playerTurn]).client.sendToClient(new Message("", Translation.TYPE.DiceRoll).toJson());
+                ((ServerPlayer)lobby.Players[playerTurn]).client.processesMessage(new Message("", Translation.TYPE.DiceRoll).toJson());
             }
 
-            ((ServerPlayer)lobby.Players[playerTurn]).client.sendToClient(new Message("", Translation.TYPE.EndTurn).toJson());
+            ((ServerPlayer)lobby.Players[playerTurn]).client.processesMessage(new Message("", Translation.TYPE.EndTurn).toJson());
         }
 
         public Lobby getLobby()
