@@ -428,6 +428,12 @@ namespace CatenersServer
                 player.client.sendToClient(new Message(pop.toJson(), Translation.TYPE.PopUpMessage).toJson());
                 return;
             }
+            else if (!serverLogic.canRegen && (serverLogic.isStartPhase1 || serverLogic.isStartPhase2) && !(serverLogic.usedRoad && serverLogic.usedSettlement))
+            {
+                PopUpMessage startCorrectly = new PopUpMessage("Settlement and Road", "Please choose a settlement and road before you end your turn", PopUpMessage.TYPE.Notification);
+                player.client.sendToClient(new Message(startCorrectly.toJson(), Translation.TYPE.PopUpMessage).toJson());
+                return;
+            }
             serverLogic.updateTurn(this.player);
 
             EndTurn.Phase phase = EndTurn.Phase.GamePhase;
