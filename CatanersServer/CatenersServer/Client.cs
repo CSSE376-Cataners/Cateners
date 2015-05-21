@@ -29,6 +29,8 @@ namespace CatenersServer
         public ServerLogic serverLogic;
         public GameLobby gameLobby;
 
+        private String sIP;
+
         public Client(TcpClient tcp)
         {
             this.socket = tcp;
@@ -39,6 +41,7 @@ namespace CatenersServer
             userName = null;
             currentLobby = null;
             this.player = new ServerPlayer(userName, this);
+            sIP = ((System.Net.IPEndPoint)socket.Client.RemoteEndPoint).Address.ToString();
         }
 
         public Client()
@@ -72,13 +75,12 @@ namespace CatenersServer
                 {
                     // Client caused exception just disconnect.
                     this.reader.Close();
-                    this.writer.Close();
                     this.socket.Close();
                     break;
                 }
             }
             leaveLobby();
-            Console.WriteLine("Client Closed: " + ((System.Net.IPEndPoint)socket.Client.RemoteEndPoint).Address.ToString());
+            Console.WriteLine("Client Closed: " + sIP);
         }
 
         public virtual void sendToClient(String msg)
