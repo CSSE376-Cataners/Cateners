@@ -17,6 +17,7 @@ namespace CatenersServer
         private int settleCount;
         private int roadCount;
         private ServerLogic currServerLogic;
+        public List<int> maxList;
 
         public PlayerKeeper(string username, ServerLogic currServer)
         {
@@ -46,14 +47,63 @@ namespace CatenersServer
 
         public void addToRoads(int x, int[] neighbors)
         {
-            bool longestRoadChanged = false;
             this.ownedRoads.Add(x);
-            this.roadCount += 1;
-            RoadPath tempPath = new RoadPath(x);
-            RoadPath newPath = tempPath;
-            this.ownedPaths.Add(tempPath);
-            ArrayList toAdd = new ArrayList();
-            for (int p = 0; p < this.ownedPaths.Count; p++ )
+            List<int> max = new List<int>();
+            foreach (int z in this.ownedRoads)
+            {
+                List<int> newList = new List<int>();
+                List<int> tempPath = findLongestPath(newList, z);
+                if (tempPath.Count > max.Count)
+                {
+                    max = tempPath;
+                }
+            }
+            if (this.currServerLogic.LongestRoadCount < max.Count)
+            {
+                this.currServerLogic.LongestRoadCount = max.Count;
+                this.currServerLogic.UserWithLongestRoad = this.username;
+            }
+            this.maxList = max;
+        }
+
+        public List<int> findLongestPath(List<int> inputArray, int x)
+        {
+            if (inputArray.Contains(x) || !this.ownedRoads.Contains(x))
+            {
+                return inputArray;
+            }
+
+            int lastRoad = -1;
+            if (inputArray.Count > 1)
+            {
+                lastRoad = inputArray[inputArray.Count - 1];
+            }
+            List<int> max = new List<int>();
+            foreach (int settle in this.currServerLogic.roadSettlementDict[x])
+            {
+                if (!this.currServerLogic.settlementRoadDict[settle].Contains(lastRoad))
+                {
+                    foreach (int z in this.currServerLogic.settlementRoadDict[settle])
+                    {
+                        List<int> newList = new List<int>(inputArray);
+                        newList.Add(x);
+                        List<int> tempPath = findLongestPath(newList, z);
+                        if (tempPath.Count > max.Count)
+                        {
+                            max = tempPath;
+                        }
+                    }
+                }
+            }
+            
+            return max;
+        }
+
+        public RoadPath looper(RoadPath initialTempPath)
+        {
+            RoadPath tempPath = initialTempPath;
+            RoadPath potentialPath = initialTempPath;
+            for (int p = 0; p < this.ownedPaths.Count; p++)
             {
                 RoadPath path2 = (RoadPath)this.ownedPaths[p];
                 if (!tempPath.Equals(path2))
@@ -71,51 +121,52 @@ namespace CatenersServer
                     int[] tPFNeighbors = allRoads[tempPathFront].getNeighbors();
                     int tempPathBack = tempPathIDs[0];
                     int[] tPBNeighbors = allRoads[tempPathBack].getNeighbors();
-                    if (p2FNeighbors.Contains(tempPathBack) && this.checkTheNeighbors(tPBNeighbors, p2FNeighbors, path2Front, tempPathFront, path2IDs))
+                    if (p2FNeighbors.Contains(tempPathBack) && this.checkTheNeighbors(tPBNeighbors, p2FNeighbors, path2Front, tempPathBack, path2IDs))
                     {
-                        newPath = new RoadPath(path2.joinFrontBack(tempPath));
-                        toAdd.Add(newPath);
-                        if (this.currServerLogic.LongestRoadCount < newPath.getRoadIDs().Length)
+                        int[] temporary = path2.joinFrontBack(tempPath);
+                        if (temporary.Length > potentialPath.getRoadIDs().Length)
                         {
-                            this.currServerLogic.UserWithLongestRoad = this.username;
-                            this.currServerLogic.LongestRoadCount = newPath.getRoadIDs().Length;
-                            tempPath.sameLength = false;
-                            longestRoadChanged = true;
+                            potentialPath = new RoadPath(temporary);
                         }
                     }
                 }
             }
-            ArrayList toAdd2 = new ArrayList();
-            if (toAdd.Count > 0)
+            return potentialPath;
+        }
+
+        public RoadPath looper2(RoadPath initialTempPath)
+        {
+            RoadPath tempPath = initialTempPath;
+            RoadPath potentialPath = initialTempPath;
+            for (int p = 0; p < this.ownedPaths.Count; p++)
             {
-                for (int k = 0; k < toAdd.Count; k++)
+                RoadPath path2 = (RoadPath)this.ownedPaths[p];
+                if (!tempPath.Equals(path2))
                 {
-                   RoadPath finPath1 = (RoadPath) toAdd[k];
-                    for (int z = 0; z < toAdd.Count; z++)
+                    RoadServer[] allRoads = this.currServerLogic.getRoadList();
+                    int[] path2IDs = path2.getRoadIDs();
+                    int path2Length = path2IDs.Length;
+                    int path2Front = path2IDs[path2Length - 1];
+                    int[] p2FNeighbors = allRoads[path2Front].getNeighbors();
+                    int path2Back = path2IDs[0];
+                    int[] p2BNeighbors = allRoads[path2Back].getNeighbors();
+                    int[] tempPathIDs = tempPath.getRoadIDs();
+                    int tempPathLength = tempPathIDs.Length;
+                    int tempPathFront = tempPathIDs[tempPathLength - 1];
+                    int[] tPFNeighbors = allRoads[tempPathFront].getNeighbors();
+                    int tempPathBack = tempPathIDs[0];
+                    int[] tPBNeighbors = allRoads[tempPathBack].getNeighbors();
+                    if (p2BNeighbors.Contains(tempPathFront) && this.checkTheNeighbors(tPFNeighbors, p2BNeighbors, path2Back, tempPathFront, path2IDs))
                     {
-                        RoadPath finPath2 = (RoadPath)toAdd[z];
-                        if (finPath1!=finPath2 && !this.currServerLogic.getRoadList()[finPath1.getRoadIDs()[finPath1.getRoadIDs().Length - 2]].getNeighbors().Contains(finPath2.getRoadIDs()[finPath2.getRoadIDs().Length - 2]))
+                        int[] temporary = path2.joinBackFront(tempPath);
+                        if (temporary.Length > potentialPath.getRoadIDs().Length)
                         {
-                            RoadPath newPath2 = new RoadPath(finPath1.merge(finPath2));
-                            toAdd2.Add(newPath2);
-                            if (this.currServerLogic.LongestRoadCount < newPath2.getRoadIDs().Length)
-                            {
-                                this.currServerLogic.UserWithLongestRoad = this.username;
-                                this.currServerLogic.LongestRoadCount = newPath2.getRoadIDs().Length;
-                                tempPath.sameLength = false;
-                                longestRoadChanged = true;
-                            }
+                            potentialPath = new RoadPath(temporary);
                         }
                     }
                 }
             }
-            this.ownedPaths.AddRange(toAdd);
-            this.ownedPaths.AddRange(toAdd2);
-            if (longestRoadChanged)
-            {
-                ServerPlayer player = (ServerPlayer)this.currServerLogic.getLobby().Players[0];
-                player.client.sendToLobby(new Message(new PopUpMessage("There's a New Longest Road!", "The player with the new Longest Road is: " + this.username, PopUpMessage.TYPE.Notification).toJson(), Translation.TYPE.PopUpMessage).toJson());
-            }
+            return potentialPath;
         }
 
         public bool checkTheNeighbors(int[] neighbors1, int[] neighbors2, int node1, int node2, int[] backHalf)

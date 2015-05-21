@@ -28,9 +28,9 @@ namespace CatenersServer
         private Dictionary<int, int[]> neighborDict = new Dictionary<int, int[]>();
         private Dictionary<int, int[]> roadDict = new Dictionary<int, int[]>();
         private Dictionary<int, int[]> roadNeighborDict = new Dictionary<int, int[]>();
-        private Dictionary<int, int[]> roadSettlementDict = new Dictionary<int, int[]>();
+        public Dictionary<int, int[]> roadSettlementDict = new Dictionary<int, int[]>();
         public Dictionary<string, PlayerKeeper> playerKeepers = new Dictionary<string, PlayerKeeper>();
-        private Dictionary<int, int[]> settlementRoadDict = new Dictionary<int, int[]>();
+        public Dictionary<int, int[]> settlementRoadDict = new Dictionary<int, int[]>();
         public bool isStartPhase1;
         public bool isStartPhase2;
         public bool usedRoad;
