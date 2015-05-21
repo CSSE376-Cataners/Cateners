@@ -20,5 +20,7 @@ namespace Cataners
         public static bool isMyTurn;
         public static bool wasSettled;
         public static bool gameStarted = false;
+
+        public static int[][] tempHexArray;
     }
 }

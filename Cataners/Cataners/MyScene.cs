@@ -89,6 +89,50 @@ namespace Cataners
             MyScene.addEndTurnButton();
             MyScene.addBuyDevCardButton();
             this.addBuildingCostCard();
+
+            LocalConversion.Instance.generateHexList(Data.tempHexArray);
+            LocalConversion.Instance.drawHexes();
+
+
+            lock (toAdd)
+            {
+                lock (toAddDecor)
+                {
+                    lock (EntityManager)
+                    {
+                        for (int i = 0; i < MyScene.toAdd.Count; i++)
+                        {
+                            Entity temp = EntityManager.Find(MyScene.toAdd[i].Name);
+                            if (temp != null)
+                            {
+                                EntityManager.Remove(temp);
+                            }
+                            EntityManager.Add(MyScene.toAdd[i]);
+                        }
+                        MyScene.toAdd.Clear();
+                        for (int l = 0; l < MyScene.toAddDecor.Count; l++)
+                        {
+                            BaseDecorator temp = EntityManager.Find<BaseDecorator>(MyScene.toAddDecor[l].Name);
+                            if (temp == null)
+                            {
+                                Entity temp2 = EntityManager.Find(MyScene.toAddDecor[l].Name);
+                                if (temp2 != null)
+                                    EntityManager.Remove(temp2);
+                            }
+                            else
+                            {
+                                try
+                                {
+                                    EntityManager.Remove(temp);
+                                }
+                                catch (NullReferenceException) { }
+                            }
+                            EntityManager.Add(MyScene.toAddDecor[l]);
+                        }
+                        MyScene.toAddDecor.Clear();
+                    }
+                }
+            }
         }
 
         public static void addChatButton()

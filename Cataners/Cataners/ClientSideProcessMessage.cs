@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CatanersShared;
 using System.Windows;
+using System.Threading;
 
 namespace Cataners
 {
@@ -76,10 +77,12 @@ namespace Cataners
             LobbyForm.INSTANCE.InvokedClose(true);
             MainGui.INSTANCE.invokedHide();
             TradeForm trade = new TradeForm();
-            LocalConversion.Instance.generateHexList(Translation.jsonToIntArrayTwo(msg.message));
-            LocalConversion.Instance.drawHexes();
             sendToServer(new CatanersShared.Message("", Translation.TYPE.GetGameLobby).toJson());
-            Program.Main();
+
+            Data.tempHexArray = Translation.jsonToIntArrayTwo(msg.message);
+            Thread thread = new Thread(Program.Main);
+            thread.Start();
+            //Program.Main();
         }
 
         public void PM_addResource(Message msg)
