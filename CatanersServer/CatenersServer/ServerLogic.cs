@@ -920,8 +920,15 @@ namespace CatenersServer
                 if (lastLargestArmyPlayer == null)
                 {
                     PopUpMessage popup = new PopUpMessage("Largest Army", user.Username + " has the largest army with " + player.developmentCards[Translation.DevelopmentType.Knight] + " knights", PopUpMessage.TYPE.Notification);
+                    player.victoryPoints += 2;
                     user.client.sendToLobby(new Message(popup.toJson(), Translation.TYPE.PopUpMessage).toJson());
                     lastLargestArmyPlayer = user;
+                    if (checkWinCondition(player))
+                    {
+                        PopUpMessage winpopup = new PopUpMessage("WIN!", player.Username + " has won the game with " + player.victoryPoints + " Victory Points", PopUpMessage.TYPE.Notification);
+                        ((ServerPlayer)lobby.Players[0]).client.sendToLobby(new Message(winpopup.toJson(), Translation.TYPE.PopUpMessage).toJson());
+                        ((ServerPlayer)lobby.Players[0]).client.leaveLobby();
+                    }
                 }
                 else
                 {
@@ -936,9 +943,17 @@ namespace CatenersServer
 
                     if (player.developmentCards[Translation.DevelopmentType.Knight] > largestArmyMan.developmentCards[Translation.DevelopmentType.Knight])
                     {
+                        largestArmyMan.victoryPoints -= 2;
+                        player.victoryPoints += 2;
                         PopUpMessage popup = new PopUpMessage("Largest Army", user.Username + " has the largest army with " + player.developmentCards[Translation.DevelopmentType.Knight] + " knights", PopUpMessage.TYPE.Notification);
                         user.client.sendToLobby(new Message(popup.toJson(), Translation.TYPE.PopUpMessage).toJson());
                         lastLargestArmyPlayer = user;
+                        if (checkWinCondition(player))
+                        {
+                            PopUpMessage winpopup = new PopUpMessage("WIN!", player.Username + " has won the game with " + player.victoryPoints + " Victory Points", PopUpMessage.TYPE.Notification);
+                            ((ServerPlayer)lobby.Players[0]).client.sendToLobby(new Message(winpopup.toJson(), Translation.TYPE.PopUpMessage).toJson());
+                            ((ServerPlayer)lobby.Players[0]).client.leaveLobby();
+                        }
                     }
                 }
             }
