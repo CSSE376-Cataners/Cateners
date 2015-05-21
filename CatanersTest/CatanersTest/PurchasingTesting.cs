@@ -571,5 +571,22 @@ namespace CatanersTest
             Console.WriteLine(String.Join(",", testedPath.getRoadIDs()));
             Assert.AreEqual(14, testLogic.LongestRoadCount);
         }
+
+        [Test]
+        public void testLongestRoadMiddleCase()
+        {
+            ServerLogic testLogic = new ServerLogic(this.newLobby);
+            testLogic.canRegen = false;
+            GamePlayer player = testLogic.gameLobby.gamePlayers[1];
+            RoadPath newPath = new RoadPath(3);
+            testLogic.setRoadActivity(14, "Stentopher");
+            testLogic.setRoadActivity(28, "Stentopher");
+            testLogic.setRoadActivity(20, "Stentopher");
+            testLogic.setRoadActivity(8, "Stentopher");
+            RoadPath testedPath = testLogic.setRoadActivity(15, "Stentopher");
+            Console.WriteLine(String.Join(",", testedPath.getRoadIDs()));
+            Assert.AreEqual(4, testLogic.LongestRoadCount);
+            Assert.AreEqual("noone", testLogic.UserWithLongestRoad);
+        }
     }
 }
