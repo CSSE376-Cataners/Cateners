@@ -98,6 +98,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="ChangeServerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChangeServerForm.Designer.cs">
+      <DependentUpon>ChangeServerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ChatBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -162,6 +168,9 @@
       <DependentUpon>TradeForm.cs</DependentUpon>
     </Compile>
     <Compile Include="WaveConstants.cs" />
+    <EmbeddedResource Include="ChangeServerForm.resx">
+      <DependentUpon>ChangeServerForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ChatBox.resx">
       <DependentUpon>ChatBox.cs</DependentUpon>
     </EmbeddedResource>

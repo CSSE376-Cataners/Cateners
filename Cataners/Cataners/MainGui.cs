@@ -153,5 +153,11 @@ namespace Cataners
             }
         }
 
+        private void changeServerButton_Click(object sender, EventArgs e)
+        {
+            ChangeServerForm serverChange = new ChangeServerForm();
+            serverChange.ShowDialog();
+        }
+
     }
 }
