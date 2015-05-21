@@ -14,6 +14,7 @@ namespace CatenersServer
         private int back;
         private int size;
         public bool wasChanged;
+        public bool sameLength;
         public RoadPath(int starter)
         {
             this.front = starter;
@@ -22,6 +23,7 @@ namespace CatenersServer
             this.roadIDs[0] = starter;
             this.size = 1;
             this.wasChanged = false;
+            this.sameLength = false;
         }
 
         public RoadPath(int[] inRID)
@@ -31,6 +33,7 @@ namespace CatenersServer
             this.roadIDs = inRID;
             this.size = inRID.Length;
             this.wasChanged = false;
+            this.sameLength = false;
         }
 
         public int getFront()
@@ -94,6 +97,10 @@ namespace CatenersServer
             {
                 finalArray[k] = newArray[k - this.size];
             }
+            if (finalArray.Length == this.roadIDs.Length)
+            {
+                this.sameLength = true;
+            }
             return finalArray;
         }
 
@@ -119,6 +126,10 @@ namespace CatenersServer
             for (int k = this.size; k < this.size + count; k++)
             {
                 finalArray[k] = newArray[k - this.size];
+            }
+            if (finalArray.Length == this.roadIDs.Length)
+            {
+                this.sameLength = true;
             }
             return finalArray;
         }
@@ -146,6 +157,10 @@ namespace CatenersServer
             {
                 finalArray[k] = this.roadIDs[k - count];
             }
+            if (finalArray.Length == this.roadIDs.Length)
+            {
+                this.sameLength = true;
+            }
             return finalArray;
         }
 
@@ -172,7 +187,40 @@ namespace CatenersServer
             {
                 finalArray[k] = this.roadIDs[k - count];
             }
+            if (finalArray.Length == this.roadIDs.Length)
+            {
+                this.sameLength = true;
+            }
             return finalArray;
+        }
+
+        public int[] merge(RoadPath inputPath)
+        {
+            int[] inputPathIDs = inputPath.getRoadIDs();
+            int inputLength = inputPathIDs.Length;
+            int[] tempArray = new int[inputLength];
+            int count = 0;
+            for (int i = inputLength - 2; i >= 0; i--)
+            {
+                if (this.roadIDs.Contains(inputPathIDs[i]))
+                {
+                    break;
+                }
+                tempArray[count] = inputPathIDs[i];
+                count++;
+            }
+            int totalLength = this.roadIDs.Length + count;
+            int[] finArray = new int[totalLength];
+            for (int k = 0; k < this.roadIDs.Length; k++)
+            {
+                finArray[k] = this.roadIDs[k];
+            }
+            for (int z = 0; z < count; z++)
+            {
+                finArray[z + this.roadIDs.Length] = tempArray[z];
+            }
+
+            return finArray;
         }
 
         public void addToFront(int x)

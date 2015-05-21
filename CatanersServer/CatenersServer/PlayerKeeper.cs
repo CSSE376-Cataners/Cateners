@@ -39,111 +39,103 @@ namespace CatenersServer
             return this.settleCount;
         }
 
-        public RoadPath addToRoads(int x, int[] neighbors)
+        public ArrayList getRoadPaths()
+        {
+            return this.ownedPaths;
+        }
+
+        public void addToRoads(int x, int[] neighbors)
         {
             bool longestRoadChanged = false;
             this.ownedRoads.Add(x);
             this.roadCount += 1;
-            RoadPath currPath = new RoadPath(x);
+            RoadPath tempPath = new RoadPath(x);
+            RoadPath newPath = tempPath;
+            this.ownedPaths.Add(tempPath);
             ArrayList toAdd = new ArrayList();
-            if (this.ownedPaths.Count > 0)
+            for (int p = 0; p < this.ownedPaths.Count; p++ )
             {
-                foreach (RoadPath path in this.ownedPaths)
+                RoadPath path2 = (RoadPath)this.ownedPaths[p];
+                if (!tempPath.Equals(path2))
                 {
-                    RoadPath gennedPath = path.generateNewPath(x, neighbors);
-                    if (!gennedPath.Equals(path))
+                    RoadServer[] allRoads = this.currServerLogic.getRoadList();
+                    int[] path2IDs = path2.getRoadIDs();
+                    int path2Length = path2IDs.Length;
+                    int path2Front = path2IDs[path2Length - 1];
+                    int[] p2FNeighbors = allRoads[path2Front].getNeighbors();
+                    int path2Back = path2IDs[0];
+                    int[] p2BNeighbors = allRoads[path2Back].getNeighbors();
+                    int[] tempPathIDs = tempPath.getRoadIDs();
+                    int tempPathLength = tempPathIDs.Length;
+                    int tempPathFront = tempPathIDs[tempPathLength - 1];
+                    int[] tPFNeighbors = allRoads[tempPathFront].getNeighbors();
+                    int tempPathBack = tempPathIDs[0];
+                    int[] tPBNeighbors = allRoads[tempPathBack].getNeighbors();
+                    if (p2FNeighbors.Contains(tempPathBack) && this.checkTheNeighbors(tPBNeighbors, p2FNeighbors, path2Front, tempPathFront, path2IDs))
                     {
-                        currPath = gennedPath;
-                        toAdd.Add(currPath);
-                        break;
-                    }
-                    else
-                    {
-                        if (gennedPath.wasChanged)
+                        newPath = new RoadPath(path2.joinFrontBack(tempPath));
+                        toAdd.Add(newPath);
+                        if (this.currServerLogic.LongestRoadCount < newPath.getRoadIDs().Length)
                         {
-                            currPath = gennedPath;
-                            gennedPath.wasChanged = false;
-                            break;
+                            this.currServerLogic.UserWithLongestRoad = this.username;
+                            this.currServerLogic.LongestRoadCount = newPath.getRoadIDs().Length;
+                            tempPath.sameLength = false;
+                            longestRoadChanged = true;
                         }
                     }
                 }
             }
-            if (!currPath.wasChanged)
-            {
-                this.ownedPaths.Add(currPath);
-            }
-            currPath.wasChanged = false;
-            this.ownedPaths.AddRange(toAdd);
             ArrayList toAdd2 = new ArrayList();
-            foreach (RoadPath tempPath in this.ownedPaths)
+            if (toAdd.Count > 0)
             {
-                foreach (RoadPath path2 in this.ownedPaths)
+                for (int k = 0; k < toAdd.Count; k++)
                 {
-                    if ((!tempPath.Equals(path2) && ((tempPath.getRoadIDs().Length < 2) || (path2.getRoadIDs().Length < 2))) || (!tempPath.Equals(path2) && tempPath.getRoadIDs()[tempPath.getRoadIDs().Length - 2] != path2.getRoadIDs()[path2.getRoadIDs().Length - 2] && tempPath.getRoadIDs()[0] != path2.getRoadIDs()[path2.getRoadIDs().Length - 2] && tempPath.getRoadIDs()[tempPath.getRoadIDs().Length - 2] != path2.getRoadIDs()[0] && tempPath.getRoadIDs()[0] != path2.getRoadIDs()[0] && tempPath.getRoadIDs()[1] != path2.getRoadIDs()[1] && tempPath.getRoadIDs()[tempPath.getRoadIDs().Length - 2] != path2.getRoadIDs()[1] && tempPath.getRoadIDs()[1] != path2.getRoadIDs()[path2.getRoadIDs().Length - 2] && tempPath.getRoadIDs()[tempPath.getRoadIDs().Length - 1] != path2.getRoadIDs()[tempPath.getRoadIDs().Length - 1] && tempPath.getRoadIDs()[tempPath.getRoadIDs().Length - 1] != path2.getRoadIDs()[1] && tempPath.getRoadIDs()[1] != path2.getRoadIDs()[path2.getRoadIDs().Length - 1] && tempPath.getRoadIDs()[tempPath.getRoadIDs().Length - 1] != path2.getRoadIDs()[0] && tempPath.getRoadIDs()[0] != path2.getRoadIDs()[path2.getRoadIDs().Length - 1]))
+                   RoadPath finPath1 = (RoadPath) toAdd[k];
+                    for (int z = 0; z < toAdd.Count; z++)
                     {
-                        if (this.currServerLogic.getRoadList()[tempPath.getFront()].getNeighbors().Contains(path2.getFront()))
+                        RoadPath finPath2 = (RoadPath)toAdd[z];
+                        if (finPath1!=finPath2 && !this.currServerLogic.getRoadList()[finPath1.getRoadIDs()[finPath1.getRoadIDs().Length - 2]].getNeighbors().Contains(finPath2.getRoadIDs()[finPath2.getRoadIDs().Length - 2]))
                         {
-                            RoadPath newPath = new RoadPath(tempPath.joinFrontFront(path2));
-                            if (this.currServerLogic.LongestRoadCount < newPath.getRoadIDs().Length)
+                            RoadPath newPath2 = new RoadPath(finPath1.merge(finPath2));
+                            toAdd2.Add(newPath2);
+                            if (this.currServerLogic.LongestRoadCount < newPath2.getRoadIDs().Length)
                             {
                                 this.currServerLogic.UserWithLongestRoad = this.username;
-                                this.currServerLogic.LongestRoadCount = newPath.getRoadIDs().Length;
-                                toAdd2.Add(newPath);
-                                longestRoadChanged = true;
-                            }
-                        }
-                        else if (this.currServerLogic.getRoadList()[tempPath.getFront()].getNeighbors().Contains(path2.getBack()))
-                        {
-                            RoadPath newPath = new RoadPath(tempPath.joinFrontBack(path2));
-                            if (this.currServerLogic.LongestRoadCount < newPath.getRoadIDs().Length)
-                            {
-                                this.currServerLogic.UserWithLongestRoad = this.username;
-                                this.currServerLogic.LongestRoadCount = newPath.getRoadIDs().Length;
-                                toAdd2.Add(newPath);
-                                longestRoadChanged = true;
-                            }
-                        }
-                        else if (this.currServerLogic.getRoadList()[tempPath.getBack()].getNeighbors().Contains(path2.getFront()))
-                        {
-                            RoadPath newPath = new RoadPath(tempPath.joinBackFront(path2));
-                            if (this.currServerLogic.LongestRoadCount < newPath.getRoadIDs().Length)
-                            {
-                                this.currServerLogic.UserWithLongestRoad = this.username;
-                                this.currServerLogic.LongestRoadCount = newPath.getRoadIDs().Length;
-                                toAdd2.Add(newPath);
-                                longestRoadChanged = true;
-                            }
-                        }
-                        else if (this.currServerLogic.getRoadList()[tempPath.getBack()].getNeighbors().Contains(path2.getBack()) && tempPath.getRoadIDs()[1] != path2.getRoadIDs()[1])
-                        {
-                            RoadPath newPath = new RoadPath(tempPath.joinBackBack(path2));
-                            if (this.currServerLogic.LongestRoadCount < newPath.getRoadIDs().Length)
-                            {
-                                this.currServerLogic.UserWithLongestRoad = this.username;
-                                this.currServerLogic.LongestRoadCount = newPath.getRoadIDs().Length;
-                                toAdd2.Add(newPath);
+                                this.currServerLogic.LongestRoadCount = newPath2.getRoadIDs().Length;
+                                tempPath.sameLength = false;
                                 longestRoadChanged = true;
                             }
                         }
                     }
                 }
             }
-            if (this.currServerLogic.LongestRoadCount < currPath.getSize())
-            {
-                this.currServerLogic.UserWithLongestRoad = this.username;
-                this.currServerLogic.LongestRoadCount = currPath.getSize();
-                longestRoadChanged = true;
-            }
+            this.ownedPaths.AddRange(toAdd);
             this.ownedPaths.AddRange(toAdd2);
             if (longestRoadChanged)
             {
                 ServerPlayer player = (ServerPlayer)this.currServerLogic.getLobby().Players[0];
                 player.client.sendToLobby(new Message(new PopUpMessage("There's a New Longest Road!", "The player with the new Longest Road is: " + this.username, PopUpMessage.TYPE.Notification).toJson(), Translation.TYPE.PopUpMessage).toJson());
             }
-            return currPath;
         }
 
-        //this.currServerLogic.getRoadList()[currPath.getFront()].getNeighbors().Contains(path2.getBack())
+        public bool checkTheNeighbors(int[] neighbors1, int[] neighbors2, int node1, int node2, int[] backHalf)
+        {
+            int shared = -1;
+            foreach (int N1 in neighbors1)
+            {
+                if (neighbors2.Contains(N1))
+                {
+                    shared = N1;
+                }
+            }
+            if (backHalf.Contains(shared))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        //this.currServerLogic.getRoadList()[currPath.getFront()].getNeighbors().Contains(path2.getRoadIDs()[path2.getRoadIDs().Length - 1])
 
         public void addToSettlements(int x)
         {

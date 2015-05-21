@@ -599,10 +599,10 @@ namespace CatenersServer
             this.playerKeepers[username].addToSettlements(index);
         }
 
-        public RoadPath setRoadActivity(int index, string username)
+        public void setRoadActivity(int index, string username)
         {
             this.roadArray[index].setActive();
-            return this.playerKeepers[username].addToRoads(index, this.roadArray[index].getNeighbors());
+            this.playerKeepers[username].addToRoads(index, this.roadArray[index].getNeighbors());
 
         }
 
