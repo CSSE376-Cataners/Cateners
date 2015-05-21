@@ -98,6 +98,7 @@ namespace CatanersTest
         public void testThatboardHexesAreMade()
         {
             ServerLogic logic = new ServerLogic(new Lobby("Basketball", 100, new Player("Michael Jordan"), 10));
+            logic.regenerateBoardAndGetStringRepresentation();
             int[][] board = logic.gethexArray();
             for (int i = 0; i < 19; i++)
             {
@@ -113,6 +114,7 @@ namespace CatanersTest
         {
             Player player = new Player("IDK Who I am");
             ServerLogic logic = new ServerLogic(new Lobby("Basketball", 100, player, 10));
+            logic.regenerateBoardAndGetStringRepresentation();
 
             foreach (Resource.TYPE t in Enum.GetValues(typeof(Resource.TYPE)))
             {
@@ -132,6 +134,7 @@ namespace CatanersTest
         {
             Player player = new Player("IDK Who I am");
             ServerLogic logic = new ServerLogic(new Lobby("Basketball", 100, player, 10));
+            logic.regenerateBoardAndGetStringRepresentation();
 
             int oldBrick = logic.gameLobby.gamePlayers[0].resources[Resource.TYPE.Brick];
             
@@ -197,6 +200,7 @@ namespace CatanersTest
             lobby.addPlayer(new Player("p2"));
             lobby.addPlayer(new Player("p3"));
             ServerLogic logic = new ServerLogic(lobby);
+            logic.regenerateBoardAndGetStringRepresentation();
             logic.canRegen = false;
             logic.isStartPhase1 = true;
             logic.determineSettlementAvailability(p0.Username,1);
@@ -212,6 +216,7 @@ namespace CatanersTest
             lobby.addPlayer(new Player("p2"));
             lobby.addPlayer(new Player("p3"));
             ServerLogic logic = new ServerLogic(lobby);
+            logic.regenerateBoardAndGetStringRepresentation();
             logic.isStartPhase1 = false;
             logic.isStartPhase2 = false;
             logic.canRegen = false;
@@ -260,6 +265,7 @@ namespace CatanersTest
 
             Lobby lobby = new Lobby("Basketball", 100, sp0, 10);
             ServerLogic logic = new ServerLogic(lobby);
+            logic.regenerateBoardAndGetStringRepresentation();
             logic.canRegen = false;
             GameLobby glob = logic.gameLobby;
             client0.currentLobby = glob;
@@ -296,6 +302,7 @@ namespace CatanersTest
 
             Lobby lobby = new Lobby("Basketball", 100, sp0, 10);
             ServerLogic logic = new ServerLogic(lobby);
+            logic.regenerateBoardAndGetStringRepresentation();
             GameLobby glob = logic.gameLobby;
             client0.currentLobby = glob;
 
@@ -358,6 +365,7 @@ namespace CatanersTest
             lob.Players.Add(sp4);
 
             ServerLogic logic = new ServerLogic(lob);
+            logic.regenerateBoardAndGetStringRepresentation();
             GameLobby gLob = logic.gameLobby;
 
             client1.serverLogic = logic;
@@ -493,6 +501,7 @@ namespace CatanersTest
             #endregion
             // Should Run
             logic.canRegen = false;
+            logic.regenerateBoardAndGetStringRepresentation();
 
             logic.determineSettlementAvailability(client1.userName, 10);
             int temp = logic.gameLobby.gamePlayers[0].resourceCount;
