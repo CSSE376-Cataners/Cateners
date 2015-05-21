@@ -40,7 +40,7 @@ namespace CatenersServer
         public int freeRoads;
         public ServerPlayer lastLargestArmyPlayer;
         public int LongestRoadCount = 4;
-        public string UserWithLongestRoad = "noone";
+        public GamePlayer UserWithLongestRoad = new GamePlayer("noone");
         public bool dieRolled;
 
         public Timer turnTimer;
@@ -370,7 +370,7 @@ namespace CatenersServer
             gameLobby = new GameLobby(lobby);
             foreach (GamePlayer player in this.gameLobby.gamePlayers)
             {
-                this.playerKeepers.Add(player.Username, new PlayerKeeper(player.Username, this));
+                this.playerKeepers.Add(player, new PlayerKeeper(player.Username, this));
             }
 
             developmentDeck = new List<Translation.DevelopmentType>();

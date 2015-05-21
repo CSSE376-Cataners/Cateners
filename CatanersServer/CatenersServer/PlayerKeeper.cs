@@ -18,10 +18,11 @@ namespace CatenersServer
         private int roadCount;
         private ServerLogic currServerLogic;
         public List<int> maxList;
+        public GamePlayer player;
 
-        public PlayerKeeper(string username, ServerLogic currServer)
+        public PlayerKeeper(GamePlayer player, ServerLogic currServer)
         {
-            this.username = username;
+            this.player = player;
             this.ownedRoads = new ArrayList();
             this.ownedSettlements = new ArrayList();
             this.settleCount = 0;
@@ -61,7 +62,12 @@ namespace CatenersServer
             if (this.currServerLogic.LongestRoadCount < max.Count)
             {
                 this.currServerLogic.LongestRoadCount = max.Count;
-                this.currServerLogic.UserWithLongestRoad = this.username;
+                this.currServerLogic.UserWithLongestRoad.victoryPoints -= 2;
+                this.currServerLogic.UserWithLongestRoad = this.player;
+                this.player.victoryPoints += 2;
+                ServerPlayer player = (ServerPlayer)this.currServerLogic.getLobby().Players[0];
+                player.client.sendToLobby(new Message(new PopUpMessage("There's a New Longest Road!", "The player with the new Longest Road is: " + this.username, PopUpMessage.TYPE.Notification).toJson(), Translation.TYPE.PopUpMessage).toJson());
+                this.currServerLogic.checkWinCondition(this.player);
             }
             this.maxList = max;
         }
