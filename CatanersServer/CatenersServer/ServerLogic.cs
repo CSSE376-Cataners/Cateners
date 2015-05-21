@@ -9,6 +9,7 @@ using WaveEngine.Framework;
 using WaveEngine.Components.Graphics2D;
 using WaveEngine.Framework.Graphics;
 using CatanersShared;
+using System.Timers;
 
 namespace CatenersServer
 {
@@ -41,6 +42,8 @@ namespace CatenersServer
         public int LongestRoadCount = 4;
         public string UserWithLongestRoad = "noone";
         public bool dieRolled;
+
+        Timer turnTimer;
 
         public List<Translation.DevelopmentType> developmentDeck;
 
@@ -89,7 +92,7 @@ namespace CatenersServer
             neighborDict.Add(10, new int[] { 6, 14, 15 });
             neighborDict.Add(11, new int[] { 7, 16 });
             neighborDict.Add(12, new int[] { 7, 17, 8 });
-            neighborDict.Add(13, new int[] { 8, 18, 9});
+            neighborDict.Add(13, new int[] { 8, 18, 9 });
             neighborDict.Add(14, new int[] { 9, 19, 10 });
             neighborDict.Add(15, new int[] { 10, 20 });
             neighborDict.Add(16, new int[] { 11, 21, 22 });
@@ -110,12 +113,12 @@ namespace CatenersServer
             neighborDict.Add(31, new int[] { 25, 36, 37 });
             neighborDict.Add(32, new int[] { 26, 37 });
             neighborDict.Add(33, new int[] { 27, 28, 38 });
-            neighborDict.Add(34, new int[] { 28, 29, 39});
+            neighborDict.Add(34, new int[] { 28, 29, 39 });
             neighborDict.Add(35, new int[] { 29, 30, 40 });
             neighborDict.Add(36, new int[] { 30, 31, 41 });
             neighborDict.Add(37, new int[] { 31, 32, 42 });
             neighborDict.Add(38, new int[] { 33, 43 });
-            neighborDict.Add(39, new int[] { 34, 43, 44});
+            neighborDict.Add(39, new int[] { 34, 43, 44 });
             neighborDict.Add(40, new int[] { 35, 44, 45 });
             neighborDict.Add(41, new int[] { 36, 45, 46 });
             neighborDict.Add(42, new int[] { 37, 46 });
@@ -127,99 +130,99 @@ namespace CatenersServer
             neighborDict.Add(48, new int[] { 44, 51, 52 });
             neighborDict.Add(49, new int[] { 45, 52, 53 });
             neighborDict.Add(50, new int[] { 46, 53 });
-            neighborDict.Add(51, new int[] { 47, 48});
+            neighborDict.Add(51, new int[] { 47, 48 });
             neighborDict.Add(52, new int[] { 48, 49 });
             neighborDict.Add(53, new int[] { 49, 50 });
             #endregion
             #region RoadDictionary
-            roadDict.Add(0, new int[] { 0, 1, 6, 7, 11, 12});
-            roadDict.Add(1, new int[] { 2, 3, 7, 8, 13, 14});
-            roadDict.Add(2, new int[] { 4, 5, 8, 9, 15, 16});
-            roadDict.Add(3, new int[] { 10, 11, 18, 19, 24, 25});
-            roadDict.Add(4, new int[] { 12, 13, 19, 20, 26, 27});
-            roadDict.Add(5, new int[] { 14, 15, 20, 21, 28, 29});
-            roadDict.Add(6, new int[] { 16, 17, 21, 22, 30, 31});
+            roadDict.Add(0, new int[] { 0, 1, 6, 7, 11, 12 });
+            roadDict.Add(1, new int[] { 2, 3, 7, 8, 13, 14 });
+            roadDict.Add(2, new int[] { 4, 5, 8, 9, 15, 16 });
+            roadDict.Add(3, new int[] { 10, 11, 18, 19, 24, 25 });
+            roadDict.Add(4, new int[] { 12, 13, 19, 20, 26, 27 });
+            roadDict.Add(5, new int[] { 14, 15, 20, 21, 28, 29 });
+            roadDict.Add(6, new int[] { 16, 17, 21, 22, 30, 31 });
             roadDict.Add(7, new int[] { 23, 24, 33, 34, 39, 40 });
             roadDict.Add(8, new int[] { 25, 26, 34, 35, 41, 42 });
             roadDict.Add(9, new int[] { 27, 28, 35, 36, 43, 44 });
             roadDict.Add(10, new int[] { 29, 30, 36, 37, 45, 46 });
-            roadDict.Add(11, new int[] { 31, 32, 37, 38, 47, 48});
+            roadDict.Add(11, new int[] { 31, 32, 37, 38, 47, 48 });
             roadDict.Add(12, new int[] { 40, 41, 49, 50, 54, 55 });
             roadDict.Add(13, new int[] { 42, 43, 50, 51, 56, 57 });
-            roadDict.Add(14, new int[] { 44, 45, 51, 52, 58, 59});
-            roadDict.Add(15, new int[] { 46, 47, 52, 53, 60, 61});
-            roadDict.Add(16, new int[] { 55, 56, 62, 63, 66, 67});
-            roadDict.Add(17, new int[] { 57, 58, 63, 64, 68, 69});
+            roadDict.Add(14, new int[] { 44, 45, 51, 52, 58, 59 });
+            roadDict.Add(15, new int[] { 46, 47, 52, 53, 60, 61 });
+            roadDict.Add(16, new int[] { 55, 56, 62, 63, 66, 67 });
+            roadDict.Add(17, new int[] { 57, 58, 63, 64, 68, 69 });
             roadDict.Add(18, new int[] { 59, 60, 64, 65, 70, 71 });
             #endregion
             #region RoadNeightborDictionary
             roadNeighborDict.Add(0, new int[] { 1, 6 });
-            roadNeighborDict.Add(1, new int[] { 0, 2, 7});
-            roadNeighborDict.Add(2, new int[] { 1, 3, 7});
-            roadNeighborDict.Add(3, new int[] { 2, 4, 8});
-            roadNeighborDict.Add(4, new int[] { 3, 5, 8});
-            roadNeighborDict.Add(5, new int[] { 4, 9});
-            roadNeighborDict.Add(6, new int[] { 0, 10, 11});
-            roadNeighborDict.Add(7, new int[] { 1, 2, 12, 13});
-            roadNeighborDict.Add(8, new int[] { 3, 4, 14, 15});
-            roadNeighborDict.Add(9, new int[] {5, 16, 17 });
-            roadNeighborDict.Add(10, new int[] { 6, 11, 18});
-            roadNeighborDict.Add(11, new int[] { 6, 10, 12, 19});
-            roadNeighborDict.Add(12, new int[] { 7, 11, 13, 19});
-            roadNeighborDict.Add(13, new int[] { 7, 12, 14, 20});
-            roadNeighborDict.Add(14, new int[] { 8, 13, 15, 20});
-            roadNeighborDict.Add(15, new int[] { 8, 14, 16, 21});
-            roadNeighborDict.Add(16, new int[] { 9, 15, 17, 21});
+            roadNeighborDict.Add(1, new int[] { 0, 2, 7 });
+            roadNeighborDict.Add(2, new int[] { 1, 3, 7 });
+            roadNeighborDict.Add(3, new int[] { 2, 4, 8 });
+            roadNeighborDict.Add(4, new int[] { 3, 5, 8 });
+            roadNeighborDict.Add(5, new int[] { 4, 9 });
+            roadNeighborDict.Add(6, new int[] { 0, 10, 11 });
+            roadNeighborDict.Add(7, new int[] { 1, 2, 12, 13 });
+            roadNeighborDict.Add(8, new int[] { 3, 4, 14, 15 });
+            roadNeighborDict.Add(9, new int[] { 5, 16, 17 });
+            roadNeighborDict.Add(10, new int[] { 6, 11, 18 });
+            roadNeighborDict.Add(11, new int[] { 6, 10, 12, 19 });
+            roadNeighborDict.Add(12, new int[] { 7, 11, 13, 19 });
+            roadNeighborDict.Add(13, new int[] { 7, 12, 14, 20 });
+            roadNeighborDict.Add(14, new int[] { 8, 13, 15, 20 });
+            roadNeighborDict.Add(15, new int[] { 8, 14, 16, 21 });
+            roadNeighborDict.Add(16, new int[] { 9, 15, 17, 21 });
             roadNeighborDict.Add(17, new int[] { 9, 16, 22 });
-            roadNeighborDict.Add(18, new int[] { 10, 23, 24});
+            roadNeighborDict.Add(18, new int[] { 10, 23, 24 });
             roadNeighborDict.Add(19, new int[] { 11, 12, 25, 26 });
             roadNeighborDict.Add(20, new int[] { 13, 14, 27, 28 });
             roadNeighborDict.Add(21, new int[] { 15, 16, 29, 30 });
-            roadNeighborDict.Add(22, new int[] { 17, 31, 32});
-            roadNeighborDict.Add(23, new int[] { 18, 24, 33});
-            roadNeighborDict.Add(24, new int[] { 18, 23, 25, 34});
-            roadNeighborDict.Add(25, new int[] { 19, 24, 26, 34});
-            roadNeighborDict.Add(26, new int[] { 19, 25, 27, 35});
-            roadNeighborDict.Add(27, new int[] { 20, 26, 28, 35});
-            roadNeighborDict.Add(28, new int[] { 20, 27, 29, 36});
-            roadNeighborDict.Add(29, new int[] { 21, 29, 31, 37});
+            roadNeighborDict.Add(22, new int[] { 17, 31, 32 });
+            roadNeighborDict.Add(23, new int[] { 18, 24, 33 });
+            roadNeighborDict.Add(24, new int[] { 18, 23, 25, 34 });
+            roadNeighborDict.Add(25, new int[] { 19, 24, 26, 34 });
+            roadNeighborDict.Add(26, new int[] { 19, 25, 27, 35 });
+            roadNeighborDict.Add(27, new int[] { 20, 26, 28, 35 });
+            roadNeighborDict.Add(28, new int[] { 20, 27, 29, 36 });
+            roadNeighborDict.Add(29, new int[] { 21, 29, 31, 37 });
             roadNeighborDict.Add(30, new int[] { 22, 30, 32, 37 });
-            roadNeighborDict.Add(31, new int[] { 22, 30, 32, 37});
-            roadNeighborDict.Add(32, new int[] { 22, 31, 28});
+            roadNeighborDict.Add(31, new int[] { 22, 30, 32, 37 });
+            roadNeighborDict.Add(32, new int[] { 22, 31, 28 });
             roadNeighborDict.Add(33, new int[] { 23, 39 });
-            roadNeighborDict.Add(34, new int[] { 24, 25, 40, 41});
+            roadNeighborDict.Add(34, new int[] { 24, 25, 40, 41 });
             roadNeighborDict.Add(35, new int[] { 26, 27, 42, 43 });
             roadNeighborDict.Add(36, new int[] { 28, 29, 44, 45 });
-            roadNeighborDict.Add(37, new int[] { 30, 31, 46, 47});
+            roadNeighborDict.Add(37, new int[] { 30, 31, 46, 47 });
             roadNeighborDict.Add(38, new int[] { 32, 48 });
-            roadNeighborDict.Add(39, new int[] { 33, 40, 49});
-            roadNeighborDict.Add(40, new int[] { 34, 39, 41, 49});
+            roadNeighborDict.Add(39, new int[] { 33, 40, 49 });
+            roadNeighborDict.Add(40, new int[] { 34, 39, 41, 49 });
             roadNeighborDict.Add(41, new int[] { 34, 40, 42, 50 });
-            roadNeighborDict.Add(42, new int[] {35, 41, 43, 50});
+            roadNeighborDict.Add(42, new int[] { 35, 41, 43, 50 });
             roadNeighborDict.Add(43, new int[] { 35, 42, 44, 51 });
             roadNeighborDict.Add(44, new int[] { 36, 43, 45, 51 });
             roadNeighborDict.Add(45, new int[] { 36, 44, 46, 52 });
             roadNeighborDict.Add(46, new int[] { 37, 45, 47, 52 });
-            roadNeighborDict.Add(47, new int[] { 37, 46, 48, 53});
-            roadNeighborDict.Add(48, new int[] { 38, 47, 53});
+            roadNeighborDict.Add(47, new int[] { 37, 46, 48, 53 });
+            roadNeighborDict.Add(48, new int[] { 38, 47, 53 });
             roadNeighborDict.Add(49, new int[] { 39, 40, 54 });
-            roadNeighborDict.Add(50, new int[] { 41, 42, 55, 56});
-            roadNeighborDict.Add(51, new int[] { 43, 44, 57, 58});
+            roadNeighborDict.Add(50, new int[] { 41, 42, 55, 56 });
+            roadNeighborDict.Add(51, new int[] { 43, 44, 57, 58 });
             roadNeighborDict.Add(52, new int[] { 45, 46, 59, 60 });
             roadNeighborDict.Add(53, new int[] { 47, 48, 61 });
-            roadNeighborDict.Add(54, new int[] { 49, 55, 62});
+            roadNeighborDict.Add(54, new int[] { 49, 55, 62 });
             roadNeighborDict.Add(55, new int[] { 50, 54, 56, 62 });
             roadNeighborDict.Add(56, new int[] { 50, 55, 57, 63 });
-            roadNeighborDict.Add(57, new int[] { 51, 56, 58, 63});
-            roadNeighborDict.Add(58, new int[] { 51, 57, 59, 64});
+            roadNeighborDict.Add(57, new int[] { 51, 56, 58, 63 });
+            roadNeighborDict.Add(58, new int[] { 51, 57, 59, 64 });
             roadNeighborDict.Add(59, new int[] { 52, 58, 60, 64 });
-            roadNeighborDict.Add(60, new int[] { 52, 59, 61, 65});
+            roadNeighborDict.Add(60, new int[] { 52, 59, 61, 65 });
             roadNeighborDict.Add(61, new int[] { 53, 60, 65 });
             roadNeighborDict.Add(62, new int[] { 54, 55, 66 });
             roadNeighborDict.Add(63, new int[] { 56, 57, 67, 68 });
             roadNeighborDict.Add(64, new int[] { 58, 59, 69, 70 });
             roadNeighborDict.Add(65, new int[] { 60, 61, 67 });
-            roadNeighborDict.Add(66, new int[] { 62, 67});
+            roadNeighborDict.Add(66, new int[] { 62, 67 });
             roadNeighborDict.Add(67, new int[] { 63, 66, 68 });
             roadNeighborDict.Add(68, new int[] { 63, 67, 69 });
             roadNeighborDict.Add(69, new int[] { 64, 68, 70 });
@@ -228,8 +231,8 @@ namespace CatenersServer
             #endregion
             #region RoadSettlementDictionary
             roadSettlementDict.Add(0, new int[] { 0, 3 });
-            roadSettlementDict.Add(1, new int[] { 0, 4});
-            roadSettlementDict.Add(2, new int[] { 1, 4});
+            roadSettlementDict.Add(1, new int[] { 0, 4 });
+            roadSettlementDict.Add(2, new int[] { 1, 4 });
             roadSettlementDict.Add(3, new int[] { 1, 5 });
             roadSettlementDict.Add(4, new int[] { 2, 5 });
             roadSettlementDict.Add(5, new int[] { 2, 6 });
@@ -240,7 +243,7 @@ namespace CatenersServer
             roadSettlementDict.Add(10, new int[] { 7, 11 });
             roadSettlementDict.Add(11, new int[] { 7, 12 });
             roadSettlementDict.Add(12, new int[] { 8, 12 });
-            roadSettlementDict.Add(13, new int[] { 8, 13});
+            roadSettlementDict.Add(13, new int[] { 8, 13 });
             roadSettlementDict.Add(14, new int[] { 9, 13 });
             roadSettlementDict.Add(15, new int[] { 9, 14 });
             roadSettlementDict.Add(16, new int[] { 10, 14 });
@@ -275,7 +278,7 @@ namespace CatenersServer
             roadSettlementDict.Add(45, new int[] { 30, 36 });
             roadSettlementDict.Add(46, new int[] { 31, 36 });
             roadSettlementDict.Add(47, new int[] { 31, 37 });
-            roadSettlementDict.Add(48, new int[] { 32, 37});
+            roadSettlementDict.Add(48, new int[] { 32, 37 });
             roadSettlementDict.Add(49, new int[] { 33, 38 });
             roadSettlementDict.Add(50, new int[] { 34, 39 });
             roadSettlementDict.Add(51, new int[] { 35, 40 });
@@ -285,7 +288,7 @@ namespace CatenersServer
             roadSettlementDict.Add(55, new int[] { 39, 43 });
             roadSettlementDict.Add(56, new int[] { 39, 44 });
             roadSettlementDict.Add(57, new int[] { 40, 44 });
-            roadSettlementDict.Add(58, new int[] { 40, 45});
+            roadSettlementDict.Add(58, new int[] { 40, 45 });
             roadSettlementDict.Add(59, new int[] { 41, 45 });
             roadSettlementDict.Add(60, new int[] { 41, 46 });
             roadSettlementDict.Add(61, new int[] { 42, 46 });
@@ -373,6 +376,26 @@ namespace CatenersServer
             developmentDeck = new List<Translation.DevelopmentType>();
             developmentDeck.AddRange(DEVELOPMENT_CARDS_BASE_DECK);
             dieRolled = false;
+
+            if (lobby.MaxTimePerTurn > 0)
+            {
+                // MaxTimePerTurn is in minutes.
+                turnTimer = new Timer(lobby.MaxTimePerTurn * 1000 * 60);
+                turnTimer.AutoReset = true;
+                turnTimer.Elapsed += turnTimer_Elapsed;
+                turnTimer.Start();
+            }
+
+        }
+
+        private void turnTimer_Elapsed(object o, ElapsedEventArgs args)
+        {
+            if (!dieRolled)
+            {
+                ((ServerPlayer)lobby.Players[playerTurn]).client.sendToClient(new Message("", Translation.TYPE.DiceRoll).toJson());
+            }
+
+            ((ServerPlayer)lobby.Players[playerTurn]).client.sendToClient(new Message("", Translation.TYPE.EndTurn).toJson());
         }
 
         public Lobby getLobby()
@@ -474,7 +497,7 @@ namespace CatenersServer
                                             if (checkWinCondition(player))
                                             {
                                                 PopUpMessage popup = new PopUpMessage("WIN!", player.Username + " has won the game with " + player.victoryPoints + " Victory Points", PopUpMessage.TYPE.Notification);
-                                                ((ServerPlayer)lobby.Players[0]).client.sendToLobby(new Message(popup.toJson(),Translation.TYPE.PopUpMessage).toJson());
+                                                ((ServerPlayer)lobby.Players[0]).client.sendToLobby(new Message(popup.toJson(), Translation.TYPE.PopUpMessage).toJson());
                                             }
                                             return true;
                                         }
@@ -484,7 +507,7 @@ namespace CatenersServer
                             }
                             return false;
                         }
-                        
+
                     }
                     throw new NonPlayerException("Player does not exist in the current lobby.");
                 }
@@ -528,7 +551,7 @@ namespace CatenersServer
                         {
                             return false;
                         }
-                        if (((player.resources[Resource.TYPE.Brick] >= 1) && (player.resources[Resource.TYPE.Wood] >= 1)) || (isStartPhase1 || isStartPhase2) || freeRoads > 0 )
+                        if (((player.resources[Resource.TYPE.Brick] >= 1) && (player.resources[Resource.TYPE.Wood] >= 1)) || (isStartPhase1 || isStartPhase2) || freeRoads > 0)
                         {
                             if (usedRoad && (isStartPhase1 || isStartPhase2))
                                 return false;
@@ -608,7 +631,8 @@ namespace CatenersServer
 
         public class NonPlayerException : NullReferenceException
         {
-            public NonPlayerException(string message) : base(message)
+            public NonPlayerException(string message)
+                : base(message)
             {
             }
         }
@@ -659,7 +683,7 @@ namespace CatenersServer
                 int nextIndex = (int)rangeList[rInt];
                 rangeList.RemoveAt(rInt);
                 this.hexArray[g].setPlacementNumber(nextIndex);
-                board.hexes[nextIndex]=new Hex((Resource.TYPE)this.hexArray[g].getHexType());
+                board.hexes[nextIndex] = new Hex((Resource.TYPE)this.hexArray[g].getHexType());
             }
             this.assignRollNumbers();
             this.generateDefaultSettlements();
@@ -682,7 +706,7 @@ namespace CatenersServer
         public void generateDefaultRoads()
         {
             this.roadArray = new RoadServer[72];
-            for(int i = 0; i < 72; i++)
+            for (int i = 0; i < 72; i++)
             {
                 this.roadArray[i] = new RoadServer(i);
                 this.roadArray[i].setNeighbors(roadNeighborDict[i]);
@@ -751,7 +775,7 @@ namespace CatenersServer
                 hexArray[i].setSettlementArray(newArray);
                 board.hexes[hexArray[i].getPlacementNumber()].buildings = new Building[] { board.buildings[a], board.buildings[b], board.buildings[b + 1], board.buildings[c], board.buildings[c + 1], board.buildings[d] };
 
-                int[] setArray = new int[] {a, b, b+1,c,c+1,d};
+                int[] setArray = new int[] { a, b, b + 1, c, c + 1, d };
 
                 foreach (int k in setArray)
                 {
@@ -791,8 +815,8 @@ namespace CatenersServer
         public void generateRandomDiceRoll()
         {
             Random rand = new Random();
-            this.dice = rand.Next(1, 7) + rand.Next(1,7);
-            
+            this.dice = rand.Next(1, 7) + rand.Next(1, 7);
+
         }
 
         public void diceRolled()
@@ -823,18 +847,21 @@ namespace CatenersServer
             if (canRegen)
             {
                 canRegen = false;
-            } else if (this.isStartPhase1)
-                {
-                    this.updateTurnStartPhase1();
-                }
-                else if (this.isStartPhase2)
-                {
-                    this.updateTurnStartPhase2();
-                }
-                else
-                {
-                    this.updateTurnGamePhase(player);
-                }
+            }
+            else if (this.isStartPhase1)
+            {
+                this.updateTurnStartPhase1();
+            }
+            else if (this.isStartPhase2)
+            {
+                this.updateTurnStartPhase2();
+            }
+            else
+            {
+                this.updateTurnGamePhase(player);
+            }
+            turnTimer.Stop();
+            turnTimer.Start();
         }
 
         public void updateTurnGamePhase(ServerPlayer player)
@@ -845,7 +872,7 @@ namespace CatenersServer
 
         public void updateTurnStartPhase1()
         {
-            
+
             if (playerTurn == gameLobby.gamePlayers.Count - 1)
             {
                 isStartPhase1 = false;
@@ -859,34 +886,35 @@ namespace CatenersServer
 
         public void updateTurnStartPhase2()
         {
-            
+
             //if 0, we know we've ended.
             if (playerTurn == 0)
             {
                 isStartPhase2 = false;
             }
-            else { 
-                playerTurn = playerTurn - 1; 
+            else
+            {
+                playerTurn = playerTurn - 1;
             }
         }
 
 
-       
+
 
         public string getPlayerResources(GamePlayer player)
         {
             return player.resources.ToString();
         }
 
-        public void LargestArmyCheck(GamePlayer player,ServerPlayer user)
+        public void LargestArmyCheck(GamePlayer player, ServerPlayer user)
         {
             GamePlayer largestArmyMan = null;
 
-            if (player.developmentCards[Translation.DevelopmentType.Knight] > 2 )
+            if (player.developmentCards[Translation.DevelopmentType.Knight] > 2)
             {
                 if (lastLargestArmyPlayer == null)
                 {
-                    PopUpMessage popup = new PopUpMessage("Largest Army", user.Username + " has the largest army with " +player.developmentCards[Translation.DevelopmentType.Knight] + " knights" , PopUpMessage.TYPE.Notification);
+                    PopUpMessage popup = new PopUpMessage("Largest Army", user.Username + " has the largest army with " + player.developmentCards[Translation.DevelopmentType.Knight] + " knights", PopUpMessage.TYPE.Notification);
                     user.client.sendToLobby(new Message(popup.toJson(), Translation.TYPE.PopUpMessage).toJson());
                     lastLargestArmyPlayer = user;
                 }
@@ -909,7 +937,7 @@ namespace CatenersServer
                     }
                 }
             }
-            
+
         }
 
         public void tryBuyDevelopmentCard(ServerPlayer user)
@@ -947,10 +975,10 @@ namespace CatenersServer
                             break;
 
                         case Translation.DevelopmentType.Knight:
-                            LargestArmyCheck(player,user);
-                            break;                    
+                            LargestArmyCheck(player, user);
+                            break;
                     }
-                    
+
 
                     String gamePlayerList = Newtonsoft.Json.JsonConvert.SerializeObject(gameLobby.gamePlayers);
                     String toReturn = new Message(gamePlayerList, Translation.TYPE.UpdateResources).toJson();
@@ -958,17 +986,17 @@ namespace CatenersServer
                 }
                 else
                 {
-                    PopUpMessage popup = new PopUpMessage("Empty Deck","There are no Development Cards left in the deck.", PopUpMessage.TYPE.Notification);
-                    user.client.sendToClient(new Message(popup.toJson(),Translation.TYPE.PopUpMessage).toJson());
+                    PopUpMessage popup = new PopUpMessage("Empty Deck", "There are no Development Cards left in the deck.", PopUpMessage.TYPE.Notification);
+                    user.client.sendToClient(new Message(popup.toJson(), Translation.TYPE.PopUpMessage).toJson());
                 }
             }
         }
 
         private void removeDevelopmentCardCost(GamePlayer player)
         {
-            player.resources[Resource.TYPE.Wheat]   -= 1;
-            player.resources[Resource.TYPE.Sheep]   -= 1;
-            player.resources[Resource.TYPE.Ore]     -= 1;
+            player.resources[Resource.TYPE.Wheat] -= 1;
+            player.resources[Resource.TYPE.Sheep] -= 1;
+            player.resources[Resource.TYPE.Ore] -= 1;
         }
 
         public Translation.DevelopmentType drawDevelopmentCard()
@@ -1015,9 +1043,9 @@ namespace CatenersServer
 
                     foreach (GamePlayer p in toChange)
                     {
-                            int temp = p.resources[toSteal];
-                            p.resources[toSteal] = 0;
-                            player.resources[toSteal] += temp;
+                        int temp = p.resources[toSteal];
+                        p.resources[toSteal] = 0;
+                        player.resources[toSteal] += temp;
                     }
                     player.developmentCards[type] -= 1;
                     break;
@@ -1034,7 +1062,7 @@ namespace CatenersServer
                     player.resources[take2]++;
                     player.developmentCards[type] -= 1;
                     break;
-            }    
+            }
 
             // Update Lobby Resources
             String gamePlayerList = Newtonsoft.Json.JsonConvert.SerializeObject(gameLobby.gamePlayers);
