@@ -51,45 +51,48 @@ namespace CatanersTest
         [Test]
         public void testThatPlayerTurnSwitches()
         {
-            Player p0 = new Player("Michael Jordan");
+            ClientTesting.FakeClient client = new ClientTesting.FakeClient();
+            ServerPlayer p0 = new ServerPlayer("Michael Jordan",client);
             Lobby lobby = new Lobby("Basketball", 100, p0, 10);
             lobby.addPlayer(new Player("p1"));
             lobby.addPlayer(new Player("p2"));
             ServerLogic logic = new ServerLogic(lobby);
             logic.playerTurn = 1;
-            logic.updateTurnGamePhase();
+            logic.updateTurnGamePhase(p0);
             Assert.AreEqual(2, logic.playerTurn);
         }
         [Test]
         public void testThatPlayerTurnSwitches2()
         {
-            Player p0 = new Player("Michael Jordan");
+            ClientTesting.FakeClient client = new ClientTesting.FakeClient();
+            ServerPlayer p0 = new ServerPlayer("Michael Jordan",client);
             Lobby lobby = new Lobby("Basketball", 100, p0, 10);
             lobby.addPlayer(new Player("p1"));
             lobby.addPlayer(new Player("p2"));
             lobby.addPlayer(new Player("p3"));
             ServerLogic logic = new ServerLogic(lobby);
             logic.playerTurn = 0;
-            logic.updateTurnGamePhase();
+            logic.updateTurnGamePhase(p0);
             Assert.AreEqual(1, logic.playerTurn);
         }
         [Test]
         public void testAllPlayerSwitchesWork()
         {
-            Player p0 = new Player("Michael Jordan");
+            ClientTesting.FakeClient client = new ClientTesting.FakeClient();
+            ServerPlayer p0 = new ServerPlayer("Michael Jordan",client);
             Lobby lobby = new Lobby("Basketball", 100, p0, 10);
             lobby.addPlayer(new Player("p1"));
             lobby.addPlayer(new Player("p2"));
             lobby.addPlayer(new Player("p3"));
             ServerLogic logic = new ServerLogic(lobby);
             logic.playerTurn = 0;
-            logic.updateTurnGamePhase();
+            logic.updateTurnGamePhase(p0);
             Assert.AreEqual(1, logic.playerTurn);
-            logic.updateTurnGamePhase();
+            logic.updateTurnGamePhase(p0);
             Assert.AreEqual(2, logic.playerTurn);
-            logic.updateTurnGamePhase();
+            logic.updateTurnGamePhase(p0);
             Assert.AreEqual(3, logic.playerTurn);
-            logic.updateTurnGamePhase();
+            logic.updateTurnGamePhase(p0);
             Assert.AreEqual(0, logic.playerTurn);
             
         }
