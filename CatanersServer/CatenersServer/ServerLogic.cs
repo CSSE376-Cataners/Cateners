@@ -74,7 +74,7 @@ namespace CatenersServer
             this.hexArray = new HexServer[numberOfHexes];
             this.settlementArray = new SettlementServer[54];
             this.board = new Board();
-            #region
+            #region NeightborDictionary
             neighborDict.Add(0, new int[] { 3, 4 });
             neighborDict.Add(1, new int[] { 4, 5 });
             neighborDict.Add(2, new int[] { 5, 6 });
@@ -130,7 +130,7 @@ namespace CatenersServer
             neighborDict.Add(52, new int[] { 48, 49 });
             neighborDict.Add(53, new int[] { 49, 50 });
             #endregion
-            #region
+            #region RoadDictionary
             roadDict.Add(0, new int[] { 0, 1, 6, 7, 11, 12});
             roadDict.Add(1, new int[] { 2, 3, 7, 8, 13, 14});
             roadDict.Add(2, new int[] { 4, 5, 8, 9, 15, 16});
@@ -151,7 +151,7 @@ namespace CatenersServer
             roadDict.Add(17, new int[] { 57, 58, 63, 64, 68, 69});
             roadDict.Add(18, new int[] { 59, 60, 64, 65, 70, 71 });
             #endregion
-            #region
+            #region RoadNeightborDictionary
             roadNeighborDict.Add(0, new int[] { 1, 6 });
             roadNeighborDict.Add(1, new int[] { 0, 2, 7});
             roadNeighborDict.Add(2, new int[] { 1, 3, 7});
@@ -225,7 +225,7 @@ namespace CatenersServer
             roadNeighborDict.Add(70, new int[] { 64, 69, 71 });
             roadNeighborDict.Add(71, new int[] { 65, 70 });
             #endregion
-            #region
+            #region RoadSettlementDictionary
             roadSettlementDict.Add(0, new int[] { 0, 3 });
             roadSettlementDict.Add(1, new int[] { 0, 4});
             roadSettlementDict.Add(2, new int[] { 1, 4});
@@ -299,7 +299,7 @@ namespace CatenersServer
             roadSettlementDict.Add(70, new int[] { 49, 53 });
             roadSettlementDict.Add(71, new int[] { 50, 53 });
             #endregion
-            #region
+            #region SettlementRoadDictionary
             settlementRoadDict.Add(0, new int[] { 0, 1 });
             settlementRoadDict.Add(1, new int[] { 2, 3 });
             settlementRoadDict.Add(2, new int[] { 4, 5 });
@@ -355,11 +355,13 @@ namespace CatenersServer
             settlementRoadDict.Add(52, new int[] { 68, 69 });
             settlementRoadDict.Add(53, new int[] { 70, 71 });
             #endregion
-            this.generatehexArray();
+            /*
+            this.generateHexArray();
             this.generateDefaultSettlements();
             this.assignSettlements();
             this.generateDefaultRoads();
             this.assignRoads();
+             */
             this.lobby = lobby;
             gameLobby = new GameLobby(lobby);
             foreach (GamePlayer player in this.gameLobby.gamePlayers)
@@ -386,13 +388,14 @@ namespace CatenersServer
             return this.roadArray;
         }
 
-        public string sendGeneration()
+        public string regenerateBoardAndGetStringRepresentation()
         {
-            this.generatehexArray();
+            this.generateHexArray();
+            /*
             this.generateDefaultSettlements();
             this.assignSettlements();
             this.generateDefaultRoads();
-            this.assignRoads();
+            this.assignRoads();*/
             int[][] passedArray = new int[this.hexArray.Length][];
             for (int k = 0; k < this.hexArray.Length; k++)
             {
@@ -598,7 +601,7 @@ namespace CatenersServer
             }
         }
 
-        public void generatehexArray()
+        public void generateHexArray()
         {
             this.board = new Board();
             System.Random r = new System.Random();

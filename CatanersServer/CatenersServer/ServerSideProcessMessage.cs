@@ -204,19 +204,37 @@ namespace CatenersServer
             {
                 if (checkReady())
                 {
+
                     ServerLogic newLogic = new ServerLogic(this.currentLobby);
-                    string toPass = newLogic.sendGeneration();
-                    String getLobby = new CatanersShared.Message(serverLogic.gameLobby.toJson(), Translation.TYPE.GetGameLobby).toJson();
+                    this.serverLogic = newLogic;
+                    this.serverLogic.generateHexArray();
+                    gameLobby = newLogic.gameLobby;
+                    string toPass = newLogic.regenerateBoardAndGetStringRepresentation();
+                    //String getLobby = new CatanersShared.Message(serverLogic.gameLobby.toJson(), Translation.TYPE.GetGameLobby).toJson();
                     Data.INSTANCE.Lobbies.Remove(currentLobby);
                     for (int i = 0; i < currentLobby.PlayerCount; i++)
                     {
                         //((ServerPlayer)currentLobby.Players[i]).client.sendToClient(getLobby);
-                        ((ServerPlayer)currentLobby.Players[i]).client.sendToClient(new Message(toPass, Translation.TYPE.StartGame).toJson());
                         //((ServerPlayer)currentLobby.Players[i]).client.sendToClient(new Message(toPass, Translation.TYPE.HexMessage).toJson());
                         //((ServerPlayer)currentLobby.Players[i]).client.sendToClient(boardString);
                         ((ServerPlayer)currentLobby.Players[i]).client.serverLogic = newLogic;
                         ((ServerPlayer)currentLobby.Players[i]).client.gameLobby = gameLobby;
                     }
+                    sendToLobby(new Message(toPass, Translation.TYPE.StartGame).toJson());
+                    /*
+                    ServerLogic newLogic = new ServerLogic(this.currentLobby);
+                    string toPass = newLogic.sendGeneration();
+                    String getLobby = new CatanersShared.Message(newLogic.gameLobby.toJson(), Translation.TYPE.GetGameLobby).toJson();
+                    Data.INSTANCE.Lobbies.Remove(currentLobby);
+                    for (int i = 0; i < currentLobby.PlayerCount; i++)
+                    {
+                        ((ServerPlayer)currentLobby.Players[i]).client.serverLogic = newLogic;
+                        ((ServerPlayer)currentLobby.Players[i]).client.gameLobby = gameLobby;
+                        //((ServerPlayer)currentLobby.Players[i]).client.sendToClient(getLobby);
+                        ((ServerPlayer)currentLobby.Players[i]).client.sendToClient(new Message(toPass, Translation.TYPE.StartGame).toJson());
+                        //((ServerPlayer)currentLobby.Players[i]).client.sendToClient(new Message(toPass, Translation.TYPE.HexMessage).toJson());
+                        //((ServerPlayer)currentLobby.Players[i]).client.sendToClient(boardString);
+                    }*/
                 }
             }
         }
@@ -234,7 +252,7 @@ namespace CatenersServer
             if (this.serverLogic != null && this.serverLogic.canRegen)
             {
                 String getLobby = new CatanersShared.Message(serverLogic.gameLobby.toJson(), Translation.TYPE.GetGameLobby).toJson();
-                String boardString = new Message(serverLogic.sendGeneration(), Translation.TYPE.HexMessage).toJson();
+                String boardString = new Message(serverLogic.regenerateBoardAndGetStringRepresentation(), Translation.TYPE.HexMessage).toJson();
                 sendToLobby(boardString);
                 sendToLobby(getLobby);
             }
