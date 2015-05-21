@@ -15,25 +15,26 @@ namespace CatenersServer
             {
                 if (serverLogic.onGoingTrade.target.Username.Equals(this.userName))
                 {
+                    GamePlayer sender = null;
+                    GamePlayer target = null;
+                    foreach (GamePlayer p in gameLobby.gamePlayers)
+                    {
+                        if (p.Username.Equals(serverLogic.onGoingTrade.source.Username))
+                        {
+                            sender = p;
+                        }
+                        if (p.Username.Equals(this.userName))
+                        {
+                            target = p;
+                        }
+                    }
+
+                    if (sender == null || target == null)
+                        return;
+                    
                     bool response = Boolean.Parse(msg.message);
                     if (response)
                     {
-                        GamePlayer sender = null;
-                        GamePlayer target = null;
-                        foreach (GamePlayer p in gameLobby.gamePlayers)
-                        {
-                            if (p.Username.Equals(serverLogic.onGoingTrade.source.Username))
-                            {
-                                sender = p;
-                            }
-                            if (p.Username.Equals(this.userName))
-                            {
-                                target = p;
-                            }
-                        }
-
-                        if (sender == null || target == null)
-                            return;
                         foreach (Resource.TYPE t in Enum.GetValues(typeof(Resource.TYPE)))
                         {
                             if (serverLogic.onGoingTrade.offeredResources.ContainsKey(t))
@@ -50,15 +51,27 @@ namespace CatenersServer
                         PopUpMessage popup = new PopUpMessage("Trade Request Accepted", target.Username + " has accepted your trade request!", PopUpMessage.TYPE.Notification);
                         foreach (ServerPlayer p in currentLobby.Players)
                         {
-                            if (p.Username.Equals(target.Username))
+                            if (p.Username.Equals(sender.Username))
                             {
                                 p.client.sendToClient(new Message(popup.toJson(), Translation.TYPE.PopUpMessage).toJson());
-                                return;
+                                break;
                             }
                         }
                         String gamePlayerList = Newtonsoft.Json.JsonConvert.SerializeObject(this.serverLogic.gameLobby.gamePlayers);
                         String toReturn = new Message(gamePlayerList, Translation.TYPE.UpdateResources).toJson();
                         this.sendToLobby(toReturn);
+                    }
+                    else
+                    {
+                        PopUpMessage popup = new PopUpMessage("Trade Request Declined", target.Username + " has declined your trade request!", PopUpMessage.TYPE.Notification);
+                        foreach (ServerPlayer p in currentLobby.Players)
+                        {
+                            if (p.Username.Equals(sender.Username))
+                            {
+                                p.client.sendToClient(new Message(popup.toJson(), Translation.TYPE.PopUpMessage).toJson());
+                                break;
+                            }
+                        }
                     }
                     serverLogic.onGoingTrade = null;
                 }

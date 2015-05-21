@@ -740,6 +740,7 @@ namespace CatanersTest
             offer[Resource.TYPE.Sheep] = 10;
 
             sl.onGoingTrade = correctTrade;
+            clientS.messageCount = 0;
             clientR.processesMessage(acceptTrade);
             //Assert.Null(sl.onGoingTrade);
             Assert.AreEqual(0, clientS.serverLogic.gameLobby.gamePlayers[1].resources[Resource.TYPE.Sheep]);
@@ -749,8 +750,8 @@ namespace CatanersTest
 
             Message correctReturn = new Message(gamePlayerList,Translation.TYPE.UpdateResources);
 
-            CollectionAssert.AreEqual(correctReturn.toJson(), clientR.lastCall);
-            CollectionAssert.AreEqual(correctReturn.toJson(), clientS.lastCall);
+            Assert.AreEqual(correctReturn.toJson(), clientR.lastCall);
+            Assert.AreEqual(2, clientS.messageCount);
         }
 
         [Test]
@@ -862,7 +863,7 @@ namespace CatanersTest
             client.currentLobby = temp;
             client.gameLobby = gLobby;
             client.serverLogic = new ServerLogic(temp);
-
+            client.serverLogic.regenerateBoardAndGetStringRepresentation();
             String diceRollMessage = new Message("", Translation.TYPE.DiceRoll).toJson();
             
             client.processesMessage(diceRollMessage);
@@ -1031,6 +1032,8 @@ namespace CatanersTest
             client2.currentLobby = lob;
             client3.currentLobby = lob;
             client4.currentLobby = lob;
+
+            logic.regenerateBoardAndGetStringRepresentation();
             #endregion
 
             client1.processesMessage(new Message("", Translation.TYPE.DiceRoll).toJson());
