@@ -1045,7 +1045,7 @@ namespace CatanersTest
         }
 
         [Test]
-        public void testThatForcedRegenOrEndTurnBeforeGameStarts()
+        public void testThatMustRollDieBeforeEndTurn()
         {
             #region gameSetup
             CatanersTest.ClientTesting.FakeClient client1 = new CatanersTest.ClientTesting.FakeClient();
@@ -1086,13 +1086,23 @@ namespace CatanersTest
             client3.currentLobby = lob;
             client4.currentLobby = lob;
             #endregion
-
+            logic.regenerateBoardAndGetStringRepresentation();
+            logic.isStartPhase1 = false;
+            logic.isStartPhase2 = false;
             // Some tests would need major rework. Or just can make it so this feature would only be active in a real game
             Data.DEBUG = false;
 
             // This Message.message is invalid. Should never get processed because of the Message.Type
-            Message msg = new Message("",Translation.TYPE.StartTrade);
+            Message msg = new Message("",Translation.TYPE.EndTurn);
             client1.processesMessage(msg.toJson());
+
+            Assert.AreEqual(Translation.TYPE.PopUpMessage, Message.fromJson(client1.lastCall).type);
+
+            client1.processesMessage(new Message("", Translation.TYPE.DiceRoll).toJson());
+
+            client1.processesMessage(msg.toJson());
+
+            Assert.AreEqual(4, client1.messageCount);
 
 
             
