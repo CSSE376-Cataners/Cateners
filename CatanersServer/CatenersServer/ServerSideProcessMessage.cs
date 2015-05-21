@@ -445,6 +445,10 @@ namespace CatenersServer
             serverLogic.generateRandomDiceRoll();
             serverLogic.diceRolled();
             Message toSend = new Message(new PopUpMessage("Die Rolled", this.userName + " rolled a " + serverLogic.dice.ToString(), PopUpMessage.TYPE.Notification).toJson(), Translation.TYPE.PopUpMessage);
+            if (serverLogic.dice == 7)
+            {
+                toSend = new Message(new PopUpMessage("Die Rolled", this.userName + " rolled a " + serverLogic.dice.ToString() +" but the robber is on vacation. Sorry!", PopUpMessage.TYPE.Notification).toJson(), Translation.TYPE.PopUpMessage);
+            }
             sendToLobby(toSend.toJson());
             serverLogic.dieRolled = true;
             
