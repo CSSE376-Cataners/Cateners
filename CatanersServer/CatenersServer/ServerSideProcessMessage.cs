@@ -290,10 +290,11 @@ namespace CatenersServer
                 if (this.currentLobby.Owner.Equals(this.player))
                 {
                     currentLobby.removePlayer(this.player);
-                    for (int i = 0; i < currentLobby.PlayerCount; i++)
-                    {
-                        ((ServerPlayer)currentLobby.Players[i]).client.sendToClient(new Message("", Translation.TYPE.LeaveLobby).toJson());
-                    }
+
+                    String ret = new Message("", Translation.TYPE.LeaveLobby).toJson();
+
+                    sendToLobby(ret);
+
                     currentLobby.removeAll();
                     Data.INSTANCE.Lobbies.Remove(currentLobby);
                 }

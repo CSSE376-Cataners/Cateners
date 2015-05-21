@@ -71,6 +71,9 @@ namespace CatenersServer
                 catch (System.IO.IOException)
                 {
                     // Client caused exception just disconnect.
+                    this.reader.Close();
+                    this.writer.Close();
+                    this.socket.Close();
                     break;
                 }
             }
