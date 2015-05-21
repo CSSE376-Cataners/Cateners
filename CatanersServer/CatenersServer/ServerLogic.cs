@@ -498,6 +498,7 @@ namespace CatenersServer
                                                 PopUpMessage popup = new PopUpMessage("WIN!", player.Username + " has won the game with " + player.victoryPoints + " Victory Points", PopUpMessage.TYPE.Notification);
                                                 ((ServerPlayer)lobby.Players[0]).client.sendToLobby(new Message(popup.toJson(), Translation.TYPE.PopUpMessage).toJson());
                                                 ((ServerPlayer)lobby.Players[0]).client.leaveLobby();
+                                                return false;
                                             }
                                             return true;
                                         }
@@ -527,6 +528,8 @@ namespace CatenersServer
                     {
                         PopUpMessage popup = new PopUpMessage("WIN!", player.Username + " has won the game with " + player.victoryPoints + " Victory Points", PopUpMessage.TYPE.Notification);
                         ((ServerPlayer)lobby.Players[0]).client.sendToLobby(new Message(popup.toJson(), Translation.TYPE.PopUpMessage).toJson());
+                        ((ServerPlayer)lobby.Players[0]).client.leaveLobby();
+                        return false;
                     }
                     player.resources[Resource.TYPE.Ore] -= 3;
                     player.resources[Resource.TYPE.Wheat] -= 2;
@@ -973,6 +976,7 @@ namespace CatenersServer
                             {
                                 PopUpMessage popup = new PopUpMessage("WIN!", player.Username + " has won the game with " + player.victoryPoints + " Victory Points", PopUpMessage.TYPE.Notification);
                                 ((ServerPlayer)lobby.Players[0]).client.sendToLobby(new Message(popup.toJson(), Translation.TYPE.PopUpMessage).toJson());
+                                ((ServerPlayer)lobby.Players[0]).client.leaveLobby();
                             }
                             break;
 
