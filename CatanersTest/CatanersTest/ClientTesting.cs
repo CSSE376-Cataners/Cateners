@@ -840,6 +840,10 @@ namespace CatanersTest
 
             client.serverLogic.canRegen = false;
             client2.serverLogic.canRegen = false;
+            client.serverLogic.usedRoad = true;
+            client.serverLogic.usedSettlement = true;
+            client2.serverLogic.usedRoad = true;
+            client2.serverLogic.usedSettlement = true;
 
             String endTurnMessage = new Message("", Translation.TYPE.EndTurn).toJson();
 
