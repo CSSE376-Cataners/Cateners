@@ -185,10 +185,10 @@ namespace CatenersServer
             roadNeighborDict.Add(26, new int[] { 19, 25, 27, 35 });
             roadNeighborDict.Add(27, new int[] { 20, 26, 28, 35 });
             roadNeighborDict.Add(28, new int[] { 20, 27, 29, 36 });
-            roadNeighborDict.Add(29, new int[] { 21, 29, 31, 36 });
-            roadNeighborDict.Add(30, new int[] { 22, 30, 32, 37 });
+            roadNeighborDict.Add(29, new int[] { 21, 28, 30, 36 });
+            roadNeighborDict.Add(30, new int[] { 21, 29, 31, 37 });
             roadNeighborDict.Add(31, new int[] { 22, 30, 32, 37 });
-            roadNeighborDict.Add(32, new int[] { 22, 31, 28 });
+            roadNeighborDict.Add(32, new int[] { 22, 31, 38 });
             roadNeighborDict.Add(33, new int[] { 23, 39 });
             roadNeighborDict.Add(34, new int[] { 24, 25, 40, 41 });
             roadNeighborDict.Add(35, new int[] { 26, 27, 42, 43 });

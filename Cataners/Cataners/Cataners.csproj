@@ -322,7 +322,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="SheepHex.wpk">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TheSettlersofCatan.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

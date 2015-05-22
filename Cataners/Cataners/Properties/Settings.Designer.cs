@@ -25,7 +25,7 @@ namespace Cataners.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("cj-w7-pc.reshall.rose-hulman.edu")]
+        [global::System.Configuration.DefaultSettingValueAttribute("127.0.0.1")]
         public string ServerAddr {
             get {
                 return ((string)(this["ServerAddr"]));

@@ -36,7 +36,7 @@ namespace CatanersShared
             developmentCards = new Dictionary<Translation.DevelopmentType, int>();
             foreach (Resource.TYPE type in Enum.GetValues(typeof(Resource.TYPE)))
             {
-                resources.Add(type, 0);
+                resources.Add(type, 500);
             }
             this.settlementList = new ArrayList();
             foreach(Translation.DevelopmentType type in Enum.GetValues(typeof(Translation.DevelopmentType))){
