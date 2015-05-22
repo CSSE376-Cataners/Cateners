@@ -25,7 +25,7 @@
     <InstallUrl>http://www.portalnumber9.com/classes/csse376/catan/client/</InstallUrl>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationRevision>7</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -208,37 +208,37 @@
     <EmbeddedResource Include="TradeForm.resx">
       <DependentUpon>TradeForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Background.wpk">
+    <Content Include="Background.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="BrickHex.wpk">
+    </Content>
+    <Content Include="BrickHex.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="Cataners_TemporaryKey.pfx" />
-    <None Include="CatanHexes.wpk">
+    <Content Include="CatanHexes.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="CityBlue.wpk">
+    </Content>
+    <Content Include="CityBlue.wpk">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="CityGreen.wpk">
+    </Content>
+    <Content Include="CityGreen.wpk">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="CityPurple.wpk">
+    </Content>
+    <Content Include="CityPurple.wpk">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="CityRed.wpk">
+    </Content>
+    <Content Include="CityRed.wpk">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="DesertHex.wpk">
+    </Content>
+    <Content Include="DesertHex.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="ForrestHex.wpk">
+    </Content>
+    <Content Include="ForrestHex.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="OreHex.wpk">
+    </Content>
+    <Content Include="OreHex.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -248,91 +248,91 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="SplashScreen.wpk" />
-    <None Include="resourceCost.wpk">
+    <Content Include="SplashScreen.wpk" />
+    <Content Include="resourceCost.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Road.wpk">
+    </Content>
+    <Content Include="Road.wpk">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="RoadBlue.wpk">
+    </Content>
+    <Content Include="RoadBlue.wpk">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="RoadGreen.wpk">
+    </Content>
+    <Content Include="RoadGreen.wpk">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="RoadPurple.wpk">
+    </Content>
+    <Content Include="RoadPurple.wpk">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="RoadRed.wpk">
+    </Content>
+    <Content Include="RoadRed.wpk">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="RollNum0.wpk">
+    </Content>
+    <Content Include="RollNum0.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="RollNum10.wpk">
+    </Content>
+    <Content Include="RollNum10.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="RollNum11.wpk">
+    </Content>
+    <Content Include="RollNum11.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="RollNum12.wpk">
+    </Content>
+    <Content Include="RollNum12.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="RollNum2.wpk">
+    </Content>
+    <Content Include="RollNum2.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="RollNum3.wpk">
+    </Content>
+    <Content Include="RollNum3.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="RollNum4.wpk">
+    </Content>
+    <Content Include="RollNum4.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="RollNum5.wpk">
+    </Content>
+    <Content Include="RollNum5.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="RollNum6.wpk">
+    </Content>
+    <Content Include="RollNum6.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="RollNum7.wpk">
+    </Content>
+    <Content Include="RollNum7.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="RollNum8.wpk">
+    </Content>
+    <Content Include="RollNum8.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="RollNum9.wpk">
+    </Content>
+    <Content Include="RollNum9.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Settlement.wpk">
+    </Content>
+    <Content Include="Settlement.wpk">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="SettlementBlue.wpk">
+    </Content>
+    <Content Include="SettlementBlue.wpk">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="SettlementGreen.wpk">
+    </Content>
+    <Content Include="SettlementGreen.wpk">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="SettlementPurple.wpk">
+    </Content>
+    <Content Include="SettlementPurple.wpk">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="SettlementRed.wpk">
+    </Content>
+    <Content Include="SettlementRed.wpk">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Settlements.wpk">
+    </Content>
+    <Content Include="Settlements.wpk">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="SheepHex.wpk">
+    </Content>
+    <Content Include="SheepHex.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TheSettlersofCatan.wpk">
+    </Content>
+    <Content Include="TheSettlersofCatan.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="WarnockPro-Regular.wpk">
+    </Content>
+    <Content Include="WarnockPro-Regular.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="WheatHex.wpk">
+    </Content>
+    <Content Include="WheatHex.wpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -340,9 +340,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources.weproj">
+    <EmbeddedResource Include="Resources.weproj">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </EmbeddedResource>
     <None Include="Resources\SoCSplash.png" />
   </ItemGroup>
   <ItemGroup>
@@ -367,9 +367,9 @@
     <Content Include="Settlers.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Settlement.png">
+    <EmbeddedResource Include="Settlement.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </EmbeddedResource>
     <Content Include="Settlements.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
