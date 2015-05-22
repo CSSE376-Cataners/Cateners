@@ -644,6 +644,9 @@ namespace Cataners
 
             Entity invisbleTradeButton = new Entity("tradeButton");
             toAdd.Add(invisbleTradeButton);
+
+            Entity invisibleRegenButton = new Entity("RegenerateBoardButton");
+            toAdd.Add(invisibleRegenButton);
         }
 
         [ExcludeFromCodeCoverage]
