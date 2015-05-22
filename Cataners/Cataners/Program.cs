@@ -21,6 +21,7 @@ namespace Cataners
                     WaveConstants.PLATFORM_HEIGHT = WaveServices.Platform.ScreenHeight;
                 }*/
                System.Windows.Forms.Application.Exit();
+               Process.GetCurrentProcess().Kill();
             }
         }
     }

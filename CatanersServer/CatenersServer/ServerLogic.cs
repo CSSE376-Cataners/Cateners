@@ -828,7 +828,7 @@ namespace CatenersServer
         {
             foreach (Hex hex in board.hexes)
             {
-                if (hex.dice == this.dice && hex.robber == null)
+                if (hex.dice == this.dice)
                 {
                     foreach (Building b in hex.buildings)
                     {

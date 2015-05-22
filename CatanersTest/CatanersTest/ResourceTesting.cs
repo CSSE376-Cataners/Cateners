@@ -49,5 +49,19 @@ namespace CatanersTest
             Assert.True(resource.Equals(resource2));
 
         }
+
+        [Test]
+        public void testEquals()
+        {
+            AddResource r1 = new AddResource(new Player("Test"), Resource.TYPE.Brick, 5);
+            AddResource r2 = new AddResource(new Player("Test"), Resource.TYPE.Brick, 6);
+            AddResource r3 = new AddResource(new Player("Test"), Resource.TYPE.Desert, 5);
+
+            Assert.True(r1.Equals(r1));
+            Assert.False(r1.Equals(null));
+            Assert.False(r1.Equals(""));
+            Assert.False(r1.Equals(r2));
+            Assert.False(r1.Equals(r3));
+        }
     }
 }

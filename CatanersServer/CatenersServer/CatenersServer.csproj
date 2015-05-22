@@ -113,10 +113,8 @@
       <DependentUpon>catanersDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="PlayerKeeper.cs" />
-    <Compile Include="RoadPath.cs" />
     <Compile Include="ServerSideProcessMessage.cs" />
     <Compile Include="Hex.cs" />
-    <Compile Include="Robber.cs" />
     <Compile Include="ServerLogic.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="CommunicationServer.cs" />

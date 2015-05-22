@@ -14,6 +14,7 @@ using WaveEngine.Framework;
 using WaveEngine.Framework.Graphics;
 using WaveEngine.Framework.Managers;
 using WaveEngine.Framework.Physics2D;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cataners
 {
@@ -303,6 +304,7 @@ namespace Cataners
             }
         }
 
+        [ExcludeFromCodeCoverage]
         public void setAsPurchasedSettle(string[] array)
         {
             string name = this.settlementList[int.Parse(array[0])].getName();
@@ -327,6 +329,7 @@ namespace Cataners
             MyScene.Instance.setAsPurchasedRoad(name, username);
         }
 
+        [ExcludeFromCodeCoverage]
         public void hexAddTransform(HexHolder current, float xOffset, float yOffset, float drawOrder)
         {
             current.getHex().AddComponent(new Transform2D()
@@ -338,6 +341,7 @@ namespace Cataners
             });
         }
 
+        [ExcludeFromCodeCoverage]
         public void rollEntityAddTransform(HexHolder current, float xOffset, float yOffset, float drawOrder)
         {
             current.getRollEntity().AddComponent(new Transform2D()
@@ -349,6 +353,7 @@ namespace Cataners
             });
         }
 
+        [ExcludeFromCodeCoverage]
         public void settlementAssignment(HexHolder current, float[] XLocArray, float[] YLocArray, float drawOrder)
         {
             for (int k = 0; k < 6; k++)
@@ -384,6 +389,7 @@ namespace Cataners
             return this.roadList;
         }
 
+        [ExcludeFromCodeCoverage]
         public void roadAssignment(HexHolder current, float[] XLocArray, float[] YLocArray, float[] AngleArray, float drawOrder)
         {
             for (int k = 0; k < 6; k++)
@@ -415,6 +421,7 @@ namespace Cataners
             }
         }
 
+        [ExcludeFromCodeCoverage]
         public float[] getXLocArraySettlement(HexHolder current)
         {
             float defX = current.getHex().FindComponent<Transform2D>().X;
@@ -427,6 +434,7 @@ namespace Cataners
             return XLocArray;
         }
 
+        [ExcludeFromCodeCoverage]
         public float[] getYLocArraySettlement(HexHolder current)
         {
             float defY = current.getHex().FindComponent<Transform2D>().Y;
@@ -451,6 +459,7 @@ namespace Cataners
             }
         }
 
+        [ExcludeFromCodeCoverage]
         public float[] getXLocArrayRoad(HexHolder current)
         {
             float defX = current.getHex().FindComponent<Transform2D>().X;
@@ -463,6 +472,7 @@ namespace Cataners
             return XLocArray;
         }
 
+        [ExcludeFromCodeCoverage]
         public float[] getYLocArrayRoad(HexHolder current)
         {
             float defY = current.getHex().FindComponent<Transform2D>().Y;
@@ -475,6 +485,7 @@ namespace Cataners
             return YLocArray;
         }
 
+        [ExcludeFromCodeCoverage]
         public float[] getAnglesRoad(HexHolder current)
         {
             float[] AngleArray = new float[6] { WaveConstants.ANGLE,
@@ -486,6 +497,7 @@ namespace Cataners
             return AngleArray;
         }
 
+        [ExcludeFromCodeCoverage]
         public void drawHexes()
         {
             this.hexList = LocalConversion.Instance.getHexList();

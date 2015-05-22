@@ -38,5 +38,17 @@ namespace CatanersTest
             Assert.AreEqual(0, gameplayer.resources[Resource.TYPE.Wheat]);
             Assert.AreEqual(0, gameplayer.resources[Resource.TYPE.Wood]);
         }
+
+        [Test]
+        public void testGetColor()
+        {
+            GamePlayer gamePlayer = new GamePlayer("YoYo");
+
+            gamePlayer.color = "Red";
+            Assert.AreEqual("Red",gamePlayer.getColor());
+            gamePlayer.color = "Yada";
+            Assert.AreEqual("Yada", gamePlayer.getColor());
+             
+        }
     }
 }
