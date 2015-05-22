@@ -852,6 +852,7 @@ namespace CatenersServer
             if (canRegen)
             {
                 canRegen = false;
+                
             }
             else if (this.isStartPhase1)
             {
