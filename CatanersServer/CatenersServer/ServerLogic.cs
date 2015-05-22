@@ -559,7 +559,9 @@ namespace CatenersServer
                         if (((player.resources[Resource.TYPE.Brick] >= 1) && (player.resources[Resource.TYPE.Wood] >= 1)) || (isStartPhase1 || isStartPhase2) || freeRoads > 0)
                         {
                             if (usedRoad && (isStartPhase1 || isStartPhase2))
+                            {
                                 return false;
+                            }
                             foreach (int i in current.getNeighbors())
                             {
                                 if (this.playerKeepers[username].getRoads().Contains(i) && this.roadArray[i].getIsActive())
