@@ -12,7 +12,6 @@ namespace CatenersServer
         public Building[] buildings;
         public int dice;
         public Resource.TYPE type;
-        public Robber robber = null;
 
         public Hex(Resource.TYPE type)
         {

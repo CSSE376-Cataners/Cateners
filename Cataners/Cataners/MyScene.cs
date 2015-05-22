@@ -19,6 +19,7 @@ using WaveEngine.Common.Input;
 using WaveEngine.Framework.UI;
 using System.Collections.Generic;
 using System.Text;
+using System.Diagnostics.CodeAnalysis;
 #endregion
 
 namespace Cataners
@@ -603,25 +604,31 @@ namespace Cataners
                 TradeForm.INSTANCE.initializeValues();
         }
 
+        [ExcludeFromCodeCoverage]
         private static void endTurnButton_Pressed(object sender, EventArgs e)
         {
             CommunicationClient.Instance.sendToServer(new Message("", Translation.TYPE.EndTurn).toJson());
         }
+
+        [ExcludeFromCodeCoverage]
         private static void buyDevCardButton_Pressed(object sender, EventArgs e)
         {
             CommunicationClient.Instance.sendToServer(new Message(Translation.DevelopmentType.Buy.ToString(), Translation.TYPE.DevelopmentCard).toJson());
         }
 
+        [ExcludeFromCodeCoverage]
         private static void useYearOfPlentyButton_Pressed(object sender, EventArgs e)
         {
             CommunicationClient.Instance.sendToServer(new Message(Translation.DevelopmentType.YearOfPlenty.ToString(), Translation.TYPE.DevelopmentCard).toJson());
         }
 
+        [ExcludeFromCodeCoverage]
         private static void useRoadBuildingButton_Pressed(object sender, EventArgs e)
         {
             CommunicationClient.Instance.sendToServer(new Message(Translation.DevelopmentType.RoadBuilding.ToString(), Translation.TYPE.DevelopmentCard).toJson());
         }
 
+        [ExcludeFromCodeCoverage]
         private static void useMonopolyButton_Pressed(object sender, EventArgs e)
         {
             CommunicationClient.Instance.sendToServer(new Message(Translation.DevelopmentType.Monopoly.ToString(), Translation.TYPE.DevelopmentCard).toJson());
@@ -639,7 +646,7 @@ namespace Cataners
             toAdd.Add(invisbleTradeButton);
         }
 
-
+        [ExcludeFromCodeCoverage]
         protected override void Start()
         {
             base.Start();
@@ -647,6 +654,7 @@ namespace Cataners
             // This method is called after the CreateScene and Initialize methods and before the first Update.
         }
 
+        [ExcludeFromCodeCoverage]
         public void setAsPurchasedSettle(string name,string username)
         {
                 Entity current = this.EntityManager.Find(name);
@@ -663,6 +671,7 @@ namespace Cataners
                 Data.wasSettled = true;
         }
 
+        [ExcludeFromCodeCoverage]
         public void setAsPurchasedCity(String name, String username)
         {
             Entity current = this.EntityManager.Find(name);
@@ -679,6 +688,7 @@ namespace Cataners
                 Data.wasSettled = true;
         }
 
+        [ExcludeFromCodeCoverage]
         public void setAsPurchasedRoad(string name, string username)
         {
             Entity current = this.EntityManager.Find(name);

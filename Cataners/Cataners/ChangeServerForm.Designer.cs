@@ -1,5 +1,7 @@
-﻿namespace Cataners
+﻿using System.Diagnostics.CodeAnalysis;
+namespace Cataners
 {
+    [ExcludeFromCodeCoverage]
     partial class ChangeServerForm
     {
         /// <summary>

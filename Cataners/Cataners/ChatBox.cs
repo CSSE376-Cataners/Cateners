@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -23,11 +24,13 @@ namespace Cataners
             this.textEntryBox.KeyDown += OnKeyDownHandlerForEnter;
         }
 
+        [ExcludeFromCodeCoverage]
         public void invokedShow()
         {
             this.Invoke(new shower(show));
         }
 
+        [ExcludeFromCodeCoverage]
         private void show()
         {
             this.Show();
@@ -42,6 +45,7 @@ namespace Cataners
 
         }
 
+        [ExcludeFromCodeCoverage]
         private void OnKeyDownHandlerForEnter(object sender, KeyEventArgs args)
         {
             if (args.KeyCode == Keys.Return)
@@ -49,6 +53,7 @@ namespace Cataners
             args.Handled = true;
         }
 
+        [ExcludeFromCodeCoverage]
         private void send_Click(object sender, EventArgs e)
         {
             if (Data.username == null || Data.username.Equals(String.Empty))
